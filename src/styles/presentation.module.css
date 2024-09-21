@@ -1,0 +1,19 @@
+.container {
+  white-space: pre-line;
+  padding: 1.3rem;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .container {
+    padding: 3rem 10rem;
+  }
+}
+
+.title {
+  display: none;
+}
+
+.container h2 {
+  padding: 2rem;
+}

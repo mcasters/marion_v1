@@ -1,0 +1,44 @@
+.container {
+    padding: 2.5rem 1.5rem;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+    .container {
+        padding: 5rem;
+    }
+}
+
+.grid, .sculptureGrid {
+    background: hsla(5, 15%, 5%, 0.3);
+    padding: 2rem;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 100%;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+    .grid, .sculptureGrid {
+        padding: 2rem;
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, minmax(50%, auto));
+    }
+}
+
+.categoryTitle {
+padding-bottom: 2rem;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+    .categoryTitle {
+        padding-bottom: 5rem;
+    }
+}

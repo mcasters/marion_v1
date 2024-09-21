@@ -1,0 +1,28 @@
+.postContainer {
+    padding: 7rem 2rem 7rem;
+}
+
+
+.postContainer:first-of-type {
+    padding: 0 0 7rem;
+}
+
+.mainImage {
+}
+
+.info {
+    padding-top: 2rem;
+}
+
+.info h2 {
+    font-size: var(--font-size-title);
+}
+
+.info p {
+    font-size: var(--font-size);
+    white-space: pre-line;
+}
+
+.gallery {
+    margin-top: 3rem;
+}

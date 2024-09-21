@@ -1,0 +1,10 @@
+.container {
+    padding: 1rem;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+    .container {
+        padding: 5rem 15rem;
+    }
+}

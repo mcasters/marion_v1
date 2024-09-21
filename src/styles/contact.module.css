@@ -1,0 +1,53 @@
+.container {
+  padding: 8rem 2rem 2rem;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .container {
+    padding: 10em;
+  }
+}
+
+.title {
+  display: none;
+}
+
+.email {
+  display: block;
+  margin: 4em 0 2em;
+}
+
+.contactContainer p {
+  padding: 0.6em 0;
+}
+
+.preLine {
+  white-space: pre-line;
+}
+
+.instagram {
+  width: initial;
+  text-align: center;
+  border: none;
+  background: none;
+  font-size: 20px;
+  padding: 0.3em;
+  margin: 0;
+  box-shadow: none;
+}
+
+.instagram svg {
+  color: var(--color-blue-xlight);
+  transition: color 0.4s;
+}
+
+.instagram svg:hover {
+  color: var(--color-blue-xxlight);
+  transition: color 0.4s;
+}
+
+.text {
+  padding-top: 8em;
+}
+

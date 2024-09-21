@@ -1,0 +1,119 @@
+.nav, .itemNav, .homeNav, .homeNavFix {
+    height: var(--nav-1-height);
+    width: 100%;
+    z-index: 2;
+    border-bottom: 1px solid transparent;
+    transition: all ease-in-out 0.2s;
+    padding: 0;
+}
+
+.menu {
+    height: var(--nav-1-height);
+    line-height: var(--nav-1-height);
+    border-bottom: 1px solid var(--color-border-menu1);
+}
+
+/* desktop */
+@media (min-width: 769px) {
+    .menu{
+        width: 540px;
+        margin: auto;
+    }
+}
+
+.itemNav .menu {
+    border-bottom: none;
+}
+
+.nav, .itemNav, .homeNavFix {
+  position: fixed;
+  top: var(--line-height);
+  transition: all ease-in-out 0.2s;
+}
+
+.nav, .homeNavFix {
+    border-bottom: 1px solid var(--color-border-menu1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.homeNav li, .homeNavFix li, .nav li, .itemNav li {
+    display: inline-block;
+    width: 100px;
+    margin: 0 17px;
+}
+
+.dropdown .link, .link {
+    font-variant: small-caps;
+    font-size: var(--font-size-title);
+}
+
+.nav .link, .itemNav .link {
+    display: inline-block;
+}
+
+.nav .link.active, .itemNav .link.active  {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+}
+
+/*
+DropDown
+ */
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown .link.active  {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+}
+
+.subMenu {
+    position: fixed;
+    left: 0;
+    width: 100vw;
+    list-style-type: none;
+    background-color: var(--color-xlight);
+    opacity: 0.9;
+    border-bottom: 1px solid grey;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    margin: 0;
+    text-align: left;
+    height: unset;
+    z-index: 2;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+    .subMenu {
+        position: absolute;
+        left: -100px;
+        width: 300px;
+    }
+}
+
+.subMenu > li {
+    display: block;
+    width: unset;
+    transition: background-color 0.3s ease-in-out;
+    margin: 0;
+    padding: 5px 10px;
+}
+
+.subMenu > li:hover {
+    background-color: var(--color-light);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.subMenu .subLink {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    font-size: var(--font-size-nav);
+}

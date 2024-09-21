@@ -1,0 +1,70 @@
+.nav {
+    position: fixed;
+    top: var(--line-height);
+    height: var(--admin-nav-height);
+    left: 0;
+    width: 100%;
+    background-color: var(--link-color-xdark);
+    border-bottom: solid var(--color-xdark) 1px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    font-size: 14px;
+    margin: 0.8em;
+    padding-top: 0.6em;
+    z-index: 2;
+}
+
+.nav span {
+    color: var(--link-color-light);
+    letter-spacing: 4px;
+    font-weight: bold;
+font-size: var(--font-size-plus);
+}
+
+.navItems {
+    list-style: none;
+}
+
+.nav li {
+    display: inline-block;
+    width: 100px;
+    margin: 0 auto;
+}
+
+.nav .link {
+    padding: 1em;
+    color: var(--link-color-light);
+    display: inline-block;
+}
+
+.nav .link:hover {
+    color: var(--link-color-light);
+}
+
+.nav .link.active {
+    color: var(--link-color-xlight);
+}
+
+
+.authStatus {
+    background-color: var(--color-light);
+    padding: 1em;
+    font-size: 0.8em;
+    position: absolute;
+    top: 0;
+    text-align: center;
+}
+
+.authStatus p, .authStatus button, .authStatus a  {
+    font-size: 1em;
+    display: block;
+    margin: 0 auto;
+}
+
+.authStatus p  {
+    padding-bottom: 1em;
+}
+
+.authStatus span {
+    display: none;
+}

@@ -1,0 +1,28 @@
+.container {
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.title {
+  font-size: 34px;
+  font-variant: small-caps;
+  font-weight: lighter;
+  margin: 0;
+  height: 100px;
+  line-height: 100px;
+}
+
+.intro {
+  padding: 5rem 2rem;
+  white-space: pre-line;
+  z-index: 2;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .intro {
+    width: 550px;
+    margin: 0 auto;
+  }
+}

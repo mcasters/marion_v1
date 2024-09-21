@@ -1,0 +1,304 @@
+:root {
+  /*
+   * Typography
+   * ======================================================================== */
+
+  --font-family-serif: Georgia;
+  --font-family-sans: Tahoma;
+
+  /*
+  * Font size
+  * ======================================================================== */
+  --font-size-xtitle: 1.5em;
+  --font-size-title: 1.3em;
+  --font-size-nav: 1.1em;
+  --font-size-plus: 1em;
+  --font-size: 0.9em;
+  --font-size-min: 0.8em;
+
+  /*
+   * Layout
+   * ======================================================================== */
+
+  --admin-nav-height: 90px;
+  --nav-2-height: 55px;
+  /*
+  WARNING before to change : These two are also in constants JS (Layout)
+   */
+  --line-height: 6px;
+  --nav-1-height: 31px;
+
+  /*
+   * Colors
+   * ======================================================================== */
+
+  --color-xxlight: #fafafa;
+  --color-xlight: #f8f8f8;
+  --color-light: #dcdcdc;
+  --color-medium: #c4c3c3;
+  --color-dark: #818181;
+  --color-xdark: #333;
+
+  --link-color-xdark: #8a2101;
+  --link-color-dark: #be2d01;
+  --link-color-light: #e78567;
+  --link-color-xlight: #eedad1;
+
+  /*
+  common home and other pages
+   */
+
+  --color-border-menu1: var(--color-medium);
+  --color-border-menu2: var(--color-medium);
+
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+h3,
+h4,
+h5,
+input,
+button,
+.button,
+select,
+textarea {
+  font-family: var(--font-family-serif);
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--font-size);
+  color: var(--color-xdark);
+}
+
+body {
+  overflow: visible;
+  min-height: 100%;
+  line-height: 1.375;
+}
+
+html,
+body {
+  max-width: 100vw;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size);
+}
+
+a, .buttonLink, .iconButton svg {
+  text-decoration: none;
+  transition: color 0.4s ease;
+}
+
+.iconButton:disabled, .iconButton:disabled {
+  opacity: 0.3;
+  cursor: unset;
+}
+
+a:hover, .buttonLink:hover, a:focus,
+.buttonLink:focus, .iconButton:hover svg {
+  transition: color 0.4s ease;
+}
+
+.iconButton {
+  width: initial;
+  text-align: center;
+  border: none;
+  background: none;
+  font-size: var(--font-size-plus);
+  padding: 0.3rem;
+  margin: 0;
+  box-shadow: none;
+}
+
+.buttonLink {
+  font-size: var(--font-size);
+  display: inline;
+  margin: 0;
+  background: none;
+  box-shadow: none;
+  border: none;
+  width: inherit;
+  line-height: inherit;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--link-color-dark);
+  text-shadow: none;
+}
+
+.button,
+button::selection,
+img::selection,
+button:focus,
+img:focus {
+  background: none;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset s.
+ */
+
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+figure {
+  margin: 0 !important;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+  padding: 0.5rem;
+  resize: vertical;
+  line-height: 2.3;
+  width: 100%;
+}
+
+input,
+select {
+  padding: 0.5rem;
+  width: 100%;
+  line-height: 2.3;
+}
+
+select {
+  height: 40px;
+  border-radius: unset;
+  border: none;
+}
+
+label {
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.adminButton,
+[type="submit"],
+[type="reset"] {
+  width: 25%;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  line-height: 2.3;
+}
+
+.hidden {
+  display: none;
+}
+
+/*
+ * Browser upgrade prompt
+ * ========================================================================== */
+
+:global(.browserupgrade) {
+  margin: 0.2rem 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2rem 0;
+}
+
+/*
+ * Print s
+ * Inlined to avoid the additional HTTP request:
+ * http://www.phpied.com/delay-loading-your-print-css/
+ * ========================================================================== */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important; /* Black prints faster: http://www.sanbeiji.com/archives/953 */
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  abbr[title]::after {
+    content: " (" attr(title) ")";
+  }
+
+  /*
+       * Don't show links that are fragment identifiers,
+       * or use the `javascript:` pseudo protocol
+       */
+
+  a[href^="#"]::after,
+  a[href^="javascript:"]::after {
+    content: "";
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  /*
+       * Printing Tables:
+       * http://css-discuss.incutio.com/wiki/Printing_Tables
+       */
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+}
+
+.separate {
+  width: 300px;
+  border-bottom: 1px solid var(--color-dark);
+  margin: 0 auto;
+}

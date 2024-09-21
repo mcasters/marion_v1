@@ -1,0 +1,19 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+/* TEAM */
+
+Developer: Marion Casters
+Site: contact@marioncasters.fr
+Location: Bordeaux, Nouvelle-Aquitaine, France
+
+/* THANKS */
+
+<name>
+
+/* SITE */
+
+Last update: 2020/03/08
+Standards: HTML5, CSS3, JavaScript
+Components: Node.js, React, Graphql, Next.js
+Software: WebStorm, GitKraken

@@ -1,0 +1,100 @@
+.adminWrapper {
+    padding: 3em 10em;
+}
+
+.button {
+    padding: 0 2em;
+    margin: 2em auto;
+    box-shadow: inset 0 0.8em 1em 0 #e2e2e2;
+    border: solid 1px #aaaaaa;
+    line-height: 2.7;
+    outline: none;
+    cursor: pointer;
+}
+
+.pageTitle {
+padding: 1em 0 2em;
+}
+
+.formContainer {
+    max-width: 40vw;
+    margin: 0 auto 5em;
+}
+
+.wrapperModal {
+    max-width: 50vw;
+    padding: 2em;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    .formContainer {
+        max-width: unset;
+        margin: 2em 0 0;
+    }
+}
+
+.formContainer h2 {
+    font-size: var(--font-size-title);
+    padding-bottom: 1em;
+}
+
+.formContainer h4 {
+    padding-bottom: 1em;
+}
+
+.titleForm {
+    margin: 0;
+}
+
+.formContainer textarea {
+    border-color: #c5c5c5;
+    height: 150px
+}
+
+.formContainer .formLabel, h2.formLabel {
+    font-variant-caps: small-caps;
+    letter-spacing: 3px;
+    color: var(--color-dark);
+    text-align: left;
+    font-size: 0.9em;
+}
+
+.message {
+    font-size: small;
+    padding-bottom: 2em;
+}
+
+.buttonSection {
+    margin: 4em auto 1em;
+    padding: 2em;
+    border-top: solid 1px var(--color-dark);
+}
+
+/* Image */
+
+.imageTitle {
+    font-variant-caps: small-caps;
+    letter-spacing: 3px;
+    padding-bottom: 1em;
+    color: var(--color-dark);
+    font-size: 0.9em;
+}
+
+.imageWrapper {
+    padding: 1.5em 0.2em;
+    display: inline-block;
+    text-align: center;
+}
+
+.imageFormContainer {
+    margin: 5em auto 0;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    .adminWrapper {
+        padding: 1em 2em 1em;
+    }
+
+}

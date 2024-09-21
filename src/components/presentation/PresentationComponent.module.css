@@ -1,0 +1,25 @@
+.contentWrapper {
+    padding: 2rem 0;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+    .contentWrapper {
+        padding: 4rem 0;
+    }
+}
+
+.imageWrap {
+    position: relative;
+    display: inline-block;
+    padding: 2rem;
+    height: 70vw;
+    width: 100%;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+    .imageWrap {
+        height: 40vh;
+    }
+}

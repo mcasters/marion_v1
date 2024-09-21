@@ -1,0 +1,25 @@
+.imageGridContainer {
+    display: block;
+    max-width: 100%;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+    .imageGridContainer {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(25%, auto));
+        gap: 0.8rem;
+    }
+}
+
+.imageWrap, .sculptureImagesWrap {
+    position: relative;
+    background-color: unset;
+    border: none;
+    width: 100%;
+    max-height: 50vh;
+}
+
+.sculptureImagesWrap {
+    margin: 0.5rem 0;
+}

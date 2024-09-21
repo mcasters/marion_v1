@@ -1,0 +1,24 @@
+.article {
+    padding: 0;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+    .article {
+        padding: 2rem;
+    }
+}
+
+.infoContainer h2 {
+    font-size: var(--font-size-plus);
+}
+
+.infoContainer {
+    padding-top: 1rem;
+    white-space: pre-line;
+}
+
+.info {
+    padding-bottom: 4rem;
+    font-size: var(--font-size-min);
+}
