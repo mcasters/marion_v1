@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 
 import { PaintingCategory, SculptureCategory } from "@prisma/client";
-import s from "@/styles/Nav_1.module.css";
+import s from "./DropDown.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import LAYOUT from "@/constants/layout";
 
@@ -24,6 +24,20 @@ export default function Dropdown({
 }: Props) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const themeLink = useMemo(() => {
+    return navType === LAYOUT.ITEM_NAV
+      ? theme.menu1LinkItemColor
+      : navType === LAYOUT.HOME_NAV
+        ? theme.menu1LinkHomeColor
+        : theme.menu1LinkColor;
+  }, [theme, navType]);
+  const themeLinkHover = useMemo(() => {
+    return navType === LAYOUT.ITEM_NAV
+      ? theme.menu1LinkHoverItemColor
+      : navType === LAYOUT.HOME_NAV
+        ? theme.menu1LinkHomeHoverColor
+        : theme.menu1LinkHoverColor;
+  }, [theme, navType]);
 
   const toggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -41,25 +55,13 @@ export default function Dropdown({
   };
 
   return (
-    <li
-      className={
-        navType === LAYOUT.ITEM_NAV
-          ? `${s.dropdown} itemNav`
-          : navType === LAYOUT.HOME_NAV
-          ? `${s.dropdown} homeNav`
-          : navType === LAYOUT.HOME_NAV_FIX
-          ? `${s.dropdown} homeNavFix ${s.homeNav} homeNav`
-          : `${s.dropdown} nav`
-      }
-    >
+    <div className={s.dropdown}>
       <button
         onClick={toggle}
         onMouseEnter={openMenu}
         onMouseLeave={closeMenu}
         className={
-          isActive
-            ? `${s.link} ${s.active} link active buttonLink`
-            : `${s.link} link buttonLink`
+          isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
         }
       >
         {name}
@@ -88,31 +90,16 @@ export default function Dropdown({
         </ul>
       ) : null}
       <style jsx>{`
-        .homeNav .link {
-          color: ${theme.menu1LinkHomeColor};
+        .link {
+          color: ${themeLink};
         }
-        .nav .link {
-          color: ${theme.menu1LinkColor};
+        .link:hover {
+          color: ${themeLinkHover};
         }
-        .itemNav .link {
-          color: ${theme.menu1LinkItemColor};
-        }
-        .homeNav .link:hover {
-          color: ${theme.menu1LinkHomeHoverColor};
-        }
-        .nav .link:hover {
-          color: ${theme.menu1LinkHoverColor};
-        }
-        .itemNav .link:hover {
-          color: ${theme.menu1LinkHoverItemColor};
-        }
-        .nav .link.active {
-          border-bottom-color: ${theme.menu2LinkItemColor};
-        }
-        .itemNav .link.active {
+        .link.active {
           border-bottom-color: ${theme.menu2LinkItemColor};
         }
       `}</style>
-    </li>
+    </div>
   );
 }

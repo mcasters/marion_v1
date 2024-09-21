@@ -55,7 +55,7 @@ export default function Header({
   return (
     <header className={s.container}>
       {isHome && (
-        <div ref={titleRef}>
+        <div ref={titleRef} className={s.siteTitle}>
           <h1 className={`${s.title} title`}>{GENERAL.SITE_TITLE}</h1>
         </div>
       )}

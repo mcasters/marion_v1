@@ -31,10 +31,10 @@ export default function Nav_1({
           navType === LAYOUT.ITEM_NAV
             ? `${s.itemNav} itemNav`
             : navType === LAYOUT.HOME_NAV
-            ? `${s.homeNav} homeNav`
-            : navType === LAYOUT.HOME_NAV_FIX
-            ? `${s.homeNavFix} homeNavFix ${s.homeNav} homeNav`
-            : `${s.nav} nav`
+              ? `${s.homeNav} homeNav`
+              : navType === LAYOUT.HOME_NAV_FIX
+                ? `${s.homeNavFix} homeNavFix ${s.homeNav} homeNav`
+                : `${s.nav} nav`
         }
       >
         <ul className={s.menu}>
@@ -44,28 +44,32 @@ export default function Nav_1({
               paintingCategories.length > 0
             ) {
               return (
-                <Dropdown
-                  key={menuItem.NAME}
-                  menuItems={paintingCategories}
-                  path={`/${menuItem.BASE_PATH}`}
-                  name={menuItem.NAME}
-                  isActive={basePath === BASE_PATH.PAINTING}
-                  navType={navType}
-                />
+                <li key={menuItem.NAME}>
+                  <Dropdown
+                    key={menuItem.NAME}
+                    menuItems={paintingCategories}
+                    path={`/${menuItem.BASE_PATH}`}
+                    name={menuItem.NAME}
+                    isActive={basePath === BASE_PATH.PAINTING}
+                    navType={navType}
+                  />
+                </li>
               );
             } else if (
               menuItem.BASE_PATH === BASE_PATH.SCULPTURE &&
               sculptureCategories.length > 0
             ) {
               return (
-                <Dropdown
-                  key={menuItem.NAME}
-                  menuItems={sculptureCategories}
-                  path={`/${menuItem.BASE_PATH}`}
-                  name={menuItem.NAME}
-                  isActive={basePath === BASE_PATH.SCULPTURE}
-                  navType={navType}
-                />
+                <li key={menuItem.NAME}>
+                  <Dropdown
+                    key={menuItem.NAME}
+                    menuItems={sculptureCategories}
+                    path={`/${menuItem.BASE_PATH}`}
+                    name={menuItem.NAME}
+                    isActive={basePath === BASE_PATH.SCULPTURE}
+                    navType={navType}
+                  />
+                </li>
               );
             }
             const isActive = basePath === menuItem.BASE_PATH;
@@ -78,7 +82,9 @@ export default function Nav_1({
                 >
                   <a
                     className={
-                      isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
+                      isActive
+                        ? `${s.link} ${s.active} link active`
+                        : `${s.link} link`
                     }
                   >
                     {menuItem.NAME}
@@ -121,7 +127,7 @@ export default function Nav_1({
           border-bottom-color: ${theme.menu2LinkColor};
         }
         .itemNav .link.active {
-         border-bottom-color: ${theme.menu2LinkItemColor};
+          border-bottom-color: ${theme.menu2LinkItemColor};
         }
       `}</style>
     </>
