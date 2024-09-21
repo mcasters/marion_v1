@@ -58,7 +58,7 @@ export default function Dropdown({
         onMouseLeave={closeMenu}
         className={
           isActive
-            ? `${s.link} ${s.active} link buttonLink`
+            ? `${s.link} ${s.active} link active buttonLink`
             : `${s.link} link buttonLink`
         }
       >

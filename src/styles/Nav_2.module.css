@@ -3,7 +3,7 @@
   width: 100%;
   font-family: var(--font-family-sans);
   font-variant: small-caps;
-  font-size: var(--font-size-plus);
+  font-size: var(--font-size-nav);
   height: var(--nav-2-height);
   line-height: var(--nav-2-height);
   z-index: 1;

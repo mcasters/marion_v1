@@ -78,7 +78,7 @@ export default function Nav_1({
                 >
                   <a
                     className={
-                      isActive ? `${s.link} ${s.active} link` : `${s.link} link`
+                      isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
                     }
                   >
                     {menuItem.NAME}

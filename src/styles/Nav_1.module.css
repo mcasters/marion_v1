@@ -26,9 +26,9 @@
 }
 
 .nav, .itemNav, .homeNavFix {
-  position: fixed;
-  top: var(--line-height);
-  transition: all ease-in-out 0.2s;
+    position: fixed;
+    top: var(--line-height);
+    transition: all ease-in-out 0.2s;
 }
 
 .nav, .homeNavFix {
@@ -38,20 +38,19 @@
 
 .homeNav li, .homeNavFix li, .nav li, .itemNav li {
     display: inline-block;
-    width: 100px;
-    margin: 0 17px;
+    margin: 0 25px;
 }
 
 .dropdown .link, .link {
     font-variant: small-caps;
     font-size: var(--font-size-title);
-}
-
-.nav .link, .itemNav .link {
     display: inline-block;
 }
 
-.nav .link.active, .itemNav .link.active  {
+.nav .link, .itemNav .link {
+}
+
+.nav .link.active, .itemNav .link.active, .dropdown .link.active  {
     border-bottom-style: solid;
     border-bottom-width: 2px;
 }
@@ -62,11 +61,6 @@ DropDown
 
 .dropdown {
     position: relative;
-}
-
-.dropdown .link.active  {
-    border-bottom-style: solid;
-    border-bottom-width: 2px;
 }
 
 .subMenu {
