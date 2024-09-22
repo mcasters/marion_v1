@@ -2,7 +2,6 @@ import { mkdir, stat, unlinkSync } from "fs";
 import sharp from "sharp";
 import { join } from "path";
 import { IMAGE_SIZE } from "@/constants/image";
-import { transformValueToKey } from "@/utils/commonUtils";
 
 const serverLibraryPath = process.env.PHOTOS_PATH;
 
@@ -51,8 +50,15 @@ export const resizeAndSaveImage = async (file, dir) => {
     return done;
   };
 
+  const image = await sharp(buffer);
+  const metadata = await image.metadata();
+  const ratio = metadata.width / metadata.height;
+  const isPortrait = ratio <= 1.02; // not landscape but also not square (to keep 2000px width for square images)
+
+  const width = !isPortrait ? 2000 : null;
+  const height = isPortrait ? 1200 : null;
   const imageBuffer = await sharp(buffer)
-    .resize(2000, 1200, {
+    .resize(width, height, {
       fit: sharp.fit.inside,
       withoutEnlargement: true,
     })
@@ -128,9 +134,9 @@ export const resizeAndSaveImage = async (file, dir) => {
         err,
       );
       try {
-          unlinkSync(`${dir}/sm/${newFilename}`);
-          unlinkSync(`${dir}/md/${newFilename}`);
-          unlinkSync(`${dir}/${newFilename}`);
+        unlinkSync(`${dir}/sm/${newFilename}`);
+        unlinkSync(`${dir}/md/${newFilename}`);
+        unlinkSync(`${dir}/${newFilename}`);
       } catch (e) {}
     });
 };
