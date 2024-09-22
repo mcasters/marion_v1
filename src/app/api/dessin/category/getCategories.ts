@@ -1,17 +1,19 @@
 import prisma from "@/lib/db/prisma";
-import { DrawingCategory } from "@prisma/client";
 import "server-only";
+import { Category, CategoryFull } from "@/lib/db/item";
 
-export async function getDrawingCategoriesFull() {
+export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
   const res = await prisma.drawingCategory.findMany({
-    include: { drawings: true },
+    include: {
+      _count: {
+        select: { drawings: true },
+      },
+    },
   });
-  return JSON.parse(JSON.stringify(res));
 }
 
-export async function getDrawingCategoriesForMenu() {
-  const categories =
-    (await prisma.drawingCategory.findMany()) as DrawingCategory[];
+export async function getDrawingCategoriesForMenu(): Promise<Category[]> {
+  const categories = await prisma.drawingCategory.findMany();
   const drawingWithoutCategory = await prisma.drawing.findFirst({
     where: {
       category: null,
@@ -22,6 +24,6 @@ export async function getDrawingCategoriesForMenu() {
       key: "no-category",
       value: "Sans catégorie",
       id: 0,
-    } as DrawingCategory);
+    });
   return JSON.parse(JSON.stringify(categories));
 }

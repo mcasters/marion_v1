@@ -44,7 +44,7 @@ export default function NavItem({
   if (categories.length > 0)
     return (
       <Dropdown
-        key={item}
+        key={item.NAME}
         menuItems={categories}
         path={`/${item.BASE_PATH}`}
         name={item.NAME}

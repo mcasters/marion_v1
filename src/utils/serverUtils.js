@@ -9,6 +9,10 @@ export const getPaintingDir = () => {
   return join(`${serverLibraryPath}`, "peinture");
 };
 
+export const getDrawingDir = () => {
+  return join(`${serverLibraryPath}`, "dessin");
+};
+
 export const getSculptureDir = () => {
   return join(`${serverLibraryPath}`, "sculpture");
 };
