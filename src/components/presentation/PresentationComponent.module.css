@@ -1,11 +1,12 @@
 .contentWrapper {
-    padding: 2rem 0;
+    padding: 2rem 1rem;
 }
 
 /* desktop */
 @media (min-width: 769px) {
     .contentWrapper {
-        padding: 4rem 0;
+        max-width: 42vw;
+        margin: auto;
     }
 }
 
@@ -13,7 +14,7 @@
     position: relative;
     display: inline-block;
     padding: 2rem;
-    height: 70vw;
+    height: 30vh;
     width: 100%;
 }
 
