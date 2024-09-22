@@ -1,0 +1,10 @@
+.link {
+    font-variant: small-caps;
+    font-size: var(--font-size-title);
+    display: inline-block;
+}
+
+.link.active, .link.active  {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+}

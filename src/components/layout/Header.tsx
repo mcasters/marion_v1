@@ -1,21 +1,21 @@
 "use client";
 
-import { PaintingCategory, SculptureCategory } from "@prisma/client";
 import useElementIsUpTo from "@/components/hooks/useElementIsUpTo";
 import LAYOUT from "@/constants/layout";
-import Nav_1 from "./Nav_1";
+import Nav_1 from "./menu1/Nav_1";
 import Nav_2 from "@/components/layout/Nav_2";
 import s from "../../styles/Header.module.css";
 import { GENERAL } from "@/constants";
 import { BASE_PATH } from "@/constants/routes";
 import { useTheme } from "@/app/context/themeProvider";
 import React from "react";
+import { Category } from "@/lib/db/item";
 
 interface Props {
   basePath: string;
   introduction?: string;
-  paintingCategories: PaintingCategory[];
-  sculptureCategories: SculptureCategory[];
+  paintingCategories: Category[];
+  sculptureCategories: Category[];
 }
 export default function Header({
   basePath,
@@ -60,7 +60,7 @@ export default function Header({
         </div>
       )}
       <Nav_1
-        navType={navType1}
+        navLayout={navType1}
         basePath={basePath}
         paintingCategories={paintingCategories}
         sculptureCategories={sculptureCategories}

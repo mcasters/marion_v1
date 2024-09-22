@@ -3,7 +3,7 @@
 import { ReactNode } from "react";
 
 import Main from "@/components/layout/Main";
-import AdminNav from "@/components/layout/AdminNav";
+import AdminNav from "@/components/layout/admin/AdminNav";
 import s from "@/styles/admin/Admin.module.css";
 
 interface Props {

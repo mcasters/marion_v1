@@ -108,7 +108,7 @@ export const getBaseThemeData = () => {
     linkItemColor: "#be2d01",
     linkHoverItemColor: "#333",
 
-    menu1Color: "#333",
+    menu1Color: "#e7e7e7",
     menu1HomeColor: "#e7e7e7",
     menu1ItemColor: "#e7e7e7",
     menu1LinkColor: "#333",

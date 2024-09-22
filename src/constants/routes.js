@@ -54,6 +54,21 @@ export const MENU_1 = [
   },
 ];
 
+export const MENU_1_ITEMS = {
+  [NAMES.PAINTING]: {
+    NAME: NAMES.PAINTING,
+    BASE_PATH: BASE_PATH.PAINTING,
+  },
+  [NAMES.SCULPTURE]: {
+    NAME: NAMES.SCULPTURE,
+    BASE_PATH: BASE_PATH.SCULPTURE,
+  },
+  [NAMES.DRAWING]: {
+    NAME: NAMES.DRAWING,
+    BASE_PATH: BASE_PATH.DRAWING,
+  },
+};
+
 export const MENU_2 = [
   {
     PATH: ROUTES.PRESENTATION,

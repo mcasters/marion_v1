@@ -7,15 +7,15 @@ import { BASE_PATH } from "@/constants/routes";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import { PaintingCategory, SculptureCategory } from "@prisma/client";
 import s from "@/styles/Layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { hexToRgb } from "@/utils/commonUtils";
+import { Category } from "@/lib/db/item";
 
 interface Props {
   introduction: string;
-  paintingCategories: PaintingCategory[];
-  sculptureCategories: SculptureCategory[];
+  paintingCategories: Category[];
+  sculptureCategories: Category[];
   children: ReactNode;
 }
 
