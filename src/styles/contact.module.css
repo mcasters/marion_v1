@@ -37,16 +37,6 @@
   box-shadow: none;
 }
 
-.instagram svg {
-  color: var(--color-blue-xlight);
-  transition: color 0.4s;
-}
-
-.instagram svg:hover {
-  color: var(--color-blue-xxlight);
-  transition: color 0.4s;
-}
-
 .text {
   padding-top: 8em;
 }

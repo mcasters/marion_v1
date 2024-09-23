@@ -41,8 +41,8 @@
 
   --link-color-xdark: #8a2101;
   --link-color-dark: #be2d01;
-  --link-color-light: #e78567;
-  --link-color-xlight: #eedad1;
+  --link-color-light: #e57c52;
+  --link-color-xlight: #e0bb89;
 
   /*
   common home and other pages
@@ -219,17 +219,6 @@ label {
 
 .hidden {
   display: none;
-}
-
-/*
- * Browser upgrade prompt
- * ========================================================================== */
-
-:global(.browserupgrade) {
-  margin: 0.2rem 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2rem 0;
 }
 
 /*

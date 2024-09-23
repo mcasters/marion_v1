@@ -43,10 +43,6 @@ padding: 1em 0 2em;
     padding-bottom: 1em;
 }
 
-.titleForm {
-    margin: 0;
-}
-
 .formContainer textarea {
     border-color: #c5c5c5;
     height: 150px
