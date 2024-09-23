@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { FiTrash2 } from "@react-icons/all-files/fi/FiTrash2";
 import toast from "react-hot-toast";
 import s from "@/styles/admin/Admin.module.css";
 import { Image as IImage } from "@/lib/db/item";
+import DeleteIcon from "@/components/admin/icons/DeleteIcon";
 
 type Props = {
   images: IImage[];
@@ -69,7 +69,7 @@ export default function Preview({
               className="iconButton"
               aria-label="Supprimer"
             >
-              <FiTrash2 />
+              <DeleteIcon />
             </button>
           )}
         </div>

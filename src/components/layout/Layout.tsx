@@ -94,34 +94,42 @@ export default function Layout({
           );
         }
         .wrapper a,
-        .wrapper .buttonLink,
-        .wrapper .iconButton svg {
+        .wrapper .buttonLink {
           color: ${theme.linkColor};
+        }
+        .wrapper .icon {
+          fill: ${theme.linkColor};
         }
         .wrapper a:hover,
         .wrapper a:focus,
         .wrapper .buttonLink:hover,
-        .wrapper .buttonLink:focus,
-        .wrapper .iconButton:hover svg,
-        .wrapper .iconButton:focus svg {
+        .wrapper .buttonLink:focus {
           color: ${theme.linkHoverColor};
+        }
+        .wrapper .icon:hover,
+        .wrapper .icon:focus {
+          fill: ${theme.linkHoverColor};
         }
         .itemWrapper {
           background-color: ${theme.backgroundColorItem};
           color: ${theme.colorItem};
         }
         .itemWrapper a,
-        .itemWrapper .buttonLink,
-        .itemWrapper .iconButton svg {
+        .itemWrapper .buttonLink {
           color: ${theme.linkItemColor};
+        }
+        .itemWrapper .icon {
+          fill: ${theme.linkItemColor};
         }
         .itemWrapper a:hover,
         .itemWrapper a:focus,
         .itemWrapper .buttonLink:hover,
-        .itemWrapper .buttonLink:focus,
-        .itemWrapper .iconButton:hover svg,
-        .itemWrapper .iconButton:focus svg {
+        .itemWrapper .buttonLink:focus {
           color: ${theme.linkHoverItemColor};
+        }
+        .itemWrapper .icon:hover,
+        .itemWrapper .icon:focus {
+          fill: ${theme.linkHoverItemColor};
         }
       `}</style>
     </div>

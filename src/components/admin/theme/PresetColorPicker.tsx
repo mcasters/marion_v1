@@ -3,7 +3,6 @@
 import s from "@/styles/admin/AdminTheme.module.css";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { FiTrash2 } from "@react-icons/all-files/fi/FiTrash2";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import Modal from "@/components/admin/form/modal/Modal";
@@ -12,6 +11,7 @@ import { PresetColor, Theme } from "@prisma/client";
 import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
 import { useAdminPresetColorsContext } from "@/app/context/adminPresetColorsProvider";
 import CancelButton from "@/components/admin/form/CancelButton";
+import DeleteIcon from "@/components/admin/icons/DeleteIcon";
 
 interface Props {
   presetColor: PresetColor;
@@ -123,7 +123,7 @@ export default function PresetColorPicker({ presetColor }: Props) {
           remove();
         }}
       >
-        <FiTrash2 />
+        <DeleteIcon />
       </button>
     </div>
   );

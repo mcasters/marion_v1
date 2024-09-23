@@ -61,9 +61,6 @@
 }
 
 html,
-h3,
-h4,
-h5,
 input,
 button,
 .button,
@@ -92,21 +89,6 @@ button {
   font-size: var(--font-size);
 }
 
-a, .buttonLink, .iconButton svg {
-  text-decoration: none;
-  transition: color 0.4s ease;
-}
-
-.iconButton:disabled, .iconButton:disabled {
-  opacity: 0.3;
-  cursor: unset;
-}
-
-a:hover, .buttonLink:hover, a:focus,
-.buttonLink:focus, .iconButton:hover svg {
-  transition: color 0.4s ease;
-}
-
 .iconButton {
   width: initial;
   text-align: center;
@@ -128,6 +110,29 @@ a:hover, .buttonLink:hover, a:focus,
   width: inherit;
   line-height: inherit;
   cursor: pointer;
+}
+
+a, .buttonLink {
+  text-decoration: none;
+  transition: color 0.4s ease;
+}
+
+.icon {
+  transition: fill 0.4s ease;
+}
+
+a:hover, a:focus, .buttonLink:hover,
+.buttonLink:focus {
+  transition: color 0.4s ease;
+}
+
+.icon:hover, .icon:focus {
+  transition: fill 0.4s ease;
+}
+
+.iconButton:disabled, .icon:disabled {
+  opacity: 0.3;
+  cursor: unset;
 }
 
 ::selection {

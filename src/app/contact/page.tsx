@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { SiInstagram } from "@react-icons/all-files/si/SiInstagram";
 
 import { getContentsFull } from "@/app/api/content/getContents";
 import s from "@/styles/contact.module.css";

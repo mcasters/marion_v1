@@ -1,6 +1,5 @@
 "use client";
 
-import { GrUpdate } from "@react-icons/all-files/gr/GrUpdate";
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/Modal";
 import ItemForm from "@/components/admin/form/ItemForm";
@@ -12,6 +11,8 @@ import {
   isPostFull,
   isSculptureFull,
 } from "@/utils/commonUtils";
+import React from "react";
+import UpdateIcon from "@/components/admin/icons/UpdateIcon";
 
 type Props = {
   item: PaintingFull | SculptureFull | Category | PostFull;
@@ -31,7 +32,7 @@ export default function UpdateButton({ item, type, categories }: Props) {
         className="iconButton"
         aria-label="Mise à jour"
       >
-        <GrUpdate />
+        <UpdateIcon />
       </button>
       <Modal isOpen={isOpen} toggle={toggle}>
         {isPaintingFull(item) || isSculptureFull(item) ? (

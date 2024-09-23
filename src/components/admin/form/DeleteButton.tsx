@@ -1,9 +1,9 @@
 "use client";
 
-import { FiTrash2 } from "@react-icons/all-files/fi/FiTrash2";
 import toast from "react-hot-toast";
 import React from "react";
 import { useRouter } from "next/navigation";
+import DeleteIcon from "@/components/admin/icons/DeleteIcon";
 
 type Props = {
   api: string;
@@ -30,7 +30,7 @@ export default function DeleteButton({ api, disabled }: Props) {
       aria-label="Supprimer"
       disabled={disabled ? disabled : false}
     >
-      <FiTrash2 />
+      <DeleteIcon />
     </button>
   );
 }
