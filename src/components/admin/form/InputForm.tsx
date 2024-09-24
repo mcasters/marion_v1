@@ -11,18 +11,21 @@ interface Props {
   api: string;
   textContent: string;
   textLabel?: string;
+  isPhone?: boolean;
+  isEmail?: boolean;
 }
 export default function InputForm({
   label,
   api,
   textContent,
   textLabel,
+  isPhone = false,
+  isEmail = false,
 }: Props) {
   const [text, setText] = useState<string>(textContent);
   const [isChanged, setIsChanged] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const reset = () => setIsChanged(false);
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (formRef.current && confirm("Tu confirmes ?")) {
@@ -48,7 +51,7 @@ export default function InputForm({
           <input
             placeholder={label}
             name="text"
-            type="text"
+            type={isPhone ? "tel" : isEmail ? "email" : "text"}
             value={text}
             onChange={(e) => {
               setText(e.target.value);

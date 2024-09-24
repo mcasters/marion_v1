@@ -28,12 +28,14 @@ export default async function Contact() {
         api="api/content/update"
         textContent={getPhoneText(contents)}
         textLabel="Téléphone"
+        isPhone
       />
       <InputForm
         label={Label.EMAIL}
         api="api/content/update"
         textContent={getEmailText(contents)}
         textLabel="E-mail"
+        isEmail
       />
       <TextAreaForm
         textContent={getContactText(contents)}
