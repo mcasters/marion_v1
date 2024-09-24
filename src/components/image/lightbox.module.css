@@ -1,18 +1,4 @@
-.imageGridContainer {
-    display: block;
-    max-width: 100%;
-}
-
-/* desktop */
-@media (min-width: 769px) {
-    .imageGridContainer {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(25%, auto));
-        gap: 0.8rem;
-    }
-}
-
-.imageWrap, .sculptureImagesWrap {
+.imageWrap {
     position: relative;
     background-color: unset;
     border: none;
@@ -20,6 +6,12 @@
     max-height: 50vh;
 }
 
-.sculptureImagesWrap {
-    margin: 0.5rem 0;
+/* desktop */
+@media (min-width: 769px) {
+    .imageGridContainer {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(33%, 50%));
+        gap: 0.8rem;
+        padding-bottom: 0.5rem;
+    }
 }

@@ -14,11 +14,10 @@
 }
 
 .infoContainer {
-    padding-top: 1rem;
     white-space: pre-line;
 }
 
 .info {
-    padding-bottom: 4rem;
+    padding-bottom: 5rem;
     font-size: var(--font-size-min);
 }

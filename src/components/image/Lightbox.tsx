@@ -2,12 +2,14 @@
 
 import { useMemo, useState } from "react";
 import { Lightbox as YetLightbox } from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
 import { TYPE } from "@/constants";
 import { DEVICE, IMAGE_SIZE } from "@/constants/image";
 import s from "@/components/image/lightbox.module.css";
 import { Image as IImage } from "@/lib/db/item";
 import Image from "next/image";
+import NextJsImage from "@/components/image/NextImage";
 
 type Props = {
   images: IImage[];
@@ -23,7 +25,9 @@ export default function Lightbox({
   isCentered = false,
 }: Props) {
   const oneImage = type === TYPE.PAINTING || images.length === 1;
+  const isSmall = window.innerWidth < DEVICE.SMALL;
   const [index, setIndex] = useState(-1);
+  const [maxZoomPixelRatio, setMaxZoomPixelRatio] = useState(1);
 
   const photos = useMemo(
     () =>
@@ -31,74 +35,66 @@ export default function Lightbox({
         const width = image.width;
         const height = image.height;
         return {
-          src: `/images/${type}/${image.filename}`,
-          width,
-          height,
+          src: `/images/${type}/${isSmall ? "md/" : ""}${image.filename}`,
+          width: isSmall ? IMAGE_SIZE.MD_PX : width,
+          height: isSmall
+            ? Math.round((height / width) * IMAGE_SIZE.MD_PX)
+            : height,
           alt,
-          srcSet: [
-            {
-              src: `/images/${type}/md/${image.filename}`,
-              width: IMAGE_SIZE.MD_PX,
-              height: Math.round((height / width) * IMAGE_SIZE.MD_PX),
-            },
-            {
-              src: `/images/${type}/${image.filename}`,
-              width: width,
-              height: height,
-            },
-          ],
         };
       }),
-    [images, type, alt],
+    [images, type, alt, isSmall],
   );
 
   return (
-    <div className={!oneImage ? s.imageGridContainer : undefined}>
-      {images.map((image, index) => {
-        return (
-          <button
-            key={image.id}
-            type="button"
-            onClick={() => {
-              setIndex(index);
-            }}
-            className={oneImage ? s.imageWrap : s.sculptureImagesWrap}
-            style={{
-              aspectRatio: image.width / image.height,
-            }}
-          >
-            <Image
-              loader={({ src, width }) => {
-                const directory = width <= DEVICE.SMALL ? "sm" : "md";
-                return `/images/${type}/${directory}/${src}`;
+    <>
+      <div className={!oneImage ? s.imageGridContainer : undefined}>
+        {images.map((image, index) => {
+          return (
+            <button
+              key={image.id}
+              className={s.imageWrap}
+              type="button"
+              onClick={() => {
+                setIndex(index);
               }}
-              src={`${image.filename}`}
-              fill
-              sizes="(max-width: 768px) 80vw, 60vw"
               style={{
-                objectFit: "contain",
+                aspectRatio: image.width / image.height,
               }}
-              alt={alt}
-              priority={isCentered}
-            />
-          </button>
-        );
-      })}
+            >
+              <Image
+                src={`/images/${type}/${isSmall ? "sm" : "md"}/${image.filename}`}
+                fill
+                priority={isCentered}
+                style={{ objectFit: "contain" }}
+                alt={alt}
+                unoptimized
+              />
+            </button>
+          );
+        })}
 
-      <YetLightbox
-        index={index}
-        slides={photos}
-        open={index >= 0}
-        close={() => setIndex(-1)}
-        controller={{
-          closeOnPullUp: true,
-          closeOnPullDown: true,
-          closeOnBackdropClick: true,
-        }}
-        styles={{
-          slide: { padding: "1rem" },
-        }}
-      />
-    </div>
+        <YetLightbox
+          index={index}
+          open={index >= 0}
+          close={() => setIndex(-1)}
+          slides={photos}
+          render={{ slide: NextJsImage }}
+          controller={{
+            closeOnPullUp: true,
+            closeOnPullDown: true,
+            closeOnBackdropClick: true,
+          }}
+          styles={{
+            slide: { padding: "1rem" },
+          }}
+          plugins={[Zoom]}
+          zoom={{
+            maxZoomPixelRatio: 3,
+            zoomInMultiplier: 1.5,
+          }}
+        />
+      </div>
+    </>
   );
 }
