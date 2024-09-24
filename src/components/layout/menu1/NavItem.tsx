@@ -57,14 +57,14 @@ export default function NavItem({
 
   return (
     <>
-      <Link href={`/${item.BASE_PATH}`} key={item.NAME} legacyBehavior={true}>
-        <a
-          className={
-            isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
-          }
-        >
-          {item.NAME}
-        </a>
+      <Link
+        href={`/${item.BASE_PATH}`}
+        key={item.NAME}
+        className={
+          isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
+        }
+      >
+        {item.NAME}
       </Link>
       <style jsx>{`
         .link {

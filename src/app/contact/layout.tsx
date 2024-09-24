@@ -13,5 +13,10 @@ export default async function layout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className={s.container}>{children}</div>;
+  return (
+    <div className={s.container}>
+      <h1 className="hidden">Contacter Marion Casters</h1>
+      {children}
+    </div>
+  );
 }

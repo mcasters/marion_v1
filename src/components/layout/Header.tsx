@@ -55,9 +55,9 @@ export default function Header({
   return (
     <header className={s.container}>
       {isHome && (
-        <div ref={titleRef} className={s.siteTitle}>
+        <section ref={titleRef} className={s.siteTitle}>
           <h1 className={`${s.title} title`}>{GENERAL.SITE_TITLE}</h1>
-        </div>
+        </section>
       )}
       <Nav_1
         navLayout={navType1}
@@ -72,9 +72,9 @@ export default function Header({
         }}
       />
       {isHome && (
-        <div ref={introRef} className={s.intro}>
+        <section ref={introRef} className={s.intro}>
           <p>{introduction}</p>
-        </div>
+        </section>
       )}
       <Nav_2 navType={navType2} />
       <style jsx>{`

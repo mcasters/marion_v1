@@ -18,7 +18,7 @@ export default function PresentationComponent({
 }: Props) {
   return (
     <>
-      <div className={s.contentWrapper}>
+      <section className={s.contentWrapper}>
         {presentationContent?.images &&
           presentationContent?.images.length > 0 && (
             <div className={s.imageWrap}>
@@ -41,19 +41,19 @@ export default function PresentationComponent({
         <div className={s.contentWrapper}>
           <p>{presentationContent?.text}</p>
         </div>
-      </div>
+      </section>
 
       {demarcheText && (
-        <div className={s.contentWrapper}>
+        <section className={s.contentWrapper}>
           <h2>Démarche artistique</h2>
           <p>{demarcheText}</p>
-        </div>
+        </section>
       )}
       {inspirationText && (
-        <div className={s.contentWrapper}>
+        <section className={s.contentWrapper}>
           <h2>Inspirations</h2>
           <p>{inspirationText}</p>
-        </div>
+        </section>
       )}
     </>
   );

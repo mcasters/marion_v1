@@ -16,15 +16,16 @@ export default async function Contact() {
   return (
     <>
       <address>
-        <h1 className={s.title}>Contacter Marion Casters</h1>
         <p>Marion Casters</p>
         <p className={s.preLine}>{getAddressText(contents)}</p>
         <br />
-        <p>{getPhoneText(contents)}</p>
+        <Link href={`tel:+33${getPhoneText(contents)}`}>
+          {getPhoneText(contents)}
+        </Link>
+        <Link className={s.email} href={`mailto:${email}`}>
+          {email}
+        </Link>
       </address>
-      <Link className={s.email} href={`mailto:${email}`}>
-        {email}
-      </Link>
       <div className={s.text}>
         <p className={s.preLine}>{getContactText(contents)}</p>
       </div>

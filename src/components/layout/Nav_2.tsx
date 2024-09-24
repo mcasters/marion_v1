@@ -17,16 +17,16 @@ export default function Nav_2({ navType }: Props) {
   const colorWithOpacity = theme.menu2HomeColor + "aa";
 
   return (
-    <div>
+    <>
       <nav
         className={
           navType === LAYOUT.ITEM_NAV
             ? `${s.itemNav} itemNav`
             : navType === LAYOUT.HOME_NAV
-            ? `${s.homeNav} homeNav`
-            : navType === LAYOUT.HOME_NAV_FIX
-            ? `${s.homeNavFix} homeNavFix ${s.homeNav} homeNav`
-            : `${s.nav} nav`
+              ? `${s.homeNav} homeNav`
+              : navType === LAYOUT.HOME_NAV_FIX
+                ? `${s.homeNavFix} homeNavFix ${s.homeNav} homeNav`
+                : `${s.nav} nav`
         }
       >
         <ul className={s.menu}>
@@ -61,9 +61,9 @@ export default function Nav_2({ navType }: Props) {
                 <Link
                   href={menuItem.PATH}
                   key={menuItem.NAME}
-                  legacyBehavior={true}
+                  className={`${s.link} link`}
                 >
-                  <a className={`${s.link} link`}>{menuItem.NAME}</a>
+                  {menuItem.NAME}
                 </Link>
               </li>
             );
@@ -99,6 +99,6 @@ export default function Nav_2({ navType }: Props) {
           color: ${theme.menu2LinkHoverItemColor};
         }
       `}</style>
-    </div>
+    </>
   );
 }
