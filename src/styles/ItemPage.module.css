@@ -9,26 +9,22 @@
     }
 }
 
-.grid, .sculptureGrid {
+.paintingContent, .sculptureContent {
     background: hsla(5, 15%, 5%, 0.3);
-    padding: 2rem;
+    padding: 4rem 2rem 0;
     margin: 0 auto;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    max-width: 100%;
 }
 
 /* desktop */
 @media (min-width: 769px) {
-    .grid, .sculptureGrid {
-        padding: 2rem;
+    .paintingContent {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .grid {
-        grid-template-columns: repeat(2, minmax(50%, auto));
+    .paintingCategoryTitle {
+        display: block;
+        grid-column: 1 / 3;
     }
 }
 

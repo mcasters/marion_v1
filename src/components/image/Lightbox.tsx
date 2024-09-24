@@ -27,7 +27,6 @@ export default function Lightbox({
   const oneImage = type === TYPE.PAINTING || images.length === 1;
   const isSmall = window.innerWidth < DEVICE.SMALL;
   const [index, setIndex] = useState(-1);
-  const [maxZoomPixelRatio, setMaxZoomPixelRatio] = useState(1);
 
   const photos = useMemo(
     () =>
@@ -79,7 +78,11 @@ export default function Lightbox({
           open={index >= 0}
           close={() => setIndex(-1)}
           slides={photos}
-          render={{ slide: NextJsImage }}
+          render={{
+            slide: NextJsImage,
+            buttonPrev: oneImage ? () => null : undefined,
+            buttonNext: oneImage ? () => null : undefined,
+          }}
           controller={{
             closeOnPullUp: true,
             closeOnPullDown: true,

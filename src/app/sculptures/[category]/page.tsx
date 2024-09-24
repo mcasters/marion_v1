@@ -16,11 +16,9 @@ export default async function Page({
   return (
     <>
       <h2 className={s.categoryTitle}>{categoryTitle}</h2>
-      <div className={s.sculptureGrid}>
-        {sculptures.map((sculpture) => (
-          <ItemComponent key={sculpture.id} item={sculpture} />
-        ))}
-      </div>
+      {sculptures.map((sculpture) => (
+        <ItemComponent key={sculpture.id} item={sculpture} />
+      ))}
     </>
   );
 }
