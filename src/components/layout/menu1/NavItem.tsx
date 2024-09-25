@@ -8,22 +8,18 @@ import { useTheme } from "@/app/context/themeProvider";
 import { Category } from "@/lib/db/item";
 import React, { useMemo } from "react";
 import LAYOUT from "@/constants/layout";
+import { useSelectedLayoutSegment } from "next/navigation";
 
 interface Props {
   itemName: string;
   navLayout: string;
-  basePath: string;
   categories: Category[];
 }
 
-export default function NavItem({
-  itemName,
-  navLayout,
-  basePath,
-  categories,
-}: Props) {
+export default function NavItem({ itemName, navLayout, categories }: Props) {
   const theme = useTheme();
   const item = MENU_1_ITEMS[itemName];
+  const basePath = useSelectedLayoutSegment();
   const isActive = basePath === item.BASE_PATH;
 
   const themeLink = useMemo(() => {
@@ -44,11 +40,8 @@ export default function NavItem({
   if (categories.length > 0)
     return (
       <Dropdown
-        key={item.NAME}
+        itemName={item.NAME}
         menuItems={categories}
-        path={`/${item.BASE_PATH}`}
-        name={item.NAME}
-        isActive={isActive}
         themeLink={themeLink}
         themeLinkHover={themeLinkHover}
         themeBorderActive={theme.menu2LinkItemColor}
@@ -57,14 +50,14 @@ export default function NavItem({
 
   return (
     <>
-      <Link
-        href={`/${item.BASE_PATH}`}
-        key={item.NAME}
-        className={
-          isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
-        }
-      >
-        {item.NAME}
+      <Link href={`/${item.BASE_PATH}`} legacyBehavior>
+        <a
+          className={
+            isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
+          }
+        >
+          {item.NAME}
+        </a>
       </Link>
       <style jsx>{`
         .link {

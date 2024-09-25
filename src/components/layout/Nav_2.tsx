@@ -9,10 +9,10 @@ import { useTheme } from "@/app/context/themeProvider";
 import LAYOUT from "@/constants/layout";
 
 interface Props {
-  navType: string;
+  navLayout: string;
 }
 
-export default function Nav_2({ navType }: Props) {
+export default function Nav_2({ navLayout }: Props) {
   const theme = useTheme();
   const colorWithOpacity = theme.menu2HomeColor + "aa";
 
@@ -20,11 +20,11 @@ export default function Nav_2({ navType }: Props) {
     <>
       <nav
         className={
-          navType === LAYOUT.ITEM_NAV
+          navLayout === LAYOUT.ITEM_NAV
             ? `${s.itemNav} itemNav`
-            : navType === LAYOUT.HOME_NAV
+            : navLayout === LAYOUT.HOME_NAV
               ? `${s.homeNav} homeNav`
-              : navType === LAYOUT.HOME_NAV_FIX
+              : navLayout === LAYOUT.HOME_NAV_FIX
                 ? `${s.homeNavFix} homeNavFix ${s.homeNav} homeNav`
                 : `${s.nav} nav`
         }
@@ -58,12 +58,8 @@ export default function Nav_2({ navType }: Props) {
               );
             return (
               <li key={menuItem.NAME}>
-                <Link
-                  href={menuItem.PATH}
-                  key={menuItem.NAME}
-                  className={`${s.link} link`}
-                >
-                  {menuItem.NAME}
+                <Link href={menuItem.PATH} key={menuItem.NAME} legacyBehavior>
+                  <a className={`${s.link} link`}>{menuItem.NAME}</a>
                 </Link>
               </li>
             );

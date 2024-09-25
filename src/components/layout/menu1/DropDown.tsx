@@ -5,27 +5,28 @@ import Link from "next/link";
 import s from "./DropDown.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { Category } from "@/lib/db/item";
+import { MENU_1_ITEMS } from "@/constants/routes";
+import { useSelectedLayoutSegment } from "next/navigation";
 
 interface Props {
+  itemName: string;
   menuItems: Category[];
-  path: string;
-  name: string;
-  isActive: boolean;
   themeLink: string;
   themeLinkHover: string;
   themeBorderActive: string;
 }
 export default function Dropdown({
+  itemName,
   menuItems,
-  path,
-  name,
-  isActive,
   themeLink,
   themeLinkHover,
   themeBorderActive,
 }: Props) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const item = MENU_1_ITEMS[itemName];
+  const basePath = useSelectedLayoutSegment();
+  const isActive = basePath === item.BASE_PATH;
 
   const toggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -52,7 +53,7 @@ export default function Dropdown({
           isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
         }
       >
-        {name}
+        {itemName}
       </button>
       {open ? (
         <ul
@@ -63,9 +64,8 @@ export default function Dropdown({
           {menuItems.map((menuItem, index) => (
             <li key={index}>
               <Link
-                href={`${path}/${menuItem.key}`}
-                legacyBehavior={false}
-                onClick={(e) => {
+                href={`/${item.BASE_PATH}/${menuItem.key}`}
+                onClick={() => {
                   setOpen(false);
                 }}
                 className={s.subLink}

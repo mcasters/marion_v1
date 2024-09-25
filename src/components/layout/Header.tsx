@@ -10,31 +10,31 @@ import { BASE_PATH } from "@/constants/routes";
 import { useTheme } from "@/app/context/themeProvider";
 import React from "react";
 import { Category } from "@/lib/db/item";
+import { useSelectedLayoutSegment } from "next/navigation";
 
 interface Props {
-  basePath: string;
   introduction?: string;
   paintingCategories: Category[];
   sculptureCategories: Category[];
 }
 export default function Header({
-  basePath,
   introduction,
   paintingCategories,
   sculptureCategories,
 }: Props) {
   const theme = useTheme();
+  const basePath = useSelectedLayoutSegment();
   const { isUpTo: titleDisappear, ref: titleRef } = useElementIsUpTo(
     LAYOUT.LINE_HEIGHT,
   );
   const { isUpTo: introDisappear, ref: introRef } = useElementIsUpTo(
     LAYOUT.NAV_1_HEIGHT + LAYOUT.LINE_HEIGHT,
   );
-  const isHome = basePath === BASE_PATH.HOME;
+  const isHome = basePath == null;
   const isPainting = basePath === BASE_PATH.PAINTING;
   const isSculpture = basePath === BASE_PATH.SCULPTURE;
 
-  const navType1 =
+  const nav1Layout =
     isSculpture || isPainting
       ? LAYOUT.ITEM_NAV
       : isHome && !titleDisappear
@@ -43,7 +43,7 @@ export default function Header({
           ? LAYOUT.HOME_NAV_FIX
           : LAYOUT.NAV;
 
-  const navType2 =
+  const nav2Layout =
     isSculpture || isPainting
       ? LAYOUT.ITEM_NAV
       : isHome && !introDisappear
@@ -60,8 +60,7 @@ export default function Header({
         </section>
       )}
       <Nav_1
-        navLayout={navType1}
-        basePath={basePath}
+        navLayout={nav1Layout}
         paintingCategories={paintingCategories}
         sculptureCategories={sculptureCategories}
       />
@@ -76,7 +75,7 @@ export default function Header({
           <p>{introduction}</p>
         </section>
       )}
-      <Nav_2 navType={navType2} />
+      <Nav_2 navLayout={nav2Layout} />
       <style jsx>{`
         .title {
           color: ${theme.titleColor};

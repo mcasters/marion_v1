@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import { usePathname } from "next/navigation";
+import { useSelectedLayoutSegment } from "next/navigation";
 
 import { BASE_PATH } from "@/constants/routes";
 import Header from "./Header";
@@ -26,12 +26,11 @@ export default function Layout({
   children,
 }: Props) {
   const theme = useTheme();
-  const pathname = usePathname();
-  const basePath = pathname.split("/")[1];
-  const isHome = basePath === BASE_PATH.HOME;
-  const isPainting = basePath === "peintures";
-  const isSculpture = basePath === "sculptures";
-  const isAdmin = basePath === "admin";
+  const basePath = useSelectedLayoutSegment();
+  const isHome = basePath === null;
+  const isPainting = basePath === BASE_PATH.PAINTING;
+  const isSculpture = basePath === BASE_PATH.SCULPTURE;
+  const isAdmin = basePath === BASE_PATH.ADMIN;
 
   const gradientRgbObject = hexToRgb(theme.menu1HomeColor);
   const gradientRgb = `${gradientRgbObject?.r},${gradientRgbObject?.g},${gradientRgbObject?.b}`;
@@ -93,6 +92,7 @@ export default function Layout({
             rgb(${gradientRgb}) 100%
           );
         }
+
         .wrapper a,
         .wrapper .buttonLink {
           color: ${theme.linkColor};

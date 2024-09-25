@@ -13,7 +13,7 @@
   --font-size-title: 1.3em;
   --font-size-nav: 1.2em;
   --font-size-plus: 1em;
-  --font-size: 0.9em;
+  --font-size: 0.95em;
   --font-size-min: 0.8em;
 
   /*
@@ -64,12 +64,13 @@ html,
 input,
 button,
 .button,
+.buttonLink,
+a,
 select,
 textarea {
   font-family: var(--font-family-serif);
   -webkit-font-smoothing: antialiased;
   font-size: var(--font-size);
-  color: var(--color-xdark);
 }
 
 body {

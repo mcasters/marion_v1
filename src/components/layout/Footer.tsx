@@ -1,15 +1,15 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-
 import AuthStatus from "@/components/auth/AuthStatus";
 import s from "@/styles/Footer.module.css";
+import { useSelectedLayoutSegment } from "next/navigation";
+import { BASE_PATH } from "@/constants/routes";
 
 export default function Footer() {
   const authStatus = AuthStatus();
-  const pathname = usePathname();
-  const isPainting = pathname.split("/")[1] === "peintures";
-  const isSculpture = pathname.split("/")[1] === "sculptures";
+  const pathname = useSelectedLayoutSegment();
+  const isPainting = pathname === BASE_PATH.PAINTING;
+  const isSculpture = pathname === BASE_PATH.SCULPTURE;
   const text =
     "Images and site content copyright © 2024 Marion Casters. All rights reserved";
 

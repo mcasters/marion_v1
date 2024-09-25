@@ -25,7 +25,7 @@ export default function Lightbox({
   isCentered = false,
 }: Props) {
   const oneImage = type === TYPE.PAINTING || images.length === 1;
-  const isSmall = window.innerWidth < DEVICE.SMALL;
+  const isSmall = window ? window.innerWidth < DEVICE.SMALL : true;
   const [index, setIndex] = useState(-1);
 
   const photos = useMemo(
@@ -47,7 +47,7 @@ export default function Lightbox({
 
   return (
     <>
-      <div className={!oneImage ? s.imageGridContainer : undefined}>
+      <div className={!oneImage ? s.imageGridContainer : s.imageContainer}>
         {images.map((image, index) => {
           return (
             <button

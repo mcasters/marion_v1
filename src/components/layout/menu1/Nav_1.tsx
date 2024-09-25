@@ -9,14 +9,12 @@ import NavItem from "@/components/layout/menu1/NavItem";
 
 interface Props {
   navLayout: string;
-  basePath: string;
   paintingCategories: Category[];
   sculptureCategories: Category[];
 }
 
 export default function Nav_1({
   navLayout,
-  basePath,
   paintingCategories,
   sculptureCategories,
 }: Props) {
@@ -43,7 +41,6 @@ export default function Nav_1({
                 <NavItem
                   itemName={name}
                   navLayout={navLayout}
-                  basePath={basePath}
                   categories={
                     name === NAMES.SCULPTURE
                       ? sculptureCategories
