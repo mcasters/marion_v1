@@ -6,7 +6,7 @@ import s from "./DropDown.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { Category } from "@/lib/db/item";
 import { MENU_1_ITEMS } from "@/constants/routes";
-import { useSelectedLayoutSegment } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 interface Props {
   itemName: string;
@@ -25,7 +25,7 @@ export default function Dropdown({
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const item = MENU_1_ITEMS[itemName];
-  const basePath = useSelectedLayoutSegment();
+  const basePath = usePathname().split("/")[1];
   const isActive = basePath === item.BASE_PATH;
 
   const toggle = (e: React.MouseEvent<HTMLButtonElement>) => {

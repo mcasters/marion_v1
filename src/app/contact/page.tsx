@@ -19,12 +19,18 @@ export default async function Contact() {
         <p>Marion Casters</p>
         <p className={s.preLine}>{getAddressText(contents)}</p>
         <br />
-        <Link href={`tel:+33${getPhoneText(contents)}`}>
-          {getPhoneText(contents)}
-        </Link>
-        <Link className={s.email} href={`mailto:${email}`}>
-          {email}
-        </Link>
+        <p>
+          <Link href={`tel:+33${getPhoneText(contents)}`}>
+            {getPhoneText(contents)}
+          </Link>
+        </p>
+        <br />
+
+        <p>
+          <Link className={s.email} href={`mailto:${email}`}>
+            {email}
+          </Link>
+        </p>
       </address>
       <div className={s.text}>
         <p className={s.preLine}>{getContactText(contents)}</p>

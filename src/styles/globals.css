@@ -91,13 +91,8 @@ button {
 }
 
 .iconButton {
-  width: initial;
-  text-align: center;
   border: none;
   background: none;
-  font-size: var(--font-size-plus);
-  padding: 0.3rem;
-  margin: 0;
   box-shadow: none;
 }
 

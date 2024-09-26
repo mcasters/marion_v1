@@ -1,10 +1,10 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import { useSelectedLayoutSegment } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { BASE_PATH } from "@/constants/routes";
-import Header from "./Header";
+import Header from "./header/Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import s from "@/styles/Layout.module.css";
@@ -26,8 +26,9 @@ export default function Layout({
   children,
 }: Props) {
   const theme = useTheme();
-  const basePath = useSelectedLayoutSegment();
-  const isHome = basePath === null;
+  const basePath = usePathname().split("/")[1];
+
+  const isHome = basePath === BASE_PATH.HOME;
   const isPainting = basePath === BASE_PATH.PAINTING;
   const isSculpture = basePath === BASE_PATH.SCULPTURE;
   const isAdmin = basePath === BASE_PATH.ADMIN;
@@ -92,7 +93,6 @@ export default function Layout({
             rgb(${gradientRgb}) 100%
           );
         }
-
         .wrapper a,
         .wrapper .buttonLink {
           color: ${theme.linkColor};

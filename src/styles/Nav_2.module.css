@@ -1,9 +1,6 @@
 .homeNav, .nav, .itemNav, .homeNavFix {
   position: relative;
   width: 100%;
-  font-family: var(--font-family-sans);
-  font-variant: small-caps;
-  font-size: var(--font-size-nav);
   height: var(--nav-2-height);
   line-height: var(--nav-2-height);
   z-index: 1;
@@ -27,6 +24,12 @@
   width: 100%;
   height: var(--nav-2-height);
   margin: 0 auto;
+}
+
+.menu a {
+  font-family: var(--font-family-sans);
+  font-variant: small-caps;
+  font-size: var(--font-size-nav);
 }
 
 .nav li, .homeNav li, .itemNav li, .homeNavFix li {

@@ -3,9 +3,8 @@
 import { MENU_1, NAMES } from "@/constants/routes";
 import s from "@/styles/Nav_1.module.css";
 import { useTheme } from "@/app/context/themeProvider";
-import LAYOUT from "@/constants/layout";
 import { Category } from "@/lib/db/item";
-import NavItem from "@/components/layout/menu1/NavItem";
+import NavItem from "@/components/layout/header/menu1/NavItem";
 
 interface Props {
   navLayout: string;
@@ -19,19 +18,10 @@ export default function Nav_1({
   sculptureCategories,
 }: Props) {
   const theme = useTheme();
+
   return (
     <>
-      <nav
-        className={
-          navLayout === LAYOUT.ITEM_NAV
-            ? `${s.itemNav} itemNav`
-            : navLayout === LAYOUT.HOME_NAV
-              ? `${s.homeNav} homeNav`
-              : navLayout === LAYOUT.HOME_NAV_FIX
-                ? `${s.homeNavFix} homeNavFix ${s.homeNav} homeNav`
-                : `${s.nav} nav`
-        }
-      >
+      <nav className={`${s[navLayout]} ${navLayout}`}>
         <ul className={s.ul}>
           {MENU_1.map((item) => {
             const name = item.NAME;

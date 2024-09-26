@@ -25,7 +25,7 @@ export default function Lightbox({
   isCentered = false,
 }: Props) {
   const oneImage = type === TYPE.PAINTING || images.length === 1;
-  const isSmall = window ? window.innerWidth < DEVICE.SMALL : true;
+  const isSmall = window.innerWidth < DEVICE.SMALL;
   const [index, setIndex] = useState(-1);
 
   const photos = useMemo(

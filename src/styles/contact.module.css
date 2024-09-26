@@ -9,12 +9,7 @@
   }
 }
 
-.title {
-  display: none;
-}
-
 .email {
-  display: block;
   margin: 4em 0 2em;
 }
 
@@ -24,17 +19,6 @@
 
 .preLine {
   white-space: pre-line;
-}
-
-.instagram {
-  width: initial;
-  text-align: center;
-  border: none;
-  background: none;
-  font-size: 20px;
-  padding: 0.3em;
-  margin: 0;
-  box-shadow: none;
 }
 
 .text {
