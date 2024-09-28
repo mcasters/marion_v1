@@ -16,28 +16,31 @@ export default function PresentationComponent({
   demarcheText,
   inspirationText,
 }: Props) {
+  const isSmall = window.innerWidth < DEVICE.SMALL;
+  const image = presentationContent?.images[0];
+
   return (
     <>
       <section className={s.contentWrapper}>
-        {presentationContent?.images &&
-          presentationContent?.images.length > 0 && (
-            <div className={s.imageWrap}>
-              <Image
-                loader={({ src, width }) => {
-                  const directory = width <= DEVICE.SMALL ? "sm" : "md";
-                  return `/images/miscellaneous/${directory}/${src}`;
-                }}
-                src={`${presentationContent.images[0].filename}`}
-                sizes="(max-width: 768px) 80vw, 50vw"
-                fill
-                alt="Photographie de présentation de Marion Casters"
-                style={{
-                  objectFit: "contain",
-                }}
-                priority
-              />
-            </div>
-          )}
+        {image && (
+          <div
+            className={s.imageWrap}
+            style={{
+              aspectRatio: image.width / image.height,
+            }}
+          >
+            <Image
+              src={`/images/miscellaneous/${isSmall ? "sm" : "md"}/${image.filename}`}
+              fill
+              alt="Photographie de présentation de Marion Casters"
+              style={{
+                objectFit: "contain",
+              }}
+              priority
+              unoptimized
+            />
+          </div>
+        )}
         <div className={s.contentWrapper}>
           <p>{presentationContent?.text}</p>
         </div>
