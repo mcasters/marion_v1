@@ -1,13 +1,12 @@
 import { parse } from "date-fns";
-import { getServerSession } from "next-auth/next";
 import { NextResponse } from "next/server";
 
 import { getSculptureDir, resizeAndSaveImage } from "@/utils/serverUtils";
 import prisma from "@/lib/db/prisma";
-import { authOptions } from "@/utils/authOptions";
+import { auth } from "@/lib/auth";
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (session) {
     try {
@@ -42,12 +41,12 @@ export async function POST(req: Request) {
                 },
               }
             : oldSculpt.categoryId !== null
-            ? {
-                disconnect: {
-                  id: oldSculpt.categoryId,
-                },
-              }
-            : {};
+              ? {
+                  disconnect: {
+                    id: oldSculpt.categoryId,
+                  },
+                }
+              : {};
 
         await prisma.sculpture.update({
           where: { id: id },

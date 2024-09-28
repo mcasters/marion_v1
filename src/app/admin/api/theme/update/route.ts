@@ -1,10 +1,9 @@
-import { getServerSession } from "next-auth/next";
 import prisma from "@/lib/db/prisma";
-import { authOptions } from "@/utils/authOptions";
 import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (session) {
     try {
       const themeToUpdate = await req.json();

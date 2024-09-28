@@ -1,14 +1,13 @@
-import { getServerSession } from "next-auth/next";
 import prisma from "@/lib/db/prisma";
 import { deleteFile, getDrawingDir } from "@/utils/serverUtils";
-import { authOptions } from "@/utils/authOptions";
 import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 
 export async function GET(
   request: Request,
   { params }: { params: { id: string } },
 ) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (session) {
     const dir = getDrawingDir();
     try {

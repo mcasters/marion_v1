@@ -40,7 +40,6 @@
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",
     "react-photo-album": "^3.0.2",
-    "react-popper": "^2.3.0",
     "sharp": "^0.32.5",
     "styled-jsx": "^5.1.6",
     "ts-node": "^10.9.2",

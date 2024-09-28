@@ -1,17 +1,15 @@
-import { getServerSession } from "next-auth/next";
-
 import {
   deleteFile,
   getMiscellaneousDir,
   resizeAndSaveImage,
 } from "@/utils/serverUtils";
 import prisma from "@/lib/db/prisma";
-import { authOptions } from "@/utils/authOptions";
+import { auth } from "@/lib/auth";
 import { Label } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
 
   if (session) {
     try {

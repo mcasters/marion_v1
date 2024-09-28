@@ -1,9 +1,11 @@
-import { AuthOptions } from "next-auth";
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "../lib/db/prisma";
+import prisma from "@/lib/db/prisma";
 import bcrypt from "bcryptjs";
+import { NextApiRequest, NextApiResponse } from "next";
+import { getServerSession } from "next-auth/next";
 
-export const authOptions: AuthOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -40,4 +42,9 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
     maxAge: 3 * 60 * 60,
   },
-};
+} satisfies NextAuthOptions;
+
+// Use it in server contexts
+export function auth(...args: [NextApiRequest, NextApiResponse] | []) {
+  return getServerSession(...args, authOptions);
+}

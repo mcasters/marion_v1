@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { signIn, signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 
-import s from './AuthStatus.module.css';
-import { ROUTES } from '@/constants/routes';
+import s from "./AuthStatus.module.css";
+import { ROUTES } from "@/constants/routes";
 
 export default function AuthStatus() {
   const { data: session } = useSession();
@@ -14,9 +14,7 @@ export default function AuthStatus() {
       {!session && (
         <button
           className="buttonLink"
-          onClick={() => {
-            signIn(undefined, { callbackUrl: ROUTES.ADMIN });
-          }}
+          onClick={() => signIn(undefined, { callbackUrl: ROUTES.ADMIN })}
         >
           Admin in
         </button>
@@ -32,9 +30,7 @@ export default function AuthStatus() {
           <span className={s.separator}>-</span>
           <button
             className="buttonLink"
-            onClick={() => {
-              signOut({ callbackUrl: ROUTES.HOME });
-            }}
+            onClick={() => signOut({ callbackUrl: ROUTES.HOME })}
           >
             Admin out
           </button>
