@@ -31,7 +31,7 @@ export default function Header({
   const [introIsGone, setIntroIsGone] = useState<boolean>(false);
 
   return (
-    <header className={s.container}>
+    <header className={s.header}>
       {isHome && (
         <HomeSection
           handleDisappear={setTitleIsGone}
@@ -74,6 +74,12 @@ export default function Header({
                 ? LAYOUT.HOME_NAV_FIX
                 : LAYOUT.NAV
         }
+      />
+      <div
+        style={{
+          display: introIsGone ? "block" : "none",
+          height: LAYOUT.NAV_2_HEIGHT,
+        }}
       />
       <style jsx>{`
         .title {

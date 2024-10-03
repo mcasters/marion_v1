@@ -1,15 +1,1 @@
-.mainHomeContainer {
-    height: 100vh;
-}
 
-.mainHome {
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-
-.main {
-    text-align: center;
-}

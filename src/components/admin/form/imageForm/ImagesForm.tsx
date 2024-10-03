@@ -14,9 +14,16 @@ type Props = {
   api: string;
   label: string;
   title?: string;
+  isMain?: boolean;
 };
 
-export default function ImagesForm({ isMultiple, api, label, title }: Props) {
+export default function ImagesForm({
+  isMultiple,
+  api,
+  label,
+  title,
+  isMain = false,
+}: Props) {
   const [newImages, setNewImages] = useState<string[]>([]);
   const [toUpdate, setToUpdate] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
@@ -55,6 +62,7 @@ export default function ImagesForm({ isMultiple, api, label, title }: Props) {
   return (
     <form ref={formRef} onSubmit={submit}>
       <input type="hidden" name="label" value={label} />
+      <input type="hidden" name="isMain" value={isMain?.toString()} />
       <h4 className={s.imageTitle}>
         {title !== undefined ? title : isMultiple ? "Images :" : "Image :"}
       </h4>

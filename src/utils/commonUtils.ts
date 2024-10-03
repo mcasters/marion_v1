@@ -59,6 +59,29 @@ export const getSliders = (contents: ContentFull[]): Image[] | [] => {
   return contents?.filter((c) => c.label === Label.SLIDER)[0]?.images || [];
 };
 
+export const getSlidersLandscapeAndPortait = (
+  contents: ContentFull[],
+): { portraitImages: Image[]; landscapeImages: Image[] } => {
+  const images: Image[] = getSliders(contents);
+  let portraitImages: Image[] = [];
+  let landscapeImages: Image[] = [];
+  images.forEach((i) => {
+    if (i.isMain) portraitImages.push(i);
+    if (!i.isMain) landscapeImages.push(i);
+  });
+  return { portraitImages, landscapeImages };
+};
+
+export const getSlidersPortrait = (contents: ContentFull[]): Image[] | [] => {
+  const images: Image[] = getSliders(contents);
+  return images.filter((i) => i.isMain) || [];
+};
+
+export const getSlidersLandscape = (contents: ContentFull[]): Image[] | [] => {
+  const images: Image[] = getSliders(contents);
+  return images.filter((i) => !i.isMain) || [];
+};
+
 export const getAddressText = (contents: ContentFull[]): string => {
   return contents?.filter((c) => c.label === Label.ADDRESS)[0]?.text || "";
 };

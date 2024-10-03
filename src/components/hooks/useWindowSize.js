@@ -1,33 +1,36 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState({
-    innerWidth: 500,
-    innerHeight: 900,
+  const [windowRect, setWindowRect] = useState({
+    innerWidth: 374,
+    innerHeight: 667,
   });
 
   useEffect(() => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
     function handleResize() {
-      // Set window width/height to state
-      setWindowSize({
-        innerWidth: window.innerWidth,
-        innerHeight: window.innerHeight,
+      setWindowRect({
+        innerWidth: width,
+        innerHeight: height,
       });
     }
 
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('orientationchange', handleResize);
+    if (windowRect.innerWidth !== width || windowRect.innerHeight !== height)
+      handleResize();
 
-    handleResize();
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('orientationchange', handleResize);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
     };
-  }, []);
+  }, [windowRect]);
 
-  return windowSize;
+  return windowRect;
 };
 export default useWindowSize;

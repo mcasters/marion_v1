@@ -1,7 +1,6 @@
-.container {
+.header {
   position: relative;
-  text-align: center;
-  z-index: 1;
+  z-index: 2;
 }
 
 .siteTitle {
@@ -25,7 +24,6 @@
 .intro {
   padding: 5rem 2rem;
   white-space: pre-line;
-  z-index: 2;
 }
 
 /* desktop */

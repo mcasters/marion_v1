@@ -5,7 +5,7 @@ import { Lightbox as YetLightbox } from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
 import { TYPE } from "@/constants";
-import { DEVICE, IMAGE_SIZE } from "@/constants/image";
+import { IMAGE_SIZE } from "@/constants/image";
 import s from "@/components/image/lightbox.module.css";
 import { Image as IImage } from "@/lib/db/item";
 import Image from "next/image";
@@ -25,7 +25,8 @@ export default function Lightbox({
   isCentered = false,
 }: Props) {
   const oneImage = type === TYPE.PAINTING || images.length === 1;
-  const isSmall = window.innerWidth < DEVICE.SMALL;
+  //const window = useWindowSize();
+  const isSmall = true;
   const [index, setIndex] = useState(-1);
 
   const photos = useMemo(
