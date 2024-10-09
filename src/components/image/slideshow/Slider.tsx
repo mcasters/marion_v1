@@ -1,47 +1,31 @@
 "use client";
 
-import { Image as IImage } from "@/lib/db/item";
+import { Photo } from "@/lib/db/item";
 import s from "./Slider.module.css";
-import { useEffect, useMemo, useState } from "react";
-import { IMAGE_SIZE } from "@/constants/image";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import ArrowNext from "@/components/admin/icons/ArrowNext";
+import ArrowPrev from "@/components/admin/icons/ArrowPrev";
 
 type Props = {
-  images: IImage[];
-  isSmall: boolean;
+  photos: Photo[];
   autoPlay: boolean;
+  index?: number;
 };
 
-export default function Slider({ images, isSmall, autoPlay }: Props) {
-  const [active, setActive] = useState(0);
-
-  const photos = useMemo(
-    () =>
-      images.map((image) => {
-        const width = image.width;
-        const height = image.height;
-        return {
-          src: `/images/miscellaneous/${isSmall ? "md/" : ""}${image.filename}`,
-          width: isSmall ? IMAGE_SIZE.MD_PX : width,
-          height: isSmall
-            ? Math.round((height / width) * IMAGE_SIZE.MD_PX)
-            : height,
-          alt: "Œuvre de Marion Casters",
-        };
-      }),
-    [images, isSmall],
-  );
+export default function Slider({ photos, autoPlay, index }: Props) {
+  const [active, setActive] = useState(index | 0);
 
   const onPrev = () => {
     if (active > 0) {
       setActive(active - 1);
     } else {
-      setActive(images.length - 1);
+      setActive(photos.length - 1);
     }
   };
 
   const onNext = () => {
-    if (active < images.length - 1) {
+    if (active < photos.length - 1) {
       setActive(active + 1);
     } else {
       setActive(0);
@@ -50,27 +34,31 @@ export default function Slider({ images, isSmall, autoPlay }: Props) {
 
   useEffect(() => {
     function onNext() {
-      if (active < images.length - 1) {
+      if (active < photos.length - 1) {
         setActive(active + 1);
       } else {
         setActive(0);
       }
     }
 
-    const interval = setInterval(() => {
-      onNext();
-    }, 3000);
+    if (autoPlay) {
+      const interval = setInterval(() => {
+        onNext();
+      }, 3000);
 
-    return () => clearInterval(interval);
-  }, [active, images]);
+      return () => clearInterval(interval);
+    }
+  }, [active, photos, autoPlay]);
 
   return (
-    <div className={s.slider}>
+    <>
       {photos.map((p, i) => (
         <div
           key={i}
           className={`${s.slide} ${i === active ? s.active : ""}`}
-          style={{ aspectRatio: p.width / p.height }}
+          style={{
+            aspectRatio: p.width / p.height,
+          }}
         >
           <Image
             fill
@@ -86,15 +74,13 @@ export default function Slider({ images, isSmall, autoPlay }: Props) {
         </div>
       ))}
       <div className={s.navigation}>
-        <div className={s.prev} onClick={onPrev}>
-          {" "}
-          &lt;{" "}
-        </div>
-        <div className={s.next} onClick={onNext}>
-          {" "}
-          &gt;{" "}
-        </div>
+        <button className={`${s.prev} iconButton`} onClick={onPrev}>
+          <ArrowPrev />
+        </button>
+        <button className={`${s.next} iconButton`} onClick={onNext}>
+          <ArrowNext />
+        </button>
       </div>
-    </div>
+    </>
   );
 }

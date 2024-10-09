@@ -96,6 +96,13 @@ export type Image = {
   isMain: boolean;
 };
 
+export type Photo = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+};
+
 export type Category = {
   id: number;
   key: string;

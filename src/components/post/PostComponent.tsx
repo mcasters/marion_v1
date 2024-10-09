@@ -1,6 +1,6 @@
 "use client";
 
-import Lightbox from "@/components/image/Lightbox";
+import Lightbox from "@/components/image/lightbox/Lightbox";
 import s from "./PostComponent.module.css";
 import Gallery from "@/components/image/Gallery";
 import { TYPE } from "@/constants";

@@ -94,20 +94,19 @@ export default function Layout({
           );
         }
         .wrapper a,
-        .wrapper .buttonLink {
+        .wrapper .buttonLink,
+        .iconButton {
           color: ${theme.linkColor};
         }
         .wrapper .icon {
           fill: ${theme.linkColor};
         }
         .wrapper a:hover,
-        .wrapper a:focus,
         .wrapper .buttonLink:hover,
-        .wrapper .buttonLink:focus {
+        .iconButton:hover {
           color: ${theme.linkHoverColor};
         }
-        .wrapper .icon:hover,
-        .wrapper .icon:focus {
+        .wrapper .icon:hover {
           fill: ${theme.linkHoverColor};
         }
         .itemWrapper {
@@ -122,13 +121,10 @@ export default function Layout({
           fill: ${theme.linkItemColor};
         }
         .itemWrapper a:hover,
-        .itemWrapper a:focus,
-        .itemWrapper .buttonLink:hover,
-        .itemWrapper .buttonLink:focus {
+        .itemWrapper .buttonLink:hover {
           color: ${theme.linkHoverItemColor};
         }
-        .itemWrapper .icon:hover,
-        .itemWrapper .icon:focus {
+        .itemWrapper .icon:hover {
           fill: ${theme.linkHoverItemColor};
         }
       `}</style>

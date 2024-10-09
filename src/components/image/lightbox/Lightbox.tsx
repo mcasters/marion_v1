@@ -1,15 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { Lightbox as YetLightbox } from "yet-another-react-lightbox";
-import Zoom from "yet-another-react-lightbox/plugins/zoom";
-import "yet-another-react-lightbox/styles.css";
+import React, { useMemo, useState } from "react";
 import { TYPE } from "@/constants";
-import { IMAGE_SIZE } from "@/constants/image";
-import s from "@/components/image/lightbox.module.css";
+import { DEVICE, IMAGE_SIZE } from "@/constants/image";
+import s from "@/components/image/lightbox/Lightbox.module.css";
 import { Image as IImage } from "@/lib/db/item";
 import Image from "next/image";
-import NextJsImage from "@/components/image/NextImage";
+import useWindowSize from "@/components/hooks/useWindowSize";
+import { createPortal } from "react-dom";
+import LightboxContent from "@/components/image/lightbox/LightboxContent";
 
 type Props = {
   images: IImage[];
@@ -25,11 +24,11 @@ export default function Lightbox({
   isCentered = false,
 }: Props) {
   const oneImage = type === TYPE.PAINTING || images.length === 1;
-  //const window = useWindowSize();
-  const isSmall = true;
+  const window = useWindowSize();
+  const isSmall = window.innerWidth < DEVICE.SMALL;
   const [index, setIndex] = useState(-1);
 
-  const photos = useMemo(
+  const photosForLightbox = useMemo(
     () =>
       images.map((image) => {
         const width = image.width;
@@ -74,30 +73,16 @@ export default function Lightbox({
           );
         })}
 
-        <YetLightbox
-          index={index}
-          open={index >= 0}
-          close={() => setIndex(-1)}
-          slides={photos}
-          render={{
-            slide: NextJsImage,
-            buttonPrev: oneImage ? () => null : undefined,
-            buttonNext: oneImage ? () => null : undefined,
-          }}
-          controller={{
-            closeOnPullUp: true,
-            closeOnPullDown: true,
-            closeOnBackdropClick: true,
-          }}
-          styles={{
-            slide: { padding: "1rem" },
-          }}
-          plugins={[Zoom]}
-          zoom={{
-            maxZoomPixelRatio: 3,
-            zoomInMultiplier: 1.5,
-          }}
-        />
+        {index >= 0 &&
+          createPortal(
+            <LightboxContent
+              photos={photosForLightbox}
+              index={index}
+              onClose={() => setIndex(-1)}
+              isSmall={isSmall}
+            />,
+            document.body,
+          )}
       </div>
     </>
   );
