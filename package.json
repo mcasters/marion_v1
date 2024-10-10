@@ -22,8 +22,8 @@
   "dependencies": {
     "@prisma/client": "^5.19.1",
     "@types/bcryptjs": "^2.4.6",
-    "@types/node": "^22.5.5",
-    "@types/react": "18.3.8",
+    "@types/node": "^22.7.5",
+    "@types/react": "18.3.11",
     "@types/react-dom": "18.3.0",
     "autoprefixer": "^10.4.20",
     "bcryptjs": "^2.4.3",
@@ -32,8 +32,8 @@
     "eslint": "8.51.0",
     "eslint-config-next": "13.5.6",
     "eslint-config-prettier": "^9.1.0",
-    "next": "^14.2.12",
-    "next-auth": "^4.24.7",
+    "next": "^14.2.15",
+    "next-auth": "^4.24.8",
     "postcss": "8.4.47",
     "react": "^18.3.1",
     "react-colorful": "^5.6.1",
@@ -42,8 +42,7 @@
     "react-photo-album": "^3.0.2",
     "sharp": "^0.32.5",
     "styled-jsx": "^5.1.6",
-    "ts-node": "^10.9.2",
-    "yet-another-react-lightbox": "^3.21.5"
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "prettier": "^3.3.3",
