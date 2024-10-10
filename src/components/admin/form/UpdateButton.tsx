@@ -12,7 +12,7 @@ import {
   isSculptureFull,
 } from "@/utils/commonUtils";
 import React from "react";
-import UpdateIcon from "@/components/admin/icons/UpdateIcon";
+import UpdateIcon from "@/components/icons/UpdateIcon";
 
 type Props = {
   item: PaintingFull | SculptureFull | Category | PostFull;

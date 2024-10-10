@@ -44,7 +44,6 @@ export async function POST(req: Request) {
         } else content = BDContent;
 
         const files = formData.getAll("files") as File[];
-        const isMain = formData.getAll("isMain");
         for (const file of files) {
           if (file.size > 0) {
             const fileInfo = await resizeAndSaveImage(file, dir, true);

@@ -11,7 +11,7 @@ import { PresetColor, Theme } from "@prisma/client";
 import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
 import { useAdminPresetColorsContext } from "@/app/context/adminPresetColorsProvider";
 import CancelButton from "@/components/admin/form/CancelButton";
-import DeleteIcon from "@/components/admin/icons/DeleteIcon";
+import DeleteIcon from "@/components/icons/DeleteIcon";
 
 interface Props {
   presetColor: PresetColor;

@@ -5,7 +5,7 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import s from "@/styles/admin/Admin.module.css";
 import { Image as IImage } from "@/lib/db/item";
-import DeleteIcon from "@/components/admin/icons/DeleteIcon";
+import DeleteIcon from "@/components/icons/DeleteIcon";
 
 type Props = {
   images: IImage[];

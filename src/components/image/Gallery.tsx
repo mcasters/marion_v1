@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { RowsPhotoAlbum } from "react-photo-album";
 import "react-photo-album/rows.css";
-import Lightbox from "yet-another-react-lightbox";
 import { DEVICE, IMAGE_SIZE } from "@/constants/image";
 import { Image } from "@/lib/db/item";
+import { createPortal } from "react-dom";
+import LightboxContent from "@/components/image/lightbox/LightboxContent";
+import useWindowSize from "@/components/hooks/useWindowSize";
 
 interface Props {
   images: Image[];
@@ -15,39 +17,48 @@ interface Props {
 
 export default function Gallery({ images, title, alt }: Props) {
   const [index, setIndex] = useState(-1);
+  const window = useWindowSize();
+  const isSmall = window.innerWidth < DEVICE.SMALL;
 
-  const photos = images.map((image) => {
-    const width = image.width;
-    const height = image.height;
-    return {
-      src: `/images/post/${image.filename}`,
-      width,
-      height,
-      alt,
-      title,
-      srcSet: [
-        {
-          src: `/images/post/sm/${image.filename}`,
-          width: IMAGE_SIZE.SM_PX,
-          height: Math.round((height / width) * IMAGE_SIZE.SM_PX),
-        },
-        {
-          src: `/images/post/md/${image.filename}`,
-          width: IMAGE_SIZE.MD_PX,
-          height: Math.round((height / width) * IMAGE_SIZE.MD_PX),
-        },
-        {
-          src: `/images/post/${image.filename}`,
-          width: width,
-          height: height,
-        },
-      ],
-    };
-  });
+  const photosForGallery = useMemo(
+    () =>
+      images.map((image) => {
+        const width = image.width;
+        const height = image.height;
+        return {
+          src: `/images/post/${isSmall ? "sm/" : "md/"}${image.filename}`,
+          width: isSmall ? IMAGE_SIZE.SM_PX : IMAGE_SIZE.MD_PX,
+          height: isSmall
+            ? Math.round((height / width) * IMAGE_SIZE.SM_PX)
+            : Math.round((height / width) * IMAGE_SIZE.MD_PX),
+          alt,
+          title,
+        };
+      }),
+    [images, alt, title, isSmall],
+  );
+
+  const photosForLightbox = useMemo(
+    () =>
+      images.map((image) => {
+        const width = image.width;
+        const height = image.height;
+        return {
+          src: `/images/post/${isSmall ? "md/" : ""}${image.filename}`,
+          width: isSmall ? IMAGE_SIZE.MD_PX : width,
+          height: isSmall
+            ? Math.round((height / width) * IMAGE_SIZE.MD_PX)
+            : height,
+          alt,
+        };
+      }),
+    [images, alt, isSmall],
+  );
+
   return (
     <>
       <RowsPhotoAlbum
-        photos={photos}
+        photos={photosForGallery}
         onClick={({ index: current }) => setIndex(current)}
         breakpoints={[DEVICE.SMALL, DEVICE.MEDIUM]}
         componentsProps={() => ({
@@ -56,20 +67,16 @@ export default function Gallery({ images, title, alt }: Props) {
           },
         })}
       />
-      <Lightbox
-        index={index}
-        slides={photos}
-        open={index >= 0}
-        close={() => setIndex(-1)}
-        controller={{
-          closeOnPullUp: true,
-          closeOnPullDown: true,
-          closeOnBackdropClick: true,
-        }}
-        styles={{
-          slide: { padding: "1rem" },
-        }}
-      />
+      {index >= 0 &&
+        createPortal(
+          <LightboxContent
+            photos={photosForLightbox}
+            index={index}
+            onClose={() => setIndex(-1)}
+            isSmall={isSmall}
+          />,
+          document.body,
+        )}
     </>
   );
 }

@@ -3,7 +3,7 @@
 import toast from "react-hot-toast";
 import React from "react";
 import { useRouter } from "next/navigation";
-import DeleteIcon from "@/components/admin/icons/DeleteIcon";
+import DeleteIcon from "@/components/icons/DeleteIcon";
 
 type Props = {
   api: string;

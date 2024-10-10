@@ -10,8 +10,10 @@ type Props = {
 
 export default function Slideshow({ photos, autoPlay }: Props) {
   return (
-    <div style={{ position: "relative" }}>
-      <Slider photos={photos} autoPlay={autoPlay} />
-    </div>
+    photos.length > 0 && (
+      <div style={{ position: "relative" }}>
+        <Slider photos={photos} autoPlay={autoPlay} />
+      </div>
+    )
   );
 }

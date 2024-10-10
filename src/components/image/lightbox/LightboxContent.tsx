@@ -3,8 +3,8 @@
 import s from "./Lightbox.module.css";
 import { Photo } from "@/lib/db/item";
 import { useState } from "react";
-import ArrowPrev from "@/components/admin/icons/ArrowPrev";
-import ArrowNext from "@/components/admin/icons/ArrowNext";
+import ArrowPrev from "@/components/icons/ArrowPrev";
+import ArrowNext from "@/components/icons/ArrowNext";
 import ZoomImage from "@/components/image/lightbox/ZoomImage";
 
 type Props = {
