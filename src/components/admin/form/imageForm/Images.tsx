@@ -5,42 +5,57 @@ import Image from "next/image";
 
 import { FileUploaderButton } from "@/components/admin/form/imageForm/FileUploaderButton";
 import s from "@/styles/admin/Admin.module.css";
+import toast from "react-hot-toast";
 
 interface Props {
-  onAdd?: (arg0: number) => void;
+  onChange?: (arg0: number) => void;
   reset?: number;
   isMultiple: boolean;
   title?: string;
 }
 
-export default function Images({ onAdd, reset, isMultiple, title }: Props) {
+export default function Images({ onChange, reset, isMultiple, title }: Props) {
   const [newImages, setNewImages] = useState<string[]>([]);
 
   useEffect(() => {
     if (reset !== undefined) setNewImages([]);
   }, [reset]);
 
-  const getAlbumPreview = (filesUploaded: FileList) => {
+  const handleFiles = async (filesUploaded: FileList) => {
     if (filesUploaded?.length > 0) {
       const files = Array.from(filesUploaded);
-
       const newFiles: string[] = [];
-      files.forEach((file) => {
-        newFiles.push(URL.createObjectURL(file));
-      });
+      let error = false;
+
+      for await (const file of files) {
+        const bmp = await createImageBitmap(file);
+        const { width, height } = bmp;
+        if (width < 2000) {
+          toast.error(
+            `Dimensions de l'image ${file.name} trop petites : largeur de 2000 pixels minimum`,
+          );
+          bmp.close();
+          error = true;
+          break;
+        } else {
+          newFiles.push(URL.createObjectURL(file));
+          bmp.close();
+        }
+      }
+      if (error) return;
       setNewImages(newFiles);
-      if (onAdd !== undefined) onAdd(newFiles.length);
+      if (onChange !== undefined) onChange(newFiles.length);
     }
   };
 
   return (
-    <div>
-      <h5 className={s.imageTitle}>
+    <>
+      <p className={s.imageTitle}>
         {title !== undefined ? title : isMultiple ? "Images :" : "Image :"}
-      </h5>
+      </p>
       <FileUploaderButton
         name={isMultiple ? "files" : "file"}
-        handleFiles={getAlbumPreview}
+        handleFiles={handleFiles}
         isMultiple={isMultiple}
       />
       <div>
@@ -52,7 +67,7 @@ export default function Images({ onAdd, reset, isMultiple, title }: Props) {
                 src={src}
                 width={150}
                 height={150}
-                alt="Nouvelle image de l'item"
+                alt="Nouvelle image"
                 style={{
                   objectFit: "contain",
                 }}
@@ -60,6 +75,6 @@ export default function Images({ onAdd, reset, isMultiple, title }: Props) {
             </div>
           ))}
       </div>
-    </div>
+    </>
   );
 }

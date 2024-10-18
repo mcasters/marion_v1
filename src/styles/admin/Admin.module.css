@@ -13,7 +13,7 @@
 }
 
 .pageTitle {
-padding: 1em 0 2em;
+    padding: 1em 0 2em;
 }
 
 .formContainer {
@@ -74,7 +74,25 @@ padding: 1em 0 2em;
     letter-spacing: 3px;
     padding-bottom: 1em;
     color: var(--color-dark);
-    font-size: 0.9em;
+    font-size: var(--font-size);
+}
+
+h2.homepage {
+    padding: 2em 0 0;
+}
+
+.info {
+    width: 350px;
+    margin: 2em auto;
+    padding: 1em;
+    text-align: left;
+    background-color: var(--color-light);
+}
+.info summary {
+    cursor: pointer;
+}
+.info p {
+    padding: 1em;
 }
 
 .imageWrapper {

@@ -23,8 +23,10 @@ export default async function Home() {
         label={Label.INTRO}
         api="api/content/update"
       />
+      <div className="separate"></div>
       <div className={s.formContainer}>
-        <h2>Image(s) au format portrait (visible sur mobile)</h2>
+        <h2 className={s.homepage}>Images affichées sur écran mobile</h2>
+        <p>(le format portrait est plus adapté)</p>
         {portraitImages.length > 0 && (
           <Preview
             images={portraitImages}
@@ -36,14 +38,14 @@ export default async function Home() {
           api="api/content/update"
           isMultiple={true}
           label={Label.SLIDER}
-          title=""
+          title="Minimum une photo"
           isMain
         />
       </div>
+      <div className="separate"></div>
       <div className={s.formContainer}>
-        <h2>
-          Image(s) au format paysage ou carré (visible sur ordinateur de bureau)
-        </h2>
+        <h2 className={s.homepage}>Images affichées sur écran ordinateur</h2>
+        <p>(le format paysage ou carré est plus adapté)</p>
         {landscapeImages.length > 0 && (
           <Preview
             images={landscapeImages}
@@ -55,7 +57,7 @@ export default async function Home() {
           api="api/content/update"
           isMultiple={true}
           label={Label.SLIDER}
-          title=""
+          title="Minimum 1 photo"
         />
       </div>
     </div>
