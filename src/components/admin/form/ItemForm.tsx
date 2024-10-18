@@ -4,20 +4,19 @@ import React, { useRef, useState } from "react";
 import { parse } from "date-fns";
 import toast from "react-hot-toast";
 import s from "@/styles/admin/Admin.module.css";
-import { Category, PaintingFull, SculptureFull } from "@/lib/db/item";
-import { getImagesTab, isSculptureFull } from "@/utils/commonUtils";
+import { Category, PaintingFull, SculptureFull, Type } from "@/lib/db/item";
+import { getImageTab, isSculptureFull } from "@/utils/commonUtils";
 import Images from "@/components/admin/form/imageForm/Images";
 import Preview from "@/components/admin/form/imageForm/Preview";
 import CancelButton from "@/components/admin/form/CancelButton";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import { useRouter } from "next/navigation";
-import { TYPE } from "@/constants";
 
 interface Props {
   item?: SculptureFull | PaintingFull;
   toggleModal?: () => void;
   categories?: Category[];
-  typeAdd?: string;
+  typeAdd?: Type;
 }
 
 export default function ItemForm({
@@ -31,7 +30,7 @@ export default function ItemForm({
   const resetImageRef = useRef<number>(0);
 
   const isSculpture =
-    item?.type === TYPE.SCULPTURE || typeAdd === TYPE.SCULPTURE;
+    item?.type === Type.SCULPTURE || typeAdd === Type.SCULPTURE;
   const [title, setTitle] = useState<string>(item?.title || "");
   const [date, setDate] = useState<Date>(new Date(item?.date || new Date()));
   const [technique, setTechnique] = useState<string>(item?.technique || "");
@@ -205,7 +204,7 @@ export default function ItemForm({
         <div className={s.imageFormContainer}>
           {item && (
             <Preview
-              images={getImagesTab(item)}
+              images={getImageTab(item)}
               pathImage={`/images/${item.type}`}
               apiForDelete={
                 isSculpture && countImages > 1
@@ -216,7 +215,7 @@ export default function ItemForm({
             />
           )}
           <Images
-            onAdd={handleAdd}
+            onChange={handleAdd}
             isMultiple={isSculpture}
             title={isSculpture ? "1 photo minimum" : "1 seule photo"}
             reset={resetImageRef.current}

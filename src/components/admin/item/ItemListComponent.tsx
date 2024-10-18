@@ -3,10 +3,10 @@
 import RowItemListComponent from "./RowItemListComponent";
 import React from "react";
 import s from "@/styles/admin/AdminList.module.css";
-import { Category, PaintingFull, SculptureFull } from "@/lib/db/item";
+import { Category, PaintingFull, SculptureFull, Type } from "@/lib/db/item";
 
 interface Props {
-  type: string;
+  type: Type;
   items: PaintingFull[] | SculptureFull[];
   categories: Category[];
 }

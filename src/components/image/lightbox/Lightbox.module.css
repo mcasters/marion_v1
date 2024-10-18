@@ -52,6 +52,19 @@
     justify-content: center;
 }
 
+.info {
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    left: 10px;
+    right: auto;
+    top: 10px;
+    bottom: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #aaaaaa;
+}
+
 @keyframes fade {
     from {
         opacity: 0.4;

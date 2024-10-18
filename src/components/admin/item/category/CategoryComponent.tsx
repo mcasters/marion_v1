@@ -3,10 +3,10 @@
 import CategoryListComponent from "@/components/admin/item/category/CategoryListComponent";
 import CategoryForm from "@/components/admin/form/CategoryForm";
 import s from "../../../../styles/admin/AdminList.module.css";
-import { CategoryFull } from "@/lib/db/item";
+import { CategoryFull, Type } from "@/lib/db/item";
 
 interface Props {
-  type: string;
+  type: Type;
   categories: CategoryFull[];
 }
 export default function CategoryComponent({ type, categories }: Props) {

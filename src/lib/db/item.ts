@@ -1,6 +1,8 @@
+import { User } from ".prisma/client";
+
 export type SculptureFull = {
   id: number;
-  type: string;
+  type: Type.SCULPTURE;
   title: string;
   date: Date;
   technique: string;
@@ -17,7 +19,7 @@ export type SculptureFull = {
 
 export type PaintingFull = {
   id: number;
-  type: string;
+  type: Type.PAINTING;
   title: string;
   date: Date;
   technique: string;
@@ -35,7 +37,7 @@ export type PaintingFull = {
 
 export type DrawingFull = {
   id: number;
-  type: string;
+  type: Type.DRAWING;
   title: string;
   date: Date;
   technique: string;
@@ -73,7 +75,7 @@ export type ItemFull = {
 
 export type PostFull = {
   id: number;
-  type: string;
+  type: Type.POST;
   title: string;
   date: Date;
   text: string;
@@ -101,7 +103,29 @@ export type Photo = {
   width: number;
   height: number;
   alt: string;
+  title: string;
+  date: Date;
+  isMain: boolean;
 };
+
+export type PhotoTab = {
+  sm: Photo[];
+  md: Photo[];
+  lg: Photo[];
+};
+
+export enum Type {
+  PAINTING = "peinture",
+  SCULPTURE = "sculpture",
+  POST = "post",
+  DRAWING = "dessin",
+}
+
+export const ImageSize = {
+  sm: { WIDTH: 384, FOLDER: "/sm" },
+  md: { WIDTH: 640, FOLDER: "/md" },
+  lg: { WIDTH: 2000, FOLDER: "" },
+} as const;
 
 export type Category = {
   id: number;
@@ -114,4 +138,8 @@ export type CategoryFull = {
   key: string;
   value: string;
   count: number;
+};
+
+export type Session = {
+  user: User;
 };

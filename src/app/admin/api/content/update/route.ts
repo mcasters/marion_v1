@@ -46,7 +46,7 @@ export async function POST(req: Request) {
         const files = formData.getAll("files") as File[];
         for (const file of files) {
           if (file.size > 0) {
-            const fileInfo = await resizeAndSaveImage(file, dir, true);
+            const fileInfo = await resizeAndSaveImage(file, dir);
             if (fileInfo) {
               await prisma.content.update({
                 where: { id: content.id },

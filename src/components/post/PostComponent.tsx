@@ -3,29 +3,22 @@
 import Lightbox from "@/components/image/lightbox/Lightbox";
 import s from "./PostComponent.module.css";
 import Gallery from "@/components/image/Gallery";
-import { TYPE } from "@/constants";
 import { useMemo } from "react";
-import { getGalleryImages, getMainImage } from "@/utils/commonUtils";
+import { getPhotoTab } from "@/utils/commonUtils";
 import { PostFull } from "@/lib/db/item";
 
 interface Props {
   post: PostFull;
 }
 export default function PostComponent({ post }: Props) {
-  const mainImage = useMemo(() => getMainImage(post), [post]);
-  const galleryImages = useMemo(() => getGalleryImages(post), [post]);
+  const { mainPhotos, photos } = useMemo(() => getPhotoTab(post, true), [post]);
 
   return (
     <>
       <article className={s.postContainer}>
         <div className={s.mainImage}>
-          {mainImage && (
-            <Lightbox
-              images={[mainImage]}
-              alt={`${post.title} - Photo d'un post de Marion Casters`}
-              type={TYPE.POST}
-              isCentered={true}
-            />
+          {mainPhotos.sm.length > 0 && (
+            <Lightbox photos={mainPhotos} isCentered={true} />
           )}
         </div>
         <div className={s.info}>
@@ -36,13 +29,9 @@ export default function PostComponent({ post }: Props) {
             {post.text}
           </p>
         </div>
-        {galleryImages && (
+        {photos.sm.length > 0 && (
           <div className={s.gallery}>
-            <Gallery
-              images={galleryImages}
-              title={`${post.title}`}
-              alt={`${post.title} - Photo d'un post de Marion Casters`}
-            />
+            <Gallery photos={photos} />
           </div>
         )}
       </article>

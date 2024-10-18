@@ -1,15 +1,17 @@
 import { Label, PresetColor, Theme } from "@prisma/client";
-import { TYPE } from "@/constants";
 import { THEME } from "@/constants/database";
+import { OnlyString } from "@/lib/db/theme";
 import {
   ContentFull,
   DrawingFull,
   Image,
+  ImageSize,
   PaintingFull,
+  PhotoTab,
   PostFull,
   SculptureFull,
+  Type,
 } from "@/lib/db/item";
-import { OnlyString } from "@/lib/db/theme";
 
 export const transformValueToKey = (value: string): string => {
   return value
@@ -72,16 +74,6 @@ export const getSlidersLandscapeAndPortait = (
   return { portraitImages, landscapeImages };
 };
 
-export const getSlidersPortrait = (contents: ContentFull[]): Image[] | [] => {
-  const images: Image[] = getSliders(contents);
-  return images.filter((i) => i.isMain) || [];
-};
-
-export const getSlidersLandscape = (contents: ContentFull[]): Image[] | [] => {
-  const images: Image[] = getSliders(contents);
-  return images.filter((i) => !i.isMain) || [];
-};
-
 export const getAddressText = (contents: ContentFull[]): string => {
   return contents?.filter((c) => c.label === Label.ADDRESS)[0]?.text || "";
 };
@@ -107,56 +99,59 @@ export const getGalleryImages = (post: PostFull) => {
 };
 
 export const isPaintingFull = (item: any): item is PaintingFull =>
-  Object.values(item).includes(TYPE.PAINTING);
+  Object.values(item).includes(Type.PAINTING);
+
+export const isDrawingFull = (item: any): item is DrawingFull =>
+  Object.values(item).includes(Type.DRAWING);
 
 export const isSculptureFull = (item: any): item is SculptureFull =>
-  Object.values(item).includes(TYPE.SCULPTURE);
+  Object.values(item).includes(Type.SCULPTURE);
 
 export const isPostFull = (item: any): item is PostFull =>
-  Object.values(item).includes(TYPE.POST);
+  Object.values(item).includes(Type.POST);
 
 export const getBaseThemeData = () => {
   return {
     name: THEME.BASE_THEME,
     isActive: true,
-    lineColor: "#be2d01",
-    backgroundColor: "#fafafa",
-    backgroundColorItem: "#fafafa",
-    color: "#333",
-    colorItem: "#333",
-    titleColor: "#333",
+    lineColor: "#a4874f",
+    backgroundColor: "#f8f8f8",
+    backgroundColorItem: "#24445C",
+    color: "#2e6177",
+    colorItem: "#a4874f",
+    titleColor: "#2e6177",
 
-    linkColor: "#be2d01",
-    linkHoverColor: "#333",
-    linkItemColor: "#be2d01",
-    linkHoverItemColor: "#333",
+    linkColor: "#a4874f",
+    linkHoverColor: "#e5ca96",
+    linkItemColor: "#2e6177",
+    linkHoverItemColor: "#66c3d3",
 
     menu1Color: "#e7e7e7",
     menu1HomeColor: "#e7e7e7",
-    menu1ItemColor: "#e7e7e7",
-    menu1LinkColor: "#333",
-    menu1LinkHoverColor: "#be2d01",
-    menu1LinkHomeColor: "#333",
-    menu1LinkHomeHoverColor: "#be2d01",
-    menu1LinkItemColor: "#333",
+    menu1ItemColor: "#0f1f26",
+    menu1LinkColor: "#2e6177",
+    menu1LinkHoverColor: "#a4874f",
+    menu1LinkHomeColor: "#2e6177",
+    menu1LinkHomeHoverColor: "#a4874f",
+    menu1LinkItemColor: "#66c3d3",
     menu1LinkHoverItemColor: "#b5d1d5",
 
-    menu2Color: "#fafafa",
-    menu2HomeColor: "#fafafa",
-    menu2ItemColor: "#fafafa",
-    menu2LinkColor: "#be2d01",
-    menu2LinkHoverColor: "#333",
-    menu2LinkHomeColor: "#be2d01",
-    menu2LinkHomeHoverColor: "#333",
-    menu2LinkItemColor: "#be2d01",
-    menu2LinkHoverItemColor: "#333",
+    menu2Color: "#f8f8f8",
+    menu2HomeColor: "#f8f8f8",
+    menu2ItemColor: "#13262f",
+    menu2LinkColor: "#a4874f",
+    menu2LinkHoverColor: "#d9bf94",
+    menu2LinkHomeColor: "#a4874f",
+    menu2LinkHomeHoverColor: "#d9bf94",
+    menu2LinkItemColor: "#a4874f",
+    menu2LinkHoverItemColor: "#d9bf94",
   };
 };
 
 export const getBasePresetColorData = () => {
   return {
-    name: "Red",
-    color: "#be2d01",
+    name: "Prussian blue",
+    color: "#24445C",
   };
 };
 
@@ -214,7 +209,7 @@ export function rgbToHex(r: number, g: number, b: number): string {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 } // rgbToHex(0, 51, 255); // #0033ff
 
-export const getImagesTab = (
+export const getImageTab = (
   item: SculptureFull | PaintingFull | DrawingFull,
 ): Image[] => {
   if (isSculptureFull(item)) {
@@ -237,4 +232,63 @@ export const getImagesTab = (
       isMain: false,
     },
   ];
+};
+
+const restForPhotoTab = (
+  item: SculptureFull | PaintingFull | DrawingFull | PostFull,
+) => {
+  return {
+    alt:
+      item.type === Type.POST
+        ? `${item.title} - photo d'un post de Thierry Casters`
+        : `${item.title} - ${item.type} de Thierry Casters`,
+    title: item.title,
+    date: item.date,
+  };
+};
+
+export const getPhotoTab = (
+  item: SculptureFull | PaintingFull | DrawingFull | PostFull,
+  splitMain: boolean = false,
+): {
+  mainPhotos: PhotoTab;
+  photos: PhotoTab;
+} => {
+  const mainPhotos: PhotoTab = { sm: [], md: [], lg: [] };
+  const photos: PhotoTab = { sm: [], md: [], lg: [] };
+
+  if (isPaintingFull(item) || isDrawingFull(item)) {
+    for (const [key, value] of Object.entries(ImageSize)) {
+      photos[key as keyof PhotoTab].push({
+        src: `/images/${item.type}${value.FOLDER}/${item.imageFilename}`,
+        width: key === "lg" ? item.imageWidth : value.WIDTH,
+        height:
+          key === "lg"
+            ? item.imageHeight
+            : Math.round((value.WIDTH * item.imageHeight) / item.imageWidth),
+        isMain: false,
+        ...restForPhotoTab(item),
+      });
+    }
+  } else if (isSculptureFull(item) || isPostFull(item)) {
+    for (const [key, value] of Object.entries(ImageSize)) {
+      for (const i of item.images) {
+        const photo = {
+          src: `/images/${item.type}${value.FOLDER}/${i.filename}`,
+          width: key === "lg" ? i.width : value.WIDTH,
+          height:
+            key === "lg"
+              ? i.height
+              : Math.round((value.WIDTH * i.height) / i.width),
+          isMain: i.isMain,
+          ...restForPhotoTab(item),
+        };
+
+        if (splitMain && i.isMain)
+          mainPhotos[key as keyof PhotoTab].push(photo);
+        else photos[key as keyof PhotoTab].push(photo);
+      }
+    }
+  }
+  return { mainPhotos, photos };
 };

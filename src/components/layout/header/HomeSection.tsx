@@ -1,7 +1,7 @@
 "use client";
 
 import s from "../../../styles/Header.module.css";
-import { GENERAL } from "@/constants";
+import { GENERAL } from "@/constants/metaHtml";
 import React, { useEffect, useRef, useState } from "react";
 
 interface Props {

@@ -45,7 +45,6 @@ export default function ZoomImage({
   const touch = useRef({ x: 0, y: 0 });
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const observer = useRef();
   const background = useMemo(() => new Image(), []);
   const zoomSensibility = useMemo(
     () => (isSmall ? ZOOM_SENSITIVITY_MOBILE : ZOOM_SENSITIVITY),
@@ -155,7 +154,7 @@ export default function ZoomImage({
 
   const handleMouseUp = () => setIsDragging(false);
 
-  // 1) Set image as background
+  // 1) Set the listener on mount
   useEffect(() => {
     function setCanvasSize() {
       let scale = 1;
@@ -177,42 +176,8 @@ export default function ZoomImage({
         canvasRef.current.width = width;
         canvasRef.current.height = height;
         const context = canvasRef.current.getContext("2d");
-        if (context != null) context.drawImage(background, 0, 0, width, height);
-        setZoom(scale);
-        setZoomMin(scale);
-      }
-    }
-    background.src = photo.src;
-    if (canvasRef.current) {
-      background.onload = () => {
-        setCanvasSize();
-      };
-    }
-  }, [background, photo]);
-
-  // 2) Set the listener
-  useEffect(() => {
-    function setCanvasSize() {
-      let scale = 1;
-
-      if (containerRef.current && canvasRef.current) {
-        if (containerRef.current.clientWidth < photo.width) {
-          scale = containerRef.current.clientWidth / photo.width;
-        }
-
-        if (containerRef.current.clientHeight < photo.height) {
-          scale = Math.min(
-            scale,
-            containerRef.current.clientHeight / photo.height,
-          );
-        }
-
-        const width = photo.width * scale;
-        const height = photo.height * scale;
-        canvasRef.current.width = width;
-        canvasRef.current.height = height;
-        const context = canvasRef.current.getContext("2d");
-        if (context != null) context.drawImage(background, 0, 0, width, height);
+        if (context !== null)
+          context.drawImage(background, 0, 0, width, height);
         setZoom(scale);
         setZoomMin(scale);
       }
@@ -230,6 +195,42 @@ export default function ZoomImage({
       return () => observer.disconnect();
     }
   }, []);
+
+  // 2) Set image as background
+  useEffect(() => {
+    function setCanvasSize() {
+      let scale = 1;
+
+      if (containerRef.current && canvasRef.current) {
+        if (containerRef.current.clientWidth < photo.width) {
+          scale = containerRef.current.clientWidth / photo.width;
+        }
+
+        if (containerRef.current.clientHeight < photo.height) {
+          scale = Math.min(
+            scale,
+            containerRef.current.clientHeight / photo.height,
+          );
+        }
+
+        const width = photo.width * scale;
+        const height = photo.height * scale;
+        canvasRef.current.width = width;
+        canvasRef.current.height = height;
+        const context = canvasRef.current.getContext("2d");
+        if (context !== null)
+          context.drawImage(background, 0, 0, width, height);
+        setZoom(scale);
+        setZoomMin(scale);
+      }
+    }
+    background.src = photo.src;
+    if (canvasRef.current) {
+      background.onload = () => {
+        setCanvasSize();
+      };
+    }
+  }, [background, photo]);
 
   // 3) On zoom or offset changes
   useEffect(() => {
@@ -267,7 +268,8 @@ export default function ZoomImage({
         }
       }
     }
-    draw();
+
+    if (background.width > 0) draw();
   }, [zoom, offset, background]);
 
   return (
@@ -275,6 +277,9 @@ export default function ZoomImage({
       ref={containerRef}
       className={`${s.canvasContainer} ${isActive ? s.active : ""}`}
     >
+      <div className={s.info}>
+        {photo.title} - {new Date(photo.date).getFullYear()}
+      </div>
       {isSmall && (
         <canvas
           onTouchStart={handleTouchStart}

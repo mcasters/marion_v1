@@ -1,72 +1,53 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { TYPE } from "@/constants";
-import { DEVICE, IMAGE_SIZE } from "@/constants/image";
+import React, { useState } from "react";
+import { DEVICE } from "@/constants/image";
 import s from "@/components/image/lightbox/Lightbox.module.css";
-import { Image as IImage } from "@/lib/db/item";
+import { PhotoTab } from "@/lib/db/item";
 import Image from "next/image";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { createPortal } from "react-dom";
 import LightboxContent from "@/components/image/lightbox/LightboxContent";
 
 type Props = {
-  images: IImage[];
-  type: string;
-  alt: string;
+  photos: PhotoTab;
   isCentered?: boolean;
 };
 
-export default function Lightbox({
-  images,
-  type,
-  alt,
-  isCentered = false,
-}: Props) {
-  const oneImage = type === TYPE.PAINTING || images.length === 1;
+export default function Lightbox({ photos, isCentered = false }: Props) {
   const window = useWindowSize();
   const isSmall = window.innerWidth < DEVICE.SMALL;
   const [index, setIndex] = useState(-1);
 
-  const photosForLightbox = useMemo(
-    () =>
-      images.map((image) => {
-        const width = image.width;
-        const height = image.height;
-        return {
-          src: `/images/${type}/${isSmall ? "md/" : ""}${image.filename}`,
-          width: isSmall ? IMAGE_SIZE.MD_PX : width,
-          height: isSmall
-            ? Math.round((height / width) * IMAGE_SIZE.MD_PX)
-            : height,
-          alt,
-        };
-      }),
-    [images, type, alt, isSmall],
-  );
+  const photosForButton = isSmall ? photos.sm : photos.md;
+  const photosForLightbox = isSmall ? photos.md : photos.lg;
 
   return (
     <>
-      <div className={!oneImage ? s.imageGridContainer : s.imageContainer}>
-        {images.map((image, index) => {
+      <div
+        className={
+          photos.sm.length > 1 ? s.imageGridContainer : s.imageContainer
+        }
+      >
+        {photosForButton.map((p, index) => {
           return (
             <button
-              key={image.id}
+              key={p.src}
               className={s.imageWrap}
               type="button"
               onClick={() => {
                 setIndex(index);
               }}
               style={{
-                aspectRatio: image.width / image.height,
+                aspectRatio: p.width / p.height,
               }}
             >
               <Image
-                src={`/images/${type}/${isSmall ? "sm" : "md"}/${image.filename}`}
+                src={p.src}
                 fill
                 priority={isCentered}
                 style={{ objectFit: "contain" }}
-                alt={alt}
+                alt={p.alt}
                 unoptimized
               />
             </button>

@@ -4,19 +4,24 @@ import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/Modal";
 import ItemForm from "@/components/admin/form/ItemForm";
 import CategoryForm from "@/components/admin/form/CategoryForm";
-import { Category, PaintingFull, PostFull, SculptureFull } from "@/lib/db/item";
+import {
+  Category,
+  PaintingFull,
+  PostFull,
+  SculptureFull,
+  Type,
+} from "@/lib/db/item";
 import PostForm from "@/components/admin/form/PostForm";
 import {
   isPaintingFull,
   isPostFull,
   isSculptureFull,
 } from "@/utils/commonUtils";
-import React from "react";
 import UpdateIcon from "@/components/icons/UpdateIcon";
 
 type Props = {
   item: PaintingFull | SculptureFull | Category | PostFull;
-  type: string;
+  type: Type;
   categories?: Category[];
 };
 export default function UpdateButton({ item, type, categories }: Props) {

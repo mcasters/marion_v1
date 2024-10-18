@@ -5,6 +5,7 @@ import React from "react";
 import Image from "next/image";
 import { DEVICE } from "@/constants/image";
 import { ContentFull } from "@/lib/db/item";
+import { GENERAL } from "@/constants/metaHtml";
 
 interface Props {
   presentationContent: ContentFull | null;
@@ -32,7 +33,7 @@ export default function PresentationComponent({
             <Image
               src={`/images/miscellaneous/${isSmall ? "sm" : "md"}/${image.filename}`}
               fill
-              alt="Photographie de présentation de Marion Casters"
+              alt={GENERAL.ALT_PHOTO_PRESENTATION}
               style={{
                 objectFit: "contain",
               }}

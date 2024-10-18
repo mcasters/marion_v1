@@ -4,9 +4,8 @@ import Image from "next/image";
 
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import UpdateButton from "@/components/admin/form/UpdateButton";
-import { TYPE } from "@/constants";
 import s from "../../../styles/admin/AdminList.module.css";
-import { PostFull } from "@/lib/db/item";
+import { PostFull, Type } from "@/lib/db/item";
 import { getMainImage } from "@/utils/commonUtils";
 
 interface Props {
@@ -40,7 +39,7 @@ export default function RowPostListComponent({ post }: Props) {
         )}
       </li>
       <li className={s.itemIcon}>
-        <UpdateButton item={post} type={TYPE.POST} />
+        <UpdateButton item={post} type={Type.POST} />
       </li>
       <li className={s.itemIcon}>
         <DeleteButton api={`api/post/delete/${post.id}`} />

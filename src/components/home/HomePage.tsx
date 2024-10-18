@@ -13,8 +13,8 @@ export type Props = {
 
 export default function HomePage({ portraitImages, landscapeImages }: Props) {
   const window = useWindowSize();
-  const needPortrait = window.innerWidth / window.innerHeight < 0.98;
   const isSmall = window.innerWidth < DEVICE.SMALL;
+  const needPortrait = window.innerWidth / window.innerHeight < 0.98;
 
   const portraitPhotos: Photo[] = useMemo(
     () =>
@@ -28,6 +28,9 @@ export default function HomePage({ portraitImages, landscapeImages }: Props) {
             ? Math.round((height / width) * IMAGE_SIZE.MD_PX)
             : height,
           alt: "Œuvre de Marion Casters",
+          title: "",
+          date: new Date(),
+          isMain: image.isMain,
         };
       }),
     [portraitImages, isSmall],
@@ -45,6 +48,9 @@ export default function HomePage({ portraitImages, landscapeImages }: Props) {
             ? Math.round((height / width) * IMAGE_SIZE.MD_PX)
             : height,
           alt: "Œuvre de Marion Casters",
+          title: "",
+          date: new Date(),
+          isMain: image.isMain,
         };
       }),
     [landscapeImages, isSmall],
