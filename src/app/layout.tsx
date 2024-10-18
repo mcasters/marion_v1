@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-
 import Layout from "@/components/layout/Layout";
 import Providers from "./context/providers";
 import "@/styles/globals.css";
@@ -11,7 +10,7 @@ import React from "react";
 import { getActiveTheme, getPresetColors } from "@/app/api/theme/getTheme";
 import StyledJsxRegistry from "./registry";
 import { DESCRIPTION, DOCUMENT_TITLE, KEYWORDS } from "@/constants/metaHtml";
-import { auth } from "@/lib/auth";
+import { getSession } from "@/app/lib/auth/lib";
 
 export const metadata: Metadata = {
   title: DOCUMENT_TITLE.HOME,
@@ -24,7 +23,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
+  const session = await getSession();
   const contents = await getContentsFull();
   const paintingCategories = await getPaintingCategoriesForMenu();
   const sculptureCategories = await getSculptureCategoriesForMenu();

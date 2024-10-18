@@ -1,49 +1,42 @@
 import prisma from "@/lib/db/prisma";
 import { deleteFile, getSculptureDir } from "@/utils/serverUtils";
-import { auth } from "@/lib/auth";
-import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
   { params }: { params: { id: string } },
 ) {
-  const session = await auth();
-  if (session) {
-    const dir = getSculptureDir();
-    try {
-      const id = Number(params.id);
-      const sculpture = await prisma.sculpture.findUnique({
-        where: { id },
-        include: {
-          images: {
-            select: {
-              filename: true,
-            },
+  const dir = getSculptureDir();
+  try {
+    const id = Number(params.id);
+    const sculpture = await prisma.sculpture.findUnique({
+      where: { id },
+      include: {
+        images: {
+          select: {
+            filename: true,
           },
         },
-      });
-      if (sculpture) {
-        for (const image of sculpture.images) {
-          deleteFile(dir, image.filename);
-          await prisma.sculptureImage.delete({
-            where: {
-              filename: image.filename,
-            },
-          });
-        }
-        await prisma.sculpture.delete({
+      },
+    });
+    if (sculpture) {
+      for (const image of sculpture.images) {
+        deleteFile(dir, image.filename);
+        await prisma.sculptureImage.delete({
           where: {
-            id,
+            filename: image.filename,
           },
         });
       }
-
-      return NextResponse.json({ message: "ok" });
-    } catch (e) {
-      console.log(e);
-      return NextResponse.json({ error: "Error" }, { status: 404 });
+      await prisma.sculpture.delete({
+        where: {
+          id,
+        },
+      });
     }
-  } else {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+
+    return Response.json({ message: "ok" }, { status: 200 });
+  } catch (e) {
+    console.log(e);
+    return Response.json({ error: "Error" }, { status: 404 });
   }
 }

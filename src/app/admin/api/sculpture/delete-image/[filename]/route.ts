@@ -1,30 +1,22 @@
 import prisma from "@/lib/db/prisma";
-import { auth } from "@/lib/auth";
 import { deleteFile, getSculptureDir } from "@/utils/serverUtils";
-import { NextResponse } from "next/server";
 
 export async function GET(
   req: Request,
   { params }: { params: { filename: string } },
 ) {
-  const session = await auth();
+  try {
+    const dir = getSculptureDir();
+    const filename = params.filename;
 
-  if (session) {
-    try {
-      const dir = getSculptureDir();
-      const filename = params.filename;
-
-      if (deleteFile(dir, filename)) {
-        await prisma.sculptureImage.delete({
-          where: { filename },
-        });
-      }
-      return NextResponse.json({ message: "ok" }, { status: 200 });
-    } catch (e) {
-      console.log(e);
-      return NextResponse.json({ error: "Error" }, { status: 404 });
+    if (deleteFile(dir, filename)) {
+      await prisma.sculptureImage.delete({
+        where: { filename },
+      });
     }
-  } else {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    return Response.json({ message: "ok" }, { status: 200 });
+  } catch (e) {
+    console.log(e);
+    return Response.json({ error: "Error" }, { status: 404 });
   }
 }
