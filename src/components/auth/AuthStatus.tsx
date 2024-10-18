@@ -1,25 +1,19 @@
 "use client";
 
-import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 
-import s from "./AuthStatus.module.css";
+import s from "./auth.module.css";
 import { ROUTES } from "@/constants/routes";
+import { useSession } from "@/app/context/sessionProvider";
+import LogoutForm from "@/components/auth/LogoutForm";
 
 export default function AuthStatus() {
-  const { data: session } = useSession();
+  const session = useSession();
 
   return (
     <div>
-      {!session && (
-        <button
-          className="buttonLink"
-          onClick={() => signIn(undefined, { callbackUrl: ROUTES.ADMIN })}
-        >
-          Admin in
-        </button>
-      )}
-      {session?.user && (
+      {!session && <Link href={ROUTES.LOGIN}>Admin</Link>}
+      {session?.user.isAdmin && (
         <>
           <p>
             <small>Signed in as :</small>
@@ -28,14 +22,9 @@ export default function AuthStatus() {
           </p>
           <Link href={ROUTES.ADMIN}>Administration du site</Link>
           <span className={s.separator}>-</span>
-          <button
-            className="buttonLink"
-            onClick={() => signOut({ callbackUrl: ROUTES.HOME })}
-          >
-            Admin out
-          </button>
+          <LogoutForm />
           <span className={s.separator}>-</span>
-          <Link href="/">Home</Link>
+          <Link href={ROUTES.HOME}>Home</Link>
         </>
       )}
     </div>

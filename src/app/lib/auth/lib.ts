@@ -13,7 +13,7 @@ export async function encrypt(payload: any) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
-    .setExpirationTime("4 h from now")
+    .setExpirationTime("4h")
     .sign(key);
 }
 
@@ -33,9 +33,9 @@ export async function login(dataNature: string, formData: FormData) {
         email,
       },
     });
-    if (!user) throw new Error("Utilisateur inexistant");
+    if (!user) throw new Error("Erreur d'authentification");
     bcrypt.compare(password, user.password, (err, res) => {
-      if (err || !res) throw new Error("Mauvais mot de passe");
+      if (err || !res) throw new Error("Erreur d'authentification");
     });
 
     // user

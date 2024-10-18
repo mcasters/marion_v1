@@ -1,0 +1,11 @@
+.container {
+  padding: 6rem 1.5rem;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .container {
+    max-width: 600px;
+    margin: auto;
+  }
+}

@@ -206,9 +206,7 @@ label {
   margin-top: 1rem;
 }
 
-.adminButton,
-[type="submit"],
-[type="reset"] {
+.adminButton {
   width: 220px;
   padding: 0.5rem;
   margin: 0.5rem;
