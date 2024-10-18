@@ -3,11 +3,11 @@
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import UpdateButton from "@/components/admin/form/UpdateButton";
 import s from "../../../../styles/admin/AdminList.module.css";
-import { CategoryFull } from "@/lib/db/item";
+import { CategoryFull, Type } from "@/lib/db/item";
 
 interface Props {
   category: CategoryFull;
-  type: string;
+  type: Type;
 }
 
 export default function RowCategoryListComponent({ category, type }: Props) {

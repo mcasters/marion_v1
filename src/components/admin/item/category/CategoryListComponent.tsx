@@ -3,10 +3,10 @@
 import RowCategoryListComponent from "./RowCategoryListComponent";
 import React from "react";
 import s from "../../../../styles/admin/AdminList.module.css";
-import { CategoryFull } from "@/lib/db/item";
+import { CategoryFull, Type } from "@/lib/db/item";
 
 interface Props {
-  type: string;
+  type: Type;
   categories: CategoryFull[];
 }
 export default function CategoryListComponent({ type, categories }: Props) {

@@ -60,7 +60,7 @@ export default function TextAreaForm({
               apiForDelete="api/content/delete-image"
             />
             <Images
-              onAdd={(count) => setIsChanged(count === 1)}
+              onChange={(count) => setIsChanged(count === 1)}
               isMultiple={false}
               title="Image de présentation (facultative)"
               reset={resetImageRef.current}
