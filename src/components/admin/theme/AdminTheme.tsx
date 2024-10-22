@@ -2,7 +2,6 @@
 
 import React from "react";
 import themeStyle from "../../../styles/admin/AdminTheme.module.css";
-import toast from "react-hot-toast";
 import ThemeAdd from "@/components/admin/theme/ThemeAdd";
 import { THEME } from "@/constants/database";
 import ThemeDashboard from "@/components/admin/theme/ThemeDashboard";
@@ -11,10 +10,12 @@ import ThemeUpdate from "@/components/admin/theme/ThemeUpdate";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
 import { Theme } from "@prisma/client";
+import { useAlert } from "@/app/context/AlertProvider";
 
 export default function AdminTheme() {
   const { themes, setThemes } = useAdminThemesContext();
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
+  const alert = useAlert();
 
   const changeSelectedId = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedTheme: Theme | undefined = themes.find(
@@ -34,11 +35,11 @@ export default function AdminTheme() {
       .then((json) => {
         const activatedTheme = json.activatedTheme;
         if (activatedTheme) {
-          toast.success(`Thème "${activatedTheme.name}" actif`);
+          alert(`Thème "${activatedTheme.name}" actif`);
           setTimeout(function () {
             window.location.reload();
           }, 1500);
-        } else toast.error("Erreur à l'activation du thème");
+        } else alert("Erreur à l'activation du thème", true);
       });
   };
 
@@ -59,7 +60,7 @@ export default function AdminTheme() {
           const updatedThemes: Theme[] = json.updatedThemes;
           if (updatedThemes) {
             setThemes(updatedThemes);
-            toast.success(`Thème "${workTheme.name}" supprimé`);
+            alert(`Thème "${workTheme.name}" supprimé`);
             if (workTheme.isActive) {
               setTimeout(function () {
                 window.location.reload();
@@ -68,7 +69,7 @@ export default function AdminTheme() {
               const activeTheme = updatedThemes.find((t: Theme) => t.isActive);
               if (activeTheme) setWorkTheme({ ...activeTheme });
             }
-          } else toast.error("Erreur à la suppression du thème");
+          } else alert("Erreur à la suppression du thème", true);
         });
     }
   };

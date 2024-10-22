@@ -33,9 +33,9 @@ export async function login(dataNature: string, formData: FormData) {
         email,
       },
     });
-    if (!user) throw new Error("Erreur d'authentification");
+    if (!user) throw new Error("Utilisateur inexistant");
     bcrypt.compare(password, user.password, (err, res) => {
-      if (err || !res) throw new Error("Erreur d'authentification");
+      if (err || !res) throw new Error("Mauvais mot de passe");
     });
 
     // user

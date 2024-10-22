@@ -1,15 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 import s from "@/styles/admin/AdminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
+import { useAlert } from "@/app/context/AlertProvider";
 
 export default function ThemeAdd() {
   const { setThemes } = useAdminThemesContext();
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const [themeName, setThemeName] = useState<string>("");
+  const alert = useAlert();
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,8 +33,8 @@ export default function ThemeAdd() {
             setThemes(themes);
             setWorkTheme(newTheme);
             setThemeName("");
-            toast.success(`Thème "${themeName}" sauvegardé`);
-          } else toast.error("Erreur à l'enregistrement du thème");
+            alert(`Thème "${themeName}" sauvegardé`);
+          } else alert("Erreur à l'enregistrement du thème", true);
         });
     }
   };

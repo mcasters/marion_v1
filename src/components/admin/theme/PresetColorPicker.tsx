@@ -2,7 +2,6 @@
 
 import s from "@/styles/admin/AdminTheme.module.css";
 import React, { useState } from "react";
-import toast from "react-hot-toast";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import Modal from "@/components/admin/form/modal/Modal";
@@ -12,6 +11,7 @@ import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
 import { useAdminPresetColorsContext } from "@/app/context/adminPresetColorsProvider";
 import CancelButton from "@/components/admin/form/CancelButton";
 import DeleteIcon from "@/components/icons/DeleteIcon";
+import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
   presetColor: PresetColor;
@@ -22,6 +22,7 @@ export default function PresetColorPicker({ presetColor }: Props) {
   const { setThemes } = useAdminThemesContext();
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const { setPresetColors } = useAdminPresetColorsContext();
+  const alert = useAlert();
   const [currentPresetColor, setCurrentPresetColor] =
     useState<PresetColor>(presetColor);
 
@@ -39,8 +40,8 @@ export default function PresetColorPicker({ presetColor }: Props) {
         if (updatedPresetColors) {
           setPresetColors(updatedPresetColors);
           toggle();
-          toast.success("Couleur perso mise à jour");
-        } else toast.error(`Erreur à l'enregistrement`);
+          alert("Couleur perso mise à jour");
+        } else alert("Erreur à l'enregistrement", true);
       });
   };
 
@@ -58,8 +59,8 @@ export default function PresetColorPicker({ presetColor }: Props) {
               (t: Theme) => t.id === workTheme.id,
             );
             if (workThemeUpdated) setWorkTheme({ ...workThemeUpdated });
-            toast.success("Couleur perso supprimée");
-          } else toast.error("Erreur à la suppression");
+            alert("Couleur perso supprimée");
+          } else alert("Erreur à la suppression", true);
         });
     }
   };
@@ -82,7 +83,10 @@ export default function PresetColorPicker({ presetColor }: Props) {
         <Modal isOpen={isOpen} toggle={toggle}>
           <div className={s.colorPicker}>
             <h3>Modification : {presetColor.name}</h3>
-            <p>(s&apos;appliquera à toutes les couleurs perso du thème)</p>
+            <p>
+              (s&apos;appliquera à toutes les couleurs "{presetColor.name}" du
+              thème)
+            </p>
             <div className={s.picker}>
               <HexColorPicker
                 color={currentPresetColor.color}

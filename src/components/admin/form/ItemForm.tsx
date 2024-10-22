@@ -2,7 +2,6 @@
 
 import React, { useRef, useState } from "react";
 import { parse } from "date-fns";
-import toast from "react-hot-toast";
 import s from "@/styles/admin/Admin.module.css";
 import { Category, PaintingFull, SculptureFull, Type } from "@/lib/db/item";
 import { getImageTab, isSculptureFull } from "@/utils/commonUtils";
@@ -11,6 +10,7 @@ import Preview from "@/components/admin/form/imageForm/Preview";
 import CancelButton from "@/components/admin/form/CancelButton";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import { useRouter } from "next/navigation";
+import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
   item?: SculptureFull | PaintingFull;
@@ -28,6 +28,7 @@ export default function ItemForm({
   const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const resetImageRef = useRef<number>(0);
+  const alert = useAlert();
 
   const isSculpture =
     item?.type === Type.SCULPTURE || typeAdd === Type.SCULPTURE;
@@ -74,9 +75,9 @@ export default function ItemForm({
       fetch(api, { method: "POST", body: formData }).then((res) => {
         if (res.ok) {
           toggleModal ? toggleModal() : reset();
-          toast.success(item ? `${item.type} modifiée` : `${typeAdd} ajoutée`);
+          alert(item ? `${item.type} modifiée` : `${typeAdd} ajoutée`);
           router.refresh();
-        } else toast.error("Erreur à l'enregistrement");
+        } else alert("Erreur à l'enregistrment", true);
       });
     }
   };

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { FileUploaderButton } from "@/components/admin/form/imageForm/FileUploaderButton";
 import s from "@/styles/admin/Admin.module.css";
-import toast from "react-hot-toast";
+import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
   onChange?: (arg0: number) => void;
@@ -16,6 +16,7 @@ interface Props {
 
 export default function Images({ onChange, reset, isMultiple, title }: Props) {
   const [newImages, setNewImages] = useState<string[]>([]);
+  const alert = useAlert();
 
   useEffect(() => {
     if (reset !== undefined) setNewImages([]);
@@ -31,8 +32,9 @@ export default function Images({ onChange, reset, isMultiple, title }: Props) {
         const bmp = await createImageBitmap(file);
         const { width, height } = bmp;
         if (width < 2000) {
-          toast.error(
+          alert(
             `Dimensions de l'image ${file.name} trop petites : largeur de 2000 pixels minimum`,
+            true,
           );
           bmp.close();
           error = true;

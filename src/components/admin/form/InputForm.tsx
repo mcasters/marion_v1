@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import toast from "react-hot-toast";
 import s from "@/styles/admin/Admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
+import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
   label: string;
@@ -25,6 +25,7 @@ export default function InputForm({
   const [text, setText] = useState<string>(textContent);
   const [isChanged, setIsChanged] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const alert = useAlert();
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,9 +36,9 @@ export default function InputForm({
         body: formData,
       }).then((res) => {
         if (res.ok) {
-          toast.success("Enregistré");
+          alert("Enregistré");
           setIsChanged(false);
-        } else toast.error("Erreur à l'enregistrement");
+        } else alert("Erreur à l'enregistrement", true);
       });
     }
   };

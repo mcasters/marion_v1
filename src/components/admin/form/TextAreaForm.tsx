@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import toast from "react-hot-toast";
 import { Label } from "@prisma/client";
 import s from "@/styles/admin/Admin.module.css";
 import Images from "@/components/admin/form/imageForm/Images";
@@ -9,6 +8,7 @@ import Preview from "@/components/admin/form/imageForm/Preview";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { Image } from "@/lib/db/item";
+import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
   label: Label;
@@ -28,6 +28,7 @@ export default function TextAreaForm({
   const [isChanged, setIsChanged] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const resetImageRef = useRef<number>(0);
+  const alert = useAlert();
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,13 +39,13 @@ export default function TextAreaForm({
         body: formData,
       }).then((res) => {
         if (res.ok) {
-          toast.success("Contenu modifié");
+          alert("Contenu modifié");
           resetImageRef.current = resetImageRef.current + 1;
           setTimeout(function () {
             window.location.reload();
           }, 1500);
           setIsChanged(false);
-        } else toast("Erreur à l'enregistrement");
+        } else alert("Erreur à l'enregistrement", true);
       });
     }
   };

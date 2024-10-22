@@ -2,7 +2,6 @@
 
 import React, { useRef, useState } from "react";
 import { parse } from "date-fns";
-import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 import Images from "@/components/admin/form/imageForm/Images";
@@ -12,6 +11,7 @@ import { getMainImage } from "@/utils/commonUtils";
 import Preview from "@/components/admin/form/imageForm/Preview";
 import CancelButton from "@/components/admin/form/CancelButton";
 import SubmitButton from "@/components/admin/form/SubmitButton";
+import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
   post?: PostFull;
@@ -23,6 +23,7 @@ export default function PostForm({ post, toggleModal }: Props) {
   const resetMainImageRef = useRef<number>(0);
   const resetImagesRef = useRef<number>(0);
   const router = useRouter();
+  const alert = useAlert();
   const api = post ? `api/post/update` : `api/post/add`;
 
   const [title, setTitle] = useState<string>(post?.title || "");
@@ -49,9 +50,9 @@ export default function PostForm({ post, toggleModal }: Props) {
       fetch(api, { method: "POST", body: formData }).then((res) => {
         if (res.ok) {
           reset();
-          toast.success(post ? "Post modifié" : "Post ajouté");
+          alert(post ? "Post modifié" : "Post ajouté");
           router.refresh();
-        } else toast.error("Erreur à l'enregistrement");
+        } else alert("Erreur à l'enregistrement", true);
       });
     }
   };

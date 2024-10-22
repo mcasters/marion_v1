@@ -10,8 +10,8 @@ import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { OnlyString } from "@/lib/db/theme";
 import { colorNameToHex } from "@/utils/commonUtils";
 import ColorPickerPresetColor from "@/components/admin/theme/ColorPicketPresetPart";
-import toast from "react-hot-toast";
 import { useAdminPresetColorsContext } from "@/app/context/adminPresetColorsProvider";
+import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
   label: string;
@@ -27,6 +27,7 @@ export default function ColorPicker({
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const { presetColors, setPresetColors } = useAdminPresetColorsContext();
   const { isOpen, toggle } = useModal();
+  const alert = useAlert();
 
   const handleChange = (color: string): void => {
     const updatedWorkTheme = { ...workTheme };
@@ -51,8 +52,8 @@ export default function ColorPicker({
         if (updatedPresetColors) {
           setPresetColors(updatedPresetColors);
           handleChange(colorName);
-          toast.success("Couleur perso enregistrée");
-        } else toast.error(`Erreur à l'enregistrement`);
+          alert("Couleur perso enregistrée");
+        } else alert("Erreur à l'enregistrement", true);
       });
   };
 

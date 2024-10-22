@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import toast from "react-hot-toast";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import Images from "@/components/admin/form/imageForm/Images";
+import { useAlert } from "@/app/context/AlertProvider";
 
 type Props = {
   isMultiple: boolean;
@@ -23,6 +23,7 @@ export default function ImagesForm({
 }: Props) {
   const [toUpdate, setToUpdate] = useState(0);
   const formRef = useRef<HTMLFormElement>(null);
+  const alert = useAlert();
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,11 +34,11 @@ export default function ImagesForm({
         body: formData,
       }).then((res) => {
         if (res.ok) {
-          toast.success("Contenu modifié");
+          alert("Contenu modifié");
           setTimeout(function () {
             window.location.reload();
           }, 1500);
-        } else toast.error("Erreur à l'enregistrement");
+        } else alert("Erreur à l'enregistrement", true);
       });
     }
   };

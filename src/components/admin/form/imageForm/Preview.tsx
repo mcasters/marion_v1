@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import toast from "react-hot-toast";
 import s from "@/styles/admin/Admin.module.css";
 import { Image as IImage } from "@/lib/db/item";
 import DeleteIcon from "@/components/icons/DeleteIcon";
+import { useAlert } from "@/app/context/AlertProvider";
 
 type Props = {
   images: IImage[];
@@ -22,6 +22,7 @@ export default function Preview({
   onDelete,
   textLabel,
 }: Props) {
+  const alert = useAlert();
   const [existantFilenames, setExistantFilenames] = useState<string[]>(
     images.map((i) => i.filename),
   );
@@ -35,8 +36,8 @@ export default function Preview({
           });
           setExistantFilenames(tab);
           if (onDelete !== undefined) onDelete(tab.length);
-          toast.success("Image supprimée");
-        } else toast.error("Erreur à la suppression");
+          alert("Image supprimée");
+        } else alert("Erreur à la suppression", true);
       });
     }
   };

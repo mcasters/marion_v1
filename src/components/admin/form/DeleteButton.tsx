@@ -1,9 +1,9 @@
 "use client";
 
-import toast from "react-hot-toast";
 import React from "react";
 import { useRouter } from "next/navigation";
 import DeleteIcon from "@/components/icons/DeleteIcon";
+import { useAlert } from "@/app/context/AlertProvider";
 
 type Props = {
   api: string;
@@ -11,14 +11,15 @@ type Props = {
 };
 export default function DeleteButton({ api, disabled }: Props) {
   const router = useRouter();
+  const alert = useAlert();
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (confirm("Sûr de vouloir supprimer ?")) {
       fetch(api).then((res) => {
         if (res.ok) {
-          toast.success("supprimé");
+          alert("Supprimé");
           router.refresh();
-        } else toast.error("Erreur à la suppression");
+        } else alert("Erreur à la suppression", true);
       });
     }
   };

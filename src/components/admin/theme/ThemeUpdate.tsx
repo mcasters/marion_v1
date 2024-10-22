@@ -1,15 +1,16 @@
 "use client";
 
 import React from "react";
-import toast from "react-hot-toast";
 import s from "@/styles/admin/AdminTheme.module.css";
 import { THEME } from "@/constants/database";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
+import { useAlert } from "@/app/context/AlertProvider";
 
 export default function ThemeUpdate() {
   const { setThemes } = useAdminThemesContext();
   const { workTheme } = useAdminWorkThemeContext();
+  const alert = useAlert();
   const name = workTheme.name;
   const isBaseTheme = name === THEME.BASE_THEME;
 
@@ -25,7 +26,7 @@ export default function ThemeUpdate() {
       .then((json) => {
         const themes = json.themes;
         if (themes) {
-          toast.success(`Thème "${workTheme.name}" mis à jour`);
+          alert(`Thème "${workTheme.name}" mis à jour`);
           if (workTheme.isActive) {
             setTimeout(function () {
               window.location.reload();
@@ -33,7 +34,7 @@ export default function ThemeUpdate() {
           } else {
             setThemes(themes);
           }
-        } else toast.error("Erreur à la mise à jour du thème");
+        } else alert("Erreur à la mise à jour du thème", true);
       });
   };
 
