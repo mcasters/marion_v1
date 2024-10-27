@@ -41,7 +41,9 @@ export async function POST(req: Request) {
       const files = formData.getAll("files") as File[];
       for (const file of files) {
         if (file.size > 0) {
-          const fileInfo = await resizeAndSaveImage(file, dir);
+          const isMain = formData.get("isMain") === "true";
+          const title = isMain ? "mobileSlider" : "desktopSlider";
+          const fileInfo = await resizeAndSaveImage(file, title, dir);
           if (fileInfo) {
             await prisma.content.update({
               where: { id: content.id },
@@ -51,7 +53,7 @@ export async function POST(req: Request) {
                     filename: fileInfo.filename,
                     width: fileInfo.width,
                     height: fileInfo.height,
-                    isMain: formData.get("isMain") === "true",
+                    isMain,
                   },
                 },
               },
@@ -99,7 +101,7 @@ export async function POST(req: Request) {
             });
           }
 
-          const fileInfo = await resizeAndSaveImage(file, dir);
+          const fileInfo = await resizeAndSaveImage(file, "presentation", dir);
           if (fileInfo) {
             await prisma.content.update({
               where: { id: content.id },

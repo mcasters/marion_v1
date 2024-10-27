@@ -1,6 +1,10 @@
 import { parse } from "date-fns";
 
-import { getSculptureDir, resizeAndSaveImage } from "@/utils/serverUtils";
+import {
+  deleteFile,
+  getSculptureDir,
+  resizeAndSaveImage,
+} from "@/utils/serverUtils";
 import prisma from "@/lib/db/prisma";
 
 export async function POST(req: Request) {
@@ -14,11 +18,21 @@ export async function POST(req: Request) {
     });
 
     if (oldSculpt) {
+      const filenamesToDelete = formData.get("filenamesToDelete") as string;
+      for await (const filename of filenamesToDelete.split(",")) {
+        if (deleteFile(dir, filename)) {
+          await prisma.sculptureImage.delete({
+            where: { filename },
+          });
+        }
+      }
+
       const files = formData.getAll("files") as File[];
+      const title = formData.get("title") as string;
       let images = [];
       for (const file of files) {
         if (file.size > 0) {
-          const fileInfo = await resizeAndSaveImage(file, dir);
+          const fileInfo = await resizeAndSaveImage(file, title, dir);
           if (fileInfo)
             images.push({
               filename: fileInfo.filename,
@@ -46,7 +60,7 @@ export async function POST(req: Request) {
       await prisma.sculpture.update({
         where: { id: id },
         data: {
-          title: formData.get("title") as string,
+          title,
           date: parse(formData.get("date") as string, "yyyy", new Date()),
           technique: formData.get("technique") as string,
           description: formData.get("description") as string,

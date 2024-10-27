@@ -11,6 +11,10 @@
     margin: 1rem 0;
 }
 
+.errorMessage {
+    color: red;
+}
+
 .logoutForm {
     display: inline;
 }

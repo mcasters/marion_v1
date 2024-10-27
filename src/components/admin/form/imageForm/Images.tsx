@@ -11,10 +11,17 @@ interface Props {
   onChange?: (arg0: number) => void;
   reset?: number;
   isMultiple: boolean;
+  minWidth?: boolean;
   title?: string;
 }
 
-export default function Images({ onChange, reset, isMultiple, title }: Props) {
+export default function Images({
+  onChange,
+  reset,
+  isMultiple,
+  minWidth = true,
+  title,
+}: Props) {
   const [newImages, setNewImages] = useState<string[]>([]);
   const alert = useAlert();
 
@@ -31,9 +38,9 @@ export default function Images({ onChange, reset, isMultiple, title }: Props) {
       for await (const file of files) {
         const bmp = await createImageBitmap(file);
         const { width, height } = bmp;
-        if (width < 2000) {
+        if (minWidth && width < 2000) {
           alert(
-            `Dimensions de l'image ${file.name} trop petites : largeur de 2000 pixels minimum`,
+            `La dimension de l'image ${file.name} est trop petite. Largeur minimum : 2000 pixels`,
             true,
           );
           bmp.close();
@@ -52,9 +59,7 @@ export default function Images({ onChange, reset, isMultiple, title }: Props) {
 
   return (
     <>
-      <p className={s.imageTitle}>
-        {title !== undefined ? title : isMultiple ? "Images :" : "Image :"}
-      </p>
+      <p className={s.imageTitle}>{title}</p>
       <FileUploaderButton
         name={isMultiple ? "files" : "file"}
         handleFiles={handleFiles}

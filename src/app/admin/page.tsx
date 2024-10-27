@@ -18,7 +18,7 @@ export default async function Page() {
 
   const accessDenied = !isAdmin;
   if (accessDenied) {
-    redirect("/login");
+    redirect("/home");
   }
 
   if (isAdmin) {

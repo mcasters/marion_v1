@@ -12,11 +12,12 @@ export async function POST(req: Request) {
     createDirIfNecessary(dir);
     const formData = await req.formData();
     const file = formData.get("file");
-    const fileInfo = await resizeAndSaveImage(file, dir);
+    const title = formData.get("title") as string;
+    const fileInfo = await resizeAndSaveImage(file, title, dir);
     if (fileInfo) {
       const newPainting = await prisma.painting.create({
         data: {
-          title: formData.get("title") as string,
+          title,
           date: parse(formData.get("date") as string, "yyyy", new Date()),
           technique: formData.get("technique") as string,
           description: formData.get("description") as string,

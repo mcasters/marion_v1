@@ -1,41 +1,31 @@
 "use server";
 
-import { login, logout } from "@/app/lib/auth/lib";
+import { removeCookie, setCookie } from "@/app/lib/auth/lib";
 import { redirect } from "next/navigation";
+import prisma from "@/lib/db/prisma";
+import bcrypt from "bcryptjs";
 
-export async function loginAction(prevState: unknown, formData: FormData) {
-  try {
-    await login("credentials", formData);
-  } catch (error) {
-    if (error) {
-      return error.message;
-    }
-  }
+export async function loginAction(
+  prevState: { message: string },
+  formData: FormData,
+) {
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+  const user = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  });
+  if (!user) return { message: "Erreur d'authentification" };
+  const res = await bcrypt.compare(password, user.password);
+  if (!res) return { message: "Erreur d'authentification" };
+
+  await setCookie(user);
   redirect("/admin");
+  return { message: "Authentification" };
 }
 
 export async function logoutAction() {
-  try {
-    await logout();
-  } catch (error) {
-    if (error) {
-      return error.message;
-    }
-  }
+  await removeCookie();
   redirect("/");
 }
-
-// export async function serverAction() {
-//   const session = await getSession();
-//   const isAdmin = session?.user?.isAdmin;
-//
-//   // Check if user is authorized to perform the action
-//   if (!isAdmin) {
-//     throw new Error(
-//       "Unauthorized access: User does not have admin privileges.",
-//     );
-//   }
-//
-//   // Proceed with the action for authorized users
-//   // ... implementation of the action
-// }

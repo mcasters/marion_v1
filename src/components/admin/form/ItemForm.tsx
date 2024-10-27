@@ -48,9 +48,7 @@ export default function ItemForm({
   const [length, setLength] = useState<string>(
     !item ? "" : isSculptureFull(item) ? item.length.toString() : "",
   );
-  const [countImages, setCountImages] = useState<number>(
-    !item ? 0 : isSculptureFull(item) ? item.images.length : 1,
-  );
+  const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const api = item ? `api/${item.type}/update` : `api/${typeAdd}/add`;
 
   const reset = () => {
@@ -75,15 +73,11 @@ export default function ItemForm({
       fetch(api, { method: "POST", body: formData }).then((res) => {
         if (res.ok) {
           toggleModal ? toggleModal() : reset();
-          alert(item ? `${item.type} modifiée` : `${typeAdd} ajoutée`);
+          alert(item ? `${item.type} modifiée` : `${typeAdd} ajoutée`, false);
           router.refresh();
-        } else alert("Erreur à l'enregistrment", true);
+        } else alert("Erreur à l'enregistrement", true);
       });
     }
-  };
-
-  const handleAdd = (number: number) => {
-    setCountImages((prevState) => prevState + number);
   };
 
   return (
@@ -91,6 +85,13 @@ export default function ItemForm({
       <h2>{item ? `Modifier une ${item.type}` : `Ajouter une ${typeAdd}`}</h2>
       <form ref={formRef} onSubmit={submit}>
         {item && <input type="hidden" name="id" value={item.id} />}
+        {item && (
+          <input
+            type="hidden"
+            name="filenamesToDelete"
+            value={filenamesToDelete}
+          />
+        )}
         <input type="hidden" name="isToSell" value={String(isToSell)} />
         <label className={s.formLabel}>
           Titre
@@ -207,16 +208,12 @@ export default function ItemForm({
             <Preview
               images={getImageTab(item)}
               pathImage={`/images/${item.type}`}
-              apiForDelete={
-                isSculpture && countImages > 1
-                  ? `api/${item.type}/delete-image`
-                  : undefined
+              onDelete={(filename) =>
+                setFilenamesToDelete([...filenamesToDelete, filename])
               }
-              onDelete={setCountImages}
             />
           )}
           <Images
-            onChange={handleAdd}
             isMultiple={isSculpture}
             title={isSculpture ? "1 photo minimum" : "1 seule photo"}
             reset={resetImageRef.current}
@@ -231,8 +228,7 @@ export default function ItemForm({
               !height ||
               !width ||
               (isSculpture && !length) ||
-              (isToSell && !price) ||
-              countImages === 0
+              (isToSell && !price)
             }
           />
           <CancelButton onCancel={reset} />

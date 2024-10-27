@@ -14,9 +14,10 @@ export async function POST(req: Request) {
     const formData = await req.formData();
 
     const mainFile = formData.get("file") as File;
+    const title = formData.get("title") as string;
     let images = [];
     if (mainFile.size > 0) {
-      const fileInfo = await resizeAndSaveImage(mainFile, dir);
+      const fileInfo = await resizeAndSaveImage(mainFile, title, dir);
       if (fileInfo)
         images.push({
           filename: fileInfo.filename,
@@ -28,7 +29,7 @@ export async function POST(req: Request) {
     const files = formData.getAll("files") as File[];
     for (const file of files) {
       if (file.size > 0) {
-        const fileInfo = await resizeAndSaveImage(file, dir);
+        const fileInfo = await resizeAndSaveImage(file, title, dir);
         if (fileInfo)
           images.push({
             filename: fileInfo.filename,
@@ -40,7 +41,7 @@ export async function POST(req: Request) {
 
     await prisma.post.create({
       data: {
-        title: formData.get("title") as string,
+        title,
         date: parse(formData.get("date") as string, "yyyy", new Date()),
         text: formData.get("text") as string,
         images: {

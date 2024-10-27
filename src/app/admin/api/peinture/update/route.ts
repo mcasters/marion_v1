@@ -19,9 +19,10 @@ export async function POST(req: Request) {
     if (oldPaint) {
       let fileInfo = null;
       const newFile = formData.get("file") as File;
+      const title = formData.get("title") as string;
       if (newFile.size !== 0) {
         deleteFile(dir, oldPaint.imageFilename);
-        fileInfo = await resizeAndSaveImage(newFile, dir);
+        fileInfo = await resizeAndSaveImage(newFile, title, dir);
       }
 
       const category =
@@ -42,7 +43,7 @@ export async function POST(req: Request) {
       await prisma.painting.update({
         where: { id: id },
         data: {
-          title: formData.get("title") as string,
+          title,
           date: parse(formData.get("date") as string, "yyyy", new Date()),
           technique: formData.get("technique") as string,
           description: formData.get("description") as string,

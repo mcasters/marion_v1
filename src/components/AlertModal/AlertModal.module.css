@@ -2,7 +2,7 @@
     position: fixed;
     inset: 0;
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     justify-content: center;
     z-index: 5;
     margin-top: 70px;
@@ -10,9 +10,9 @@
 
 .content {
     position: relative;
-    min-width: 220px;
-    max-width: 300px;
-    padding: 20px;
+    min-width: 250px;
+    max-width: 400px;
+    padding: 20px 30px;
     box-shadow: 0 0 7px rgba(0, 0, 0, 0.5);
     border-radius: 5px;
     text-align: left;
@@ -21,19 +21,19 @@
 
 .icon svg {
     position: absolute;
-    top: 5px;
+    top: 15px;
     left: 5px;
     width: 30px;
 }
 
 .message {
     position: relative;
-    padding: 20px 0 0;
+    padding: 0 20px 0;
 }
 
 .closeButton {
     position: absolute;
     right: 5px;
-    top: 5px;
+    top: 15px;
 
 }
