@@ -11,6 +11,7 @@ import { getActiveTheme, getPresetColors } from "@/app/api/theme/getTheme";
 import StyledJsxRegistry from "./registry";
 import { DESCRIPTION, DOCUMENT_TITLE, KEYWORDS } from "@/constants/metaHtml";
 import { getSession } from "@/app/lib/auth/lib";
+import { getDrawingCategoriesForMenu } from "@/app/api/dessin/category/getCategories";
 
 export const metadata: Metadata = {
   title: DOCUMENT_TITLE.HOME,
@@ -27,6 +28,7 @@ export default async function RootLayout({
   const contents = await getContentsFull();
   const paintingCategories = await getPaintingCategoriesForMenu();
   const sculptureCategories = await getSculptureCategoriesForMenu();
+  const drawingCategories = await getDrawingCategoriesForMenu();
   const theme = await getActiveTheme();
   const presetColors = await getPresetColors();
   const hexaTheme = themeToHexa(theme, presetColors);
@@ -40,6 +42,7 @@ export default async function RootLayout({
               introduction={getIntroText(contents)}
               paintingCategories={paintingCategories}
               sculptureCategories={sculptureCategories}
+              drawingCategories={drawingCategories}
             >
               {children}
             </Layout>

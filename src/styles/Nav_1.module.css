@@ -39,8 +39,9 @@
 /* desktop */
 @media (min-width: 769px) {
     .ul{
-        width: 420px;
-        margin: auto;
+        display: inline-flex;
+        width: 540px;
+        padding: 0 5em;
     }
 }
 

@@ -10,12 +10,14 @@ interface Props {
   navLayout: string;
   paintingCategories: Category[];
   sculptureCategories: Category[];
+  drawingCategories: Category[];
 }
 
 export default function Nav_1({
   navLayout,
   paintingCategories,
   sculptureCategories,
+  drawingCategories,
 }: Props) {
   const theme = useTheme();
 
@@ -36,7 +38,9 @@ export default function Nav_1({
                       ? sculptureCategories
                       : name === NAMES.PAINTING
                         ? paintingCategories
-                        : []
+                        : name === NAMES.DRAWING
+                          ? drawingCategories
+                          : []
                   }
                 />
               </li>

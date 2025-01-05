@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import s from "./DropDown.module.css";
+import s from "./NavItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { Category } from "@/lib/db/item";
 import { MENU_1_ITEMS } from "@/constants/routes";

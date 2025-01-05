@@ -10,6 +10,13 @@ export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
       },
     },
   });
+
+  const updatedTab = res.map((categorie) => {
+    const { _count, ...rest } = categorie;
+    return { count: _count.drawings, ...rest };
+  });
+
+  return JSON.parse(JSON.stringify(updatedTab));
 }
 
 export async function getDrawingCategoriesForMenu(): Promise<Category[]> {

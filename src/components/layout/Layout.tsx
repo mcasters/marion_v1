@@ -16,6 +16,7 @@ interface Props {
   introduction: string;
   paintingCategories: Category[];
   sculptureCategories: Category[];
+  drawingCategories: Category[];
   children: ReactNode;
 }
 
@@ -23,6 +24,7 @@ export default function Layout({
   introduction,
   paintingCategories,
   sculptureCategories,
+  drawingCategories,
   children,
 }: Props) {
   const theme = useTheme();
@@ -31,6 +33,7 @@ export default function Layout({
   const isHome = basePath === BASE_PATH.HOME;
   const isPainting = basePath === BASE_PATH.PAINTING;
   const isSculpture = basePath === BASE_PATH.SCULPTURE;
+  const isDrawing = basePath === BASE_PATH.DRAWING;
   const isAdmin = basePath === BASE_PATH.ADMIN;
 
   const gradientRgbObject = hexToRgb(theme.menu1HomeColor);
@@ -39,7 +42,7 @@ export default function Layout({
   return (
     <div
       className={
-        isPainting || isSculpture
+        isPainting || isSculpture || isDrawing
           ? `${s.itemWrapper} itemWrapper`
           : `${s.wrapper} wrapper`
       }
@@ -59,6 +62,7 @@ export default function Layout({
             introduction={introduction}
             paintingCategories={paintingCategories}
             sculptureCategories={sculptureCategories}
+            drawingCategories={drawingCategories}
           />
           <Main isHome={isHome}>{children}</Main>
           <Footer />

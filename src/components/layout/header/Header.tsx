@@ -15,6 +15,7 @@ interface Props {
   introduction?: string;
   paintingCategories: Category[];
   sculptureCategories: Category[];
+  drawingCategories: Category[];
 }
 
 export default function Header({
@@ -22,6 +23,7 @@ export default function Header({
   introduction,
   paintingCategories,
   sculptureCategories,
+  drawingCategories,
 }: Props) {
   const theme = useTheme();
   const isHome = basePath == BASE_PATH.HOME;
@@ -50,6 +52,7 @@ export default function Header({
         }
         paintingCategories={paintingCategories}
         sculptureCategories={sculptureCategories}
+        drawingCategories={drawingCategories}
       />
       <div
         style={{

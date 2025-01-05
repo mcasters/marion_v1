@@ -16,7 +16,9 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
-      <h2 className={s.categoryTitle}>{categoryTitle}</h2>
+      <h2 className={`${s.categoryTitle} ${s.paintingCategoryTitle}`}>
+        {categoryTitle}
+      </h2>
       {drawings.map((drawing) => (
         <ItemComponent key={drawing.id} item={drawing} />
       ))}

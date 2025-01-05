@@ -2,34 +2,38 @@ import prisma from "@/lib/db/prisma";
 import { deleteFile, getPostDir } from "@/utils/serverUtils";
 
 export async function GET(
-  req: Request,
-  { params }: { params: Promise<{ filename: string }> },
+  request: Request,
+  { params }: { params: Promise<{ id: string }> },
 ) {
+  const dir = getPostDir();
   try {
-    const filename = (await params).filename;
-    const dir = getPostDir();
-
-    const post = await prisma.post.findFirst({
-      where: {
+    const id = Number((await params).id);
+    const post = await prisma.post.findUnique({
+      where: { id },
+      include: {
         images: {
-          some: {
-            filename,
+          select: {
+            filename: true,
           },
         },
       },
     });
 
     if (post) {
-      if (deleteFile(dir, filename)) {
-        await prisma.post.update({
-          where: { id: post.id },
-          data: {
-            images: {
-              delete: { filename },
-            },
-          },
-        });
+      for (const image of post.images) {
+        deleteFile(dir, image.filename);
       }
+      await prisma.post.update({
+        where: { id },
+        data: {
+          images: {
+            delete: post.images,
+          },
+        },
+      });
+      await prisma.post.delete({
+        where: { id },
+      });
     }
     return Response.json({ message: "ok" }, { status: 200 });
   } catch (e) {
