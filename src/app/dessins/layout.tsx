@@ -13,7 +13,7 @@ export default async function layout({ children }: { children: ReactNode }) {
     <>
       <div className={s.container}>
         <h1 className="hidden">Les dessins</h1>
-        {children}
+        <div className={s.paintingContent}>{children}</div>
       </div>
     </>
   );

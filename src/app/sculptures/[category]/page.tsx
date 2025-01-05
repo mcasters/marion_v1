@@ -2,14 +2,15 @@ import ItemComponent from "@/components/item/ItemComponent";
 import { getSculpturesFullByCategory } from "@/app/api/sculpture/getSculptures";
 import s from "@/styles/ItemPage.module.css";
 
-export default async function Page({
-  params,
-}: {
-  params: { category: string };
-}) {
-  const sculptures = await getSculpturesFullByCategory(params.category);
+type Props = {
+  params: Promise<{ category: string }>;
+};
+
+export default async function Page({ params }: Props) {
+  const category = (await params).category;
+  const sculptures = await getSculpturesFullByCategory(category);
   const categoryTitle =
-    params.category === "no-category"
+    category === "no-category"
       ? "Sans catégorie"
       : sculptures[0]?.category?.value;
 

@@ -3,11 +3,11 @@ import { deleteFile, getPostDir } from "@/utils/serverUtils";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const dir = getPostDir();
   try {
-    const id = Number(params.id);
+    const id = Number((await params).id);
     const post = await prisma.post.findUnique({
       where: { id },
       include: {

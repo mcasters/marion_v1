@@ -2,10 +2,10 @@ import prisma from "@/lib/db/prisma";
 
 export async function POST(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const id = parseInt(params.id);
+    const id = parseInt((await params).id);
     const activatedTheme = await prisma.theme.update({
       where: {
         id,

@@ -3,14 +3,18 @@
 import React, { useRef, useState } from "react";
 
 import s from "@/styles/admin/Admin.module.css";
-import { PaintingCategory, SculptureCategory } from "@prisma/client";
+import {
+  DrawingCategory,
+  PaintingCategory,
+  SculptureCategory,
+} from "@prisma/client";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { useRouter } from "next/navigation";
 import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
-  category?: PaintingCategory | SculptureCategory;
+  category?: PaintingCategory | SculptureCategory | DrawingCategory;
   type: string;
   toggleModal?: () => void;
 }

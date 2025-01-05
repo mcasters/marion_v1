@@ -1,4 +1,4 @@
-import { TYPE } from "@/constants";
+import { Type } from "@/lib/db/item";
 import ItemListComponent from "@/components/admin/item/ItemListComponent";
 import ItemForm from "@/components/admin/form/ItemForm";
 import CategoryComponent from "@/components/admin/item/category/CategoryComponent";
@@ -15,12 +15,12 @@ export default async function Dessins() {
     <>
       <h1 className={s.pageTitle}>Contenus des pages Peintures</h1>
       <ItemListComponent
-        type={TYPE.DRAWING}
+        type={Type.DRAWING}
         items={drawings}
         categories={categories}
       />
-      <ItemForm categories={categories} typeAdd={TYPE.DRAWING} />
-      <CategoryComponent type={TYPE.DRAWING} categories={categories} />
+      <ItemForm categories={categories} typeAdd={Type.DRAWING} />
+      <CategoryComponent type={Type.DRAWING} categories={categories} />
     </>
   );
 }

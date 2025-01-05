@@ -4,10 +4,10 @@ import { Theme } from "@prisma/client";
 
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    const id = parseInt(params.id);
+    const id = parseInt((await params).id);
     const presetColor = await prisma.presetColor.findUnique({
       where: {
         id,

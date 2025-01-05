@@ -3,11 +3,11 @@ import { deleteFile, getSculptureDir } from "@/utils/serverUtils";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const dir = getSculptureDir();
   try {
-    const id = Number(params.id);
+    const id = Number((await params).id);
     const sculpture = await prisma.sculpture.findUnique({
       where: { id },
       include: {

@@ -3,10 +3,10 @@ import { deleteFile, getMiscellaneousDir } from "@/utils/serverUtils";
 
 export async function GET(
   req: Request,
-  { params }: { params: { filename: string } },
+  { params }: { params: Promise<{ filename: string }> },
 ) {
   try {
-    const filename = params.filename;
+    const filename = (await params).filename;
     const dir = getMiscellaneousDir();
 
     const content = await prisma.content.findFirst({

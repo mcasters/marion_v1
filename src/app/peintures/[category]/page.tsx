@@ -2,14 +2,15 @@ import ItemComponent from "@/components/item/ItemComponent";
 import { getPaintingsFullByCategory } from "@/app/api/peinture/getPaintings";
 import s from "@/styles/ItemPage.module.css";
 
-export default async function Page({
-  params,
-}: {
-  params: { category: string };
-}) {
-  const paintings = await getPaintingsFullByCategory(params.category);
+type Props = {
+  params: Promise<{ category: string }>;
+};
+
+export default async function Page({ params }: Props) {
+  const category = (await params).category;
+  const paintings = await getPaintingsFullByCategory(category);
   const categoryTitle =
-    params.category === "no-category"
+    category === "no-category"
       ? "Sans catégorie"
       : paintings[0]?.category?.value;
   return (

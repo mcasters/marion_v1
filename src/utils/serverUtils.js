@@ -22,6 +22,10 @@ export const getPostDir = () => {
   return join(`${serverLibraryPath}`, "post");
 };
 
+export const getDrawingDir = () => {
+  return join(`${serverLibraryPath}`, "dessin");
+};
+
 export const createDirIfNecessary = (dir) => {
   stat(dir, (err) => {
     if (err?.code === "ENOENT")

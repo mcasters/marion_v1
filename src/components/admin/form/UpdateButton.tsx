@@ -6,6 +6,7 @@ import ItemForm from "@/components/admin/form/ItemForm";
 import CategoryForm from "@/components/admin/form/CategoryForm";
 import {
   Category,
+  DrawingFull,
   PaintingFull,
   PostFull,
   SculptureFull,
@@ -13,6 +14,7 @@ import {
 } from "@/lib/db/item";
 import PostForm from "@/components/admin/form/PostForm";
 import {
+  isDrawingFull,
   isPaintingFull,
   isPostFull,
   isSculptureFull,
@@ -20,7 +22,7 @@ import {
 import UpdateIcon from "@/components/icons/UpdateIcon";
 
 type Props = {
-  item: PaintingFull | SculptureFull | Category | PostFull;
+  item: PaintingFull | SculptureFull | DrawingFull | Category | PostFull;
   type: Type;
   categories?: Category[];
 };
@@ -40,7 +42,9 @@ export default function UpdateButton({ item, type, categories }: Props) {
         <UpdateIcon />
       </button>
       <Modal isOpen={isOpen} toggle={toggle}>
-        {isPaintingFull(item) || isSculptureFull(item) ? (
+        {isPaintingFull(item) ||
+        isSculptureFull(item) ||
+        isDrawingFull(item) ? (
           <ItemForm item={item} toggleModal={toggle} categories={categories} />
         ) : isPostFull(item) ? (
           <PostForm post={item} toggleModal={toggle} />

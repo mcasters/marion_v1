@@ -3,11 +3,11 @@ import { deleteFile, getPaintingDir } from "@/utils/serverUtils";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const dir = getPaintingDir();
   try {
-    const id = Number(params.id);
+    const id = Number((await params).id);
     const painting = await prisma.painting.findUnique({
       where: { id },
     });

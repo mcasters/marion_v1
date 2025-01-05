@@ -5,11 +5,16 @@ import Image from "next/image";
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import UpdateButton from "@/components/admin/form/UpdateButton";
 import s from "../../../styles/admin/AdminList.module.css";
-import { Category, PaintingFull, SculptureFull } from "@/lib/db/item";
+import {
+  Category,
+  DrawingFull,
+  PaintingFull,
+  SculptureFull,
+} from "@/lib/db/item";
 import { isSculptureFull } from "@/utils/commonUtils";
 
 interface Props {
-  item: PaintingFull | SculptureFull;
+  item: PaintingFull | SculptureFull | DrawingFull;
   categories: Category[];
 }
 

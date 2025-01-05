@@ -3,11 +3,11 @@ import { deleteFile, getSculptureDir } from "@/utils/serverUtils";
 
 export async function GET(
   req: Request,
-  { params }: { params: { filename: string } },
+  { params }: { params: Promise<{ filename: string }> },
 ) {
   try {
     const dir = getSculptureDir();
-    const filename = params.filename;
+    const filename = (await params).filename;
 
     if (deleteFile(dir, filename)) {
       await prisma.sculptureImage.delete({

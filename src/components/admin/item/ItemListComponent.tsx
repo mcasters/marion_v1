@@ -3,11 +3,17 @@
 import RowItemListComponent from "./RowItemListComponent";
 import React from "react";
 import s from "@/styles/admin/AdminList.module.css";
-import { Category, PaintingFull, SculptureFull, Type } from "@/lib/db/item";
+import {
+  Category,
+  DrawingFull,
+  PaintingFull,
+  SculptureFull,
+  Type,
+} from "@/lib/db/item";
 
 interface Props {
   type: Type;
-  items: PaintingFull[] | SculptureFull[];
+  items: PaintingFull[] | SculptureFull[] | DrawingFull[];
   categories: Category[];
 }
 export default function ItemListComponent({ type, items, categories }: Props) {
@@ -18,7 +24,7 @@ export default function ItemListComponent({ type, items, categories }: Props) {
       <h2>{title}</h2>
       <div className={s.list}>
         {items &&
-          items.map((item: PaintingFull | SculptureFull) => {
+          items.map((item: PaintingFull | SculptureFull | DrawingFull) => {
             return (
               <RowItemListComponent
                 key={item.id}
