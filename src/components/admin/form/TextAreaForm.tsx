@@ -39,7 +39,7 @@ export default function TextAreaForm({
         body: formData,
       }).then((res) => {
         if (res.ok) {
-          alert("Contenu modifié");
+          alert("Contenu modifié", false);
           resetImageRef.current = resetImageRef.current + 1;
           setTimeout(function () {
             window.location.reload();
@@ -64,6 +64,7 @@ export default function TextAreaForm({
               onChange={(count) => setIsChanged(count === 1)}
               isMultiple={false}
               title="Image de présentation (facultative)"
+              minWidth={false}
               reset={resetImageRef.current}
             />
           </div>

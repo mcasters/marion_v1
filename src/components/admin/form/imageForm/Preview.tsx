@@ -11,8 +11,7 @@ type Props = {
   images: IImage[];
   pathImage: string;
   apiForDelete?: string;
-  onDelete?: (arg0: number) => void;
-  textLabel?: string;
+  onDelete?: (filename: string) => void;
 };
 
 export default function Preview({
@@ -20,7 +19,6 @@ export default function Preview({
   pathImage,
   apiForDelete,
   onDelete,
-  textLabel,
 }: Props) {
   const alert = useAlert();
   const [existantFilenames, setExistantFilenames] = useState<string[]>(
@@ -28,23 +26,29 @@ export default function Preview({
   );
 
   const handleDelete = (filename: string) => {
-    if (apiForDelete !== "" && confirm("Sûr de vouloir supprimer ?")) {
+    if (apiForDelete && confirm("Sûr de vouloir supprimer ?")) {
       fetch(`${apiForDelete}/${filename}`).then((res) => {
         if (res.ok) {
           const tab = existantFilenames.filter((f) => {
             return f !== filename;
           });
           setExistantFilenames(tab);
-          if (onDelete !== undefined) onDelete(tab.length);
           alert("Image supprimée");
         } else alert("Erreur à la suppression", true);
       });
+    } else {
+      if (onDelete !== undefined) {
+        const tab = existantFilenames.filter((f) => {
+          return f !== filename;
+        });
+        setExistantFilenames(tab);
+        onDelete(filename);
+      }
     }
   };
 
   return (
     <>
-      {textLabel && <label className={s.formLabel}>{textLabel}</label>}
       {existantFilenames.map((filename) => (
         <div key={filename} className={s.imageWrapper}>
           <div>
@@ -61,18 +65,16 @@ export default function Preview({
               }}
             />
           </div>
-          {apiForDelete && (
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                handleDelete(filename);
-              }}
-              className="iconButton"
-              aria-label="Supprimer"
-            >
-              <DeleteIcon />
-            </button>
-          )}
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleDelete(filename);
+            }}
+            className="iconButton"
+            aria-label="Supprimer"
+          >
+            <DeleteIcon />
+          </button>
         </div>
       ))}
     </>

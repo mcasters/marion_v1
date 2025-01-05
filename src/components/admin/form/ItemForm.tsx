@@ -3,13 +3,7 @@
 import React, { useRef, useState } from "react";
 import { parse } from "date-fns";
 import s from "@/styles/admin/Admin.module.css";
-import {
-  Category,
-  DrawingFull,
-  PaintingFull,
-  SculptureFull,
-  Type,
-} from "@/lib/db/item";
+import { Category, PaintingFull, SculptureFull, Type } from "@/lib/db/item";
 import { getImageTab, isSculptureFull } from "@/utils/commonUtils";
 import Images from "@/components/admin/form/imageForm/Images";
 import Preview from "@/components/admin/form/imageForm/Preview";
@@ -19,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
-  item?: SculptureFull | PaintingFull | DrawingFull;
+  item?: SculptureFull | PaintingFull;
   toggleModal?: () => void;
   categories?: Category[];
   typeAdd?: Type;

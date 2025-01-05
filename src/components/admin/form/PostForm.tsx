@@ -31,6 +31,9 @@ export default function PostForm({ post, toggleModal }: Props) {
     post?.date ? new Date(post.date) : new Date(),
   );
   const [text, setText] = useState<string>(post?.text || "");
+  const [mainFilenameToDelete, setMainFilenameToDelete] = useState<string>("");
+  const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
+
   let mainImage = null;
   if (post) mainImage = getMainImage(post);
 
@@ -62,6 +65,20 @@ export default function PostForm({ post, toggleModal }: Props) {
       <h2>{post ? "Modifier un post" : "Ajouter un post"}</h2>
       <form ref={formRef} onSubmit={submit}>
         {post && <input type="hidden" name="id" value={post.id} />}
+        {post && (
+          <input
+            type="hidden"
+            name="mainFilenameToDelete"
+            value={mainFilenameToDelete}
+          />
+        )}
+        {post && (
+          <input
+            type="hidden"
+            name="filenamesToDelete"
+            value={filenamesToDelete}
+          />
+        )}
         <label className={s.formLabel}>
           Titre
           <input
@@ -97,32 +114,28 @@ export default function PostForm({ post, toggleModal }: Props) {
         </label>
 
         <div className={s.imageFormContainer}>
+          <h3>Image principale (facultative)</h3>
           {post && (
             <Preview
               images={mainImage ? [mainImage] : []}
               pathImage="/images/post"
-              apiForDelete="api/post/delete-image"
+              onDelete={(filename) => setMainFilenameToDelete(filename)}
             />
           )}
         </div>
-        <Images
-          isMultiple={false}
-          title="Image principale (facultative)"
-          reset={resetMainImageRef.current}
-        />
+        <Images isMultiple={false} reset={resetMainImageRef.current} />
         <div className={s.imageFormContainer}>
+          <h3>Album d'images (facultatif)</h3>
           {post && (
             <Preview
               images={post.images.filter((i) => !i.isMain) || []}
               pathImage="/images/post"
-              apiForDelete="api/post/delete-image"
+              onDelete={(filename) =>
+                setFilenamesToDelete([...filenamesToDelete, filename])
+              }
             />
           )}
-          <Images
-            isMultiple={true}
-            title={"Album d'images (facultatif)"}
-            reset={resetImagesRef.current}
-          />
+          <Images isMultiple={true} reset={resetImagesRef.current} />
         </div>
         <div className={s.buttonSection}>
           <SubmitButton disabled={!title || !date} />
