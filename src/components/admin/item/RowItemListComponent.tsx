@@ -30,7 +30,7 @@ export default function RowItemListComponent({ item, categories }: Props) {
       <li className={s.itemImage}>
         {filename && (
           <Image
-            loader={({ src, width, quality }) => {
+            loader={({ src }) => {
               return `/images/${item.type}/sm/${src}`;
             }}
             src={filename}

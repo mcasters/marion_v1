@@ -3,7 +3,13 @@
 import React, { useRef, useState } from "react";
 import { parse } from "date-fns";
 import s from "@/styles/admin/Admin.module.css";
-import { Category, PaintingFull, SculptureFull, Type } from "@/lib/db/item";
+import {
+  Category,
+  DrawingFull,
+  PaintingFull,
+  SculptureFull,
+  Type,
+} from "@/lib/db/item";
 import { getImageTab, isSculptureFull } from "@/utils/commonUtils";
 import Images from "@/components/admin/form/imageForm/Images";
 import Preview from "@/components/admin/form/imageForm/Preview";
@@ -13,7 +19,7 @@ import { useRouter } from "next/navigation";
 import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
-  item?: SculptureFull | PaintingFull;
+  item?: SculptureFull | PaintingFull | DrawingFull;
   toggleModal?: () => void;
   categories?: Category[];
   typeAdd?: Type;
@@ -72,7 +78,11 @@ export default function ItemForm({
       const formData = new FormData(formRef.current);
       fetch(api, { method: "POST", body: formData }).then((res) => {
         if (res.ok) {
-          toggleModal ? toggleModal() : reset();
+          if (toggleModal) {
+            toggleModal();
+          } else {
+            reset();
+          }
           alert(item ? `${item.type} modifiée` : `${typeAdd} ajoutée`, false);
           router.refresh();
         } else alert("Erreur à l'enregistrement", true);

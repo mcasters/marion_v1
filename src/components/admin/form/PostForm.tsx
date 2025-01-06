@@ -125,7 +125,7 @@ export default function PostForm({ post, toggleModal }: Props) {
         </div>
         <Images isMultiple={false} reset={resetMainImageRef.current} />
         <div className={s.imageFormContainer}>
-          <h3>Album d'images (facultatif)</h3>
+          <h3>Album d&apos;images (facultatif)</h3>
           {post && (
             <Preview
               images={post.images.filter((i) => !i.isMain) || []}

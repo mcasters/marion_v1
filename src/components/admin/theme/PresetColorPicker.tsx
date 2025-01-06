@@ -84,8 +84,8 @@ export default function PresetColorPicker({ presetColor }: Props) {
           <div className={s.colorPicker}>
             <h3>Modification : {presetColor.name}</h3>
             <p>
-              (s&apos;appliquera à toutes les couleurs "{presetColor.name}" du
-              thème)
+              (s&apos;appliquera à toutes les couleurs &quot;
+              {presetColor.name}&quot; du thème)
             </p>
             <div className={s.picker}>
               <HexColorPicker

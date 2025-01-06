@@ -25,7 +25,7 @@ export default function Nav_2({ navLayout }: Props) {
                 <li key={menuItem.NAME} className={s.liHome}>
                   <Link href={menuItem.PATH} key={menuItem.NAME}>
                     <Image
-                      loader={({ src, width, quality }) => {
+                      loader={({ src }) => {
                         return `/${src}`;
                       }}
                       src="logo-100.png"

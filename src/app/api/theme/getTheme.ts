@@ -5,8 +5,7 @@ import { PresetColor, Theme } from "@prisma/client";
 import { getActivatedBaseTheme } from "@/lib/db/theme";
 
 export async function getThemesFull(): Promise<Theme[]> {
-  let res;
-  res = await prisma.theme.findMany();
+  const res = await prisma.theme.findMany();
 
   if (res.length === 0) {
     const defaultTheme = await prisma.theme.create({
@@ -34,7 +33,7 @@ export async function getActiveTheme(): Promise<Theme> {
 }
 
 export async function getPresetColors(): Promise<PresetColor[]> {
-  let presetColors = await prisma.presetColor.findMany();
+  const presetColors = await prisma.presetColor.findMany();
 
   return JSON.parse(JSON.stringify(presetColors));
 }

@@ -1,10 +1,9 @@
 import prisma from "@/lib/db/prisma";
 import { getBasePresetColorData } from "@/utils/commonUtils";
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
-    let res;
-    res = await prisma.presetColor.findMany();
+    const res = await prisma.presetColor.findMany();
 
     if (res.length === 0) {
       const defaultPresetColor = await prisma.presetColor.create({

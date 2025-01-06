@@ -97,7 +97,8 @@ export default function ZoomImage({
   const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
     touch.current = getTouchLocation(e);
     if (isDblTouchTap(e)) {
-      isInZoom ? handleZoomOut() : handleZoomIn();
+      if (isInZoom) handleZoomOut();
+      else handleZoomIn();
     }
   };
 
@@ -194,7 +195,7 @@ export default function ZoomImage({
       observer.observe(containerRef.current);
       return () => observer.disconnect();
     }
-  }, []);
+  });
 
   // 2) Set image as background
   useEffect(() => {

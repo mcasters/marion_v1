@@ -7,7 +7,7 @@ export async function POST(req: Request) {
     const value = formData.get("text") as string;
     const key = transformValueToKey(value);
 
-    const newCategory = await prisma.drawingCategory.create({
+    await prisma.drawingCategory.create({
       data: {
         key,
         value,

@@ -15,7 +15,7 @@ export async function POST(req: Request) {
     const title = formData.get("title") as string;
     const fileInfo = await resizeAndSaveImage(file, title, dir);
     if (fileInfo) {
-      const newPainting = await prisma.painting.create({
+      await prisma.painting.create({
         data: {
           title,
           date: parse(formData.get("date") as string, "yyyy", new Date()),

@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     const files = formData.getAll("files") as File[];
     const title = formData.get("title") as string;
 
-    let images = [];
+    const images = [];
     for (const file of files) {
       if (file.size > 0) {
         const fileInfo = await resizeAndSaveImage(file, title, dir);

@@ -45,7 +45,7 @@ export async function POST(req: Request) {
         }
       }
 
-      let images = [];
+      const images = [];
       const mainFile = formData.get("file") as File;
       const title = formData.get("title") as string;
       if (mainFile.size > 0) {

@@ -1,10 +1,9 @@
 import prisma from "@/lib/db/prisma";
 import { getBaseThemeData } from "@/utils/commonUtils";
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
-    let res;
-    res = await prisma.theme.findMany();
+    const res = await prisma.theme.findMany();
 
     if (res.length === 0) {
       const defaultTheme = await prisma.theme.create({

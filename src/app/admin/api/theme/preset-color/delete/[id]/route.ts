@@ -18,7 +18,7 @@ export async function GET(
       const themes = await prisma.theme.findMany();
       const updatedThemes = [];
       for await (const theme of themes) {
-        let updatedTheme = theme;
+        const updatedTheme = theme;
         let isModified = false;
         for await (const [key, value] of Object.entries(theme)) {
           if (

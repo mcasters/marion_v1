@@ -5,7 +5,6 @@ export async function POST(req: Request) {
     const theme = await req.json();
     const { id, isActive, ...rest } = theme;
     let themes = null;
-
     const newTheme = await prisma.theme.create({
       data: {
         isActive: false,

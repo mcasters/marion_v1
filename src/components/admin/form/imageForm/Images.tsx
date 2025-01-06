@@ -37,7 +37,7 @@ export default function Images({
 
       for await (const file of files) {
         const bmp = await createImageBitmap(file);
-        const { width, height } = bmp;
+        const { width } = bmp;
         if (minWidth && width < 2000) {
           alert(
             `La dimension de l'image ${file.name} est trop petite. Largeur minimum : 2000 pixels`,

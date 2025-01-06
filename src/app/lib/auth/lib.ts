@@ -8,7 +8,7 @@ import { Session } from "@/lib/db/item";
 const secretKey = process.env.AUTH_SECRET;
 const key = new TextEncoder().encode(secretKey);
 
-export async function encrypt(payload: any) {
+export async function encrypt(payload: JWTPayload) {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()

@@ -65,8 +65,8 @@ export const getSlidersLandscapeAndPortait = (
   contents: ContentFull[],
 ): { portraitImages: Image[]; landscapeImages: Image[] } => {
   const images: Image[] = getSliders(contents);
-  let portraitImages: Image[] = [];
-  let landscapeImages: Image[] = [];
+  const portraitImages: Image[] = [];
+  const landscapeImages: Image[] = [];
   images.forEach((i) => {
     if (i.isMain) portraitImages.push(i);
     if (!i.isMain) landscapeImages.push(i);
@@ -159,7 +159,7 @@ export const themeToHexa = (
   theme: Theme,
   presetColors: PresetColor[],
 ): Theme => {
-  let updatedTheme = theme;
+  const updatedTheme = theme;
   Object.entries(theme).forEach(([key, value]) => {
     if (typeof value === "string" && value.charAt(0) !== "#") {
       presetColors.find((p) => {

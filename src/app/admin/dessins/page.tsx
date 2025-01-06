@@ -13,7 +13,7 @@ export default async function Dessins() {
 
   return (
     <>
-      <h1 className={s.pageTitle}>Contenus des pages Peintures</h1>
+      <h1 className={s.pageTitle}>Contenus des pages Dessins</h1>
       <ItemListComponent
         type={Type.DRAWING}
         items={drawings}
