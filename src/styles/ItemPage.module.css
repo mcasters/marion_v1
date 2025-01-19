@@ -32,9 +32,17 @@
 padding-bottom: 2rem;
 }
 
+.yearSelect {
+    text-align: center;
+}
+
 /* desktop */
 @media (min-width: 769px) {
     .categoryTitle {
         padding-bottom: 5rem;
+    }
+
+    .yearSelect {
+        width: 25%;
     }
 }

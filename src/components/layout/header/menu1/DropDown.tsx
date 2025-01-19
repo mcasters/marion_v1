@@ -75,6 +75,18 @@ export default function Dropdown({
               </Link>
             </li>
           ))}
+          <li>
+            <Link
+              href={`/${item.BASE_PATH}/par_annee`}
+              onClick={() => {
+                setOpen(false);
+              }}
+              className={s.subLink}
+              style={{ color: `${theme.menu1LinkHomeColor}` }}
+            >
+              PAR ANNÉE
+            </Link>
+          </li>
         </ul>
       ) : null}
       <style jsx>{`

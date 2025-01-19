@@ -34,3 +34,21 @@ export async function getPaintingsFullByCategory(
 
   return JSON.parse(JSON.stringify(res));
 }
+
+export async function getYearsForPainting(): Promise<number[]> {
+  let res = await prisma.painting.findMany({
+    distinct: ["date"],
+    select: {
+      date: true,
+    },
+    orderBy: { date: "asc" },
+  });
+
+  const years: number[] = [];
+  for await (const painting of res) {
+    const date = new Date(painting.date);
+    years.push(date.getFullYear());
+  }
+
+  return JSON.parse(JSON.stringify(years));
+}

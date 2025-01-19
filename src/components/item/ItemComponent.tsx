@@ -1,13 +1,13 @@
 "use client";
 
 import s from "./ItemComponent.module.css";
-import { getPhotoTab, isSculptureFull } from "@/utils/commonUtils";
+import { getPhotoTab } from "@/utils/commonUtils";
 import Lightbox from "@/components/image/lightbox/Lightbox";
-import { DrawingFull, PaintingFull, SculptureFull } from "@/lib/db/item";
+import { ItemFull, Type } from "@/lib/db/item";
 import { useMemo } from "react";
 
 interface Props {
-  item: SculptureFull | PaintingFull | DrawingFull;
+  item: ItemFull;
 }
 export default function ItemComponent({ item }: Props) {
   const { photos } = useMemo(() => getPhotoTab(item), [item]);
@@ -26,7 +26,7 @@ export default function ItemComponent({ item }: Props) {
             {item.technique}
             {","}
             <br />
-            {isSculptureFull(item)
+            {item.type === Type.SCULPTURE
               ? `${item.height} x ${item.width} x ${item.length} cm`
               : `${item.height} x ${item.width} cm`}
           </p>

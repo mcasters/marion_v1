@@ -6,6 +6,7 @@ import {
   DrawingFull,
   Image,
   ImageSize,
+  ItemFull,
   PaintingFull,
   PhotoTab,
   PostFull,
@@ -248,7 +249,7 @@ const restForPhotoTab = (
 };
 
 export const getPhotoTab = (
-  item: SculptureFull | PaintingFull | DrawingFull | PostFull,
+  item: SculptureFull | PaintingFull | DrawingFull | PostFull | ItemFull,
   splitMain: boolean = false,
 ): {
   mainPhotos: PhotoTab;

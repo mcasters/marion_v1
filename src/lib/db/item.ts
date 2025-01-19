@@ -55,21 +55,21 @@ export type DrawingFull = {
 
 export type ItemFull = {
   id: number;
-  type: string;
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
   title: string;
   date: Date;
   technique: string;
   description: string | null;
   height: number;
   width: number;
-  length: number;
+  length?: number;
   isToSell: boolean;
   price: number | null;
   sold: boolean;
-  imageFilename: string;
-  imageWidth: number;
-  imageHeight: number;
-  images: Image[];
+  imageFilename?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  images?: Image[];
   category: Category | null;
 };
 
