@@ -47,14 +47,14 @@
 
 .itemTitle {
   text-align: left;
-  flex:  250px;
+  flex:  30%;
 }
 
-.itemImage, .itemInfo {
-  flex: auto;
+.itemCategory {
+  flex:  15%;
 }
 
-.itemIcon {
+.itemImage, .itemInfo, .itemIcon {
   flex: auto;
 }
 

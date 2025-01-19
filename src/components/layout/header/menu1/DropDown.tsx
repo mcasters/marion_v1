@@ -84,7 +84,7 @@ export default function Dropdown({
               className={s.subLink}
               style={{ color: `${theme.menu1LinkHomeColor}` }}
             >
-              PAR ANNÉE
+              Filtre par année
             </Link>
           </li>
         </ul>

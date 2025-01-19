@@ -18,6 +18,23 @@ export async function getSculptureCategoriesFull(): Promise<CategoryFull[]> {
     return { count: _count.sculptures, ...rest, type: Type.CATEGORY };
   });
 
+  const sculptureWithoutCategory = await prisma.sculpture.findMany({
+    where: {
+      category: null,
+    },
+  });
+
+  const sculptureWithoutCategory_count = sculptureWithoutCategory.length;
+  if (sculptureWithoutCategory_count > 0) {
+    updatedTab.push({
+      type: Type.CATEGORY,
+      count: sculptureWithoutCategory_count,
+      key: "no-category",
+      value: "SANS CATEGORIE",
+      id: 0,
+    });
+  }
+
   return JSON.parse(JSON.stringify(updatedTab));
 }
 

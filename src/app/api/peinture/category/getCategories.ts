@@ -16,6 +16,23 @@ export async function getPaintingCategoriesFull(): Promise<CategoryFull[]> {
     return { count: _count.paintings, ...rest, type: Type.CATEGORY };
   });
 
+  const paintingWithoutCategory = await prisma.painting.findMany({
+    where: {
+      category: null,
+    },
+  });
+
+  const paintingWithoutCategory_count = paintingWithoutCategory.length;
+  if (paintingWithoutCategory_count > 0) {
+    updatedTab.push({
+      type: Type.CATEGORY,
+      count: paintingWithoutCategory_count,
+      key: "no-category",
+      value: "SANS CATEGORIE",
+      id: 0,
+    });
+  }
+
   return JSON.parse(JSON.stringify(updatedTab));
 }
 

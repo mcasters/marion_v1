@@ -22,6 +22,9 @@ export default function RowItemListComponent({ item, categories }: Props) {
       <li className={s.itemTitle}>
         <span className={s.name}>{item.title}</span>
       </li>
+      <li className={s.itemCategory}>
+        <span className={s.name}>{item.category?.value}</span>
+      </li>
       <li className={s.itemImage}>
         {filename && (
           <Image

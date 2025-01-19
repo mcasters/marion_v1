@@ -4,15 +4,16 @@ import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/Modal";
 import ItemForm from "@/components/admin/form/ItemForm";
 import CategoryForm from "@/components/admin/form/CategoryForm";
-import { Category, ItemFull, PostFull, Type } from "@/lib/db/item";
+import { CategoryFull, ItemFull, PostFull, Type } from "@/lib/db/item";
 import PostForm from "@/components/admin/form/PostForm";
 import UpdateIcon from "@/components/icons/UpdateIcon";
 
 type Props = {
-  item: ItemFull | Category | PostFull;
-  categories?: Category[];
+  item: ItemFull | CategoryFull | PostFull;
+  categories?: CategoryFull[];
+  disabled?: boolean;
 };
-export default function UpdateButton({ item, categories }: Props) {
+export default function UpdateButton({ item, categories, disabled }: Props) {
   const { isOpen, toggle } = useModal();
 
   return (
@@ -24,6 +25,7 @@ export default function UpdateButton({ item, categories }: Props) {
         }}
         className="iconButton"
         aria-label="Mise à jour"
+        disabled={disabled ? disabled : false}
       >
         <UpdateIcon />
       </button>
@@ -35,7 +37,11 @@ export default function UpdateButton({ item, categories }: Props) {
         ) : item.type === Type.POST ? (
           <PostForm post={item} toggleModal={toggle} />
         ) : item.type === Type.CATEGORY ? (
-          <CategoryForm category={item} toggleModal={toggle} />
+          <CategoryForm
+            category={item}
+            toggleModal={toggle}
+            itemType={item.type}
+          />
         ) : undefined}
       </Modal>
     </>

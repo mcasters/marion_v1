@@ -1,9 +1,9 @@
 "use client";
 
 import DeleteButton from "@/components/admin/form/DeleteButton";
-import UpdateButton from "@/components/admin/form/UpdateButton";
 import s from "../../../../styles/admin/AdminList.module.css";
 import { CategoryFull, Type } from "@/lib/db/item";
+import UpdateCategoryButton from "@/components/admin/form/UpdateCategoryButton";
 
 interface Props {
   category: CategoryFull;
@@ -25,12 +25,16 @@ export default function RowCategoryListComponent({
         </span>
       </li>
       <li className={s.itemIcon}>
-        <UpdateButton item={category} type={itemType} />
+        <UpdateCategoryButton
+          category={category}
+          itemType={itemType}
+          disabled={category.value === "SANS CATEGORIE"}
+        />
       </li>
       <li className={s.itemIcon}>
         <DeleteButton
           api={`api/${itemType}/category/delete/${category.id}`}
-          disabled={category.count > 0}
+          disabled={category.count > 0 || category.value === "SANS CATEGORIE"}
         />
       </li>
     </ul>

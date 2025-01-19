@@ -117,11 +117,14 @@ export default function ItemForm({
           >
             <option value="">-- Aucune catégorie --</option>
             {categories &&
-              categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.value}
-                </option>
-              ))}
+              categories.map((cat) => {
+                if (cat.value !== "SANS CATEGORIE")
+                  return (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.value}
+                    </option>
+                  );
+              })}
           </select>
         </label>
         <label className={s.formLabel}>
