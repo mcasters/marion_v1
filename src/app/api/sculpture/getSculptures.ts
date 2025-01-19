@@ -35,7 +35,7 @@ export async function getSculpturesFullByCategory(
 }
 
 export async function getYearsForSculpture(): Promise<number[]> {
-  let res = await prisma.sculpture.findMany({
+  const res = await prisma.sculpture.findMany({
     distinct: ["date"],
     select: {
       date: true,

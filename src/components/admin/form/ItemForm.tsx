@@ -46,7 +46,7 @@ export default function ItemForm({
   );
   const [isToSell, setIsToSell] = useState<boolean>(item?.isToSell || false);
   const [length, setLength] = useState<string>(
-    item?.type === Type.SCULPTURE ? item.length.toString() : "",
+      item?.type === Type.SCULPTURE ? item.length.toString() : "",
   );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const api = item ? `api/${item.type}/update` : `api/${typeAdd}/add`;

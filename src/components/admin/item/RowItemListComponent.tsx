@@ -3,10 +3,9 @@
 import Image from "next/image";
 
 import DeleteButton from "@/components/admin/form/DeleteButton";
-import UpdateButton from "@/components/admin/form/UpdateButton";
+import UpdateItemButton from "@/components/admin/form/UpdateItemButton";
 import s from "../../../styles/admin/AdminList.module.css";
-import { CategoryFull, ItemFull } from "@/lib/db/item";
-import { isSculptureFull } from "@/utils/commonUtils";
+import { CategoryFull, ItemFull, Type } from "@/lib/db/item";
 
 interface Props {
   item: ItemFull;
@@ -14,9 +13,10 @@ interface Props {
 }
 
 export default function RowItemListComponent({ item, categories }: Props) {
-  const filename = isSculptureFull(item)
-    ? item.images[0]?.filename
-    : item.imageFilename;
+  const filename =
+    item.type === Type.SCULPTURE
+      ? item.images[0]?.filename
+      : item.imageFilename;
   return (
     <ul className={s.item}>
       <li className={s.itemTitle}>
@@ -42,7 +42,7 @@ export default function RowItemListComponent({ item, categories }: Props) {
         )}
       </li>
       <li className={s.itemIcon}>
-        <UpdateButton item={item} type={item.type} categories={categories} />
+        <UpdateItemButton item={item} categories={categories} />
       </li>
       <li className={s.itemIcon}>
         <DeleteButton api={`api/${item.type}/delete/${item.id}`} />

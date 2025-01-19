@@ -21,7 +21,7 @@ export default function ItemYearComponent({ items, years }: Props) {
       );
       setItemsByYear(tab);
     }
-  }, [year]);
+  }, [year, items]);
 
   return (
     <>

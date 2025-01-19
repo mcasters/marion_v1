@@ -36,7 +36,7 @@ export async function getPaintingsFullByCategory(
 }
 
 export async function getYearsForPainting(): Promise<number[]> {
-  let res = await prisma.painting.findMany({
+  const res = await prisma.painting.findMany({
     distinct: ["date"],
     select: {
       date: true,

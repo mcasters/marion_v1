@@ -9,7 +9,6 @@ import {
   Photo,
   PhotoTab,
   PostFull,
-  SculptureFull,
   Type,
 } from "@/lib/db/item";
 
@@ -93,9 +92,6 @@ export const getContactText = (contents: ContentFull[]): string => {
 export const getMainImage = (post: PostFull) => {
   return post?.images?.filter((i) => i.isMain)[0] || undefined;
 };
-
-export const isSculptureFull = (item: any): item is SculptureFull =>
-  Object.values(item).includes(Type.SCULPTURE);
 
 export const getBaseThemeData = () => {
   return {
@@ -197,7 +193,7 @@ export function rgbToHex(r: number, g: number, b: number): string {
 } // rgbToHex(0, 51, 255); // #0033ff
 
 export const getImageTab = (item: ItemFull): Image[] => {
-  if (item.type === Type.SCULPTURE && item.images) {
+  if (item.type === Type.SCULPTURE) {
     return item.images.map((i) => {
       return {
         id: i.id,
@@ -216,7 +212,7 @@ export const getImageTab = (item: ItemFull): Image[] => {
       height: item.imageHeight,
       isMain: false,
     },
-  ] as Image[];
+  ];
 };
 
 const restForPhotoTab = (item: ItemFull | PostFull) => {

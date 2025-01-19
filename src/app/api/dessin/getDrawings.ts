@@ -36,7 +36,7 @@ export async function getDrawingsFullByCategory(
 }
 
 export async function getYearsForDrawing(): Promise<number[]> {
-  let res = await prisma.drawing.findMany({
+  const res = await prisma.drawing.findMany({
     distinct: ["date"],
     select: {
       date: true,
