@@ -14,13 +14,9 @@ export default async function Dessins() {
   return (
     <>
       <h1 className={s.pageTitle}>Contenus des pages Dessins</h1>
-      <ItemListComponent
-        type={Type.DRAWING}
-        items={drawings}
-        categories={categories}
-      />
+      <ItemListComponent items={drawings} categories={categories} />
       <ItemForm categories={categories} typeAdd={Type.DRAWING} />
-      <CategoryComponent type={Type.DRAWING} categories={categories} />
+      <CategoryComponent itemType={Type.DRAWING} categories={categories} />
     </>
   );
 }

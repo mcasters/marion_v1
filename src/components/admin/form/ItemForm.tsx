@@ -3,14 +3,8 @@
 import React, { useRef, useState } from "react";
 import { parse } from "date-fns";
 import s from "@/styles/admin/Admin.module.css";
-import {
-  Category,
-  DrawingFull,
-  PaintingFull,
-  SculptureFull,
-  Type,
-} from "@/lib/db/item";
-import { getImageTab, isSculptureFull } from "@/utils/commonUtils";
+import { CategoryFull, ItemFull, Type } from "@/lib/db/item";
+import { getImageTab } from "@/utils/commonUtils";
 import Images from "@/components/admin/form/imageForm/Images";
 import Preview from "@/components/admin/form/imageForm/Preview";
 import CancelButton from "@/components/admin/form/CancelButton";
@@ -19,9 +13,9 @@ import { useRouter } from "next/navigation";
 import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
-  item?: SculptureFull | PaintingFull | DrawingFull;
+  item?: ItemFull;
   toggleModal?: () => void;
-  categories?: Category[];
+  categories?: CategoryFull[];
   typeAdd?: Type;
 }
 
@@ -52,7 +46,7 @@ export default function ItemForm({
   );
   const [isToSell, setIsToSell] = useState<boolean>(item?.isToSell || false);
   const [length, setLength] = useState<string>(
-    !item ? "" : isSculptureFull(item) ? item.length.toString() : "",
+    item?.type === Type.SCULPTURE ? item.length.toString() : "",
   );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const api = item ? `api/${item.type}/update` : `api/${typeAdd}/add`;

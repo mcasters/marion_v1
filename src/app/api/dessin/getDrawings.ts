@@ -1,8 +1,8 @@
 import prisma from "@/lib/db/prisma";
 import "server-only";
-import { DrawingFull } from "@/lib/db/item";
+import { ItemFull } from "@/lib/db/item";
 
-export async function getDrawingsFull(): Promise<DrawingFull[]> {
+export async function getDrawingsFull(): Promise<ItemFull[]> {
   const res = await prisma.drawing.findMany({
     orderBy: { date: "asc" },
     include: { category: true },
@@ -12,7 +12,7 @@ export async function getDrawingsFull(): Promise<DrawingFull[]> {
 
 export async function getDrawingsFullByCategory(
   categoryKey: string,
-): Promise<DrawingFull[]> {
+): Promise<ItemFull[]> {
   const res =
     categoryKey === "no-category"
       ? await prisma.drawing.findMany({
@@ -33,4 +33,22 @@ export async function getDrawingsFullByCategory(
         });
 
   return JSON.parse(JSON.stringify(res));
+}
+
+export async function getYearsForDrawing(): Promise<number[]> {
+  let res = await prisma.drawing.findMany({
+    distinct: ["date"],
+    select: {
+      date: true,
+    },
+    orderBy: { date: "asc" },
+  });
+
+  const years: number[] = [];
+  for await (const drawing of res) {
+    const date = new Date(drawing.date);
+    years.push(date.getFullYear());
+  }
+
+  return JSON.parse(JSON.stringify(years));
 }

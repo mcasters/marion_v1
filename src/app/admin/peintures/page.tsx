@@ -14,13 +14,9 @@ export default async function Peintures() {
   return (
     <>
       <h1 className={s.pageTitle}>Contenus des pages Peintures</h1>
-      <ItemListComponent
-        type={Type.PAINTING}
-        items={paintings}
-        categories={categories}
-      />
+      <ItemListComponent items={paintings} categories={categories} />
       <ItemForm categories={categories} typeAdd={Type.PAINTING} />
-      <CategoryComponent type={Type.PAINTING} categories={categories} />
+      <CategoryComponent itemType={Type.PAINTING} categories={categories} />
     </>
   );
 }

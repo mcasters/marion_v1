@@ -3,30 +3,30 @@
 import React, { useRef, useState } from "react";
 
 import s from "@/styles/admin/Admin.module.css";
-import {
-  DrawingCategory,
-  PaintingCategory,
-  SculptureCategory,
-} from "@prisma/client";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { useRouter } from "next/navigation";
 import { useAlert } from "@/app/context/AlertProvider";
+import { Category, Type } from "@/lib/db/item";
 
 interface Props {
-  category?: PaintingCategory | SculptureCategory | DrawingCategory;
-  type: string;
+  category?: Category;
+  itemType: Type;
   toggleModal?: () => void;
 }
-export default function CategoryForm({ category, type, toggleModal }: Props) {
+export default function CategoryForm({
+  category,
+  itemType,
+  toggleModal,
+}: Props) {
   const router = useRouter();
   const isUpdate = category !== undefined;
   const [text, setText] = useState<string>(category?.value || "");
   const formRef = useRef<HTMLFormElement>(null);
   const alert = useAlert();
   const api = isUpdate
-    ? `api/${type}/category/update`
-    : `api/${type}/category/add`;
+    ? `api/${itemType}/category/update`
+    : `api/${itemType}/category/add`;
   const title = isUpdate ? "Modifier une catégorie" : "Ajouter une catégorie";
 
   const reset = () => (toggleModal ? toggleModal() : setText(""));
@@ -47,7 +47,7 @@ export default function CategoryForm({ category, type, toggleModal }: Props) {
     <div className={isUpdate ? s.wrapperModal : s.formContainer}>
       <h2>{title}</h2>
       <form ref={formRef} onSubmit={submit}>
-        {isUpdate && <input type="hidden" name="id" value={category.id} />}
+        {isUpdate && <input type="hidden" name="id" value={category?.id} />}
         <input
           placeholder="catégorie"
           name="text"

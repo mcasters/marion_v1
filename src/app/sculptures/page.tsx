@@ -1,9 +1,9 @@
 import ItemComponent from "@/components/item/ItemComponent";
 import { getSculpturesFull } from "@/app/api/sculpture/getSculptures";
-import { SculptureFull } from "@/lib/db/item";
+import { ItemFull, SculptureFull } from "@/lib/db/item";
 
 export default async function Page() {
-  const sculptures: SculptureFull[] = await getSculpturesFull();
+  const sculptures: ItemFull[] = await getSculpturesFull();
 
   return (
     sculptures.length > 0 &&

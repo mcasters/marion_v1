@@ -7,10 +7,13 @@ import { CategoryFull, Type } from "@/lib/db/item";
 
 interface Props {
   category: CategoryFull;
-  type: Type;
+  itemType: Type;
 }
 
-export default function RowCategoryListComponent({ category, type }: Props) {
+export default function RowCategoryListComponent({
+  category,
+  itemType,
+}: Props) {
   return (
     <ul className={s.item}>
       <li className={s.itemTitle}>
@@ -18,15 +21,15 @@ export default function RowCategoryListComponent({ category, type }: Props) {
       </li>
       <li className={s.itemInfo}>
         <span>
-          {category.count} {type}(s)
+          {category.count} {itemType}(s)
         </span>
       </li>
       <li className={s.itemIcon}>
-        <UpdateButton item={category} type={type} />
+        <UpdateButton item={category} type={itemType} />
       </li>
       <li className={s.itemIcon}>
         <DeleteButton
-          api={`api/${type}/category/delete/${category.id}`}
+          api={`api/${itemType}/category/delete/${category.id}`}
           disabled={category.count > 0}
         />
       </li>

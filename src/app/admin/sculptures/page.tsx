@@ -14,13 +14,9 @@ export default async function Sculptures() {
   return (
     <>
       <h1 className={s.pageTitle}>Contenus des pages Sculptures</h1>
-      <ItemListComponent
-        type={Type.SCULPTURE}
-        items={sculptures}
-        categories={categories}
-      />
+      <ItemListComponent items={sculptures} categories={categories} />
       <ItemForm categories={categories} typeAdd={Type.SCULPTURE} />
-      <CategoryComponent type={Type.SCULPTURE} categories={categories} />
+      <CategoryComponent itemType={Type.SCULPTURE} categories={categories} />
     </>
   );
 }

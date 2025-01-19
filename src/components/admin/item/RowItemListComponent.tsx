@@ -5,17 +5,12 @@ import Image from "next/image";
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import UpdateButton from "@/components/admin/form/UpdateButton";
 import s from "../../../styles/admin/AdminList.module.css";
-import {
-  Category,
-  DrawingFull,
-  PaintingFull,
-  SculptureFull,
-} from "@/lib/db/item";
+import { CategoryFull, ItemFull } from "@/lib/db/item";
 import { isSculptureFull } from "@/utils/commonUtils";
 
 interface Props {
-  item: PaintingFull | SculptureFull | DrawingFull;
-  categories: Category[];
+  item: ItemFull;
+  categories: CategoryFull[];
 }
 
 export default function RowItemListComponent({ item, categories }: Props) {

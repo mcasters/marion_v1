@@ -6,12 +6,12 @@ import s from "../../../../styles/admin/AdminList.module.css";
 import { CategoryFull, Type } from "@/lib/db/item";
 
 interface Props {
-  type: Type;
+  itemType: Type;
   categories: CategoryFull[];
 }
-export default function CategoryListComponent({ type, categories }: Props) {
+export default function CategoryListComponent({ itemType, categories }: Props) {
   const title = "Liste des catégories";
-  const message = `Une catégorie ne peut être supprimée que lorsqu'il n'y a pas ou plus de ${type} qui y est classée.`;
+  const message = `Une catégorie ne peut être supprimée que lorsqu'il n'y a pas ou plus de ${itemType} qui y est classée.`;
 
   return (
     <div className={s.listContainer}>
@@ -22,7 +22,7 @@ export default function CategoryListComponent({ type, categories }: Props) {
             <RowCategoryListComponent
               key={category.id}
               category={category}
-              type={type}
+              itemType={itemType}
             />
           );
         })}

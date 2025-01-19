@@ -1,8 +1,8 @@
 import prisma from "@/lib/db/prisma";
-import { PaintingFull } from "@/lib/db/item";
+import { ItemFull } from "@/lib/db/item";
 import "server-only";
 
-export async function getPaintingsFull(): Promise<PaintingFull[]> {
+export async function getPaintingsFull(): Promise<ItemFull[]> {
   const res = await prisma.painting.findMany({
     orderBy: { date: "asc" },
     include: { category: true },
@@ -12,7 +12,7 @@ export async function getPaintingsFull(): Promise<PaintingFull[]> {
 
 export async function getPaintingsFullByCategory(
   categoryKey: string,
-): Promise<PaintingFull[]> {
+): Promise<ItemFull[]> {
   const res =
     categoryKey === "no-category"
       ? await prisma.painting.findMany({

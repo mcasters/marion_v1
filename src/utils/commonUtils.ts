@@ -3,11 +3,10 @@ import { THEME } from "@/constants/database";
 import { OnlyString } from "@/lib/db/theme";
 import {
   ContentFull,
-  DrawingFull,
   Image,
   ImageSize,
   ItemFull,
-  PaintingFull,
+  Photo,
   PhotoTab,
   PostFull,
   SculptureFull,
@@ -95,21 +94,8 @@ export const getMainImage = (post: PostFull) => {
   return post?.images?.filter((i) => i.isMain)[0] || undefined;
 };
 
-export const getGalleryImages = (post: PostFull) => {
-  return post?.images?.filter((i) => !i.isMain) || undefined;
-};
-
-export const isPaintingFull = (item: any): item is PaintingFull =>
-  Object.values(item).includes(Type.PAINTING);
-
-export const isDrawingFull = (item: any): item is DrawingFull =>
-  Object.values(item).includes(Type.DRAWING);
-
 export const isSculptureFull = (item: any): item is SculptureFull =>
   Object.values(item).includes(Type.SCULPTURE);
-
-export const isPostFull = (item: any): item is PostFull =>
-  Object.values(item).includes(Type.POST);
 
 export const getBaseThemeData = () => {
   return {
@@ -210,10 +196,8 @@ export function rgbToHex(r: number, g: number, b: number): string {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 } // rgbToHex(0, 51, 255); // #0033ff
 
-export const getImageTab = (
-  item: SculptureFull | PaintingFull | DrawingFull,
-): Image[] => {
-  if (isSculptureFull(item)) {
+export const getImageTab = (item: ItemFull): Image[] => {
+  if (item.type === Type.SCULPTURE && item.images) {
     return item.images.map((i) => {
       return {
         id: i.id,
@@ -232,12 +216,10 @@ export const getImageTab = (
       height: item.imageHeight,
       isMain: false,
     },
-  ];
+  ] as Image[];
 };
 
-const restForPhotoTab = (
-  item: SculptureFull | PaintingFull | DrawingFull | PostFull,
-) => {
+const restForPhotoTab = (item: ItemFull | PostFull) => {
   return {
     alt:
       item.type === Type.POST
@@ -249,7 +231,7 @@ const restForPhotoTab = (
 };
 
 export const getPhotoTab = (
-  item: SculptureFull | PaintingFull | DrawingFull | PostFull | ItemFull,
+  item: PostFull | ItemFull,
   splitMain: boolean = false,
 ): {
   mainPhotos: PhotoTab;
@@ -258,7 +240,7 @@ export const getPhotoTab = (
   const mainPhotos: PhotoTab = { sm: [], md: [], lg: [] };
   const photos: PhotoTab = { sm: [], md: [], lg: [] };
 
-  if (isPaintingFull(item) || isDrawingFull(item)) {
+  if (item.type === Type.PAINTING || item.type === Type.DRAWING) {
     for (const [key, value] of Object.entries(ImageSize)) {
       photos[key as keyof PhotoTab].push({
         src: `/images/${item.type}${value.FOLDER}/${item.imageFilename}`,
@@ -269,9 +251,9 @@ export const getPhotoTab = (
             : Math.round((value.WIDTH * item.imageHeight) / item.imageWidth),
         isMain: false,
         ...restForPhotoTab(item),
-      });
+      } as Photo);
     }
-  } else if (isSculptureFull(item) || isPostFull(item)) {
+  } else if (item.type === Type.SCULPTURE || item.type === Type.POST) {
     for (const [key, value] of Object.entries(ImageSize)) {
       for (const i of item.images) {
         const photo = {

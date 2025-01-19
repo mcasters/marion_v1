@@ -1,8 +1,8 @@
 import prisma from "@/lib/db/prisma";
 import "server-only";
-import { SculptureFull } from "@/lib/db/item";
+import { ItemFull } from "@/lib/db/item";
 
-export async function getSculpturesFull(): Promise<SculptureFull[]> {
+export async function getSculpturesFull(): Promise<ItemFull[]> {
   const res = await prisma.sculpture.findMany({
     orderBy: { date: "asc" },
     include: { images: true, category: true },
@@ -12,7 +12,7 @@ export async function getSculpturesFull(): Promise<SculptureFull[]> {
 
 export async function getSculpturesFullByCategory(
   categoryKey: string,
-): Promise<SculptureFull[]> {
+): Promise<ItemFull[]> {
   const res =
     categoryKey === "no-category"
       ? await prisma.sculpture.findMany({
@@ -32,4 +32,22 @@ export async function getSculpturesFullByCategory(
           include: { images: true, category: true },
         });
   return JSON.parse(JSON.stringify(res));
+}
+
+export async function getYearsForSculpture(): Promise<number[]> {
+  let res = await prisma.sculpture.findMany({
+    distinct: ["date"],
+    select: {
+      date: true,
+    },
+    orderBy: { date: "asc" },
+  });
+
+  const years: number[] = [];
+  for await (const sculpture of res) {
+    const date = new Date(sculpture.date);
+    years.push(date.getFullYear());
+  }
+
+  return JSON.parse(JSON.stringify(years));
 }

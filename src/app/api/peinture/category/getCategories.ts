@@ -1,6 +1,6 @@
 import prisma from "@/lib/db/prisma";
 import "server-only";
-import { Category, CategoryFull } from "@/lib/db/item";
+import { Category, CategoryFull, Type } from "@/lib/db/item";
 
 export async function getPaintingCategoriesFull(): Promise<CategoryFull[]> {
   const res = await prisma.paintingCategory.findMany({
@@ -13,7 +13,7 @@ export async function getPaintingCategoriesFull(): Promise<CategoryFull[]> {
 
   const updatedTab = res.map((categorie) => {
     const { _count, ...rest } = categorie;
-    return { count: _count.paintings, ...rest };
+    return { count: _count.paintings, ...rest, type: Type.CATEGORY };
   });
 
   return JSON.parse(JSON.stringify(updatedTab));

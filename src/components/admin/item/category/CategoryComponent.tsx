@@ -6,16 +6,16 @@ import s from "../../../../styles/admin/AdminList.module.css";
 import { CategoryFull, Type } from "@/lib/db/item";
 
 interface Props {
-  type: Type;
   categories: CategoryFull[];
+  itemType: Type;
 }
-export default function CategoryComponent({ type, categories }: Props) {
+export default function CategoryComponent({ categories, itemType }: Props) {
   const title = "Gestion des catégories";
   return (
     <div className={s.listContainer}>
       <h2>{title}</h2>
-      <CategoryListComponent type={type} categories={categories} />
-      <CategoryForm type={type} />
+      <CategoryListComponent itemType={itemType} categories={categories} />
+      <CategoryForm itemType={itemType} />
     </div>
   );
 }
