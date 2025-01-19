@@ -35,6 +35,7 @@ export const DOCUMENT_TITLE = {
 };
 
 export const GENERAL = {
-  SITE_TITLE: "Marion Casters",
+  SITE_TITLE: "Artiste | Marion Casters",
   ALT_PHOTO_PRESENTATION: "Photographie de présentation de Marion Casters",
+  URL: "https://marioncasters.fr",
 };

@@ -1,8 +1,8 @@
 "use client";
 
 import s from "../../../styles/Header.module.css";
-import { GENERAL } from "@/constants/metaHtml";
 import React, { useEffect, useRef, useState } from "react";
+import { TEXTS } from "@/constants/texts";
 
 interface Props {
   handleDisappear: (arg0: boolean) => void;
@@ -37,7 +37,7 @@ export default function HomeSection({
 
   return text === "" ? (
     <section ref={ref} className={s.siteTitle}>
-      <h1 className={`${s.title} title`}>{GENERAL.SITE_TITLE}</h1>
+      <h1 className={`${s.title} title`}>{TEXTS.TITLE}</h1>
     </section>
   ) : (
     <section ref={ref} className={s.intro}>
