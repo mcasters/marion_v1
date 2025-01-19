@@ -83,7 +83,7 @@ export default function ItemForm({
           } else {
             reset();
           }
-          alert(item ? `${item.type} modifiée` : `${typeAdd} ajoutée`, false);
+          alert(item ? "item modifié" : "item ajouté", false);
           router.refresh();
         } else alert("Erreur à l'enregistrement", true);
       });

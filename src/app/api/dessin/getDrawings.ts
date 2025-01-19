@@ -4,6 +4,7 @@ import { DrawingFull } from "@/lib/db/item";
 
 export async function getDrawingsFull(): Promise<DrawingFull[]> {
   const res = await prisma.drawing.findMany({
+    orderBy: { date: "asc" },
     include: { category: true },
   });
   return JSON.parse(JSON.stringify(res));
@@ -18,6 +19,7 @@ export async function getDrawingsFullByCategory(
           where: {
             category: null,
           },
+          orderBy: { date: "asc" },
           include: { category: true },
         })
       : await prisma.drawing.findMany({
@@ -26,6 +28,7 @@ export async function getDrawingsFullByCategory(
               key: categoryKey,
             },
           },
+          orderBy: { date: "asc" },
           include: { category: true },
         });
 

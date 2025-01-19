@@ -4,6 +4,7 @@ import { SculptureFull } from "@/lib/db/item";
 
 export async function getSculpturesFull(): Promise<SculptureFull[]> {
   const res = await prisma.sculpture.findMany({
+    orderBy: { date: "asc" },
     include: { images: true, category: true },
   });
   return JSON.parse(JSON.stringify(res));
@@ -18,6 +19,7 @@ export async function getSculpturesFullByCategory(
           where: {
             category: null,
           },
+          orderBy: { date: "asc" },
           include: { images: true, category: true },
         })
       : await prisma.sculpture.findMany({
@@ -26,6 +28,7 @@ export async function getSculpturesFullByCategory(
               key: categoryKey,
             },
           },
+          orderBy: { date: "asc" },
           include: { images: true, category: true },
         });
   return JSON.parse(JSON.stringify(res));

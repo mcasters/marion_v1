@@ -19,7 +19,6 @@ interface Props {
 export default function ItemListComponent({ type, items, categories }: Props) {
   const title = `Liste des ${type}s`;
 
-  console.log(items[0]);
   return (
     <div className={s.listContainer}>
       <h2>{title}</h2>

@@ -4,6 +4,7 @@ import "server-only";
 
 export async function getPaintingsFull(): Promise<PaintingFull[]> {
   const res = await prisma.painting.findMany({
+    orderBy: { date: "asc" },
     include: { category: true },
   });
   return JSON.parse(JSON.stringify(res));
@@ -18,6 +19,7 @@ export async function getPaintingsFullByCategory(
           where: {
             category: null,
           },
+          orderBy: { date: "asc" },
           include: { category: true },
         })
       : await prisma.painting.findMany({
@@ -26,6 +28,7 @@ export async function getPaintingsFullByCategory(
               key: categoryKey,
             },
           },
+          orderBy: { date: "asc" },
           include: { category: true },
         });
 
