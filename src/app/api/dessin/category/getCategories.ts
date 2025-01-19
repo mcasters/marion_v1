@@ -1,6 +1,6 @@
 import prisma from "@/lib/db/prisma";
 import "server-only";
-import { Category, CategoryFull, Type } from "@/lib/db/item";
+import { CategoryFull, Type } from "@/lib/db/item";
 
 export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
   const res = await prisma.drawingCategory.findMany({
@@ -28,26 +28,10 @@ export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
       type: Type.CATEGORY,
       count: drawingWithoutCategory_count,
       key: "no-category",
-      value: "SANS CATEGORIE",
+      value: "Sans catégorie",
       id: 0,
     });
   }
 
   return JSON.parse(JSON.stringify(updatedTab));
-}
-
-export async function getDrawingCategoriesForMenu(): Promise<Category[]> {
-  const categories = await prisma.drawingCategory.findMany();
-  const drawingWithoutCategory = await prisma.drawing.findFirst({
-    where: {
-      category: null,
-    },
-  });
-  if (categories.length > 0 && drawingWithoutCategory)
-    categories.push({
-      key: "no-category",
-      value: "Sans catégorie",
-      id: 0,
-    });
-  return JSON.parse(JSON.stringify(categories));
 }

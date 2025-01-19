@@ -3,14 +3,14 @@
 import { MENU_1, NAMES } from "@/constants/routes";
 import s from "@/styles/Nav_1.module.css";
 import { useTheme } from "@/app/context/themeProvider";
-import { Category } from "@/lib/db/item";
+import { CategoryFull } from "@/lib/db/item";
 import NavItem from "@/components/layout/header/menu1/NavItem";
 
 interface Props {
   navLayout: string;
-  paintingCategories: Category[];
-  sculptureCategories: Category[];
-  drawingCategories: Category[];
+  paintingCategories: CategoryFull[];
+  sculptureCategories: CategoryFull[];
+  drawingCategories: CategoryFull[];
 }
 
 export default function Nav_1({

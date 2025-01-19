@@ -5,7 +5,7 @@ import { MENU_1_ITEMS } from "@/constants/routes";
 import Dropdown from "@/components/layout/header/menu1/DropDown";
 import s from "./NavItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
-import { Category } from "@/lib/db/item";
+import { CategoryFull } from "@/lib/db/item";
 import React, { useMemo } from "react";
 import LAYOUT from "@/constants/layout";
 import { usePathname } from "next/navigation";
@@ -13,7 +13,7 @@ import { usePathname } from "next/navigation";
 interface Props {
   itemName: string;
   navLayout: string;
-  categories: Category[];
+  categories: CategoryFull[];
 }
 
 export default function NavItem({ itemName, navLayout, categories }: Props) {
@@ -37,7 +37,10 @@ export default function NavItem({ itemName, navLayout, categories }: Props) {
         : theme.menu1LinkHoverColor;
   }, [theme, navLayout]);
 
-  if (categories.length > 0)
+  if (
+    categories.length > 1 ||
+    (categories.length === 1 && categories[0].value !== "Sans catégorie")
+  )
     return (
       <Dropdown
         itemName={item.NAME}

@@ -10,13 +10,13 @@ import Footer from "./Footer";
 import s from "@/styles/Layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { hexToRgb } from "@/utils/commonUtils";
-import { Category } from "@/lib/db/item";
+import { CategoryFull } from "@/lib/db/item";
 
 interface Props {
   introduction: string;
-  paintingCategories: Category[];
-  sculptureCategories: Category[];
-  drawingCategories: Category[];
+  paintingCategories: CategoryFull[];
+  sculptureCategories: CategoryFull[];
+  drawingCategories: CategoryFull[];
   children: ReactNode;
 }
 

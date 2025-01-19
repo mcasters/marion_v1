@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import Link from "next/link";
 import s from "./NavItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
-import { Category } from "@/lib/db/item";
+import { CategoryFull } from "@/lib/db/item";
 import { MENU_1_ITEMS } from "@/constants/routes";
 import { usePathname } from "next/navigation";
 
 interface Props {
   itemName: string;
-  menuItems: Category[];
+  menuItems: CategoryFull[];
   themeLink: string;
   themeLinkHover: string;
   themeBorderActive: string;
@@ -61,20 +61,24 @@ export default function Dropdown({
           onMouseEnter={openMenu}
           onMouseLeave={closeMenu}
         >
-          {menuItems.map((menuItem, index) => (
-            <li key={index}>
-              <Link
-                href={`/${item.BASE_PATH}/${menuItem.key}`}
-                onClick={() => {
-                  setOpen(false);
-                }}
-                className={s.subLink}
-                style={{ color: `${theme.menu1LinkHomeColor}` }}
-              >
-                {menuItem.value}
-              </Link>
-            </li>
-          ))}
+          {menuItems.map((menuItem, index) => {
+            if (menuItem.count > 0) {
+              return (
+                <li key={index}>
+                  <Link
+                    href={`/${item.BASE_PATH}/${menuItem.key}`}
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                    className={s.subLink}
+                    style={{ color: `${theme.menu1LinkHomeColor}` }}
+                  >
+                    {menuItem.value}
+                  </Link>
+                </li>
+              );
+            }
+          })}
           <li>
             <Link
               href={`/${item.BASE_PATH}/par_annee`}

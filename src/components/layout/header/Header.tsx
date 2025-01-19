@@ -7,15 +7,15 @@ import s from "../../../styles/Header.module.css";
 import { BASE_PATH } from "@/constants/routes";
 import { useTheme } from "@/app/context/themeProvider";
 import React, { useState } from "react";
-import { Category } from "@/lib/db/item";
+import { CategoryFull } from "@/lib/db/item";
 import HomeSection from "@/components/layout/header/HomeSection";
 
 interface Props {
   basePath: string | null;
   introduction?: string;
-  paintingCategories: Category[];
-  sculptureCategories: Category[];
-  drawingCategories: Category[];
+  paintingCategories: CategoryFull[];
+  sculptureCategories: CategoryFull[];
+  drawingCategories: CategoryFull[];
 }
 
 export default function Header({

@@ -17,7 +17,11 @@ export default function RowCategoryListComponent({
   return (
     <ul className={s.item}>
       <li className={s.itemTitle}>
-        <span className={s.name}>{category.value}</span>
+        <span className={s.name}>
+          {category.value === "Sans catégorie"
+            ? "SANS CATÉGORIE"
+            : category.value}
+        </span>
       </li>
       <li className={s.itemInfo}>
         <span>
@@ -28,7 +32,7 @@ export default function RowCategoryListComponent({
         <UpdateCategoryButton
           category={category}
           itemType={itemType}
-          disabled={category.value === "SANS CATEGORIE"}
+          disabled={category.value === "Sans catégorie"}
         />
       </li>
       <li className={s.itemIcon}>
