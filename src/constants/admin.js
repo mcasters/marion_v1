@@ -4,3 +4,6 @@ export const PAGE_TYPE = {
   OTHERS: "Autres pages",
   HOME: "Page home",
 };
+export const THEME = {
+  BASE_THEME: "Thème de base",
+};

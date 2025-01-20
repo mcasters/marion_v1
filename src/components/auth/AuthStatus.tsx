@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import s from "./auth.module.css";
-import { ROUTES } from "@/constants/routes";
+import { ROUTES } from "@/constants/specific/routes";
 import { useSession } from "@/app/context/sessionProvider";
 import LogoutForm from "@/components/auth/LogoutForm";
 

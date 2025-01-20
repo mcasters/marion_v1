@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { MENU_2 } from "@/constants/routes";
+import { MENU_2 } from "@/constants/specific/routes";
 import s from "@/styles/Nav_2.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 

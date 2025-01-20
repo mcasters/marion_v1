@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MENU_1_ITEMS } from "@/constants/routes";
+import { MENU_1_ITEMS } from "@/constants/specific/routes";
 import Dropdown from "@/components/layout/header/menu1/DropDown";
 import s from "./NavItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
@@ -9,6 +9,7 @@ import { CategoryFull } from "@/lib/db/item";
 import React, { useMemo } from "react";
 import LAYOUT from "@/constants/layout";
 import { usePathname } from "next/navigation";
+import { TEXTS } from "@/constants/specific";
 
 interface Props {
   itemName: string;
@@ -36,6 +37,13 @@ export default function NavItem({ itemName, navLayout, categories }: Props) {
         ? theme.menu1LinkHomeHoverColor
         : theme.menu1LinkHoverColor;
   }, [theme, navLayout]);
+  const themeBorderActive = useMemo(() => {
+    return TEXTS.TITLE === "Marion Casters"
+      ? theme.menu2LinkItemColor
+      : navLayout === LAYOUT.ITEM_NAV
+        ? theme.menu1LinkItemColor
+        : theme.menu2LinkItemColor;
+  }, [theme, navLayout]);
 
   if (
     categories.length > 1 ||
@@ -47,7 +55,7 @@ export default function NavItem({ itemName, navLayout, categories }: Props) {
         menuItems={categories}
         themeLink={themeLink}
         themeLinkHover={themeLinkHover}
-        themeBorderActive={theme.menu2LinkItemColor}
+        themeBorderActive={themeBorderActive}
       />
     );
 
@@ -70,7 +78,7 @@ export default function NavItem({ itemName, navLayout, categories }: Props) {
           color: ${themeLinkHover};
         }
         .link.active {
-          border-bottom-color: ${theme.menu2LinkItemColor};
+          border-bottom-color: ${themeBorderActive};
         }
       `}</style>
     </>

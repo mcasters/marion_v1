@@ -33,8 +33,6 @@
    * Colors
    * ======================================================================== */
 
-  --color-xxlight: #fafafa;
-  --color-xlight: #f8f8f8;
   --color-light: #dcdcdc;
   --color-medium: #c4c3c3;
   --color-dark: #818181;
@@ -72,6 +70,10 @@ textarea {
   font-family: var(--font-family-serif);
   -webkit-font-smoothing: antialiased;
   font-size: var(--font-size);
+}
+
+select {
+  background-color: var(--color-medium);
 }
 
 body {

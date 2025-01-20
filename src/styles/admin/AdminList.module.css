@@ -1,16 +1,14 @@
 .listContainer {
-  max-width: 40vw;
-  margin: 0 auto 5em;
+  margin: 0 0 5em;
 }
 
-/* Mobile */
-@media (max-width: 700px) {
+/* desktop */
+@media (min-width: 769px) {
   .listContainer {
-    max-width: unset;
-    margin: 0 0 5em;
+    max-width: 50vw;
+    margin: 0 auto 5em;
   }
 }
-
 
 .listContainer h2 {
   font-size: var(--font-size-title);

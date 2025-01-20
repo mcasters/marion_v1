@@ -2,7 +2,7 @@
 
 import s from "../../../styles/Header.module.css";
 import React, { useEffect, useRef, useState } from "react";
-import { TEXTS } from "@/constants/texts";
+import { TEXTS } from "@/constants/specific";
 
 interface Props {
   handleDisappear: (arg0: boolean) => void;

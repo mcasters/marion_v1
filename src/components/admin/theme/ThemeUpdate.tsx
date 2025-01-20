@@ -2,10 +2,10 @@
 
 import React from "react";
 import s from "@/styles/admin/AdminTheme.module.css";
-import { THEME } from "@/constants/database";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
 import { useAlert } from "@/app/context/AlertProvider";
+import { THEME } from "@/constants/admin";
 
 export default function ThemeUpdate() {
   const { setThemes } = useAdminThemesContext();

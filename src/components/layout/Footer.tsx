@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 
 import AuthStatus from "@/components/auth/AuthStatus";
 import s from "@/styles/Footer.module.css";
-import { BASE_PATH } from "@/constants/routes";
-import { TEXTS } from "@/constants/texts";
+import { BASE_PATH } from "@/constants/specific/routes";
+import { TEXTS } from "@/constants/specific";
 
 export default function Footer() {
   const authStatus = AuthStatus();

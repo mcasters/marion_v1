@@ -38,7 +38,7 @@ export default function RowCategoryListComponent({
       <li className={s.itemIcon}>
         <DeleteButton
           api={`api/${itemType}/category/delete/${category.id}`}
-          disabled={category.count > 0 || category.value === "SANS CATEGORIE"}
+          disabled={category.count > 0 || category.value === "Sans catégorie"}
         />
       </li>
     </ul>

@@ -1,6 +1,6 @@
 import prisma from "@/lib/db/prisma";
 import "server-only";
-import { CategoryFull, Type } from "@/lib/db/item";
+import { CategoryFull } from "@/lib/db/item";
 
 export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
   const res = await prisma.drawingCategory.findMany({
@@ -13,7 +13,7 @@ export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
 
   const updatedTab = res.map((categorie) => {
     const { _count, ...rest } = categorie;
-    return { count: _count.drawings, ...rest, type: Type.CATEGORY };
+    return { count: _count.drawings, ...rest };
   });
 
   const drawingWithoutCategory = await prisma.drawing.findMany({
@@ -25,7 +25,6 @@ export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
   const drawingWithoutCategory_count = drawingWithoutCategory.length;
   if (drawingWithoutCategory_count > 0) {
     updatedTab.push({
-      type: Type.CATEGORY,
       count: drawingWithoutCategory_count,
       key: "no-category",
       value: "Sans catégorie",

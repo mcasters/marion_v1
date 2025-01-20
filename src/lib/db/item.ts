@@ -101,7 +101,6 @@ export enum Type {
   SCULPTURE = "sculpture",
   POST = "post",
   DRAWING = "dessin",
-  CATEGORY = "categorie",
 }
 
 export const ImageSize = {
@@ -112,14 +111,12 @@ export const ImageSize = {
 
 export type Category = {
   id: number;
-  type: Type.CATEGORY;
   key: string;
   value: string;
 };
 
 export type CategoryFull = {
   id: number;
-  type: Type.CATEGORY;
   key: string;
   value: string;
   count: number;

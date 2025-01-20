@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Layout from "@/components/layout/Layout";
 import Providers from "./context/providers";
-import "@/styles/globals.css";
+import "@/styles/globals-specific.css";
 import { getContentsFull } from "@/app/api/content/getContents";
 import { getPaintingCategoriesFull } from "@/app/api/peinture/category/getCategories";
 import { getSculptureCategoriesFull } from "@/app/api/sculpture/category/getCategories";
@@ -9,9 +9,10 @@ import { getIntroText, themeToHexa } from "@/utils/commonUtils";
 import React from "react";
 import { getActiveTheme, getPresetColors } from "@/app/api/theme/getTheme";
 import StyledJsxRegistry from "./registry";
-import { DESCRIPTION, GENERAL, KEYWORDS } from "@/constants/metaHtml";
+import { DESCRIPTION, GENERAL, KEYWORDS } from "@/constants/specific/metaHtml";
 import { getSession } from "@/app/lib/auth/lib";
 import { getDrawingCategoriesFull } from "@/app/api/dessin/category/getCategories";
+import { TEXTS } from "@/constants/specific";
 
 export const metadata: Metadata = {
   title: GENERAL.SITE_TITLE,
@@ -36,7 +37,9 @@ export default async function RootLayout({
   const contents = await getContentsFull();
   const paintingCategories = await getPaintingCategoriesFull();
   const sculptureCategories = await getSculptureCategoriesFull();
-  const drawingCategories = await getDrawingCategoriesFull();
+  let drawingCategories = undefined;
+  if (TEXTS.TITLE === "Marion Casters")
+    drawingCategories = await getDrawingCategoriesFull();
   const theme = await getActiveTheme();
   const presetColors = await getPresetColors();
   const hexaTheme = themeToHexa(theme, presetColors);

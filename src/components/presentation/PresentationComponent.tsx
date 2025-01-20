@@ -5,7 +5,7 @@ import React from "react";
 import Image from "next/image";
 import { DEVICE } from "@/constants/image";
 import { ContentFull } from "@/lib/db/item";
-import { GENERAL } from "@/constants/metaHtml";
+import { GENERAL } from "@/constants/specific/metaHtml";
 
 interface Props {
   presentationContent: ContentFull | null;

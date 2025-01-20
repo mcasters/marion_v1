@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import s from "@/styles/ItemPage.module.css";
 import { Metadata } from "next";
-import { DESCRIPTION, DOCUMENT_TITLE } from "@/constants/metaHtml";
+import { DESCRIPTION, DOCUMENT_TITLE } from "@/constants/specific/metaHtml";
 
 export const metadata: Metadata = {
   title: DOCUMENT_TITLE.DRAWING,

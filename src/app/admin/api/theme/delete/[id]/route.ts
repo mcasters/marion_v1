@@ -1,6 +1,7 @@
 import prisma from "@/lib/db/prisma";
 import { NextResponse } from "next/server";
-import { THEME } from "@/constants/database";
+
+import { THEME } from "@/constants/admin";
 
 export async function POST(
   req: Request,

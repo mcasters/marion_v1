@@ -5,7 +5,7 @@ import Link from "next/link";
 import s from "./NavItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { CategoryFull } from "@/lib/db/item";
-import { MENU_1_ITEMS } from "@/constants/routes";
+import { MENU_1_ITEMS } from "@/constants/specific/routes";
 import { usePathname } from "next/navigation";
 
 interface Props {
@@ -88,7 +88,7 @@ export default function Dropdown({
               className={s.subLink}
               style={{ color: `${theme.menu1LinkHomeColor}` }}
             >
-              Filtre par année
+              FILTRE PAR ANNÉE
             </Link>
           </li>
         </ul>

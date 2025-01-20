@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import AuthStatus from "@/components/auth/AuthStatus";
-import { ADMIN_MENU } from "@/constants/routes";
+import { ADMIN_MENU } from "@/constants/specific/routes";
 import s from "@/styles/admin/AdminNav.module.css";
 
 export default function AdminNav() {

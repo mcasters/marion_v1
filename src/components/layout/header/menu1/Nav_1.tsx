@@ -1,6 +1,6 @@
 "use client";
 
-import { MENU_1, NAMES } from "@/constants/routes";
+import { MENU_1, NAMES } from "@/constants/specific/routes";
 import s from "@/styles/Nav_1.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { CategoryFull } from "@/lib/db/item";
@@ -10,7 +10,7 @@ interface Props {
   navLayout: string;
   paintingCategories: CategoryFull[];
   sculptureCategories: CategoryFull[];
-  drawingCategories: CategoryFull[];
+  drawingCategories?: CategoryFull[];
 }
 
 export default function Nav_1({
@@ -38,7 +38,7 @@ export default function Nav_1({
                       ? sculptureCategories
                       : name === NAMES.PAINTING
                         ? paintingCategories
-                        : name === NAMES.DRAWING
+                        : name === NAMES.DRAWING && drawingCategories
                           ? drawingCategories
                           : []
                   }
