@@ -9,7 +9,7 @@ interface Props {
   onNewImages?: (arg0: string[]) => void;
   reset?: number;
   isMultiple: boolean;
-  minWidth?: boolean;
+  smallImage?: boolean;
   title?: string;
 }
 
@@ -17,12 +17,13 @@ export default function Images({
   onNewImages,
   reset,
   isMultiple,
-  minWidth = true,
+  smallImage = true,
   title,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [newImages, setNewImages] = useState<string[]>([]);
-  const [acceptSmallImage, setAcceptSmallImage] = useState<boolean>(!minWidth);
+  const [acceptSmallImage, setAcceptSmallImage] =
+    useState<boolean>(!!smallImage);
 
   const alert = useAlert();
 
@@ -81,19 +82,21 @@ export default function Images({
           className={s.inputButton}
         />
       </div>
-      <div>
-        <input
-          type={"radio"}
-          id="small-image"
-          name="small-image"
-          checked={acceptSmallImage}
-          onChange={(event) => setAcceptSmallImage(event.target.checked)}
-          className={s.radioInput}
-        />
-        <label htmlFor="small-image" className={s.radioLabel}>
-          Accepter des images en dessous de 2000 px de large
-        </label>
-      </div>
+      {smallImage && (
+        <div>
+          <input
+            type={"radio"}
+            id="small-image"
+            name="small-image"
+            checked={acceptSmallImage}
+            onChange={(event) => setAcceptSmallImage(event.target.checked)}
+            className={s.radioInput}
+          />
+          <label htmlFor="small-image" className={s.radioLabel}>
+            Accepter des images en dessous de 2000 px de large
+          </label>
+        </div>
+      )}
       <div>
         {newImages.length > 0 &&
           newImages.map((src) => (

@@ -18,7 +18,7 @@ interface Props {
   categories?: CategoryFull[];
 }
 
-export default function AddItemForm({ item, toggleModal, categories }: Props) {
+export default function ItemForm({ item, toggleModal, categories }: Props) {
   const isUpdate = item.id !== 0;
   const isSculpture = item.type === Type.SCULPTURE;
   const api = isUpdate ? `api/${item.type}/update` : `api/${item.type}/add`;
@@ -46,6 +46,7 @@ export default function AddItemForm({ item, toggleModal, categories }: Props) {
         if (res.ok) {
           if (toggleModal) {
             toggleModal();
+            router.refresh();
           } else {
             reset();
             router.refresh();

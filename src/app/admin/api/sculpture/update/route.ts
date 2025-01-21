@@ -10,7 +10,6 @@ import prisma from "@/lib/db/prisma";
 export async function POST(req: Request) {
   try {
     const dir = getSculptureDir();
-
     const formData = await req.formData();
     const id = Number(formData.get("id"));
     const oldSculpt = await prisma.sculpture.findUnique({

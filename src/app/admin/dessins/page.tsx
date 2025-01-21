@@ -5,7 +5,7 @@ import s from "@/styles/admin/Admin.module.css";
 import React from "react";
 import { getDrawingsFull } from "@/app/api/dessin/getDrawings";
 import { getDrawingCategoriesFull } from "@/app/api/dessin/category/getCategories";
-import AddItemForm from "@/components/admin/form/AddItemForm";
+import ItemForm from "@/components/admin/form/ItemForm";
 import { getEmptyItem } from "@/utils/commonUtils";
 
 export default async function Dessins() {
@@ -16,7 +16,7 @@ export default async function Dessins() {
     <>
       <h1 className={s.pageTitle}>Contenus des pages Dessins</h1>
       <ItemListComponent items={drawings} categories={categories} />
-      <AddItemForm categories={categories} item={getEmptyItem(Type.DRAWING)} />
+      <ItemForm categories={categories} item={getEmptyItem(Type.DRAWING)} />
       <CategoryComponent itemType={Type.DRAWING} categories={categories} />
     </>
   );

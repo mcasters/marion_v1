@@ -8,12 +8,12 @@ export async function GET(
   const dir = getPaintingDir();
   try {
     const id = Number((await params).id);
+
     const painting = await prisma.painting.findUnique({
       where: { id },
     });
     if (painting) {
-      const filename = painting.imageFilename;
-      deleteFile(dir, filename);
+      deleteFile(dir, painting.images[0].filename);
       await prisma.painting.delete({
         where: {
           id,

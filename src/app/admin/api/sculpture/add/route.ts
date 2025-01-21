@@ -13,7 +13,6 @@ export async function POST(req: Request) {
     const formData = await req.formData();
     const files = formData.getAll("files") as File[];
     const title = formData.get("title") as string;
-
     const images = [];
     for (const file of files) {
       if (file.size > 0) {

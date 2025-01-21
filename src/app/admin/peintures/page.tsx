@@ -6,7 +6,7 @@ import s from "@/styles/admin/Admin.module.css";
 import React from "react";
 import { Type } from "@/lib/db/item";
 import { getEmptyItem } from "@/utils/commonUtils";
-import AddItemForm from "@/components/admin/form/AddItemForm";
+import ItemForm from "@/components/admin/form/ItemForm";
 
 export default async function Peintures() {
   const paintings = await getPaintingsFull();
@@ -16,7 +16,7 @@ export default async function Peintures() {
     <>
       <h1 className={s.pageTitle}>Contenus des pages Peintures</h1>
       <ItemListComponent items={paintings} categories={categories} />
-      <AddItemForm categories={categories} item={getEmptyItem(Type.PAINTING)} />
+      <ItemForm categories={categories} item={getEmptyItem(Type.PAINTING)} />
       <CategoryComponent itemType={Type.PAINTING} categories={categories} />
     </>
   );

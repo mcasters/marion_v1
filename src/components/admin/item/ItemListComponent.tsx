@@ -10,7 +10,7 @@ interface Props {
   categories: CategoryFull[];
 }
 export default function ItemListComponent({ items, categories }: Props) {
-  const title = `Liste des ${items[0].type}s`;
+  const title = `Liste des ${items[0]?.type ? items[0].type : "item"}s`;
 
   return (
     <div className={s.listContainer}>

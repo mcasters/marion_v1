@@ -21,7 +21,7 @@ export async function POST(req: Request) {
       const newFile = formData.get("file") as File;
       const title = formData.get("title") as string;
       if (newFile.size !== 0) {
-        deleteFile(dir, oldDraw.imageFilename);
+        deleteFile(dir, oldDraw.images[0].filename);
         fileInfo = await resizeAndSaveImage(newFile, title, dir);
       }
 

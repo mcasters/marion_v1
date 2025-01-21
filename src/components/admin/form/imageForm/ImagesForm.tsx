@@ -12,6 +12,7 @@ type Props = {
   label: string;
   title?: string;
   isMain?: boolean;
+  smallImage?: boolean;
 };
 
 export default function ImagesForm({
@@ -20,6 +21,7 @@ export default function ImagesForm({
   label,
   title,
   isMain = false,
+  smallImage = true,
 }: Props) {
   const alert = useAlert();
   const formRef = useRef<HTMLFormElement>(null);
@@ -46,7 +48,7 @@ export default function ImagesForm({
     <form ref={formRef} onSubmit={submit}>
       <input type="hidden" name="label" value={label} />
       <input type="hidden" name="isMain" value={isMain?.toString()} />
-      <Images isMultiple={isMultiple} title={title} />
+      <Images isMultiple={isMultiple} title={title} smallImage={smallImage} />
       <>
         <SubmitButton />
         <CancelButton />

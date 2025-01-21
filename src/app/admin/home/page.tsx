@@ -38,8 +38,8 @@ export default async function Home() {
           api="api/content/update"
           isMultiple={true}
           label={Label.SLIDER}
-          title="Minimum une photo"
           isMain
+          smallImage={false}
         />
       </div>
       <div className="separate"></div>
@@ -57,7 +57,7 @@ export default async function Home() {
           api="api/content/update"
           isMultiple={true}
           label={Label.SLIDER}
-          title="Minimum 1 photo"
+          smallImage={false}
         />
       </div>
     </div>

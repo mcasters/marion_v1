@@ -12,8 +12,7 @@ export async function GET(
       where: { id },
     });
     if (drawing) {
-      const filename = drawing.imageFilename;
-      deleteFile(dir, filename);
+      deleteFile(dir, drawing.images[0].filename);
       await prisma.drawing.delete({
         where: {
           id,
