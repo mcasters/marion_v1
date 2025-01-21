@@ -19,6 +19,10 @@
     width: 100%;
 }
 
+.presentationText {
+    padding-top: 3rem;
+}
+
 /* desktop */
 @media (min-width: 769px) {
     .imageWrap {

@@ -1,73 +1,20 @@
 import { User } from ".prisma/client";
 
-export type SculptureFull = {
-  id: number;
-  type: Type.SCULPTURE;
-  title: string;
-  date: Date;
-  technique: string;
-  description: string | null;
-  height: number;
-  width: number;
-  length: number;
-  isToSell: boolean;
-  price: number | null;
-  sold: boolean;
-  images: Image[];
-  category: Category | null;
-};
-
-export type PaintingFull = {
-  id: number;
-  type: Type.PAINTING;
-  title: string;
-  date: Date;
-  technique: string;
-  description: string | null;
-  height: number;
-  width: number;
-  isToSell: boolean;
-  price: number | null;
-  sold: boolean;
-  imageFilename: string;
-  imageWidth: number;
-  imageHeight: number;
-  category: Category | null;
-};
-
-export type DrawingFull = {
-  id: number;
-  type: Type.DRAWING;
-  title: string;
-  date: Date;
-  technique: string;
-  description: string | null;
-  height: number;
-  width: number;
-  isToSell: boolean;
-  price: number | null;
-  sold: boolean;
-  imageFilename: string;
-  imageWidth: number;
-  imageHeight: number;
-  category: Category | null;
-};
-
 export type ItemFull = {
   id: number;
   type: Type.SCULPTURE | Type.PAINTING | Type.DRAWING;
   title: string;
   date: Date;
   technique: string;
-  description: string | null;
+  description: string;
   height: number;
   width: number;
   length: number;
   isToSell: boolean;
-  price: number | null;
+  price: number | undefined;
   sold: boolean;
   images: Image[];
-  category: Category | null;
+  category: Category | undefined;
 };
 
 export type PostFull = {
@@ -117,12 +64,6 @@ export enum Type {
   POST = "post",
   DRAWING = "dessin",
 }
-
-export const ImageSize = {
-  sm: { WIDTH: 384, FOLDER: "/sm" },
-  md: { WIDTH: 640, FOLDER: "/md" },
-  lg: { WIDTH: 2000, FOLDER: "" },
-} as const;
 
 export type Category = {
   id: number;

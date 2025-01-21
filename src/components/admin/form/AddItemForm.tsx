@@ -4,13 +4,13 @@ import React, { useRef, useState } from "react";
 import { parse } from "date-fns";
 import s from "@/styles/admin/Admin.module.css";
 import { CategoryFull, ItemFull, Type } from "@/lib/db/item";
-import { getImageTab } from "@/utils/commonUtils";
-import Images from "@/components/admin/form/imageForm/Images";
-import Preview from "@/components/admin/form/imageForm/Preview";
-import CancelButton from "@/components/admin/form/CancelButton";
-import SubmitButton from "@/components/admin/form/SubmitButton";
-import { useRouter } from "next/navigation";
+import { getEmptyItem } from "@/utils/commonUtils";
 import { useAlert } from "@/app/context/AlertProvider";
+import Preview from "@/components/admin/form/imageForm/Preview";
+import Images from "@/components/admin/form/imageForm/Images";
+import SubmitButton from "@/components/admin/form/SubmitButton";
+import CancelButton from "@/components/admin/form/CancelButton";
+import { useRouter } from "next/navigation";
 
 interface Props {
   item: ItemFull;
@@ -18,60 +18,24 @@ interface Props {
   categories?: CategoryFull[];
 }
 
-export default function ItemForm({
-  item,
-  toggleModal,
-  categories,
-  typeAdd,
-}: Props) {
-  const router = useRouter();
-  const formRef = useRef<HTMLFormElement>(null);
-  const resetImageRef = useRef<number>(0);
+export default function AddItemForm({ item, toggleModal, categories }: Props) {
+  const isUpdate = item.id !== 0;
+  const isSculpture = item.type === Type.SCULPTURE;
+  const api = isUpdate ? `api/${item.type}/update` : `api/${item.type}/add`;
   const alert = useAlert();
+  const router = useRouter();
+  const resetImageRef = useRef<number>(0);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const isSculpture =
-    item?.type === Type.SCULPTURE || typeAdd === Type.SCULPTURE;
   const [workItem, setWorkItem] = useState<ItemFull>(item);
-
-  const [title, setTitle] = useState<string>(item?.title || "");
-  const [date, setDate] = useState<Date>(new Date(item?.date || new Date()));
-  const [technique, setTechnique] = useState<string>(item?.technique || "");
-  const [description, setDescription] = useState<string>(
-    item?.description || "",
-  );
-  const [height, setHeight] = useState<string>(item?.height.toString() || "");
-  const [width, setWidth] = useState<string>(item?.width.toString() || "");
-  const [price, setPrice] = useState<string>(item?.price?.toString() || "");
-  const [categoryId, setCategoryId] = useState<string>(
-    item?.category?.id.toString() || "",
-  );
-  const [isToSell, setIsToSell] = useState<boolean>(item?.isToSell || false);
-  const [length, setLength] = useState<string>(
-    item?.type === Type.SCULPTURE ? item.length.toString() : "",
-  );
-  const [hasImages, setHasImages] = useState<boolean>(
-    item === undefined
-      ? false
-      : item.type === Type.SCULPTURE
-        ? item.images.length > 0
-        : item.imageFilename !== "",
-  );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
-  const api = item ? `api/${item.type}/update` : `api/${typeAdd}/add`;
+  const [newImages, setNewImages] = useState([]);
 
   const reset = () => {
-    setTitle("");
-    setDate(new Date());
-    setTechnique("");
-    setDescription("");
-    setHeight("");
-    setWidth("");
-    setLength("");
-    setPrice("");
-    setIsToSell(false);
-    setCategoryId("");
+    setWorkItem(getEmptyItem(item.type));
+    setFilenamesToDelete([]);
+    setNewImages([]);
     resetImageRef.current = resetImageRef.current + 1;
-    if (toggleModal) toggleModal();
   };
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -84,35 +48,39 @@ export default function ItemForm({
             toggleModal();
           } else {
             reset();
+            router.refresh();
           }
-          alert(item ? "item modifié" : "item ajouté", false);
-          router.refresh();
+          alert(isUpdate ? "item modifié" : "item ajouté", false);
         } else alert("Erreur à l'enregistrement", true);
       });
     }
   };
 
   return (
-    <div className={item ? s.wrapperModal : s.formContainer}>
-      <h2>{item ? `Modifier une ${item.type}` : `Ajouter une ${typeAdd}`}</h2>
+    <div className={isUpdate ? s.wrapperModal : s.formContainer}>
+      <h2>
+        {`${isUpdate ? "Modifier" : "Ajouter"} ${item.type === Type.DRAWING ? "un" : "une"} ${item.type}`}
+      </h2>
       <form ref={formRef} onSubmit={submit}>
-        {item && <input type="hidden" name="id" value={item.id} />}
-        {item && (
+        {isUpdate && <input type="hidden" name="id" value={item.id} />}
+        {isUpdate && (
           <input
             type="hidden"
             name="filenamesToDelete"
             value={filenamesToDelete}
           />
         )}
-        <input type="hidden" name="isToSell" value={String(isToSell)} />
+        <input type="hidden" name="isToSell" value={String(item.isToSell)} />
         <label className={s.formLabel}>
           Titre
           <input
             autoFocus
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) =>
+              setWorkItem({ ...workItem, title: e.target.value })
+            }
             name="title"
             type="text"
-            value={title}
+            value={workItem.title}
             required
           />
         </label>
@@ -120,8 +88,14 @@ export default function ItemForm({
           Catégorie (facultatif)
           <select
             name="categoryId"
-            value={categoryId}
-            onChange={(e) => setCategoryId(e.target.value)}
+            value={workItem.category?.id}
+            onChange={(e) => {
+              setWorkItem(
+                Object.assign({}, workItem, {
+                  category: { id: e.target.value },
+                }),
+              );
+            }}
           >
             <option value="">-- Aucune catégorie --</option>
             {categories &&
@@ -140,60 +114,71 @@ export default function ItemForm({
           <input
             onChange={(e) => {
               const date = parse(e.currentTarget.value, "yyyy", new Date());
-              setDate(date);
+              setWorkItem({ ...workItem, date });
             }}
             name="date"
             type="number"
-            value={date.getFullYear()}
+            value={new Date(workItem.date).getFullYear()}
             required
           />
         </label>
         <label className={s.formLabel}>
           Technique
           <input
-            onChange={(e) => setTechnique(e.target.value)}
+            onChange={(e) =>
+              setWorkItem({ ...workItem, technique: e.target.value })
+            }
             name="technique"
             type="text"
-            value={technique}
+            value={workItem.technique}
             required
           />
         </label>
         <label className={s.formLabel}>
           Description (facultatif)
           <textarea
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) =>
+              setWorkItem({ ...workItem, description: e.target.value })
+            }
             name="description"
             rows={5}
-            value={description}
+            value={workItem.description}
           />
         </label>
         <label className={s.formLabel}>
           Hauteur (cm)
           <input
-            onChange={(e) => setHeight(e.target.value)}
+            onChange={(e) =>
+              setWorkItem({ ...workItem, height: Number(e.target.value) })
+            }
             name="height"
             type="number"
-            value={height}
+            value={workItem.height === 0 ? "" : workItem.height.toString()}
             required
           />
         </label>
         <label className={s.formLabel}>
           Largeur (cm)
           <input
-            onChange={(e) => setWidth(e.target.value)}
+            onChange={(e) =>
+              setWorkItem({ ...workItem, width: Number(e.target.value) })
+            }
             name="width"
             type="number"
-            value={width}
+            value={workItem.width === 0 ? "" : workItem.width.toString()}
+            required
           />
         </label>
         {isSculpture && (
           <label className={s.formLabel}>
             Profondeur (cm)
             <input
-              onChange={(e) => setLength(e.target.value)}
+              onChange={(e) =>
+                setWorkItem({ ...workItem, length: Number(e.target.value) })
+              }
               name="length"
               type="number"
-              value={length}
+              value={workItem.length === 0 ? "" : workItem.length.toString()}
               required
             />
           </label>
@@ -201,35 +186,34 @@ export default function ItemForm({
         <label className={s.formLabel}>
           À vendre :
           <input
-            onChange={(e) => setIsToSell(e.target.checked)}
+            onChange={(e) =>
+              setWorkItem({ ...workItem, isToSell: e.target.checked })
+            }
             name="isToSell"
             type="checkbox"
-            defaultChecked={isToSell}
+            defaultChecked={workItem.isToSell}
           />
         </label>
-        {isToSell && (
+        {workItem.isToSell && (
           <label className={s.formLabel}>
             Prix
             <input
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) =>
+                setWorkItem({ ...workItem, price: Number(e.target.value) })
+              }
               name="price"
               type="text"
-              value={price}
+              value={workItem.price | ""}
             />
           </label>
         )}
         <div className={s.imageFormContainer}>
-          {item && (
+          {isUpdate && (
             <Preview
-              images={getImageTab(item)}
+              images={item.images}
               pathImage={`/images/${item.type}`}
               onDelete={(filename) => {
                 setFilenamesToDelete([...filenamesToDelete, filename]);
-                if (item) {
-                  setHasImages(
-                    filenamesToDelete.length < getImageTab(item).length,
-                  );
-                }
               }}
             />
           )}
@@ -237,20 +221,20 @@ export default function ItemForm({
             isMultiple={isSculpture}
             title={isSculpture ? "1 photo minimum" : "1 seule photo"}
             reset={resetImageRef.current}
-            hasImage={setHasImages}
+            onNewImages={setNewImages}
           />
         </div>
         <div className={s.buttonSection}>
           <SubmitButton
             disabled={
-              !title ||
-              !date ||
-              !technique ||
-              !height ||
-              !width ||
-              (isSculpture && !length) ||
-              (isToSell && !price) ||
-              !hasImages
+              workItem.title === "" ||
+              workItem.technique === "" ||
+              workItem.height === 0 ||
+              workItem.width === 0 ||
+              (isSculpture && workItem.length === 0) ||
+              (newImages.length === 0 && workItem.images.length === 0) ||
+              (newImages.length === 0 &&
+                filenamesToDelete.length >= workItem.images.length)
             }
           />
           <CancelButton onCancel={reset} />

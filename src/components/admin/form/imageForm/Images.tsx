@@ -6,7 +6,7 @@ import s from "@/styles/admin/Admin.module.css";
 import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
-  hasImage?: (arg0: boolean) => void;
+  onNewImages?: (arg0: string[]) => void;
   reset?: number;
   isMultiple: boolean;
   minWidth?: boolean;
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function Images({
-  hasImage,
+  onNewImages,
   reset,
   isMultiple,
   minWidth = true,
@@ -58,12 +58,12 @@ export default function Images({
       }
       if (!error && newFiles.length > 0) {
         setNewImages(newFiles);
-        if (hasImage !== undefined) hasImage(true);
+        if (onNewImages !== undefined) onNewImages(newFiles);
       } else {
         setNewImages([]);
         setAcceptSmallImage(false);
         inputRef.current.value = "";
-        if (hasImage !== undefined) hasImage(false);
+        if (onNewImages !== undefined) onNewImages([]);
       }
     }
   };

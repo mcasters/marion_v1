@@ -42,9 +42,8 @@ export default function PresentationComponent({
             />
           </div>
         )}
-        <div className={s.contentWrapper}>
-          <p>{presentationContent?.text}</p>
-        </div>
+
+        <p className={s.presentationText}>{presentationContent?.text}</p>
       </section>
 
       {demarcheText && (

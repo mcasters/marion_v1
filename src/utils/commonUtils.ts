@@ -3,9 +3,7 @@ import { OnlyString } from "@/lib/db/theme";
 import {
   ContentFull,
   Image,
-  ImageSize,
   ItemFull,
-  Photo,
   PhotoTab,
   PostFull,
   Type,
@@ -156,29 +154,6 @@ export function rgbToHex(r: number, g: number, b: number): string {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 } // rgbToHex(0, 51, 255); // #0033ff
 
-export const getImageTab = (item: ItemFull): Image[] => {
-  if (item.type === Type.SCULPTURE) {
-    return item.images.map((i) => {
-      return {
-        id: i.id,
-        filename: i.filename,
-        width: i.width,
-        height: i.height,
-        isMain: i.isMain,
-      };
-    });
-  }
-  return [
-    {
-      id: 0,
-      filename: item.imageFilename,
-      width: item.imageWidth,
-      height: item.imageHeight,
-      isMain: false,
-    },
-  ];
-};
-
 const restForPhotoTab = (item: ItemFull | PostFull) => {
   return {
     alt:
@@ -200,37 +175,39 @@ export const getPhotoTab = (
   const mainPhotos: PhotoTab = { sm: [], md: [], lg: [] };
   const photos: PhotoTab = { sm: [], md: [], lg: [] };
 
-  if (item.type === Type.PAINTING || item.type === Type.DRAWING) {
-    for (const [key, value] of Object.entries(ImageSize)) {
-      photos[key as keyof PhotoTab].push({
-        src: `/images/${item.type}${value.FOLDER}/${item.imageFilename}`,
-        width: key === "lg" ? item.imageWidth : value.WIDTH,
-        height:
-          key === "lg"
-            ? item.imageHeight
-            : Math.round((value.WIDTH * item.imageHeight) / item.imageWidth),
-        isMain: false,
-        ...restForPhotoTab(item),
-      } as Photo);
-    }
-  } else if (item.type === Type.SCULPTURE || item.type === Type.POST) {
-    for (const [key, value] of Object.entries(ImageSize)) {
-      for (const i of item.images) {
-        const photo = {
-          src: `/images/${item.type}${value.FOLDER}/${i.filename}`,
-          width: key === "lg" ? i.width : value.WIDTH,
-          height:
-            key === "lg"
-              ? i.height
-              : Math.round((value.WIDTH * i.height) / i.width),
-          isMain: i.isMain,
-          ...restForPhotoTab(item),
-        };
+  for (const image of item.images) {
+    const photosSM = {
+      src: `/images/${item.type}/sm/${image.filename}`,
+      width: image.width < 384 ? image.width : 384,
+      height:
+        image.width < 384 ? image.height : (image.height * 384) / image.width,
+      isMain: image.isMain,
+      ...restForPhotoTab(item),
+    };
+    const photosMD = {
+      src: `/images/${item.type}/md/${image.filename}`,
+      width: image.width < 640 ? image.width : 640,
+      height:
+        image.width < 640 ? image.height : (image.height * 640) / image.width,
+      isMain: image.isMain,
+      ...restForPhotoTab(item),
+    };
+    const photosLG = {
+      src: `/images/${item.type}/${image.filename}`,
+      width: image.width,
+      height: image.height,
+      isMain: image.isMain,
+      ...restForPhotoTab(item),
+    };
 
-        if (splitMain && i.isMain)
-          mainPhotos[key as keyof PhotoTab].push(photo);
-        else photos[key as keyof PhotoTab].push(photo);
-      }
+    if (splitMain && image.isMain) {
+      mainPhotos.sm.push(photosSM);
+      mainPhotos.md.push(photosMD);
+      mainPhotos.lg.push(photosLG);
+    } else {
+      photos.sm.push(photosSM);
+      photos.md.push(photosMD);
+      photos.lg.push(photosLG);
     }
   }
   return { mainPhotos, photos };
@@ -245,14 +222,14 @@ export const getEmptyItem = (
     title: "",
     date: new Date(),
     technique: "",
-    description: null,
+    description: "",
     height: 0,
     width: 0,
     length: 0,
     isToSell: false,
-    price: null,
+    price: undefined,
     sold: false,
     images: [],
-    category: null,
+    category: undefined,
   };
 };

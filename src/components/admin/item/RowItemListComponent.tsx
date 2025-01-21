@@ -5,7 +5,7 @@ import Image from "next/image";
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import UpdateItemButton from "@/components/admin/form/UpdateItemButton";
 import s from "../../../styles/admin/AdminList.module.css";
-import { CategoryFull, ItemFull, Type } from "@/lib/db/item";
+import { CategoryFull, ItemFull } from "@/lib/db/item";
 
 interface Props {
   item: ItemFull;
@@ -13,10 +13,7 @@ interface Props {
 }
 
 export default function RowItemListComponent({ item, categories }: Props) {
-  const filename =
-    item.type === Type.SCULPTURE
-      ? item.images[0]?.filename
-      : item.imageFilename;
+  const filename = item.images[0]?.filename;
   return (
     <ul className={s.item}>
       <li className={s.itemTitle}>
