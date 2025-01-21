@@ -3,6 +3,7 @@ import sharp from "sharp";
 import { join } from "path";
 import { IMAGE_SIZE } from "@/constants/image";
 import { transformValueToKey } from "@/utils/commonUtils";
+import { TEXTS } from "@/constants/specific";
 
 const serverLibraryPath = process.env.PHOTOS_PATH;
 
@@ -84,7 +85,7 @@ export const resizeAndSaveImage = async (file, title = "", dir) => {
       .withMetadata({
         exif: {
           IFD0: {
-            Copyright: "Marion Casters",
+            Copyright: TEXTS.TITLE,
           },
         },
       })
@@ -102,7 +103,7 @@ export const resizeAndSaveImage = async (file, title = "", dir) => {
       .withMetadata({
         exif: {
           IFD0: {
-            Copyright: "Marion Casters",
+            Copyright: TEXTS.TITLE,
           },
         },
       })
@@ -120,7 +121,7 @@ export const resizeAndSaveImage = async (file, title = "", dir) => {
       .withMetadata({
         exif: {
           IFD0: {
-            Copyright: "Marion Casters",
+            Copyright: TEXTS.TITLE,
           },
         },
       })

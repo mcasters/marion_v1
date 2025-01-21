@@ -17,7 +17,7 @@ export function AlertProvider({ children }: Props) {
 
   const alert = (message: string, isError?: boolean) => {
     setMessage(message);
-    if (isError) setIsError(true);
+    if (isError !== undefined) setIsError(isError);
     setIsOpen(true);
   };
   return (

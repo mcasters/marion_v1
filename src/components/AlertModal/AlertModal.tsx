@@ -25,7 +25,7 @@ export default function AlertModal({ message, isError, onClose }: Props) {
   useEffect(() => {
     setTimeout(() => {
       onClose();
-    }, 3000);
+    }, 2500);
   });
 
   return createPortal(

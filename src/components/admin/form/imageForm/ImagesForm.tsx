@@ -21,7 +21,7 @@ export default function ImagesForm({
   title,
   isMain = false,
 }: Props) {
-  const [toUpdate, setToUpdate] = useState(0);
+  const [toUpdate, setToUpdate] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
   const alert = useAlert();
 
@@ -34,7 +34,7 @@ export default function ImagesForm({
         body: formData,
       }).then((res) => {
         if (res.ok) {
-          alert("Contenu modifié");
+          alert("Contenu modifié", false);
           setTimeout(function () {
             window.location.reload();
           }, 1500);
@@ -47,8 +47,8 @@ export default function ImagesForm({
     <form ref={formRef} onSubmit={submit}>
       <input type="hidden" name="label" value={label} />
       <input type="hidden" name="isMain" value={isMain?.toString()} />
-      <Images isMultiple={isMultiple} title={title} onChange={setToUpdate} />
-      {toUpdate > 0 && (
+      <Images isMultiple={isMultiple} title={title} hasImage={setToUpdate} />
+      {toUpdate && (
         <>
           <SubmitButton />
           <CancelButton />

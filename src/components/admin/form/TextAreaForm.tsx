@@ -53,6 +53,7 @@ export default function TextAreaForm({
   return (
     <div className={s.formContainer}>
       <form ref={formRef} onSubmit={submit}>
+        <input type="hidden" name="label" value={label} />
         {images && (
           <div>
             <Preview
@@ -61,15 +62,14 @@ export default function TextAreaForm({
               apiForDelete="api/content/delete-image"
             />
             <Images
-              onChange={(count) => setIsChanged(count === 1)}
+              hasImage={setIsChanged}
               isMultiple={false}
-              title="Image de présentation (facultative)"
+              title="Image (facultative)"
               minWidth={false}
               reset={resetImageRef.current}
             />
           </div>
         )}
-        <input type="hidden" name="label" value={label} />
         <label className={s.formLabel}>
           {textLabel}
           <textarea

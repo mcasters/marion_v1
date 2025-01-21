@@ -235,3 +235,24 @@ export const getPhotoTab = (
   }
   return { mainPhotos, photos };
 };
+
+export const getEmptyItem = (
+  type: Type.SCULPTURE | Type.DRAWING | Type.PAINTING,
+): ItemFull => {
+  return {
+    id: 0,
+    type,
+    title: "",
+    date: new Date(),
+    technique: "",
+    description: null,
+    height: 0,
+    width: 0,
+    length: 0,
+    isToSell: false,
+    price: null,
+    sold: false,
+    images: [],
+    category: null,
+  };
+};

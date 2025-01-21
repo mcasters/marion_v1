@@ -69,6 +69,12 @@
 
 /* Image */
 
+.fileUploaderContainer {
+    width: 100%;
+    text-align: left;
+    padding: 1em 0 1em;
+}
+
 .imageTitle {
     font-variant-caps: small-caps;
     letter-spacing: 3px;
@@ -76,6 +82,22 @@
     color: var(--color-dark);
     font-size: var(--font-size);
 }
+
+.inputButton {
+    padding: 0 0 5px;
+}
+
+.radioInput {
+    display: inline;
+    margin-left: 30px;
+    width: 20px;
+}
+
+.radioLabel {
+    display: inline;
+}
+
+/* End image */
 
 h2.homepage {
     padding: 2em 0 0;

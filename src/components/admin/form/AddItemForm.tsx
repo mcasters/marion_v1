@@ -13,10 +13,9 @@ import { useRouter } from "next/navigation";
 import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
-  item?: ItemFull;
+  item: ItemFull;
   toggleModal?: () => void;
   categories?: CategoryFull[];
-  typeAdd?: Type;
 }
 
 export default function ItemForm({
@@ -32,6 +31,8 @@ export default function ItemForm({
 
   const isSculpture =
     item?.type === Type.SCULPTURE || typeAdd === Type.SCULPTURE;
+  const [workItem, setWorkItem] = useState<ItemFull>(item);
+
   const [title, setTitle] = useState<string>(item?.title || "");
   const [date, setDate] = useState<Date>(new Date(item?.date || new Date()));
   const [technique, setTechnique] = useState<string>(item?.technique || "");

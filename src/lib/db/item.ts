@@ -53,7 +53,22 @@ export type DrawingFull = {
   category: Category | null;
 };
 
-export type ItemFull = PaintingFull | DrawingFull | SculptureFull;
+export type ItemFull = {
+  id: number;
+  type: Type.SCULPTURE | Type.PAINTING | Type.DRAWING;
+  title: string;
+  date: Date;
+  technique: string;
+  description: string | null;
+  height: number;
+  width: number;
+  length: number;
+  isToSell: boolean;
+  price: number | null;
+  sold: boolean;
+  images: Image[];
+  category: Category | null;
+};
 
 export type PostFull = {
   id: number;
