@@ -184,17 +184,20 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
             />
           </label>
         )}
-        <label className={s.formLabel}>
-          À vendre :
-          <input
-            onChange={(e) =>
-              setWorkItem({ ...workItem, isToSell: e.target.checked })
-            }
-            name="isToSell"
-            type="checkbox"
-            defaultChecked={workItem.isToSell}
-          />
-        </label>
+        <div className={s.formLabel}>
+          <label className={` ${s.checkLabel}`}>
+            À vendre :
+            <input
+              onChange={(e) =>
+                setWorkItem({ ...workItem, isToSell: e.target.checked })
+              }
+              name="isToSell"
+              type="checkbox"
+              defaultChecked={workItem.isToSell}
+              className={s.checkInput}
+            />
+          </label>
+        </div>
         {workItem.isToSell && (
           <label className={s.formLabel}>
             Prix
@@ -203,8 +206,12 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
                 setWorkItem({ ...workItem, price: Number(e.target.value) })
               }
               name="price"
-              type="text"
-              value={workItem.price | ""}
+              type="number"
+              value={
+                workItem.price === undefined || workItem.price === 0
+                  ? ""
+                  : workItem.price.toString()
+              }
             />
           </label>
         )}

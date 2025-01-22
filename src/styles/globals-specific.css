@@ -9,13 +9,13 @@
   /*
   * Font size
   * ======================================================================== */
-  --font-size-xtitle: 1.5em;
-  --font-size-title: 1.3em;
-  --font-size-nav: 1.2em;
-  --font-size-nav-minus: 1.1em;
-  --font-size-plus: 1em;
-  --font-size: 0.9em;
-  --font-size-min: 0.8em;
+  --font-size-xtitle: 1.5rem;
+  --font-size-title: 1.3rem;
+  --font-size-nav: 1.2rem;
+  --font-size-nav-minus: 1.1rem;
+  --font-size-plus: 1rem;
+  --font-size: 0.9rem;
+  --font-size-min: 0.8rem;
 
   /*
    * Layout

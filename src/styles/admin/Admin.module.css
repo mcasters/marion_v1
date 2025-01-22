@@ -48,12 +48,24 @@
     height: 150px
 }
 
-.formContainer .formLabel, h2.formLabel {
+.formContainer .formLabel, h2.formLabel, .wrapperModal .formLabel {
     font-variant-caps: small-caps;
     letter-spacing: 3px;
     color: var(--color-dark);
     text-align: left;
-    font-size: 0.9em;
+    font-size: var(--font-size);
+margin-top: 1rem;
+}
+
+.checkLabel {
+    display: inline;
+    margin-top: 1rem;
+}
+
+.checkInput {
+    display: inline;
+    margin-left: 30px;
+    width: 10px;
 }
 
 .message {
