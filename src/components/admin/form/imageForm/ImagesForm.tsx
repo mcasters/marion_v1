@@ -12,7 +12,7 @@ type Props = {
   label: string;
   title?: string;
   isMain?: boolean;
-  smallImage?: boolean;
+  smallImage: boolean;
 };
 
 export default function ImagesForm({
@@ -21,7 +21,7 @@ export default function ImagesForm({
   label,
   title,
   isMain = false,
-  smallImage = true,
+  smallImage,
 }: Props) {
   const alert = useAlert();
   const formRef = useRef<HTMLFormElement>(null);

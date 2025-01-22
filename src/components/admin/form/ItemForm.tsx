@@ -223,6 +223,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
             title={isSculpture ? "1 photo minimum" : "1 seule photo"}
             reset={resetImageRef.current}
             onNewImages={setNewImages}
+            smallImage={true}
           />
         </div>
         <div className={s.buttonSection}>

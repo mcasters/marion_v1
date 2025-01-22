@@ -31,6 +31,7 @@ export default async function Presentation() {
           isMultiple={false}
           api="api/content/update"
           label={Label.PRESENTATION}
+          smallImage={true}
         />
       </div>
       <TextAreaForm

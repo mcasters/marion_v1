@@ -123,7 +123,11 @@ export default function PostForm({ post, toggleModal }: Props) {
             />
           )}
         </div>
-        <Images isMultiple={false} reset={resetMainImageRef.current} />
+        <Images
+          isMultiple={false}
+          reset={resetMainImageRef.current}
+          smallImage={true}
+        />
         <div className={s.imageFormContainer}>
           <h3>Album d&apos;images (facultatif)</h3>
           {post && (
@@ -135,7 +139,11 @@ export default function PostForm({ post, toggleModal }: Props) {
               }
             />
           )}
-          <Images isMultiple={true} reset={resetImagesRef.current} />
+          <Images
+            isMultiple={true}
+            reset={resetImagesRef.current}
+            smallImage={true}
+          />
         </div>
         <div className={s.buttonSection}>
           <SubmitButton disabled={!title || !date} />
