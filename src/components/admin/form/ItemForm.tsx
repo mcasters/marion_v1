@@ -29,13 +29,16 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
 
   const [workItem, setWorkItem] = useState<ItemFull>(item);
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
-  const [newImages, setNewImages] = useState([]);
+  const [newImages, setNewImages] = useState<string[]>([]);
 
   const reset = () => {
-    setWorkItem(getEmptyItem(item.type));
-    setFilenamesToDelete([]);
-    setNewImages([]);
-    resetImageRef.current = resetImageRef.current + 1;
+    if (toggleModal) toggleModal();
+    else {
+      setWorkItem(getEmptyItem(item.type));
+      setFilenamesToDelete([]);
+      setNewImages([]);
+      resetImageRef.current = resetImageRef.current + 1;
+    }
   };
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {

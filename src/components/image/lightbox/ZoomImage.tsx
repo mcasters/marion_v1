@@ -173,9 +173,11 @@ export default function ZoomImage({
       canvasRef.current.width = width;
       canvasRef.current.height = height;
       const context = canvasRef.current.getContext("2d");
-      context.drawImage(background, 0, 0, width, height);
-      setZoom(scale);
-      setZoomMin(scale);
+      if (context) {
+        context.drawImage(background, 0, 0, width, height);
+        setZoom(scale);
+        setZoomMin(scale);
+      }
     }
   };
 
@@ -193,7 +195,7 @@ export default function ZoomImage({
       observer.observe(containerRef.current);
       return () => observer.disconnect();
     }
-  }, [background, photo.height, photo.width]);
+  }, []);
 
   // 2) Set image as background
   useEffect(() => {
@@ -203,7 +205,7 @@ export default function ZoomImage({
         setCanvasSize();
       };
     }
-  }, [background, photo]);
+  }, []);
 
   // 3) On zoom or offset changes
   useEffect(() => {

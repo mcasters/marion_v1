@@ -30,13 +30,19 @@ export default function Images({
     if (reset !== undefined) {
       setNewImages([]);
       setAcceptSmallImage(false);
-      inputRef.current.value = "";
+      if (inputRef.current) inputRef.current.value = "";
     }
   }, [reset]);
 
   const handleFiles = async () => {
+    if (
+      !inputRef.current ||
+      !inputRef.current.files ||
+      inputRef.current.files.length === 0
+    )
+      return;
     const filesUploaded = inputRef.current.files;
-    if (filesUploaded?.length > 0) {
+    if (filesUploaded.length > 0) {
       const files = Array.from(filesUploaded);
       const newFiles: string[] = [];
       let error = false;
