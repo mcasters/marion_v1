@@ -1,7 +1,7 @@
 "use client";
 
 import RowItemListComponent from "./RowItemListComponent";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import s from "@/styles/admin/AdminList.module.css";
 import style from "@/styles/admin/Admin.module.css";
 import { CategoryFull, ItemFull } from "@/lib/db/item";
@@ -16,32 +16,39 @@ export default function ItemListComponent({ items, categories, years }: Props) {
   const [categoryFilter, setCategoryFilter] = useState<number>(-1);
   const [yearFilter, setYearFilter] = useState<number>(-1);
   const [filteredItems, setFilteredItems] = useState<ItemFull[]>(items);
+  const categoryFilterMemo = useMemo(() => {
+    return categoryFilter;
+  }, [categoryFilter]);
+  const yearFilterMemo = useMemo(() => {
+    return yearFilter;
+  }, [yearFilter]);
 
   const getItemsFilterByCategory = (_items: ItemFull[]): ItemFull[] => {
-    if (categoryFilter === -1) return _items;
-    else if (categoryFilter === 0) return _items.filter((i) => !i.category);
-    else return _items.filter((i) => i.category?.id === categoryFilter);
+    if (categoryFilterMemo === -1) return _items;
+    else if (categoryFilterMemo === 0) return _items.filter((i) => !i.category);
+    else return _items.filter((i) => i.category?.id === categoryFilterMemo);
   };
 
   const getItemsFilterByYear = (_items: ItemFull[]): ItemFull[] => {
-    if (yearFilter === -1) return _items;
+    if (yearFilterMemo === -1) return _items;
     else
       return _items.filter(
-        (i) => new Date(i.date).getFullYear() === yearFilter,
+        (i) => new Date(i.date).getFullYear() === yearFilterMemo,
       );
   };
 
   useEffect(() => {
     setFilteredItems(getItemsFilterByCategory(getItemsFilterByYear(items)));
-  }, [categoryFilter]);
+  }, [categoryFilter, items]);
 
   useEffect(() => {
     setFilteredItems(getItemsFilterByYear(getItemsFilterByCategory(items)));
-  }, [yearFilter]);
+  }, [yearFilter, items]);
 
   return (
     <div className={s.listContainer}>
       <h2>{title}</h2>
+      <h4>( total : {items.length} )</h4>
       <label className={s.filter}>
         Filtre par catégorie
         <select
@@ -69,8 +76,8 @@ export default function ItemListComponent({ items, categories, years }: Props) {
         >
           <option value={-1}>-- Pas de filtre --</option>
           {years &&
-            years.map((year) => (
-              <option key={year} value={year}>
+            years.map((year, index) => (
+              <option key={index} value={year}>
                 {year}
               </option>
             ))}
