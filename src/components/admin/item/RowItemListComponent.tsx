@@ -22,6 +22,9 @@ export default function RowItemListComponent({ item, categories }: Props) {
       <li className={s.itemCategory}>
         <span className={s.name}>{item.category?.value}</span>
       </li>
+      <li className={s.itemYear}>
+        <span className={s.name}>{new Date(item.date).getFullYear()}</span>
+      </li>
       <li className={s.itemImage}>
         {filename && (
           <Image

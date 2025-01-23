@@ -73,6 +73,7 @@ export default function Slider({ photos, autoPlay, index = 0 }: Props) {
               objectFit: "contain",
             }}
             unoptimized
+            priority
           />
         </div>
       ))}

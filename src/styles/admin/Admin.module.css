@@ -54,7 +54,11 @@
     color: var(--color-dark);
     text-align: left;
     font-size: var(--font-size);
-margin-top: 1rem;
+    margin-top: 1rem;
+}
+
+.select {
+    background-color: unset;
 }
 
 .checkLabel {

@@ -47,14 +47,9 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
       const formData = new FormData(formRef.current);
       fetch(api, { method: "POST", body: formData }).then((res) => {
         if (res.ok) {
-          if (toggleModal) {
-            toggleModal();
-            router.refresh();
-          } else {
-            reset();
-            router.refresh();
-          }
+          reset();
           alert(isUpdate ? "item modifié" : "item ajouté", false);
+          router.refresh();
         } else alert("Erreur à l'enregistrement", true);
       });
     }
@@ -100,6 +95,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
                 }),
               );
             }}
+            className={s.select}
           >
             <option value="">-- Aucune catégorie --</option>
             {categories &&

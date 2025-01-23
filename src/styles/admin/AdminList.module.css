@@ -2,6 +2,11 @@
   margin: 0 0 5em;
 }
 
+.filter {
+ width: 40%;
+  padding: 1rem;
+}
+
 /* desktop */
 @media (min-width: 769px) {
   .listContainer {
@@ -45,11 +50,15 @@
 
 .itemTitle {
   text-align: left;
-  flex:  30%;
+  flex:  35%;
+}
+
+.itemYear {
+  flex:  8%;
 }
 
 .itemCategory {
-  flex:  15%;
+  flex:  10%;
 }
 
 .itemImage, .itemInfo, .itemIcon {
