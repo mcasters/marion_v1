@@ -11,18 +11,12 @@ import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
 import { Theme } from "@prisma/client";
 import { useAlert } from "@/app/context/AlertProvider";
 import { THEME } from "@/constants/admin";
+import s from "@/styles/admin/Admin.module.css";
 
 export default function AdminTheme() {
   const { themes, setThemes } = useAdminThemesContext();
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const alert = useAlert();
-
-  const changeSelectedId = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedTheme: Theme | undefined = themes.find(
-      (t) => t.id.toString() === e.target.value,
-    );
-    if (selectedTheme !== undefined) setWorkTheme({ ...selectedTheme });
-  };
 
   const activateTheme = () => {
     fetch(`admin/api/theme/activate/${workTheme.id}`, {
@@ -44,11 +38,7 @@ export default function AdminTheme() {
   };
 
   const DeleteTheme = () => {
-    if (
-      confirm(
-        `As-tu vraiment confiance ??? ... Plutôt que de supprimer le thème "${workTheme.name}", ça pourrait supprimer l'intégralité du contenu de ton ordinateur !`,
-      )
-    ) {
+    if (confirm(`Supprimer le thème "${workTheme.name} ?`)) {
       fetch(`admin/api/theme/delete/${workTheme.id}`, {
         method: "POST",
         headers: {
@@ -57,26 +47,23 @@ export default function AdminTheme() {
       })
         .then((res) => res.json())
         .then((json) => {
-          const updatedThemes: Theme[] = json.updatedThemes;
-          if (updatedThemes) {
-            setThemes(updatedThemes);
+          if (json.updatedThemes) {
             alert(`Thème "${workTheme.name}" supprimé`);
-            if (workTheme.isActive) {
-              setTimeout(function () {
-                window.location.reload();
-              }, 1500);
-            } else {
-              const activeTheme = updatedThemes.find((t: Theme) => t.isActive);
-              if (activeTheme) setWorkTheme({ ...activeTheme });
-            }
-          } else alert("Erreur à la suppression du thème", true);
+
+            setTimeout(function () {
+              window.location.reload();
+            }, 1500);
+          }
+        })
+        .catch((e) => {
+          alert("Erreur à la suppression du thème", true);
         });
     }
   };
 
   const handleCancel = () => {
     const themeBeforeChange = themes.find((t: Theme) => t.id === workTheme.id);
-    if (themeBeforeChange !== undefined) setWorkTheme({ ...themeBeforeChange });
+    if (themeBeforeChange) setWorkTheme(themeBeforeChange);
   };
 
   return (
@@ -84,12 +71,23 @@ export default function AdminTheme() {
       <h1>Gestion du thème</h1>
       <div className={themeStyle.themeContainer}>
         <h2>Liste des thèmes :</h2>
-        <select name="name" value={workTheme.id} onChange={changeSelectedId}>
-          {themes.map((t: Theme) => (
-            <option key={t.id} value={t.id}>
-              {`${t.name} ${t.isActive ? `(ACTIF)` : ""}`}
-            </option>
-          ))}
+        <select
+          name="name"
+          value={workTheme.id}
+          onChange={(e) => {
+            const theme = themes.find(
+              (t) => t.id?.toString() === e.target.value,
+            );
+            if (theme) setWorkTheme(theme);
+          }}
+          className={s.select}
+        >
+          {themes &&
+            themes.map((t: Theme) => (
+              <option key={t.id} value={t.id}>
+                {`${t.name} ${t.isActive ? `(ACTIF)` : ""}`}
+              </option>
+            ))}
         </select>
         <button onClick={activateTheme} className="adminButton">
           Activer
