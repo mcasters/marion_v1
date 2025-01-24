@@ -1,4 +1,3 @@
-import { parse } from "date-fns";
 import {
   createDirIfNecessary,
   getDrawingDir,
@@ -18,7 +17,7 @@ export async function POST(req: Request) {
       await prisma.drawing.create({
         data: {
           title,
-          date: parse(formData.get("date") as string, "yyyy", new Date()),
+          date: new Date(Number(formData.get("date")), 1),
           technique: formData.get("technique") as string,
           description: formData.get("description") as string,
           height: Number(formData.get("height")),

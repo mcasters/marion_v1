@@ -1,4 +1,3 @@
-import { parse } from "date-fns";
 import prisma from "@/lib/db/prisma";
 import {
   createDirIfNecessary,
@@ -28,7 +27,7 @@ export async function POST(req: Request) {
     await prisma.sculpture.create({
       data: {
         title,
-        date: parse(formData.get("date") as string, "yyyy", new Date()),
+        date: new Date(Number(formData.get("date")), 1),
         technique: formData.get("technique") as string,
         description: formData.get("description") as string,
         height: Number(formData.get("height")),

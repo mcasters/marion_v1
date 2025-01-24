@@ -50,5 +50,7 @@ export async function getYearsForPainting(): Promise<number[]> {
     years.push(date.getFullYear());
   }
 
-  return JSON.parse(JSON.stringify(years));
+  const uniqYears = [...new Set(years)];
+
+  return JSON.parse(JSON.stringify(uniqYears));
 }

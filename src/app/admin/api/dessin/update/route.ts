@@ -1,4 +1,3 @@
-import { parse } from "date-fns";
 import {
   deleteFile,
   getDrawingDir,
@@ -20,7 +19,7 @@ export async function POST(req: Request) {
       let fileInfo = null;
       const newFile = formData.get("file") as File;
       const title = formData.get("title") as string;
-      if (newFile.size !== 0) {
+      if (newFile.size > 0) {
         deleteFile(dir, oldDraw.images[0].filename);
         fileInfo = await resizeAndSaveImage(newFile, title, dir);
       }
@@ -44,7 +43,7 @@ export async function POST(req: Request) {
         where: { id: id },
         data: {
           title,
-          date: parse(formData.get("date") as string, "yyyy", new Date()),
+          date: new Date(Number(formData.get("date")), 1),
           technique: formData.get("technique") as string,
           description: formData.get("description") as string,
           height: Number(formData.get("height")),

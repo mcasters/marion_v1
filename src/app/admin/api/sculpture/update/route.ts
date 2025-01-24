@@ -1,5 +1,3 @@
-import { parse } from "date-fns";
-
 import {
   deleteFile,
   getSculptureDir,
@@ -18,11 +16,13 @@ export async function POST(req: Request) {
 
     if (oldSculpt) {
       const filenamesToDelete = formData.get("filenamesToDelete") as string;
-      for await (const filename of filenamesToDelete.split(",")) {
-        if (deleteFile(dir, filename)) {
-          await prisma.sculptureImage.delete({
-            where: { filename },
-          });
+      if (filenamesToDelete) {
+        for await (const filename of filenamesToDelete.split(",")) {
+          if (deleteFile(dir, filename)) {
+            await prisma.sculptureImage.delete({
+              where: { filename },
+            });
+          }
         }
       }
 
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
         where: { id: id },
         data: {
           title,
-          date: parse(formData.get("date") as string, "yyyy", new Date()),
+          date: new Date(Number(formData.get("date")), 1),
           technique: formData.get("technique") as string,
           description: formData.get("description") as string,
           height: Number(formData.get("height")),

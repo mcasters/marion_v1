@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { parse } from "date-fns";
 import s from "@/styles/admin/Admin.module.css";
 import { CategoryFull, ItemFull, Type } from "@/lib/db/item";
 import { getEmptyItem } from "@/utils/commonUtils";
@@ -28,6 +27,9 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
 
   const [workItem, setWorkItem] = useState<ItemFull>(item);
+  const [date, setDate] = useState<string>(
+    new Date(item.date).getFullYear().toString(),
+  );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<string[]>([]);
 
@@ -35,6 +37,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
     if (toggleModal) toggleModal();
     else {
       setWorkItem(getEmptyItem(item.type));
+      setDate("");
       setFilenamesToDelete([]);
       setNewImages([]);
       resetImageRef.current = resetImageRef.current + 1;
@@ -113,12 +116,13 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
           Année
           <input
             onChange={(e) => {
-              const date = parse(e.currentTarget.value, "yyyy", new Date());
-              setWorkItem({ ...workItem, date });
+              setDate(e.target.value);
             }}
             name="date"
             type="number"
-            value={new Date(workItem.date).getFullYear()}
+            min={1980}
+            max={2100}
+            value={date}
             required
           />
         </label>
@@ -237,6 +241,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
             disabled={
               workItem.title === "" ||
               workItem.technique === "" ||
+              date === "" ||
               workItem.height === 0 ||
               workItem.width === 0 ||
               (isSculpture && workItem.length === 0) ||
