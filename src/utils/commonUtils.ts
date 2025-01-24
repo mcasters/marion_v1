@@ -233,3 +233,14 @@ export const getEmptyItem = (
     category: undefined,
   };
 };
+
+export const getEmptyPost = (): PostFull => {
+  return {
+    id: 0,
+    type: Type.POST,
+    title: "",
+    date: new Date(),
+    text: "",
+    images: [],
+  };
+};

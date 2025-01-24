@@ -3,6 +3,7 @@ import PostListComponent from "@/components/admin/post/PostListComponent";
 import { getPostsFull } from "@/app/api/post/getPosts";
 import s from "@/styles/admin/Admin.module.css";
 import React from "react";
+import { getEmptyPost } from "@/utils/commonUtils";
 
 export default async function Sculptures() {
   const posts = await getPostsFull();
@@ -11,7 +12,7 @@ export default async function Sculptures() {
     <>
       <h1 className={s.pageTitle}>Contenus de la page Posts</h1>
       <PostListComponent posts={posts} />
-      <PostForm />
+      <PostForm post={getEmptyPost()} />
     </>
   );
 }
