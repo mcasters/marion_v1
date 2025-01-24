@@ -1,49 +1,47 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { parse } from "date-fns";
 import { useRouter } from "next/navigation";
 
 import Images from "@/components/admin/form/imageForm/Images";
 import { PostFull } from "@/lib/db/item";
 import s from "@/styles/admin/Admin.module.css";
-import { getMainImage } from "@/utils/commonUtils";
+import { getEmptyPost, getMainImage } from "@/utils/commonUtils";
 import Preview from "@/components/admin/form/imageForm/Preview";
 import CancelButton from "@/components/admin/form/CancelButton";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
-  post?: PostFull;
+  post: PostFull;
   toggleModal?: () => void;
 }
 
 export default function PostForm({ post, toggleModal }: Props) {
+  const isUpdate = post.id !== 0;
   const formRef = useRef<HTMLFormElement>(null);
   const resetMainImageRef = useRef<number>(0);
   const resetImagesRef = useRef<number>(0);
   const router = useRouter();
   const alert = useAlert();
-  const api = post ? `api/post/update` : `api/post/add`;
+  const api = isUpdate ? `api/post/update` : `api/post/add`;
 
-  const [title, setTitle] = useState<string>(post?.title || "");
-  const [date, setDate] = useState<Date>(
-    post?.date ? new Date(post.date) : new Date(),
+  const [workPost, setWorkPost] = useState<PostFull>(post);
+  const [date, setDate] = useState<string>(
+    new Date(post.date).getFullYear().toString(),
   );
-  const [text, setText] = useState<string>(post?.text || "");
   const [mainFilenameToDelete, setMainFilenameToDelete] = useState<string>("");
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
-
-  let mainImage = null;
-  if (post) mainImage = getMainImage(post);
+  const mainImage = getMainImage(post);
 
   const reset = () => {
-    setTitle("");
-    setDate(new Date());
-    setText("");
-    resetMainImageRef.current = resetMainImageRef.current + 1;
-    resetImagesRef.current = resetImagesRef.current + 1;
     if (toggleModal) toggleModal();
+    else {
+      setWorkPost(getEmptyPost());
+      setDate("");
+      resetMainImageRef.current = resetMainImageRef.current + 1;
+      resetImagesRef.current = resetImagesRef.current + 1;
+    }
   };
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -53,7 +51,7 @@ export default function PostForm({ post, toggleModal }: Props) {
       fetch(api, { method: "POST", body: formData }).then((res) => {
         if (res.ok) {
           reset();
-          alert(post ? "Post modifié" : "Post ajouté");
+          alert(isUpdate ? "Post modifié" : "Post ajouté", false);
           router.refresh();
         } else alert("Erreur à l'enregistrement", true);
       });
@@ -61,18 +59,18 @@ export default function PostForm({ post, toggleModal }: Props) {
   };
 
   return (
-    <div className={post ? s.wrapperModal : s.formContainer}>
-      <h2>{post ? "Modifier un post" : "Ajouter un post"}</h2>
+    <div className={isUpdate ? s.wrapperModal : s.formContainer}>
+      <h2>{isUpdate ? "Modifier un post" : "Ajouter un post"}</h2>
       <form ref={formRef} onSubmit={submit}>
-        {post && <input type="hidden" name="id" value={post.id} />}
-        {post && (
+        {isUpdate && <input type="hidden" name="id" value={post.id} />}
+        {isUpdate && (
           <input
             type="hidden"
             name="mainFilenameToDelete"
             value={mainFilenameToDelete}
           />
         )}
-        {post && (
+        {isUpdate && (
           <input
             type="hidden"
             name="filenamesToDelete"
@@ -83,10 +81,12 @@ export default function PostForm({ post, toggleModal }: Props) {
           Titre
           <input
             autoFocus
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) =>
+              setWorkPost({ ...workPost, title: e.target.value })
+            }
             name="title"
             type="text"
-            value={title}
+            value={workPost.title}
             required
           />
         </label>
@@ -94,30 +94,30 @@ export default function PostForm({ post, toggleModal }: Props) {
           Année
           <input
             onChange={(e) => {
-              const date = parse(e.currentTarget.value, "yyyy", new Date());
-              setDate(date);
+              setDate(e.target.value);
             }}
             name="date"
             type="number"
-            value={date.getFullYear()}
+            min={1980}
+            max={2100}
+            value={date}
             required
           />
         </label>
         <label className={s.formLabel}>
           Texte (facultatif)
           <textarea
-            onChange={(e) => setText(e.target.value)}
+            onChange={(e) => setWorkPost({ ...workPost, text: e.target.value })}
             name="text"
             rows={5}
-            value={text}
+            value={workPost.text}
           />
         </label>
-
         <div className={s.imageFormContainer}>
           <h3>Image principale (facultative)</h3>
-          {post && (
+          {isUpdate && (
             <Preview
-              images={mainImage ? [mainImage] : []}
+              images={post.images.filter((i) => i.isMain) || []}
               pathImage="/images/post"
               onDelete={(filename) => setMainFilenameToDelete(filename)}
             />
@@ -130,7 +130,7 @@ export default function PostForm({ post, toggleModal }: Props) {
         />
         <div className={s.imageFormContainer}>
           <h3>Album d&apos;images (facultatif)</h3>
-          {post && (
+          {isUpdate && (
             <Preview
               images={post.images.filter((i) => !i.isMain) || []}
               pathImage="/images/post"
@@ -146,7 +146,7 @@ export default function PostForm({ post, toggleModal }: Props) {
           />
         </div>
         <div className={s.buttonSection}>
-          <SubmitButton disabled={!title || !date} />
+          <SubmitButton disabled={!workPost.title || !date} />
           <CancelButton onCancel={reset} />
         </div>
       </form>
