@@ -23,13 +23,13 @@ export default function ItemListComponent({ items, categories, years }: Props) {
     return yearFilter;
   }, [yearFilter]);
 
-  const getItemsFilterByCategory = (_items: ItemFull[]): ItemFull[] => {
+  const filterByCategory = (_items: ItemFull[]): ItemFull[] => {
     if (categoryFilterMemo === -1) return _items;
     else if (categoryFilterMemo === 0) return _items.filter((i) => !i.category);
     else return _items.filter((i) => i.category?.id === categoryFilterMemo);
   };
 
-  const getItemsFilterByYear = (_items: ItemFull[]): ItemFull[] => {
+  const filterByYear = (_items: ItemFull[]): ItemFull[] => {
     if (yearFilterMemo === -1) return _items;
     else
       return _items.filter(
@@ -38,12 +38,20 @@ export default function ItemListComponent({ items, categories, years }: Props) {
   };
 
   useEffect(() => {
-    setFilteredItems(getItemsFilterByCategory(getItemsFilterByYear(items)));
-  }, [categoryFilter, items]);
+    if (!years.includes(yearFilter)) setYearFilter(-1);
+  }, [years]);
 
   useEffect(() => {
-    setFilteredItems(getItemsFilterByYear(getItemsFilterByCategory(items)));
-  }, [yearFilter, items]);
+    function hasCategory() {
+      const tab = categories.find((category) => category.id === categoryFilter);
+      return !!tab;
+    }
+    if (!hasCategory()) setCategoryFilter(-1);
+  }, [categories]);
+
+  useEffect(() => {
+    setFilteredItems(filterByYear(filterByCategory(items)));
+  }, [yearFilter, categoryFilter, items]);
 
   return (
     <div className={s.listContainer}>
@@ -71,7 +79,9 @@ export default function ItemListComponent({ items, categories, years }: Props) {
         <select
           name="year"
           value={yearFilter}
-          onChange={(e) => setYearFilter(Number(e.target.value))}
+          onChange={(e) => {
+            setYearFilter(Number(e.target.value));
+          }}
           className={style.select}
         >
           <option value={-1}>-- Pas de filtre --</option>
