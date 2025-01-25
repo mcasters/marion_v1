@@ -6,22 +6,38 @@ import s from "@/styles/admin/Admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { useAlert } from "@/app/context/AlertProvider";
-import { Category } from "@/lib/db/item";
+import { Category, Type } from "@/lib/db/item";
 import {
   createCategoryPainting,
   updateCategoryPainting,
 } from "@/app/actions/paintings/admin";
+import {
+  createCategorySculpture,
+  updateCategorySculpture,
+} from "@/app/actions/sculptures/admin";
 
 interface Props {
+  itemType: Type;
   category?: Category;
   toggleModal?: () => void;
 }
-export default function CategoryForm({ category, toggleModal }: Props) {
+export default function CategoryForm({
+  itemType,
+  category,
+  toggleModal,
+}: Props) {
   const isUpdate = category !== undefined;
+  const isSculpture = itemType === Type.SCULPTURE;
   const [text, setText] = useState<string>(category?.value || "");
   const alert = useAlert();
   const [state, action] = useActionState(
-    isUpdate ? updateCategoryPainting : createCategoryPainting,
+    isUpdate
+      ? isSculpture
+        ? updateCategorySculpture
+        : updateCategoryPainting
+      : isSculpture
+        ? createCategorySculpture
+        : createCategoryPainting,
     {
       message: "",
       isError: false,

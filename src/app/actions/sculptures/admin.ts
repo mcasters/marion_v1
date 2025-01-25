@@ -188,10 +188,10 @@ export async function deleteSculpture(id: number) {
 
 export async function deleteCategorySculpture(id: number) {
   try {
-    await prisma.paintingCategory.delete({
+    await prisma.sculptureCategory.delete({
       where: { id },
     });
-    revalidatePath("/admin/peintures");
+    revalidatePath("/admin/sculptures");
     return { message: "Catégorie supprimée", isError: false };
   } catch (e) {
     return { message: "Erreur à la suppression", isError: true };
@@ -206,13 +206,13 @@ export async function createCategorySculpture(
     const value = formData.get("text") as string;
     const key = transformValueToKey(value);
 
-    await prisma.paintingCategory.create({
+    await prisma.sculptureCategory.create({
       data: {
         key,
         value,
       },
     });
-    revalidatePath("/admin/peintures");
+    revalidatePath("/admin/sculptures");
     return { message: "Catégorie ajoutée", isError: false };
   } catch (e) {
     return { message: "Erreur à la création", isError: true };
@@ -229,14 +229,14 @@ export async function updateCategorySculpture(
     const value = rawFormData.text as string;
     const key = transformValueToKey(value);
 
-    await prisma.paintingCategory.update({
+    await prisma.sculptureCategory.update({
       where: { id },
       data: {
         key,
         value,
       },
     });
-    revalidatePath("/admin/peintures");
+    revalidatePath("/admin/sculpture");
     return { message: "Catégorie modifiée", isError: false };
   } catch (e) {
     return { message: "Erreur à la modification", isError: true };
