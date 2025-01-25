@@ -1,37 +1,39 @@
 "use client";
 
-import React from "react";
-import { useRouter } from "next/navigation";
+import React, { useActionState, useEffect } from "react";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import { useAlert } from "@/app/context/AlertProvider";
 
 type Props = {
-  api: string;
+  deleteAction: (id: number) => {
+    message: string;
+    isError: false;
+  };
+  id: number;
   disabled?: boolean;
 };
-export default function DeleteButton({ api, disabled }: Props) {
-  const router = useRouter();
+export default function DeleteButton({ deleteAction, id, disabled }: Props) {
   const alert = useAlert();
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (confirm("Sûr de vouloir supprimer ?")) {
-      fetch(api).then((res) => {
-        if (res.ok) {
-          alert("Supprimé");
-          router.refresh();
-        } else alert("Erreur à la suppression", true);
-      });
-    }
-  };
+  const idDeleteAction = deleteAction.bind(null, id);
+  const [state, action] = useActionState(idDeleteAction, {
+    message: "",
+    isError: false,
+  });
+
+  useEffect(() => {
+    if (state.message !== "") alert(state.message, state.isError);
+  }, [state]);
 
   return (
-    <button
-      onClick={handleDelete}
-      className="iconButton"
-      aria-label="Supprimer"
-      disabled={disabled ? disabled : false}
-    >
-      <DeleteIcon />
-    </button>
+    <form action={action}>
+      <button
+        type="submit"
+        className="iconButton"
+        aria-label="Supprimer"
+        disabled={disabled ? disabled : false}
+      >
+        <DeleteIcon />
+      </button>
+    </form>
   );
 }

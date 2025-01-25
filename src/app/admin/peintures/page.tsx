@@ -5,8 +5,11 @@ import React from "react";
 import { Type } from "@/lib/db/item";
 import { getEmptyItem } from "@/utils/commonUtils";
 import ItemForm from "@/components/admin/form/ItemForm";
-import { getPaintingsFull, getYearsForPainting } from "@/app/actions/paintings";
-import { getPaintingCategoriesFull } from "@/app/actions/paintings/category";
+import {
+  getPaintingCategoriesFull,
+  getPaintingsFull,
+  getYearsForPainting,
+} from "@/app/actions/paintings";
 
 export default async function Peintures() {
   const paintings = await getPaintingsFull();

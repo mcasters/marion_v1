@@ -3,27 +3,38 @@
 import {
   createDirIfNecessary,
   deleteFile,
-  getPaintingDir,
+  getSculptureDir,
   resizeAndSaveImage,
 } from "@/utils/serverUtils";
 import prisma from "@/lib/db/prisma";
 import { revalidatePath } from "next/cache";
 import { transformValueToKey } from "@/utils/commonUtils";
 
-export async function createPainting(
+export async function createSculpture(
   prevState: { message: string; isError: boolean },
   formData: FormData,
 ) {
-  const dir = getPaintingDir();
+  const dir = getSculptureDir();
   createDirIfNecessary(dir);
   const rawFormData = Object.fromEntries(formData);
-  const file = rawFormData.file;
+  const files = formData.getAll("files") as File[];
   const title = rawFormData.title;
-  const fileInfo = await resizeAndSaveImage(file, title, dir);
+  const images = [];
+  for (const file of files) {
+    if (file.size > 0) {
+      const fileInfo = await resizeAndSaveImage(file, title, dir);
+      if (fileInfo)
+        images.push({
+          filename: fileInfo.filename,
+          width: fileInfo.width,
+          height: fileInfo.height,
+        });
+    }
+  }
 
-  try {
-    if (fileInfo) {
-      await prisma.painting.create({
+  if (images.length) {
+    try {
+      await prisma.sculpture.create({
         data: {
           title,
           date: new Date(Number(rawFormData.date), 1),
@@ -31,11 +42,9 @@ export async function createPainting(
           description: rawFormData.description,
           height: Number(rawFormData.height),
           width: Number(rawFormData.width),
+          length: Number(rawFormData.length),
           isToSell: rawFormData.isToSell === "true",
           price: Number(rawFormData.price),
-          imageFilename: fileInfo.filename,
-          imageWidth: fileInfo.width,
-          imageHeight: fileInfo.height,
           category:
             rawFormData.categoryId === ""
               ? {}
@@ -44,35 +53,60 @@ export async function createPainting(
                     id: Number(rawFormData.categoryId),
                   },
                 },
+          images: {
+            create: images,
+          },
         },
       });
+
+      revalidatePath("/admin/sculptures");
+      return { message: "Sculpture ajoutée", isError: false };
+    } catch (e) {
+      return { message: "Erreur à l'enregistrement", isError: true };
     }
-    revalidatePath("/admin/peintures");
-    return { message: "Peinture ajoutée", isError: false };
-  } catch (e) {
-    return { message: "Erreur à l'enregistrement", isError: true };
+  } else {
+    return { message: "Erreur à l'enregistrement des images", isError: true };
   }
 }
 
-export async function updatePainting(
+export async function updateSculpture(
   prevState: { message: string; isError: boolean },
   formData: FormData,
 ) {
-  const dir = getPaintingDir();
+  const dir = getSculptureDir();
   const rawFormData = Object.fromEntries(formData);
   const id = Number(rawFormData.id);
   try {
-    const oldPaint = await prisma.painting.findUnique({
+    const id = Number(rawFormData.id);
+    const oldSculpt = await prisma.sculpture.findUnique({
       where: { id },
     });
 
-    if (oldPaint) {
-      let fileInfo = null;
-      const newFile = rawFormData.file as File;
+    if (oldSculpt) {
+      const filenamesToDelete = rawFormData.filenamesToDelete as string;
+      if (filenamesToDelete) {
+        for await (const filename of filenamesToDelete.split(",")) {
+          if (deleteFile(dir, filename)) {
+            await prisma.sculptureImage.delete({
+              where: { filename },
+            });
+          }
+        }
+      }
+
+      const files = formData.getAll("files") as File[];
       const title = rawFormData.title;
-      if (newFile.size !== 0) {
-        deleteFile(dir, oldPaint.images[0].filename);
-        fileInfo = await resizeAndSaveImage(newFile, title, dir);
+      const images = [];
+      for (const file of files) {
+        if (file.size > 0) {
+          const fileInfo = await resizeAndSaveImage(file, title, dir);
+          if (fileInfo)
+            images.push({
+              filename: fileInfo.filename,
+              width: fileInfo.width,
+              height: fileInfo.height,
+            });
+        }
       }
 
       const category =
@@ -82,15 +116,15 @@ export async function updatePainting(
                 id: Number(rawFormData.categoryId),
               },
             }
-          : oldPaint.categoryId !== null
+          : oldSculpt.categoryId !== null
             ? {
                 disconnect: {
-                  id: oldPaint.categoryId,
+                  id: oldSculpt.categoryId,
                 },
               }
             : {};
 
-      await prisma.painting.update({
+      await prisma.sculpture.update({
         where: { id: id },
         data: {
           title,
@@ -99,56 +133,72 @@ export async function updatePainting(
           description: rawFormData.description,
           height: Number(rawFormData.height),
           width: Number(rawFormData.width),
+          length: Number(rawFormData.length),
           isToSell: rawFormData.isToSell === "true",
           price: Number(rawFormData.price),
-          imageFilename: fileInfo ? fileInfo.filename : undefined,
-          imageWidth: fileInfo ? fileInfo.width : undefined,
-          imageHeight: fileInfo ? fileInfo.height : undefined,
           category,
+          images: {
+            create: images,
+          },
         },
       });
     }
-    revalidatePath("/admin/peintures");
-    return { message: "Peinture modifiée", isError: false };
-  } catch (e) {
-    return { message: "Erreur à l'enregistrement", isError: true };
-  }
-}
-
-export async function deletePainting(id: number) {
-  const dir = getPaintingDir();
-  try {
-    const painting = await prisma.painting.findUnique({
-      where: { id },
-    });
-    if (painting) {
-      deleteFile(dir, painting.images[0].filename);
-      await prisma.painting.delete({
-        where: {
-          id,
-        },
-      });
-    }
-    revalidatePath("/admin/peintures");
-    return { message: "Peinture supprimée", isError: false };
+    revalidatePath("/admin/sculptures");
+    return { message: "Sculpture modifiée", isError: false };
   } catch (e) {
     return { message: "Erreur à la suppression", isError: true };
   }
 }
 
-export async function deleteCategoryPainting(id: number) {
+export async function deleteSculpture(id: number) {
+  const dir = getSculptureDir();
   try {
-    await prisma.paintingCategory.delete({
+    const sculpture = await prisma.sculpture.findUnique({
+      where: { id },
+      include: {
+        images: {
+          select: {
+            filename: true,
+          },
+        },
+      },
+    });
+    if (sculpture) {
+      for (const image of sculpture.images) {
+        deleteFile(dir, image.filename);
+        await prisma.sculptureImage.delete({
+          where: {
+            filename: image.filename,
+          },
+        });
+      }
+      await prisma.sculpture.delete({
+        where: {
+          id,
+        },
+      });
+    }
+
+    revalidatePath("/admin/sculptures");
+    return { message: "Sculpture supprimée", isError: false };
+  } catch (e) {
+    return { message: "Erreur à la suppression", isError: true };
+  }
+}
+
+export async function deleteCategorySculpture(id: number) {
+  try {
+    await prisma.sculptureCategory.delete({
       where: { id },
     });
-    revalidatePath("/admin/peintures");
+    revalidatePath("/admin/sculptures");
     return { message: "Catégorie supprimée", isError: false };
   } catch (e) {
     return { message: "Erreur à la suppression", isError: true };
   }
 }
 
-export async function createCategoryPainting(
+export async function createCategorySculpture(
   prevState: { message: string; isError: boolean },
   formData: FormData,
 ) {
@@ -156,20 +206,20 @@ export async function createCategoryPainting(
     const value = formData.get("text") as string;
     const key = transformValueToKey(value);
 
-    await prisma.paintingCategory.create({
+    await prisma.sculptureCategory.create({
       data: {
         key,
         value,
       },
     });
-    revalidatePath("/admin/peintures");
+    revalidatePath("/admin/sculptures");
     return { message: "Catégorie ajoutée", isError: false };
   } catch (e) {
     return { message: "Erreur à la création", isError: true };
   }
 }
 
-export async function updateCategoryPainting(
+export async function updateCategorySculpture(
   prevState: { message: string; isError: boolean },
   formData: FormData,
 ) {
@@ -179,14 +229,14 @@ export async function updateCategoryPainting(
     const value = rawFormData.text as string;
     const key = transformValueToKey(value);
 
-    await prisma.paintingCategory.update({
+    await prisma.sculptureCategory.update({
       where: { id },
       data: {
         key,
         value,
       },
     });
-    revalidatePath("/admin/peintures");
+    revalidatePath("/admin/sculpture");
     return { message: "Catégorie modifiée", isError: false };
   } catch (e) {
     return { message: "Erreur à la modification", isError: true };
