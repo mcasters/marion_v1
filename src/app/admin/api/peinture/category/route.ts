@@ -1,4 +1,4 @@
-import { getPaintingCategoriesFull } from "@/app/api/peinture/category/getCategories";
+import { getPaintingCategoriesFull } from "@/app/actions/paintings/category";
 
 export async function GET() {
   const res = await getPaintingCategoriesFull();

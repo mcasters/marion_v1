@@ -1,6 +1,7 @@
-import prisma from "@/lib/db/prisma";
-import "server-only";
+"use server";
+
 import { CategoryFull } from "@/lib/db/item";
+import prisma from "@/lib/db/prisma";
 
 export async function getPaintingCategoriesFull(): Promise<CategoryFull[]> {
   const res = await prisma.paintingCategory.findMany({

@@ -1,6 +1,6 @@
+"use server";
 import prisma from "@/lib/db/prisma";
 import { ItemFull } from "@/lib/db/item";
-import "server-only";
 
 export async function getPaintingsFull(): Promise<ItemFull[]> {
   const res = await prisma.painting.findMany({

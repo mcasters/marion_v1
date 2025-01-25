@@ -1,6 +1,6 @@
 import ItemComponent from "@/components/item/ItemComponent";
-import { getPaintingsFullByCategory } from "@/app/api/peinture/getPaintings";
 import s from "@/styles/ItemPage.module.css";
+import { getPaintingsFullByCategory } from "@/app/actions/paintings";
 
 type Props = {
   params: Promise<{ category: string }>;
