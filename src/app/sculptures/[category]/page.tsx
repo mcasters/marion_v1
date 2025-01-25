@@ -1,6 +1,6 @@
 import ItemComponent from "@/components/item/ItemComponent";
-import { getSculpturesFullByCategory } from "@/app/api/sculpture/getSculptures";
 import s from "@/styles/ItemPage.module.css";
+import { getSculpturesFullByCategory } from "@/app/actions/sculptures";
 
 type Props = {
   params: Promise<{ category: string }>;

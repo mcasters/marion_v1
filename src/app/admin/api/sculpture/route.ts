@@ -1,4 +1,4 @@
-import { getSculpturesFull } from "@/app/api/sculpture/getSculptures";
+import { getSculpturesFull } from "@/app/actions/sculptures";
 
 export async function GET() {
   const res = await getSculpturesFull();

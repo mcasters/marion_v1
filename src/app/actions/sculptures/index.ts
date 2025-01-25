@@ -1,5 +1,5 @@
+"use server";
 import prisma from "@/lib/db/prisma";
-import "server-only";
 import { ItemFull } from "@/lib/db/item";
 
 export async function getSculpturesFull(): Promise<ItemFull[]> {
