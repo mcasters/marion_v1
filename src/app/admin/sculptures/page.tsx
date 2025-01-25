@@ -1,12 +1,12 @@
 import ItemListComponent from "@/components/admin/item/ItemListComponent";
 import CategoryComponent from "@/components/admin/item/category/CategoryComponent";
-import { getSculptureCategoriesFull } from "@/app/api/sculpture/category/getCategories";
 import s from "@/styles/admin/Admin.module.css";
 import React from "react";
 import { Type } from "@/lib/db/item";
 import { getEmptyItem } from "@/utils/commonUtils";
 import ItemForm from "@/components/admin/form/ItemForm";
 import {
+  getSculptureCategoriesFull,
   getSculpturesFull,
   getYearsForSculpture,
 } from "@/app/actions/sculptures";
