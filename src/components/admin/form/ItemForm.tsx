@@ -9,7 +9,7 @@ import Preview from "@/components/admin/form/imageForm/Preview";
 import Images from "@/components/admin/form/imageForm/Images";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
-import { createPainting } from "@/app/actions/paintings/admin";
+import { createPainting, updatePainting } from "@/app/actions/paintings/admin";
 
 interface Props {
   item: ItemFull;
@@ -18,13 +18,8 @@ interface Props {
 }
 
 export default function ItemForm({ item, toggleModal, categories }: Props) {
-  const [state, action] = useActionState(createPainting, {
-    message: "",
-    isError: false,
-  });
   const isUpdate = item.id !== 0;
   const isSculpture = item.type === Type.SCULPTURE;
-  const api = isUpdate ? `api/${item.type}/update` : `api/${item.type}/add`;
   const alert = useAlert();
   const resetImageRef = useRef<number>(0);
 
@@ -34,6 +29,13 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
   );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<string[]>([]);
+  const [state, action] = useActionState(
+    isUpdate ? updatePainting : createPainting,
+    {
+      message: "",
+      isError: false,
+    },
+  );
 
   const reset = () => {
     if (toggleModal) toggleModal();
