@@ -3,7 +3,6 @@ import Layout from "@/components/layout/Layout";
 import Providers from "./context/providers";
 import "@/styles/globals-specific.css";
 import { getContentsFull } from "@/app/api/content/getContents";
-import { getPaintingCategoriesFull } from "@/app/api/peinture/category/getCategories";
 import { getSculptureCategoriesFull } from "@/app/api/sculpture/category/getCategories";
 import { getIntroText, themeToHexa } from "@/utils/commonUtils";
 import React from "react";
@@ -13,6 +12,7 @@ import { DESCRIPTION, GENERAL, KEYWORDS } from "@/constants/specific/metaHtml";
 import { getSession } from "@/app/lib/auth/lib";
 import { getDrawingCategoriesFull } from "@/app/api/dessin/category/getCategories";
 import { TEXTS } from "@/constants/specific";
+import { getPaintingCategoriesFull } from "@/app/actions/paintings/category";
 
 export const metadata: Metadata = {
   title: GENERAL.SITE_TITLE,

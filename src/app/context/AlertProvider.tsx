@@ -2,7 +2,7 @@
 import React, { createContext, ReactNode, useContext, useState } from "react";
 import Alert from "@/components/AlertModal/AlertModal";
 
-export type AlertContextType = (message: string, isError?: boolean) => void;
+export type AlertContextType = (message: string, isError: boolean) => void;
 
 const AlertContext = createContext<AlertContextType>(() => {});
 
@@ -15,9 +15,9 @@ export function AlertProvider({ children }: Props) {
   const [isError, setIsError] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const alert = (message: string, isError?: boolean) => {
+  const alert = (message: string, isError: boolean) => {
     setMessage(message);
-    if (isError !== undefined) setIsError(isError);
+    setIsError(isError);
     setIsOpen(true);
   };
   return (

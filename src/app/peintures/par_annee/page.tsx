@@ -1,8 +1,5 @@
-import {
-  getPaintingsFull,
-  getYearsForPainting,
-} from "@/app/api/peinture/getPaintings";
 import ItemYearComponent from "@/components/item/ItemYearComponent";
+import { getPaintingsFull, getYearsForPainting } from "@/app/actions/paintings";
 
 export default async function Page() {
   const paintings = await getPaintingsFull();

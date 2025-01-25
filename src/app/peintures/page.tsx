@@ -1,6 +1,6 @@
 import ItemComponent from "@/components/item/ItemComponent";
-import { getPaintingsFull } from "@/app/api/peinture/getPaintings";
 import { ItemFull } from "@/lib/db/item";
+import { getPaintingsFull } from "@/app/actions/paintings";
 
 export default async function Page() {
   const paintings = await getPaintingsFull();

@@ -58,8 +58,10 @@
 }
 
 .select {
-    background-color: unset;
+    background-color: white;
+  border: var(--color-medium) solid 1px;
 }
+
 
 .checkLabel {
     display: inline;
