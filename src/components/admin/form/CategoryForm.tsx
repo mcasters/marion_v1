@@ -1,52 +1,48 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 
 import s from "@/styles/admin/Admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
-import { useRouter } from "next/navigation";
 import { useAlert } from "@/app/context/AlertProvider";
-import { Category, Type } from "@/lib/db/item";
+import { Category } from "@/lib/db/item";
+import {
+  createCategoryPainting,
+  updateCategoryPainting,
+} from "@/app/actions/paintings/admin";
 
 interface Props {
   category?: Category;
-  itemType: Type;
   toggleModal?: () => void;
 }
-export default function CategoryForm({
-  category,
-  itemType,
-  toggleModal,
-}: Props) {
-  const router = useRouter();
+export default function CategoryForm({ category, toggleModal }: Props) {
   const isUpdate = category !== undefined;
   const [text, setText] = useState<string>(category?.value || "");
-  const formRef = useRef<HTMLFormElement>(null);
   const alert = useAlert();
-  const api = isUpdate
-    ? `api/${itemType}/category/update`
-    : `api/${itemType}/category/add`;
-  const title = isUpdate ? "Modifier une catégorie" : "Ajouter une catégorie";
+  const [state, action] = useActionState(
+    isUpdate ? updateCategoryPainting : createCategoryPainting,
+    {
+      message: "",
+      isError: false,
+    },
+  );
 
   const reset = () => (toggleModal ? toggleModal() : setText(""));
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (formRef.current && confirm("Tu confirmes ?")) {
-      const formData = new FormData(formRef.current);
-      fetch(api, { method: "POST", body: formData }).then((res) => {
-        if (res.ok) {
-          reset();
-          alert(isUpdate ? "Catégorie modifiée" : "Catégorie ajoutée", false);
-          router.refresh();
-        } else alert("Erreur à l'enregistrement", true);
-      });
+
+  useEffect(() => {
+    if (state.message !== "") {
+      if (!state.isError) reset();
+      alert(state.message, state.isError);
     }
-  };
+  }, [state]);
+
   return (
     <div className={isUpdate ? s.wrapperModal : s.formContainer}>
-      <h2>{title}</h2>
-      <form ref={formRef} onSubmit={submit}>
+      <h2>
+        {isUpdate ? "Modification d'une catégorie" : "Ajout d'une catégorie"}
+      </h2>
+      <form action={action}>
         {isUpdate && <input type="hidden" name="id" value={category?.id} />}
         <input
           placeholder="catégorie"

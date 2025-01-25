@@ -8,6 +8,7 @@ import {
 } from "@/utils/serverUtils";
 import prisma from "@/lib/db/prisma";
 import { revalidatePath } from "next/cache";
+import { transformValueToKey } from "@/utils/commonUtils";
 
 export async function createPainting(
   prevState: { message: string; isError: boolean },
@@ -47,7 +48,7 @@ export async function createPainting(
       });
     }
     revalidatePath("/admin/peintures");
-    return { message: "Peinture enregistrée", isError: false };
+    return { message: "Peinture ajoutée", isError: false };
   } catch (e) {
     return { message: "Erreur à l'enregistrement", isError: true };
   }
@@ -111,5 +112,83 @@ export async function updatePainting(
     return { message: "Peinture modifiée", isError: false };
   } catch (e) {
     return { message: "Erreur à l'enregistrement", isError: true };
+  }
+}
+
+export async function deletePainting(id: number) {
+  const dir = getPaintingDir();
+  try {
+    const painting = await prisma.painting.findUnique({
+      where: { id },
+    });
+    if (painting) {
+      deleteFile(dir, painting.images[0].filename);
+      await prisma.painting.delete({
+        where: {
+          id,
+        },
+      });
+    }
+    revalidatePath("/admin/peintures");
+    return { message: "Peinture supprimée", isError: false };
+  } catch (e) {
+    return { message: "Erreur à la suppression", isError: true };
+  }
+}
+
+export async function deleteCategoryPainting(id: number) {
+  try {
+    await prisma.paintingCategory.delete({
+      where: { id },
+    });
+    revalidatePath("/admin/peintures");
+    return { message: "Catégorie supprimée", isError: false };
+  } catch (e) {
+    return { message: "Erreur à la suppression", isError: true };
+  }
+}
+
+export async function createCategoryPainting(
+  prevState: { message: string; isError: boolean },
+  formData: FormData,
+) {
+  try {
+    const value = formData.get("text") as string;
+    const key = transformValueToKey(value);
+
+    await prisma.paintingCategory.create({
+      data: {
+        key,
+        value,
+      },
+    });
+    revalidatePath("/admin/peintures");
+    return { message: "Catégorie ajoutée", isError: false };
+  } catch (e) {
+    return { message: "Erreur à la création", isError: true };
+  }
+}
+
+export async function updateCategoryPainting(
+  prevState: { message: string; isError: boolean },
+  formData: FormData,
+) {
+  try {
+    const rawFormData = Object.fromEntries(formData);
+    const id = Number(rawFormData.id);
+    const value = rawFormData.text as string;
+    const key = transformValueToKey(value);
+
+    await prisma.paintingCategory.update({
+      where: { id },
+      data: {
+        key,
+        value,
+      },
+    });
+    revalidatePath("/admin/peintures");
+    return { message: "Catégorie modifiée", isError: false };
+  } catch (e) {
+    return { message: "Erreur à la modification", isError: true };
   }
 }
