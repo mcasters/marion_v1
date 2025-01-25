@@ -5,7 +5,8 @@ import Image from "next/image";
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import UpdateItemButton from "@/components/admin/form/UpdateItemButton";
 import s from "../../../styles/admin/AdminList.module.css";
-import { CategoryFull, ItemFull } from "@/lib/db/item";
+import { CategoryFull, ItemFull, Type } from "@/lib/db/item";
+import { deleteSculpture } from "@/app/actions/sculptures/admin";
 import { deletePainting } from "@/app/actions/paintings/admin";
 
 interface Props {
@@ -46,7 +47,12 @@ export default function RowItemListComponent({ item, categories }: Props) {
         <UpdateItemButton item={item} categories={categories} />
       </li>
       <li className={s.itemIcon}>
-        <DeleteButton deleteAction={deletePainting} id={item.id} />
+        <DeleteButton
+          deleteAction={
+            item.type === Type.PAINTING ? deletePainting : deleteSculpture
+          }
+          id={item.id}
+        />
       </li>
     </ul>
   );

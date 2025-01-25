@@ -10,6 +10,10 @@ import Images from "@/components/admin/form/imageForm/Images";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { createPainting, updatePainting } from "@/app/actions/paintings/admin";
+import {
+  createSculpture,
+  updateSculpture,
+} from "@/app/actions/sculptures/admin";
 
 interface Props {
   item: ItemFull;
@@ -30,7 +34,13 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<string[]>([]);
   const [state, action] = useActionState(
-    isUpdate ? updatePainting : createPainting,
+    isUpdate
+      ? isSculpture
+        ? updateSculpture
+        : updatePainting
+      : isSculpture
+        ? createSculpture
+        : createPainting,
     {
       message: "",
       isError: false,
