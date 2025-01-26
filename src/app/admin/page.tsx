@@ -1,12 +1,11 @@
 import AdminTheme from "@/components/admin/theme/AdminTheme";
-import { getPresetColors, getThemesFull } from "@/app/api/theme/getTheme";
 import { AdminWorkThemeProvider } from "@/app/context/adminWorkThemeProvider";
 import { getActivatedBaseTheme } from "@/lib/db/theme";
 import { AdminPresetColorsProvider } from "@/app/context/adminPresetColorsProvider";
 import { AdminThemesProvider } from "@/app/context/adminThemesProvider";
-import AccessDenied from "@/components/auth/AccessDenied";
 import { redirect } from "next/navigation";
 import { getSession } from "@/app/lib/auth/lib";
+import { getPresetColors, getThemesFull } from "@/app/actions/theme";
 
 export default async function Page() {
   const session = await getSession();
@@ -16,22 +15,17 @@ export default async function Page() {
   if (!activeTheme) activeTheme = await getActivatedBaseTheme();
   const presetColors = await getPresetColors();
 
-  const accessDenied = !isAdmin;
-  if (accessDenied) {
-    redirect("/home");
-  }
-
   if (isAdmin) {
     return (
       <AdminThemesProvider defaultThemes={themes}>
         <AdminWorkThemeProvider defaultWorkTheme={activeTheme}>
           <AdminPresetColorsProvider defaultPresetColors={presetColors}>
-            <AdminTheme />
+            <AdminTheme themes={themes} />
           </AdminPresetColorsProvider>
         </AdminWorkThemeProvider>
       </AdminThemesProvider>
     );
   } else {
-    return <AccessDenied />; // Component shown for unauthorized access
+    redirect("/home");
   }
 }

@@ -1,7 +1,7 @@
-import prisma from "@/lib/db/prisma";
-import "server-only";
-import { getBaseThemeData } from "@/utils/commonUtils";
+"use server";
 import { PresetColor, Theme } from "@prisma/client";
+import prisma from "@/lib/db/prisma";
+import { getBaseThemeData } from "@/utils/commonUtils";
 import { getActivatedBaseTheme } from "@/lib/db/theme";
 
 export async function getThemesFull(): Promise<Theme[]> {

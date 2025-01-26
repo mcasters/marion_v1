@@ -7,14 +7,16 @@ import ThemeDashboard from "@/components/admin/theme/ThemeDashboard";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import ThemeUpdate from "@/components/admin/theme/ThemeUpdate";
 import CancelButton from "@/components/admin/form/CancelButton";
-import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
 import { Theme } from "@prisma/client";
 import { useAlert } from "@/app/context/AlertProvider";
 import { THEME } from "@/constants/admin";
 import s from "@/styles/admin/Admin.module.css";
 
-export default function AdminTheme() {
-  const { themes, setThemes } = useAdminThemesContext();
+type Props = {
+  themes: Theme[];
+};
+
+export default function AdminTheme({ themes }: Props) {
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const alert = useAlert();
 
@@ -29,7 +31,7 @@ export default function AdminTheme() {
       .then((json) => {
         const activatedTheme = json.activatedTheme;
         if (activatedTheme) {
-          alert(`Thème "${activatedTheme.name}" actif`);
+          alert(`Thème "${activatedTheme.name}" actif`, false);
           setTimeout(function () {
             window.location.reload();
           }, 1500);
@@ -48,7 +50,7 @@ export default function AdminTheme() {
         .then((res) => res.json())
         .then((json) => {
           if (json.updatedThemes) {
-            alert(`Thème "${workTheme.name}" supprimé`);
+            alert(`Thème "${workTheme.name}" supprimé`, false);
 
             setTimeout(function () {
               window.location.reload();
@@ -109,7 +111,7 @@ export default function AdminTheme() {
         <CancelButton onCancel={handleCancel} text="Annuler les changements" />
       </div>
       <div className={themeStyle.themeActionContainer}>
-        <ThemeAdd />
+        <ThemeAdd themes={themes} />
       </div>
     </>
   );

@@ -4,7 +4,6 @@ import Providers from "./context/providers";
 import "@/styles/globals-specific.css";
 import { getIntroText, themeToHexa } from "@/utils/commonUtils";
 import React from "react";
-import { getActiveTheme, getPresetColors } from "@/app/api/theme/getTheme";
 import StyledJsxRegistry from "./registry";
 import { DESCRIPTION, GENERAL, KEYWORDS } from "@/constants/specific/metaHtml";
 import { getSession } from "@/app/lib/auth/lib";
@@ -14,6 +13,7 @@ import { getSculptureCategoriesFull } from "@/app/actions/sculptures";
 import { getPaintingCategoriesFull } from "@/app/actions/paintings";
 import { getDrawingCategoriesFull } from "@/app/actions/drawings";
 import { getContentsFull } from "@/app/actions/contents";
+import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 
 export const metadata: Metadata = {
   title: GENERAL.SITE_TITLE,
