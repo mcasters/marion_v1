@@ -11,7 +11,7 @@ import { deleteContentImage } from "@/app/actions/contents/admin";
 
 type Props = {
   images: IImage[];
-  contentLabel?: Label;
+  contentLabel: Label;
 };
 
 export default function PreviewForm({ images, contentLabel }: Props) {

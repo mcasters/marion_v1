@@ -22,6 +22,7 @@ export default function TextAreaForm({ label, textContent, textLabel }: Props) {
   useEffect(() => {
     if (state) {
       alert(state.message, state.isError);
+      setIsChanged(false);
     }
   }, [state]);
 
