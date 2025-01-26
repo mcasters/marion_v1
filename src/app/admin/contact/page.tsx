@@ -20,19 +20,16 @@ export default async function Contact() {
       <TextAreaForm
         textContent={getAddressText(contents)}
         label={Label.ADDRESS}
-        api="api/content/update"
         textLabel="Adresse"
       />
       <InputForm
         label={Label.PHONE}
-        api="api/content/update"
         textContent={getPhoneText(contents)}
         textLabel="Téléphone"
         isPhone
       />
       <InputForm
         label={Label.EMAIL}
-        api="api/content/update"
         textContent={getEmailText(contents)}
         textLabel="E-mail"
         isEmail
@@ -40,7 +37,6 @@ export default async function Contact() {
       <TextAreaForm
         textContent={getContactText(contents)}
         label={Label.TEXT_CONTACT}
-        api="api/content/update"
         textLabel="Texte d'accompagnement (facultatif)"
       />
     </>

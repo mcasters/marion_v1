@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import s from "@/styles/admin/Admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { useAlert } from "@/app/context/AlertProvider";
+import { updateContent } from "@/app/actions/contents/admin";
 
 interface Props {
   label: string;
-  api: string;
   textContent: string;
   textLabel?: string;
   isPhone?: boolean;
@@ -16,7 +16,6 @@ interface Props {
 }
 export default function InputForm({
   label,
-  api,
   textContent,
   textLabel,
   isPhone = false,
@@ -24,28 +23,19 @@ export default function InputForm({
 }: Props) {
   const [text, setText] = useState<string>(textContent);
   const [isChanged, setIsChanged] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null);
   const alert = useAlert();
+  const [state, action] = useActionState(updateContent, null);
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (formRef.current && confirm("Tu confirmes ?")) {
-      const formData = new FormData(formRef.current);
-      fetch(api, {
-        method: "POST",
-        body: formData,
-      }).then((res) => {
-        if (res.ok) {
-          alert("Enregistré");
-          setIsChanged(false);
-        } else alert("Erreur à l'enregistrement", true);
-      });
+  useEffect(() => {
+    if (state) {
+      alert(state.message, state.isError);
+      setIsChanged(false);
     }
-  };
+  }, [state]);
 
   return (
     <div className={s.formContainer}>
-      <form ref={formRef} onSubmit={submit}>
+      <form action={action}>
         <input type="hidden" name="label" value={label} />
         <label className={s.formLabel}>
           {textLabel}
