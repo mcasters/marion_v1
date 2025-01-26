@@ -1,4 +1,3 @@
-import { getContentsFull } from "@/app/api/content/getContents";
 import {
   getDemarcheText,
   getInspirationText,
@@ -11,6 +10,7 @@ import React from "react";
 import TextAreaForm from "@/components/admin/form/TextAreaForm";
 import ImagesForm from "@/components/admin/form/imageForm/ImagesForm";
 import Preview from "@/components/admin/form/imageForm/Preview";
+import { getContentsFull } from "@/app/actions/contents";
 
 export default async function Presentation() {
   const contents = await getContentsFull();

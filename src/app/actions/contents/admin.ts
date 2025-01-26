@@ -1,21 +1,25 @@
+"use server";
+
 import {
   deleteFile,
   getMiscellaneousDir,
   resizeAndSaveImage,
 } from "@/utils/serverUtils";
 import prisma from "@/lib/db/prisma";
+import { revalidatePath } from "next/cache";
 import { Label } from "@prisma/client";
 
-export async function POST(req: Request) {
+export async function updateContent(
+  prevState: { message: string; isError: boolean } | null,
+  formData: FormData,
+) {
   try {
     const dir = getMiscellaneousDir();
-
-    const formData = await req.formData();
     const label = formData.get("label") as Label;
 
     let BDContent = await prisma.content.findUnique({
       where: {
-        label: label,
+        label,
       },
       include: {
         images: {
@@ -111,9 +115,58 @@ export async function POST(req: Request) {
       }
     }
 
-    return Response.json({ message: "ok" }, { status: 200 });
+    const path =
+      label === Label.SLIDER
+        ? "/admin/home"
+        : label === Label.PRESENTATION
+          ? "/admin/presentation"
+          : "/admin/contact";
+    revalidatePath(path);
+    return { message: "Contenu modifié", isError: false };
   } catch (e) {
-    console.log(e);
-    return Response.json({ error: "Error" }, { status: 404 });
+    return { message: "Erreur à l'enregistrement", isError: true };
+  }
+}
+
+export async function deleteContentImage(
+  prevState: { message: string; isError: boolean } | null,
+  formData: FormData,
+) {
+  const dir = getMiscellaneousDir();
+  const filename = formData.get("filename");
+
+  try {
+    const content = await prisma.content.findFirst({
+      where: {
+        images: {
+          some: {
+            filename,
+          },
+        },
+      },
+    });
+
+    if (content) {
+      deleteFile(dir, filename);
+      await prisma.content.update({
+        where: { id: content.id },
+        data: {
+          images: {
+            delete: { filename },
+          },
+        },
+      });
+    }
+    const label = formData.get("label");
+    const path =
+      label === Label.SLIDER
+        ? "/admin/home"
+        : label === Label.PRESENTATION
+          ? "/admin/presentation"
+          : "/admin/contact";
+    revalidatePath(path);
+    return { message: "Image supprimée", isError: false };
+  } catch (e) {
+    return { message: "Erreur à la suppression", isError: true };
   }
 }

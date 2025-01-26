@@ -1,51 +1,33 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import { Label } from "@prisma/client";
 import s from "@/styles/admin/Admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { useAlert } from "@/app/context/AlertProvider";
+import { updateContent } from "@/app/actions/contents/admin";
 
 interface Props {
   label: Label;
   textContent: string;
-  api: string;
   textLabel?: string;
 }
-export default function TextAreaForm({
-  label,
-  textContent,
-  api,
-  textLabel,
-}: Props) {
+export default function TextAreaForm({ label, textContent, textLabel }: Props) {
   const [text, setText] = useState<string>(textContent);
   const [isChanged, setIsChanged] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null);
   const alert = useAlert();
+  const [state, action] = useActionState(updateContent, null);
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (formRef.current && confirm("Tu confirmes ?")) {
-      const formData = new FormData(formRef.current);
-      fetch(api, {
-        method: "POST",
-        body: formData,
-      }).then((res) => {
-        if (res.ok) {
-          alert("Contenu modifié", false);
-          setTimeout(function () {
-            window.location.reload();
-          }, 1500);
-          setIsChanged(false);
-        } else alert("Erreur à l'enregistrement", true);
-      });
+  useEffect(() => {
+    if (state) {
+      alert(state.message, state.isError);
     }
-  };
+  }, [state]);
 
   return (
     <div className={s.formContainer}>
-      <form ref={formRef} onSubmit={submit}>
+      <form action={action}>
         <input type="hidden" name="label" value={label} />
         <label className={s.formLabel}>
           {textLabel}

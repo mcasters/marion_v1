@@ -28,7 +28,6 @@ export default function ItemForm({
 }: Props) {
   const isUpdate = item.id !== 0;
   const isSculpture = item.type === Type.SCULPTURE;
-  const isDrawing = item.type === Type.DRAWING;
   const alert = useAlert();
   const resetImageRef = useRef<number>(0);
 

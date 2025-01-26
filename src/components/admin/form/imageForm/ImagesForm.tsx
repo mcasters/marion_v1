@@ -1,54 +1,48 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useActionState, useEffect, useRef } from "react";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import Images from "@/components/admin/form/imageForm/Images";
 import { useAlert } from "@/app/context/AlertProvider";
+import { updateContent } from "@/app/actions/contents/admin";
 
 type Props = {
   isMultiple: boolean;
-  api: string;
   label: string;
+  smallImage: boolean;
   title?: string;
   isMain?: boolean;
-  smallImage: boolean;
 };
 
 export default function ImagesForm({
   isMultiple,
-  api,
   label,
+  smallImage,
   title,
   isMain = false,
-  smallImage,
 }: Props) {
   const alert = useAlert();
-  const formRef = useRef<HTMLFormElement>(null);
+  const resetImageRef = useRef<number>(0);
+  const [state, action] = useActionState(updateContent, null);
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (formRef.current && confirm("Tu confirmes ?")) {
-      const formData = new FormData(formRef.current);
-      fetch(api, {
-        method: "POST",
-        body: formData,
-      }).then((res) => {
-        if (res.ok) {
-          alert("Contenu modifié", false);
-          setTimeout(function () {
-            window.location.reload();
-          }, 1500);
-        } else alert("Erreur à l'enregistrement", true);
-      });
+  useEffect(() => {
+    if (state) {
+      alert(state.message, state.isError);
+      if (!state.isError) resetImageRef.current = resetImageRef.current + 1;
     }
-  };
+  }, [state]);
 
   return (
-    <form ref={formRef} onSubmit={submit}>
+    <form action={action}>
       <input type="hidden" name="label" value={label} />
       <input type="hidden" name="isMain" value={isMain?.toString()} />
-      <Images isMultiple={isMultiple} title={title} smallImage={smallImage} />
+      <Images
+        isMultiple={isMultiple}
+        title={title}
+        smallImage={smallImage}
+        reset={resetImageRef.current}
+      />
       <>
         <SubmitButton />
         <CancelButton />

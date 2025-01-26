@@ -72,6 +72,24 @@ export const getSlidersLandscapeAndPortait = (
   return { portraitImages, landscapeImages };
 };
 
+export const getSlidersLandscapeImages = (contents: ContentFull[]): Image[] => {
+  const images: Image[] = getSliders(contents);
+  const tab: Image[] = [];
+  images.forEach((i) => {
+    if (!i.isMain) tab.push(i);
+  });
+  return tab;
+};
+
+export const getSlidersPortraitImages = (contents: ContentFull[]): Image[] => {
+  const images: Image[] = getSliders(contents);
+  const tab: Image[] = [];
+  images.forEach((i) => {
+    if (i.isMain) tab.push(i);
+  });
+  return tab;
+};
+
 export const getAddressText = (contents: ContentFull[]): string => {
   return contents?.filter((c) => c.label === Label.ADDRESS)[0]?.text || "";
 };

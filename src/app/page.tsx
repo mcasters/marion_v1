@@ -1,6 +1,6 @@
 import HomePage from "../components/home/HomePage";
-import { getContentsFull } from "@/app/api/content/getContents";
 import { getSlidersLandscapeAndPortait } from "@/utils/commonUtils";
+import { getContentsFull } from "@/app/actions/contents";
 
 export default async function Page() {
   // This request should be cached until manually invalidated.

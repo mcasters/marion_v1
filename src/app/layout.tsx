@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Layout from "@/components/layout/Layout";
 import Providers from "./context/providers";
 import "@/styles/globals-specific.css";
-import { getContentsFull } from "@/app/api/content/getContents";
 import { getIntroText, themeToHexa } from "@/utils/commonUtils";
 import React from "react";
 import { getActiveTheme, getPresetColors } from "@/app/api/theme/getTheme";
@@ -14,6 +13,7 @@ import { TEXTS } from "@/constants/specific";
 import { getSculptureCategoriesFull } from "@/app/actions/sculptures";
 import { getPaintingCategoriesFull } from "@/app/actions/paintings";
 import { getDrawingCategoriesFull } from "@/app/actions/drawings";
+import { getContentsFull } from "@/app/actions/contents";
 
 export const metadata: Metadata = {
   title: GENERAL.SITE_TITLE,

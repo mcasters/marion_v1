@@ -1,11 +1,11 @@
 import React from "react";
-import { getContentsFull } from "@/app/api/content/getContents";
 import {
   getDemarcheText,
   getInspirationText,
   getPresentationContent,
 } from "@/utils/commonUtils";
 import PresentationComponent from "@/components/presentation/PresentationComponent";
+import { getContentsFull } from "@/app/actions/contents";
 
 export default async function Presentation() {
   const contents = await getContentsFull();

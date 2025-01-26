@@ -4,12 +4,12 @@ import {
   getEmailText,
   getPhoneText,
 } from "@/utils/commonUtils";
-import { getContentsFull } from "@/app/api/content/getContents";
 import s from "@/styles/admin/Admin.module.css";
 import { Label } from "@prisma/client";
 import TextAreaForm from "@/components/admin/form/TextAreaForm";
 import React from "react";
 import InputForm from "@/components/admin/form/InputForm";
+import { getContentsFull } from "@/app/actions/contents";
 
 export default async function Contact() {
   const contents = await getContentsFull();
