@@ -10,6 +10,7 @@ import ErrorIcon from "@/components/icons/ErrorIcon";
 type Props = {
   message: string;
   isError: boolean;
+  time: number;
   onClose: () => void;
 };
 
@@ -21,11 +22,11 @@ const validStyles = {
   backgroundColor: "#c6eec4",
 };
 
-export default function AlertModal({ message, isError, onClose }: Props) {
+export default function AlertModal({ message, isError, time, onClose }: Props) {
   useEffect(() => {
     setTimeout(() => {
       onClose();
-    }, 2500);
+    }, time);
   });
 
   return createPortal(

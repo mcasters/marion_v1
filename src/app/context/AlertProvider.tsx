@@ -1,8 +1,12 @@
 "use client";
 import React, { createContext, ReactNode, useContext, useState } from "react";
-import Alert from "@/components/AlertModal/AlertModal";
+import AlertModal from "@/components/AlertModal/AlertModal";
 
-export type AlertContextType = (message: string, isError: boolean) => void;
+export type AlertContextType = (
+  message: string,
+  isError: boolean,
+  time?: number,
+) => void;
 
 const AlertContext = createContext<AlertContextType>(() => {});
 
@@ -13,19 +17,22 @@ interface Props {
 export function AlertProvider({ children }: Props) {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
+  const [time, setTime] = useState(2500);
   const [isOpen, setIsOpen] = useState(false);
 
-  const alert = (message: string, isError: boolean) => {
+  const alert = (message: string, isError: boolean, time?: number) => {
     setMessage(message);
     setIsError(isError);
+    if (time) setTime(time);
     setIsOpen(true);
   };
   return (
     <AlertContext.Provider value={alert}>
       {isOpen && (
-        <Alert
+        <AlertModal
           message={message}
           isError={isError}
+          time={time}
           onClose={() => setIsOpen(false)}
         />
       )}
