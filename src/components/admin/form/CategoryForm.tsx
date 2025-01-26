@@ -6,43 +6,28 @@ import s from "@/styles/admin/Admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { useAlert } from "@/app/context/AlertProvider";
-import { Category, Type } from "@/lib/db/item";
-import {
-  createCategoryPainting,
-  updateCategoryPainting,
-} from "@/app/actions/paintings/admin";
-import {
-  createCategorySculpture,
-  updateCategorySculpture,
-} from "@/app/actions/sculptures/admin";
+import { Category } from "@/lib/db/item";
 
 interface Props {
-  itemType: Type;
+  categoryAction: (
+    prevState: { message: string; isError: boolean },
+    formData: FormData,
+  ) => Promise<{ isError: boolean; message: string }>;
   category?: Category;
   toggleModal?: () => void;
 }
 export default function CategoryForm({
-  itemType,
+  categoryAction,
   category,
   toggleModal,
 }: Props) {
   const isUpdate = category !== undefined;
-  const isSculpture = itemType === Type.SCULPTURE;
   const [text, setText] = useState<string>(category?.value || "");
   const alert = useAlert();
-  const [state, action] = useActionState(
-    isUpdate
-      ? isSculpture
-        ? updateCategorySculpture
-        : updateCategoryPainting
-      : isSculpture
-        ? createCategorySculpture
-        : createCategoryPainting,
-    {
-      message: "",
-      isError: false,
-    },
-  );
+  const [state, action] = useActionState(categoryAction, {
+    message: "",
+    isError: false,
+  });
 
   const reset = () => (toggleModal ? toggleModal() : setText(""));
 

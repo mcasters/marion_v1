@@ -4,8 +4,9 @@ import DeleteButton from "@/components/admin/form/DeleteButton";
 import s from "../../../../styles/admin/AdminList.module.css";
 import { CategoryFull, Type } from "@/lib/db/item";
 import UpdateCategoryButton from "@/components/admin/form/UpdateCategoryButton";
-import { deleteCategorySculpture } from "@/app/actions/sculptures/admin";
 import { deleteCategoryPainting } from "@/app/actions/paintings/admin";
+import { deleteCategoryDrawing } from "@/app/actions/drawings/admin";
+import { deleteCategorySculpture } from "@/app/actions/sculptures/admin";
 
 interface Props {
   category: CategoryFull;
@@ -42,7 +43,9 @@ export default function RowCategoryListComponent({
           deleteAction={
             itemType === Type.PAINTING
               ? deleteCategoryPainting
-              : deleteCategorySculpture
+              : itemType === Type.DRAWING
+                ? deleteCategoryDrawing
+                : deleteCategorySculpture
           }
           id={category.id}
           disabled={category.count > 0 || category.value === "Sans catégorie"}

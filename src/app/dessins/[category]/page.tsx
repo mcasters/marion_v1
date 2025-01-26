@@ -1,6 +1,7 @@
 import ItemComponent from "@/components/item/ItemComponent";
 import s from "@/styles/ItemPage.module.css";
-import { getDrawingsFullByCategory } from "@/app/api/dessin/getDrawings";
+
+import { getDrawingsFullByCategory } from "@/app/actions/drawings";
 
 type Props = {
   params: Promise<{ category: string }>;

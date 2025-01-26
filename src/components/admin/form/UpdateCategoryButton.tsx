@@ -5,6 +5,9 @@ import Modal from "@/components/admin/form/modal/Modal";
 import CategoryForm from "@/components/admin/form/CategoryForm";
 import { CategoryFull, Type } from "@/lib/db/item";
 import UpdateIcon from "@/components/icons/UpdateIcon";
+import { updateCategorySculpture } from "@/app/actions/sculptures/admin";
+import { updateCategoryDrawing } from "@/app/actions/drawings/admin";
+import { updateCategoryPainting } from "@/app/actions/paintings/admin";
 
 type Props = {
   category: CategoryFull;
@@ -33,9 +36,15 @@ export default function UpdateCategoryButton({
       </button>
       <Modal isOpen={isOpen} toggle={toggle}>
         <CategoryForm
+          categoryAction={
+            itemType === Type.SCULPTURE
+              ? updateCategorySculpture
+              : itemType === Type.DRAWING
+                ? updateCategoryDrawing
+                : updateCategoryPainting
+          }
           category={category}
           toggleModal={toggle}
-          itemType={itemType}
         />
       </Modal>
     </>

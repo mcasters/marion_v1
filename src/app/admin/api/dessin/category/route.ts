@@ -1,4 +1,4 @@
-import { getDrawingCategoriesFull } from "@/app/api/dessin/category/getCategories";
+import { getDrawingCategoriesFull } from "@/app/actions/drawings";
 
 export async function GET() {
   const res = await getDrawingCategoriesFull();
