@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useActionState, useEffect, useRef, useState } from "react";
 
 import Images from "@/components/admin/form/imageForm/Images";
 import { PostFull } from "@/lib/db/item";
@@ -11,6 +10,7 @@ import Preview from "@/components/admin/form/imageForm/Preview";
 import CancelButton from "@/components/admin/form/CancelButton";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import { useAlert } from "@/app/context/AlertProvider";
+import { createPost, updatePost } from "@/app/actions/posts/admin";
 
 interface Props {
   post: PostFull;
@@ -19,12 +19,9 @@ interface Props {
 
 export default function PostForm({ post, toggleModal }: Props) {
   const isUpdate = post.id !== 0;
-  const formRef = useRef<HTMLFormElement>(null);
   const resetMainImageRef = useRef<number>(0);
   const resetImagesRef = useRef<number>(0);
-  const router = useRouter();
   const alert = useAlert();
-  const api = isUpdate ? `api/post/update` : `api/post/add`;
 
   const [workPost, setWorkPost] = useState<PostFull>(post);
   const [date, setDate] = useState<string>(
@@ -33,6 +30,10 @@ export default function PostForm({ post, toggleModal }: Props) {
   const [mainFilenameToDelete, setMainFilenameToDelete] = useState<string>("");
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const mainImage = getMainImage(post);
+  const [state, action] = useActionState(
+    isUpdate ? updatePost : createPost,
+    null,
+  );
 
   const reset = () => {
     if (toggleModal) toggleModal();
@@ -44,38 +45,31 @@ export default function PostForm({ post, toggleModal }: Props) {
     }
   };
 
-  const submit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (formRef.current && confirm("Tu confirmes ?")) {
-      const formData = new FormData(formRef.current);
-      fetch(api, { method: "POST", body: formData }).then((res) => {
-        if (res.ok) {
-          reset();
-          alert(isUpdate ? "Post modifié" : "Post ajouté", false);
-          router.refresh();
-        } else alert("Erreur à l'enregistrement", true);
-      });
+  useEffect(() => {
+    if (state) {
+      if (!state.isError) reset();
+      alert(state.message, state.isError);
     }
-  };
+  }, [state]);
 
   return (
     <div className={isUpdate ? s.wrapperModal : s.formContainer}>
       <h2>{isUpdate ? "Modifier un post" : "Ajouter un post"}</h2>
-      <form ref={formRef} onSubmit={submit}>
-        {isUpdate && <input type="hidden" name="id" value={post.id} />}
+      <form action={action}>
         {isUpdate && (
-          <input
-            type="hidden"
-            name="mainFilenameToDelete"
-            value={mainFilenameToDelete}
-          />
-        )}
-        {isUpdate && (
-          <input
-            type="hidden"
-            name="filenamesToDelete"
-            value={filenamesToDelete}
-          />
+          <>
+            <input type="hidden" name="id" value={post.id} />
+            <input
+              type="hidden"
+              name="mainFilenameToDelete"
+              value={mainFilenameToDelete}
+            />
+            <input
+              type="hidden"
+              name="filenamesToDelete"
+              value={filenamesToDelete}
+            />
+          </>
         )}
         <label className={s.formLabel}>
           Titre

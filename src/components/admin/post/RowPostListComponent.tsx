@@ -7,6 +7,7 @@ import UpdateItemButton from "@/components/admin/form/UpdateItemButton";
 import s from "../../../styles/admin/AdminList.module.css";
 import { PostFull } from "@/lib/db/item";
 import { getMainImage } from "@/utils/commonUtils";
+import { deletePost } from "@/app/actions/posts/admin";
 
 interface Props {
   post: PostFull;
@@ -15,7 +16,7 @@ interface Props {
 export default function RowPostListComponent({ post }: Props) {
   const mainImage = getMainImage(post);
   const src = mainImage
-    ? `/images/post/${mainImage?.filename}`
+    ? `/images/post/${mainImage.filename}`
     : post.images[0]?.filename
       ? `/images/post/${post.images[0].filename}`
       : null;
@@ -42,7 +43,7 @@ export default function RowPostListComponent({ post }: Props) {
         <UpdateItemButton item={post} />
       </li>
       <li className={s.itemIcon}>
-        <DeleteButton api={`api/post/delete/${post.id}`} />
+        <DeleteButton id={post.id} deleteAction={deletePost} />
       </li>
     </ul>
   );

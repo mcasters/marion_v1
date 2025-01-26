@@ -70,7 +70,7 @@ export async function updatePainting(
       let fileInfo = null;
       const newFile = rawFormData.file as File;
       const title = rawFormData.title;
-      if (newFile.size !== 0) {
+      if (newFile.size > 0) {
         deleteFile(dir, oldPaint.images[0].filename);
         fileInfo = await resizeAndSaveImage(newFile, title, dir);
       }

@@ -3,192 +3,200 @@
 import {
   createDirIfNecessary,
   deleteFile,
-  getDrawingDir,
+  getPostDir,
   resizeAndSaveImage,
 } from "@/utils/serverUtils";
 import prisma from "@/lib/db/prisma";
 import { revalidatePath } from "next/cache";
-import { transformValueToKey } from "@/utils/commonUtils";
 
-export async function createDrawing(
+export async function createPost(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  const dir = getDrawingDir();
+  const dir = getPostDir();
   createDirIfNecessary(dir);
+
   const rawFormData = Object.fromEntries(formData);
-  const file = rawFormData.file;
+  const mainFile = rawFormData.file as File;
+  const files = formData.getAll("files") as File[];
   const title = rawFormData.title;
-  const fileInfo = await resizeAndSaveImage(file, title, dir);
 
   try {
-    if (fileInfo) {
-      await prisma.drawing.create({
-        data: {
-          title,
-          date: new Date(Number(rawFormData.date), 1),
-          technique: rawFormData.technique,
-          description: rawFormData.description,
-          height: Number(rawFormData.height),
-          width: Number(rawFormData.width),
-          isToSell: rawFormData.isToSell === "true",
-          price: Number(rawFormData.price),
-          imageFilename: fileInfo.filename,
-          imageWidth: fileInfo.width,
-          imageHeight: fileInfo.height,
-          category:
-            rawFormData.categoryId === ""
-              ? {}
-              : {
-                  connect: {
-                    id: Number(rawFormData.categoryId),
-                  },
-                },
-        },
-      });
+    const images = [];
+    if (mainFile.size > 0) {
+      const fileInfo = await resizeAndSaveImage(mainFile, title, dir);
+      if (fileInfo)
+        images.push({
+          filename: fileInfo.filename,
+          width: fileInfo.width,
+          height: fileInfo.height,
+          isMain: true,
+        });
     }
-    revalidatePath("/admin/dessins");
-    return { message: "Dessin ajouté", isError: false };
+    for (const file of files) {
+      if (file.size > 0) {
+        const fileInfo = await resizeAndSaveImage(file, title, dir);
+        if (fileInfo)
+          images.push({
+            filename: fileInfo.filename,
+            width: fileInfo.width,
+            height: fileInfo.height,
+          });
+      }
+    }
+
+    await prisma.post.create({
+      data: {
+        title,
+        date: new Date(Number(rawFormData.date), 1),
+        text: rawFormData.text,
+        images: {
+          create: images,
+        },
+      },
+    });
+    revalidatePath("/admin/posts");
+    return { message: "Post ajouté", isError: false };
   } catch (e) {
     return { message: "Erreur à l'enregistrement", isError: true };
   }
 }
 
-export async function updateDrawing(
+export async function updatePost(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  const dir = getDrawingDir();
+  const dir = getPostDir();
   const rawFormData = Object.fromEntries(formData);
   const id = Number(rawFormData.id);
+
   try {
-    const oldDraw = await prisma.drawing.findUnique({
+    const oldPost = await prisma.post.findUnique({
       where: { id },
+      include: {
+        images: {
+          select: {
+            filename: true,
+            isMain: true,
+          },
+        },
+      },
     });
 
-    if (oldDraw) {
-      let fileInfo = null;
-      const newFile = rawFormData.file as File;
-      const title = rawFormData.title;
-      if (newFile.size !== 0) {
-        deleteFile(dir, oldDraw.images[0].filename);
-        fileInfo = await resizeAndSaveImage(newFile, title, dir);
+    if (oldPost) {
+      const mainFilenameToDelete = rawFormData.mainFilenameToDelete;
+      if (mainFilenameToDelete) {
+        if (deleteFile(dir, mainFilenameToDelete)) {
+          await prisma.postImage.delete({
+            where: { filename: mainFilenameToDelete },
+          });
+        }
+      }
+      const filenamesToDelete = rawFormData.filenamesToDelete as string;
+      if (filenamesToDelete) {
+        for await (const filename of filenamesToDelete.split(",")) {
+          if (deleteFile(dir, filename)) {
+            await prisma.postImage.delete({
+              where: { filename },
+            });
+          }
+        }
       }
 
-      const category =
-        rawFormData.categoryId !== ""
-          ? {
-              connect: {
-                id: Number(rawFormData.categoryId),
-              },
-            }
-          : oldDraw.categoryId !== null
-            ? {
-                disconnect: {
-                  id: oldDraw.categoryId,
-                },
-              }
-            : {};
+      const images = [];
+      const mainFile = rawFormData.file as File;
+      const title = rawFormData.title;
+      if (mainFile.size > 0) {
+        const fileInfo = await resizeAndSaveImage(mainFile, title, dir);
+        if (fileInfo)
+          images.push({
+            filename: fileInfo.filename,
+            width: fileInfo.width,
+            height: fileInfo.height,
+            isMain: true,
+          });
 
-      await prisma.drawing.update({
-        where: { id: id },
+        const oldMainImage = oldPost.images.filter((i) => i.isMain);
+        if (oldMainImage.length > 0) {
+          const filename = oldMainImage[0].filename;
+          deleteFile(dir, filename);
+          await prisma.post.update({
+            where: { id },
+            data: {
+              images: {
+                delete: { filename },
+              },
+            },
+          });
+        }
+      }
+
+      const files = formData.getAll("files") as File[];
+      for (const file of files) {
+        if (file.size > 0) {
+          const fileInfo = await resizeAndSaveImage(file, title, dir);
+          if (fileInfo)
+            images.push({
+              filename: fileInfo.filename,
+              width: fileInfo.width,
+              height: fileInfo.height,
+            });
+        }
+      }
+
+      await prisma.post.update({
+        where: { id },
         data: {
           title,
           date: new Date(Number(rawFormData.date), 1),
-          technique: rawFormData.technique,
-          description: rawFormData.description,
-          height: Number(rawFormData.height),
-          width: Number(rawFormData.width),
-          isToSell: rawFormData.isToSell === "true",
-          price: Number(rawFormData.price),
-          imageFilename: fileInfo ? fileInfo.filename : undefined,
-          imageWidth: fileInfo ? fileInfo.width : undefined,
-          imageHeight: fileInfo ? fileInfo.height : undefined,
-          category,
+          text: rawFormData.text,
+          images: {
+            create: images,
+          },
         },
       });
     }
-    revalidatePath("/admin/dessins");
-    return { message: "Dessin modifié", isError: false };
+
+    revalidatePath("/admin/posts");
+    return { message: "Post modifié", isError: false };
   } catch (e) {
-    return { message: "Erreur à l'enregistrement", isError: true };
+    return { message: `Erreur à l'enregistrement`, isError: true };
   }
 }
 
-export async function deleteDrawing(id: number) {
-  const dir = getDrawingDir();
+export async function deletePost(id: number) {
+  const dir = getPostDir();
   try {
-    const drawing = await prisma.drawing.findUnique({
+    const post = await prisma.post.findUnique({
       where: { id },
+      include: {
+        images: {
+          select: {
+            filename: true,
+          },
+        },
+      },
     });
-    if (drawing) {
-      deleteFile(dir, drawing.images[0].filename);
-      await prisma.drawing.delete({
-        where: {
-          id,
+
+    if (post) {
+      for (const image of post.images) {
+        deleteFile(dir, image.filename);
+      }
+      await prisma.post.update({
+        where: { id },
+        data: {
+          images: {
+            delete: post.images,
+          },
         },
       });
+      await prisma.post.delete({
+        where: { id },
+      });
     }
-    revalidatePath("/admin/dessins");
-    return { message: "Dessin supprimé", isError: false };
+    revalidatePath("/admin/posts");
+    return { message: "Post supprimé", isError: false };
   } catch (e) {
     return { message: "Erreur à la suppression", isError: true };
-  }
-}
-
-export async function deleteCategoryDrawing(id: number) {
-  try {
-    await prisma.drawingCategory.delete({
-      where: { id },
-    });
-    revalidatePath("/admin/dessins");
-    return { message: "Catégorie supprimée", isError: false };
-  } catch (e) {
-    return { message: "Erreur à la suppression", isError: true };
-  }
-}
-
-export async function createCategoryDrawing(
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
-  try {
-    const value = formData.get("text") as string;
-    const key = transformValueToKey(value);
-
-    await prisma.drawingCategory.create({
-      data: {
-        key,
-        value,
-      },
-    });
-    revalidatePath("/admin/dessins");
-    return { message: "Catégorie ajoutée", isError: false };
-  } catch (e) {
-    return { message: "Erreur à la création", isError: true };
-  }
-}
-
-export async function updateCategoryDrawing(
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
-  try {
-    const rawFormData = Object.fromEntries(formData);
-    const id = Number(rawFormData.id);
-    const value = rawFormData.text as string;
-    const key = transformValueToKey(value);
-
-    await prisma.drawingCategory.update({
-      where: { id },
-      data: {
-        key,
-        value,
-      },
-    });
-    revalidatePath("/admin/dessins");
-    return { message: "Catégorie modifiée", isError: false };
-  } catch (e) {
-    return { message: "Erreur à la modification", isError: true };
   }
 }
