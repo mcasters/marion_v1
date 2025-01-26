@@ -11,7 +11,7 @@ import { revalidatePath } from "next/cache";
 import { transformValueToKey } from "@/utils/commonUtils";
 
 export async function createSculpture(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   const dir = getSculptureDir();
@@ -70,7 +70,7 @@ export async function createSculpture(
 }
 
 export async function updateSculpture(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   const dir = getSculptureDir();
@@ -199,7 +199,7 @@ export async function deleteCategorySculpture(id: number) {
 }
 
 export async function createCategorySculpture(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   try {
@@ -220,7 +220,7 @@ export async function createCategorySculpture(
 }
 
 export async function updateCategorySculpture(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   try {

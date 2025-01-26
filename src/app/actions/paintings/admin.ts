@@ -11,7 +11,7 @@ import { revalidatePath } from "next/cache";
 import { transformValueToKey } from "@/utils/commonUtils";
 
 export async function createPainting(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   const dir = getPaintingDir();
@@ -55,7 +55,7 @@ export async function createPainting(
 }
 
 export async function updatePainting(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   const dir = getPaintingDir();
@@ -149,7 +149,7 @@ export async function deleteCategoryPainting(id: number) {
 }
 
 export async function createCategoryPainting(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   try {
@@ -170,7 +170,7 @@ export async function createCategoryPainting(
 }
 
 export async function updateCategoryPainting(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   try {

@@ -13,7 +13,7 @@ import CancelButton from "@/components/admin/form/CancelButton";
 interface Props {
   item: ItemFull;
   itemAction: (
-    prevState: { message: string; isError: boolean },
+    prevState: { message: string; isError: boolean } | null,
     formData: FormData,
   ) => Promise<{ isError: boolean; message: string }>;
   toggleModal?: () => void;
@@ -37,10 +37,7 @@ export default function ItemForm({
   );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<string[]>([]);
-  const [state, action] = useActionState(itemAction, {
-    message: "",
-    isError: false,
-  });
+  const [state, action] = useActionState(itemAction, null);
 
   const reset = () => {
     if (toggleModal) toggleModal();
@@ -54,7 +51,7 @@ export default function ItemForm({
   };
 
   useEffect(() => {
-    if (state.message !== "") {
+    if (state) {
       if (!state.isError) reset();
       alert(state.message, state.isError);
     }

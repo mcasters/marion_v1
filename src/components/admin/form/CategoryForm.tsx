@@ -10,7 +10,7 @@ import { Category } from "@/lib/db/item";
 
 interface Props {
   categoryAction: (
-    prevState: { message: string; isError: boolean },
+    prevState: { message: string; isError: boolean } | null,
     formData: FormData,
   ) => Promise<{ isError: boolean; message: string }>;
   category?: Category;
@@ -24,15 +24,12 @@ export default function CategoryForm({
   const isUpdate = category !== undefined;
   const [text, setText] = useState<string>(category?.value || "");
   const alert = useAlert();
-  const [state, action] = useActionState(categoryAction, {
-    message: "",
-    isError: false,
-  });
+  const [state, action] = useActionState(categoryAction, null);
 
   const reset = () => (toggleModal ? toggleModal() : setText(""));
 
   useEffect(() => {
-    if (state.message !== "") {
+    if (state) {
       if (!state.isError) reset();
       alert(state.message, state.isError);
     }

@@ -11,7 +11,7 @@ import { revalidatePath } from "next/cache";
 import { transformValueToKey } from "@/utils/commonUtils";
 
 export async function createDrawing(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   const dir = getDrawingDir();
@@ -55,7 +55,7 @@ export async function createDrawing(
 }
 
 export async function updateDrawing(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   const dir = getDrawingDir();
@@ -149,7 +149,7 @@ export async function deleteCategoryDrawing(id: number) {
 }
 
 export async function createCategoryDrawing(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   try {
@@ -170,7 +170,7 @@ export async function createCategoryDrawing(
 }
 
 export async function updateCategoryDrawing(
-  prevState: { message: string; isError: boolean },
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   try {
