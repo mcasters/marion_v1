@@ -9,11 +9,11 @@ import { getActiveTheme, getPresetColors } from "@/app/api/theme/getTheme";
 import StyledJsxRegistry from "./registry";
 import { DESCRIPTION, GENERAL, KEYWORDS } from "@/constants/specific/metaHtml";
 import { getSession } from "@/app/lib/auth/lib";
-import { getDrawingCategoriesFull } from "@/app/api/dessin/category/getCategories";
 import { TEXTS } from "@/constants/specific";
 
 import { getSculptureCategoriesFull } from "@/app/actions/sculptures";
 import { getPaintingCategoriesFull } from "@/app/actions/paintings";
+import { getDrawingCategoriesFull } from "@/app/actions/drawings";
 
 export const metadata: Metadata = {
   title: GENERAL.SITE_TITLE,

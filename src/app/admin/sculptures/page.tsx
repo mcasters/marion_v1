@@ -10,6 +10,7 @@ import {
   getSculpturesFull,
   getYearsForSculpture,
 } from "@/app/actions/sculptures";
+import { createSculpture } from "@/app/actions/sculptures/admin";
 
 export default async function Sculptures() {
   const sculptures = await getSculpturesFull();
@@ -24,7 +25,11 @@ export default async function Sculptures() {
         categories={categories}
         years={years}
       />
-      <ItemForm categories={categories} item={getEmptyItem(Type.SCULPTURE)} />
+      <ItemForm
+        categories={categories}
+        item={getEmptyItem(Type.SCULPTURE)}
+        itemAction={createSculpture}
+      />
       <CategoryComponent itemType={Type.SCULPTURE} categories={categories} />
     </>
   );

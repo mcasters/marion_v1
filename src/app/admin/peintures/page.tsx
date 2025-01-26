@@ -10,6 +10,7 @@ import {
   getPaintingsFull,
   getYearsForPainting,
 } from "@/app/actions/paintings";
+import { createPainting } from "@/app/actions/paintings/admin";
 
 export default async function Peintures() {
   const paintings = await getPaintingsFull();
@@ -24,7 +25,11 @@ export default async function Peintures() {
         categories={categories}
         years={years}
       />
-      <ItemForm categories={categories} item={getEmptyItem(Type.PAINTING)} />
+      <ItemForm
+        categories={categories}
+        item={getEmptyItem(Type.PAINTING)}
+        itemAction={createPainting}
+      />
       <CategoryComponent itemType={Type.PAINTING} categories={categories} />
     </>
   );

@@ -5,10 +5,10 @@ import DeleteIcon from "@/components/icons/DeleteIcon";
 import { useAlert } from "@/app/context/AlertProvider";
 
 type Props = {
-  deleteAction: (id: number) => {
+  deleteAction: (id: number) => Promise<{
     message: string;
     isError: false;
-  };
+  }>;
   id: number;
   disabled?: boolean;
 };

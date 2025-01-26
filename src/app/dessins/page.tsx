@@ -1,6 +1,7 @@
 import ItemComponent from "@/components/item/ItemComponent";
 import { ItemFull } from "@/lib/db/item";
-import { getDrawingsFull } from "@/app/api/dessin/getDrawings";
+
+import { getDrawingsFull } from "@/app/actions/drawings";
 
 export default async function Page() {
   const drawings = await getDrawingsFull();
