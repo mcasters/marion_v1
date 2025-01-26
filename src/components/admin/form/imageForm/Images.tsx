@@ -7,7 +7,7 @@ import { useAlert } from "@/app/context/AlertProvider";
 
 interface Props {
   onNewImages?: (arg0: string[]) => void;
-  reset?: number;
+  reset: number;
   isMultiple: boolean;
   smallImage: boolean;
   title?: string;
@@ -27,11 +27,9 @@ export default function Images({
   const alert = useAlert();
 
   useEffect(() => {
-    if (reset !== undefined) {
-      setNewImages([]);
-      setAcceptSmallImage(false);
-      if (inputRef.current) inputRef.current.value = "";
-    }
+    setNewImages([]);
+    setAcceptSmallImage(false);
+    if (inputRef.current) inputRef.current.value = "";
   }, [reset]);
 
   const handleFiles = async () => {
@@ -46,22 +44,35 @@ export default function Images({
       const files = Array.from(filesUploaded);
       const newFiles: string[] = [];
       let error = false;
+      let weight = 0;
 
       for await (const file of files) {
+        weight += file.size;
+        if (weight > 20000000) {
+          error = true;
+          alert(
+            "La taille totale des fichiers excède la limite de sécurité (20 MB).\nAjouter moins de fichier à la fois",
+            true,
+            5000,
+          );
+          break;
+        }
+
         const bmp = await createImageBitmap(file);
         const { width } = bmp;
         if (!acceptSmallImage && width < 2000) {
+          error = true;
           alert(
             `La dimension de l'image ${file.name} est trop petite. Largeur minimum : 2000 pixels`,
             true,
           );
           bmp.close();
-          error = true;
-        } else {
-          newFiles.push(URL.createObjectURL(file));
-          bmp.close();
+          break;
         }
+        newFiles.push(URL.createObjectURL(file));
+        bmp.close();
       }
+
       if (!error && newFiles.length > 0) {
         setNewImages(newFiles);
         if (onNewImages !== undefined) onNewImages(newFiles);
