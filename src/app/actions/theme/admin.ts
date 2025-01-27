@@ -112,24 +112,21 @@ export async function activateTheme(id: number) {
   }
 }
 
-export async function createCategoryDrawing(
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
+export async function createPresetColor(name: string, color: string) {
   try {
-    const value = formData.get("text") as string;
-    const key = transformValueToKey(value);
-
-    await prisma.drawingCategory.create({
+    await prisma.presetColor.create({
       data: {
-        key,
-        value,
+        name,
+        color,
       },
     });
-    revalidatePath("/admin/dessins");
-    return { message: "Catégorie ajoutée", isError: false };
+    revalidatePath("/admin");
+    return { message: "Couleur perso ajoutée", isError: false };
   } catch (e) {
-    return { message: "Erreur à la création", isError: true };
+    return {
+      message: "Erreur à la création de la couleur perso",
+      isError: true,
+    };
   }
 }
 

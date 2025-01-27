@@ -1,60 +1,51 @@
 "use client";
 
-import { Theme } from "@prisma/client";
+import { PresetColor, Theme } from "@prisma/client";
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/Modal";
-import React from "react";
+import React, { useTransition } from "react";
 import s from "@/styles/admin/AdminTheme.module.css";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { OnlyString } from "@/lib/db/theme";
 import { colorNameToHex } from "@/utils/commonUtils";
 import ColorPickerPresetColor from "@/components/admin/theme/ColorPicketPresetPart";
-import { useAdminPresetColorsContext } from "@/app/context/adminPresetColorsProvider";
 import { useAlert } from "@/app/context/AlertProvider";
+import { createPresetColor } from "@/app/actions/theme/admin";
 
 interface Props {
   label: string;
   colorLabel: string;
   pageTypeName: string;
+  presetColors: PresetColor[];
 }
 
 export default function ColorPicker({
   label, // title displayed
   colorLabel, // key name in theme object
   pageTypeName,
+  presetColors,
 }: Props) {
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
-  const { presetColors, setPresetColors } = useAdminPresetColorsContext();
   const { isOpen, toggle } = useModal();
   const alert = useAlert();
+  const [, startTransition] = useTransition();
+
+  const onAddPresetColor = (name) => {
+    startTransition(async () => {
+      const res = await createPresetColor(
+        name,
+        workTheme[colorLabel as keyof OnlyString<Theme>],
+      );
+      toggle();
+      alert(res.message, res.isError);
+    });
+  };
 
   const handleChange = (color: string): void => {
     const updatedWorkTheme = { ...workTheme };
     updatedWorkTheme[colorLabel as keyof OnlyString<Theme>] = color;
     setWorkTheme(updatedWorkTheme);
-  };
-
-  const addPresetColor = (colorName: string) => {
-    fetch("admin/api/theme/preset-color/add", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        name: colorName,
-        color: workTheme[colorLabel as keyof OnlyString<Theme>],
-      }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        const updatedPresetColors = json.updatedPresetColors;
-        if (updatedPresetColors) {
-          setPresetColors(updatedPresetColors);
-          handleChange(colorName);
-          alert("Couleur perso enregistrée");
-        } else alert("Erreur à l'enregistrement", true);
-      });
   };
 
   return (
@@ -120,7 +111,7 @@ export default function ColorPicker({
               <ColorPickerPresetColor
                 colorLabel={colorLabel}
                 onChange={handleChange}
-                onSave={addPresetColor}
+                onSave={onAddPresetColor}
               />
             </div>
           </Modal>

@@ -7,7 +7,7 @@ import ThemeDashboard from "@/components/admin/theme/ThemeDashboard";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import ThemeUpdate from "@/components/admin/theme/ThemeUpdate";
 import CancelButton from "@/components/admin/form/CancelButton";
-import { Theme } from "@prisma/client";
+import { PresetColor, Theme } from "@prisma/client";
 import { useAlert } from "@/app/context/AlertProvider";
 import { THEME } from "@/constants/admin";
 import s from "@/styles/admin/Admin.module.css";
@@ -15,9 +15,10 @@ import { activateTheme, deleteTheme } from "@/app/actions/theme/admin";
 
 type Props = {
   themes: Theme[];
+  presetColors: PresetColor[];
 };
 
-export default function AdminTheme({ themes }: Props) {
+export default function AdminTheme({ themes, presetColors }: Props) {
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const alert = useAlert();
   const [, startTransition] = useTransition();
@@ -83,7 +84,7 @@ export default function AdminTheme({ themes }: Props) {
         <ThemeDashboard />
       </div>
       <div className={themeStyle.themeActionContainer}>
-        <ThemeUpdate />
+        <ThemeUpdate presetColors={presetColors} />
         <CancelButton onCancel={handleCancel} text="Annuler les changements" />
       </div>
       <div className={themeStyle.themeActionContainer}>

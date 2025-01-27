@@ -9,18 +9,18 @@ import { getPresetColors, getThemesFull } from "@/app/actions/theme";
 
 export default async function Page() {
   const session = await getSession();
-  const isAdmin = session?.user?.isAdmin;
   const themes = await getThemesFull();
+  const presetColors = await getPresetColors();
+  const isAdmin = session?.user?.isAdmin;
   let activeTheme = themes.filter((t) => t.isActive)[0];
   if (!activeTheme) activeTheme = await getActivatedBaseTheme();
-  const presetColors = await getPresetColors();
 
   if (isAdmin) {
     return (
       <AdminThemesProvider defaultThemes={themes}>
         <AdminWorkThemeProvider defaultWorkTheme={activeTheme}>
           <AdminPresetColorsProvider defaultPresetColors={presetColors}>
-            <AdminTheme themes={themes} />
+            <AdminTheme themes={themes} presetColors={presetColors} />
           </AdminPresetColorsProvider>
         </AdminWorkThemeProvider>
       </AdminThemesProvider>
