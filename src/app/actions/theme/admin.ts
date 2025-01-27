@@ -86,15 +86,29 @@ export async function deleteTheme(id: number) {
   }
 }
 
-export async function deleteCategoryDrawing(id: number) {
+export async function activateTheme(id: number) {
   try {
-    await prisma.drawingCategory.delete({
-      where: { id },
+    const activatedTheme = await prisma.theme.update({
+      where: {
+        id,
+      },
+      data: {
+        isActive: true,
+      },
     });
-    revalidatePath("/admin/dessins");
-    return { message: "Catégorie supprimée", isError: false };
+    await prisma.theme.updateMany({
+      where: {
+        isActive: true,
+        id: { not: id },
+      },
+      data: {
+        isActive: false,
+      },
+    });
+    revalidatePath("/admin");
+    return { message: `Thème "${activatedTheme.name}" activé`, isError: false };
   } catch (e) {
-    return { message: "Erreur à la suppression", isError: true };
+    return { message: "Erreur à l'activation'", isError: true };
   }
 }
 

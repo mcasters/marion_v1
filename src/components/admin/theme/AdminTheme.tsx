@@ -11,7 +11,7 @@ import { Theme } from "@prisma/client";
 import { useAlert } from "@/app/context/AlertProvider";
 import { THEME } from "@/constants/admin";
 import s from "@/styles/admin/Admin.module.css";
-import { deleteTheme } from "@/app/actions/theme/admin";
+import { activateTheme, deleteTheme } from "@/app/actions/theme/admin";
 
 type Props = {
   themes: Theme[];
@@ -25,51 +25,18 @@ export default function AdminTheme({ themes }: Props) {
   const onDeleteTheme = () => {
     startTransition(async () => {
       const res = await deleteTheme(workTheme.id);
+      const theme = themes.find((t) => t.isActive);
+      if (theme) setWorkTheme(theme);
       alert(res.message, res.isError);
     });
   };
 
-  const activateTheme = () => {
-    fetch(`admin/api/theme/activate/${workTheme.id}`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        const activatedTheme = json.activatedTheme;
-        if (activatedTheme) {
-          alert(`Thème "${activatedTheme.name}" actif`, false);
-          setTimeout(function () {
-            window.location.reload();
-          }, 1500);
-        } else alert("Erreur à l'activation du thème", true);
-      });
-  };
+  const onActivateTheme = () => {
+    startTransition(async () => {
+      const res = await activateTheme(workTheme.id);
 
-  const DeleteTheme = () => {
-    if (confirm(`Supprimer le thème "${workTheme.name} ?`)) {
-      fetch(`admin/api/theme/delete/${workTheme.id}`, {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          if (json.updatedThemes) {
-            alert(`Thème "${workTheme.name}" supprimé`, false);
-
-            setTimeout(function () {
-              window.location.reload();
-            }, 1500);
-          }
-        })
-        .catch((e) => {
-          alert("Erreur à la suppression du thème", true);
-        });
-    }
+      alert(res.message, res.isError);
+    });
   };
 
   const handleCancel = () => {
@@ -100,7 +67,7 @@ export default function AdminTheme({ themes }: Props) {
               </option>
             ))}
         </select>
-        <button onClick={activateTheme} className="adminButton">
+        <button onClick={onActivateTheme} className="adminButton">
           Activer
         </button>
         <button
