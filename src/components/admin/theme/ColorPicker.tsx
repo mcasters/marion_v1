@@ -9,7 +9,7 @@ import { HexColorInput, HexColorPicker } from "react-colorful";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { OnlyString } from "@/lib/db/theme";
 import { colorNameToHex } from "@/utils/commonUtils";
-import ColorPickerPresetPart from "@/components/admin/theme/ColorPicketPresetPart";
+import ColorPickerPresetPart from "@/components/admin/theme/presetColor/ColorPicketPresetPart";
 import { useAlert } from "@/app/context/AlertProvider";
 import { createPresetColor } from "@/app/actions/theme/admin";
 

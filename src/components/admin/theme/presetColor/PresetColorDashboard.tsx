@@ -1,7 +1,7 @@
 "use client";
 
 import { PresetColor } from "@prisma/client";
-import PresetColorPicker from "@/components/admin/theme/PresetColorPicker";
+import PresetColorPicker from "@/components/admin/theme/presetColor/PresetColorPicker";
 
 type Props = {
   presetColors: PresetColor[];

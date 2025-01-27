@@ -3,7 +3,7 @@
 import ColorPicker from "@/components/admin/theme/ColorPicker";
 import React from "react";
 import s from "../../../styles/admin/AdminTheme.module.css";
-import PresetColorDashboard from "@/components/admin/theme/PresetColorDashboard";
+import PresetColorDashboard from "@/components/admin/theme/presetColor/PresetColorDashboard";
 import { PAGE_TYPE } from "@/constants/admin";
 import { PresetColor } from "@prisma/client";
 
