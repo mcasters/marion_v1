@@ -1,10 +1,10 @@
 "use server";
 
-import { deleteFile, getDrawingDir } from "@/utils/serverUtils";
 import prisma from "@/lib/db/prisma";
 import { revalidatePath } from "next/cache";
 import { transformValueToKey } from "@/utils/commonUtils";
 import { Theme } from "@prisma/client";
+import { THEME } from "@/constants/admin";
 
 export async function createTheme(
   theme: Theme,
@@ -50,22 +50,37 @@ export async function updateTheme(theme: Theme) {
   }
 }
 
-export async function deleteDrawing(id: number) {
-  const dir = getDrawingDir();
+export async function deleteTheme(id: number) {
   try {
-    const drawing = await prisma.drawing.findUnique({
-      where: { id },
+    const themeToDelete = await prisma.theme.findUnique({
+      where: {
+        id,
+      },
     });
-    if (drawing) {
-      deleteFile(dir, drawing.images[0].filename);
-      await prisma.drawing.delete({
-        where: {
-          id,
-        },
+
+    if (themeToDelete) {
+      if (themeToDelete.name === THEME.BASE_THEME) {
+        return {
+          message: "le thème par défaut ne peut pas être supprimé",
+          isError: true,
+        };
+      }
+      if (themeToDelete.isActive) {
+        await prisma.theme.update({
+          where: {
+            name: THEME.BASE_THEME,
+          },
+          data: {
+            isActive: true,
+          },
+        });
+      }
+      await prisma.theme.delete({
+        where: { id },
       });
     }
-    revalidatePath("/admin/dessins");
-    return { message: "Dessin supprimé", isError: false };
+    revalidatePath("/admin");
+    return { message: "Thème supprimé", isError: false };
   } catch (e) {
     return { message: "Erreur à la suppression", isError: true };
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useTransition } from "react";
 import themeStyle from "../../../styles/admin/AdminTheme.module.css";
 import ThemeAdd from "@/components/admin/theme/ThemeAdd";
 import ThemeDashboard from "@/components/admin/theme/ThemeDashboard";
@@ -11,6 +11,7 @@ import { Theme } from "@prisma/client";
 import { useAlert } from "@/app/context/AlertProvider";
 import { THEME } from "@/constants/admin";
 import s from "@/styles/admin/Admin.module.css";
+import { deleteTheme } from "@/app/actions/theme/admin";
 
 type Props = {
   themes: Theme[];
@@ -19,6 +20,14 @@ type Props = {
 export default function AdminTheme({ themes }: Props) {
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const alert = useAlert();
+  const [, startTransition] = useTransition();
+
+  const onDeleteTheme = () => {
+    startTransition(async () => {
+      const res = await deleteTheme(workTheme.id);
+      alert(res.message, res.isError);
+    });
+  };
 
   const activateTheme = () => {
     fetch(`admin/api/theme/activate/${workTheme.id}`, {
@@ -96,7 +105,7 @@ export default function AdminTheme({ themes }: Props) {
         </button>
         <button
           disabled={workTheme.name === THEME.BASE_THEME}
-          onClick={DeleteTheme}
+          onClick={onDeleteTheme}
           className="adminButton"
         >
           Supprimer

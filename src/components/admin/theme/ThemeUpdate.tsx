@@ -3,16 +3,14 @@
 import React, { useTransition } from "react";
 import s from "@/styles/admin/AdminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
 import { useAlert } from "@/app/context/AlertProvider";
 import { THEME } from "@/constants/admin";
 import { updateTheme } from "@/app/actions/theme/admin";
 
 export default function ThemeUpdate() {
-  const { setThemes } = useAdminThemesContext();
   const { workTheme } = useAdminWorkThemeContext();
   const alert = useAlert();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const save = () => {
     startTransition(async () => {
