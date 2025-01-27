@@ -1,10 +1,6 @@
 "use server";
 
-import {
-  deleteFile,
-  getDrawingDir,
-  resizeAndSaveImage,
-} from "@/utils/serverUtils";
+import { deleteFile, getDrawingDir } from "@/utils/serverUtils";
 import prisma from "@/lib/db/prisma";
 import { revalidatePath } from "next/cache";
 import { transformValueToKey } from "@/utils/commonUtils";
@@ -17,7 +13,7 @@ export async function createTheme(
 ) {
   try {
     const { id, isActive, name, ...rest } = theme;
-    const newTheme = await prisma.theme.create({
+    await prisma.theme.create({
       data: {
         name: formData.get("name"),
         isActive: false,
@@ -36,62 +32,19 @@ export async function createTheme(
   }
 }
 
-export async function updateDrawing(
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
-  const dir = getDrawingDir();
-  const rawFormData = Object.fromEntries(formData);
-  const id = Number(rawFormData.id);
+export async function updateTheme(theme: Theme) {
   try {
-    const oldDraw = await prisma.drawing.findUnique({
-      where: { id },
+    const { id, ...rest } = theme;
+    await prisma.theme.update({
+      where: {
+        id,
+      },
+      data: {
+        ...rest,
+      },
     });
-
-    if (oldDraw) {
-      let fileInfo = null;
-      const newFile = rawFormData.file as File;
-      const title = rawFormData.title;
-      if (newFile.size !== 0) {
-        deleteFile(dir, oldDraw.images[0].filename);
-        fileInfo = await resizeAndSaveImage(newFile, title, dir);
-      }
-
-      const category =
-        rawFormData.categoryId !== ""
-          ? {
-              connect: {
-                id: Number(rawFormData.categoryId),
-              },
-            }
-          : oldDraw.categoryId !== null
-            ? {
-                disconnect: {
-                  id: oldDraw.categoryId,
-                },
-              }
-            : {};
-
-      await prisma.drawing.update({
-        where: { id: id },
-        data: {
-          title,
-          date: new Date(Number(rawFormData.date), 1),
-          technique: rawFormData.technique,
-          description: rawFormData.description,
-          height: Number(rawFormData.height),
-          width: Number(rawFormData.width),
-          isToSell: rawFormData.isToSell === "true",
-          price: Number(rawFormData.price),
-          imageFilename: fileInfo ? fileInfo.filename : undefined,
-          imageWidth: fileInfo ? fileInfo.width : undefined,
-          imageHeight: fileInfo ? fileInfo.height : undefined,
-          category,
-        },
-      });
-    }
-    revalidatePath("/admin/dessins");
-    return { message: "Dessin modifié", isError: false };
+    revalidatePath("/admin");
+    return { message: `Theme "${theme.name}" modifié`, isError: false };
   } catch (e) {
     return { message: "Erreur à l'enregistrement", isError: true };
   }
