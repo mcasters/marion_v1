@@ -81,7 +81,7 @@ export default function AdminTheme({ themes, presetColors }: Props) {
       </div>
       <div className={themeStyle.themeContainer}>
         <h2>Thème sélectionné :</h2>
-        <ThemeDashboard />
+        <ThemeDashboard presetColors={presetColors} />
       </div>
       <div className={themeStyle.themeActionContainer}>
         <ThemeUpdate presetColors={presetColors} />

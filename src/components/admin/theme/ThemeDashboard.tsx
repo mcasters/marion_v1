@@ -197,7 +197,7 @@ export default function ThemeDashboard({ presetColors }: Props) {
       <section></section>
       <section>
         <h3 className={s.sectionTitle}>Couleurs perso</h3>
-        <PresetColorDashboard />
+        <PresetColorDashboard presetColors={presetColors} />
       </section>
     </div>
   );

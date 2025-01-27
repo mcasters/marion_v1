@@ -18,7 +18,7 @@ export default async function Page() {
   if (isAdmin) {
     return (
       <AdminThemesProvider defaultThemes={themes}>
-        <AdminWorkThemeProvider defaultWorkTheme={activeTheme}>
+        <AdminWorkThemeProvider defaultWorkTheme={activeTheme} themes={themes}>
           <AdminPresetColorsProvider defaultPresetColors={presetColors}>
             <AdminTheme themes={themes} presetColors={presetColors} />
           </AdminPresetColorsProvider>

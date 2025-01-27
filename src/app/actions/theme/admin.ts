@@ -2,9 +2,9 @@
 
 import prisma from "@/lib/db/prisma";
 import { revalidatePath } from "next/cache";
-import { transformValueToKey } from "@/utils/commonUtils";
 import { Theme } from "@prisma/client";
 import { THEME } from "@/constants/admin";
+import { OnlyString } from "@/lib/db/theme";
 
 export async function createTheme(
   theme: Theme,
@@ -130,26 +130,51 @@ export async function createPresetColor(name: string, color: string) {
   }
 }
 
-export async function updateCategoryDrawing(
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
+export async function deletePresetColor(id: number) {
   try {
-    const rawFormData = Object.fromEntries(formData);
-    const id = Number(rawFormData.id);
-    const value = rawFormData.text as string;
-    const key = transformValueToKey(value);
-
-    await prisma.drawingCategory.update({
-      where: { id },
-      data: {
-        key,
-        value,
+    const presetColor = await prisma.presetColor.findUnique({
+      where: {
+        id,
       },
     });
-    revalidatePath("/admin/dessins");
-    return { message: "Catégorie modifiée", isError: false };
+
+    if (presetColor) {
+      const themes = await prisma.theme.findMany();
+      const updatedThemes = [];
+      for await (const theme of themes) {
+        const updatedTheme = theme;
+        let isModified = false;
+        for await (const [key, value] of Object.entries(theme)) {
+          if (
+            value === presetColor.name &&
+            key !== "name" &&
+            key !== "isActive"
+          ) {
+            isModified = true;
+            updatedTheme[key as keyof OnlyString<Theme>] = presetColor.color;
+          }
+        }
+        if (isModified) updatedThemes.push(updatedTheme);
+      }
+
+      for await (const theme of updatedThemes) {
+        const { id, ...rest } = theme;
+        await prisma.theme.update({
+          where: {
+            id,
+          },
+          data: { ...rest },
+        });
+      }
+
+      await prisma.presetColor.delete({
+        where: { id },
+      });
+    }
+
+    revalidatePath("/admin");
+    return { message: "Couleur perso supprimée", isError: false };
   } catch (e) {
-    return { message: "Erreur à la modification", isError: true };
+    return { message: "Erreur à la suppression", isError: true };
   }
 }

@@ -1,17 +1,17 @@
 "use client";
 
 import s from "@/styles/admin/AdminTheme.module.css";
-import React, { useState } from "react";
+import React, { useState, useTransition } from "react";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import Modal from "@/components/admin/form/modal/Modal";
 import useModal from "@/components/admin/form/modal/useModal";
-import { PresetColor, Theme } from "@prisma/client";
-import { useAdminThemesContext } from "@/app/context/adminThemesProvider";
+import { PresetColor } from "@prisma/client";
 import { useAdminPresetColorsContext } from "@/app/context/adminPresetColorsProvider";
 import CancelButton from "@/components/admin/form/CancelButton";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import { useAlert } from "@/app/context/AlertProvider";
+import { deletePresetColor } from "@/app/actions/theme/admin";
 
 interface Props {
   presetColor: PresetColor;
@@ -19,12 +19,19 @@ interface Props {
 
 export default function PresetColorPicker({ presetColor }: Props) {
   const { isOpen, toggle } = useModal();
-  const { setThemes } = useAdminThemesContext();
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const { setPresetColors } = useAdminPresetColorsContext();
   const alert = useAlert();
   const [currentPresetColor, setCurrentPresetColor] =
     useState<PresetColor>(presetColor);
+  const [, startTransition] = useTransition();
+
+  const onDeletePresetColor = () => {
+    startTransition(async () => {
+      const res = await deletePresetColor(presetColor.id);
+      alert(res.message, res.isError);
+    });
+  };
 
   const updatePresetColor = () => {
     fetch("admin/api/theme/preset-color/update", {
@@ -43,26 +50,6 @@ export default function PresetColorPicker({ presetColor }: Props) {
           alert("Couleur perso mise à jour");
         } else alert("Erreur à l'enregistrement", true);
       });
-  };
-
-  const remove = () => {
-    if (confirm("Sûr de vouloir supprimer ?")) {
-      fetch(`admin/api/theme/preset-color/delete/${presetColor.id}`)
-        .then((res) => res.json())
-        .then((json) => {
-          const updatedThemes: Theme[] = json.updatedThemes;
-          const updatedPresetColors: PresetColor[] = json.updatedPresetColors;
-          if (updatedThemes && updatedPresetColors) {
-            setThemes(updatedThemes);
-            setPresetColors(updatedPresetColors);
-            const workThemeUpdated = updatedThemes.find(
-              (t: Theme) => t.id === workTheme.id,
-            );
-            if (workThemeUpdated) setWorkTheme({ ...workThemeUpdated });
-            alert("Couleur perso supprimée");
-          } else alert("Erreur à la suppression", true);
-        });
-    }
   };
 
   return (
@@ -122,10 +109,7 @@ export default function PresetColorPicker({ presetColor }: Props) {
       <button
         className="iconButton"
         aria-label="Supprimer"
-        onClick={(e) => {
-          e.preventDefault();
-          remove();
-        }}
+        onClick={onDeletePresetColor}
       >
         <DeleteIcon />
       </button>

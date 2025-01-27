@@ -4,22 +4,22 @@ import React, { useState } from "react";
 import s from "@/styles/admin/AdminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { OnlyString } from "@/lib/db/theme";
-import { Theme } from "@prisma/client";
-import { useAdminPresetColorsContext } from "@/app/context/adminPresetColorsProvider";
+import { PresetColor, Theme } from "@prisma/client";
 
 interface Props {
   colorLabel: string;
   onChange: (colorName: string) => void;
   onSave: (colorName: string) => void;
+  presetColors: PresetColor[];
 }
 
 export default function ColorPickerPresetPart({
   colorLabel,
   onChange,
   onSave,
+  presetColors,
 }: Props) {
   const { workTheme } = useAdminWorkThemeContext();
-  const { presetColors } = useAdminPresetColorsContext();
   const [nameToSave, setNameToSave] = useState<string>("");
 
   const handleSave = () => {
@@ -44,7 +44,7 @@ export default function ColorPickerPresetPart({
         </button>
       </div>
       <div className={s.pickerSwatches}>
-        {presetColors.map((p) => (
+        {presetColors?.map((p) => (
           <div key={p.id} className={s.presetColorContainer}>
             <button
               className={
