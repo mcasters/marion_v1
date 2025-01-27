@@ -1,8 +1,6 @@
 import AdminTheme from "@/components/admin/theme/AdminTheme";
 import { AdminWorkThemeProvider } from "@/app/context/adminWorkThemeProvider";
 import { getActivatedBaseTheme } from "@/lib/db/theme";
-import { AdminPresetColorsProvider } from "@/app/context/adminPresetColorsProvider";
-import { AdminThemesProvider } from "@/app/context/adminThemesProvider";
 import { redirect } from "next/navigation";
 import { getSession } from "@/app/lib/auth/lib";
 import { getPresetColors, getThemesFull } from "@/app/actions/theme";
@@ -17,13 +15,9 @@ export default async function Page() {
 
   if (isAdmin) {
     return (
-      <AdminThemesProvider defaultThemes={themes}>
-        <AdminWorkThemeProvider defaultWorkTheme={activeTheme} themes={themes}>
-          <AdminPresetColorsProvider defaultPresetColors={presetColors}>
-            <AdminTheme themes={themes} presetColors={presetColors} />
-          </AdminPresetColorsProvider>
-        </AdminWorkThemeProvider>
-      </AdminThemesProvider>
+      <AdminWorkThemeProvider defaultWorkTheme={activeTheme}>
+        <AdminTheme themes={themes} presetColors={presetColors} />
+      </AdminWorkThemeProvider>
     );
   } else {
     redirect("/home");

@@ -43,8 +43,8 @@ export default function ColorPicker({
   };
 
   const handleChange = (color: string): void => {
-    const updatedWorkTheme = { ...workTheme };
-    updatedWorkTheme[colorLabel as keyof OnlyString<Theme>] = color;
+    const updatedWorkTheme = { ...workTheme } as Theme;
+    updatedWorkTheme[colorLabel] = color;
     setWorkTheme(updatedWorkTheme);
   };
 
@@ -57,14 +57,13 @@ export default function ColorPicker({
             className={
               isOpen
                 ? s.swatchOpen
-                : workTheme[colorLabel as keyof OnlyString<Theme>].charAt(0) !==
-                    "#"
+                : workTheme[colorLabel].charAt(0) !== "#"
                   ? s.swatchFocus
                   : s.swatch
             }
             style={{
               backgroundColor: colorNameToHex(
-                workTheme[colorLabel as keyof OnlyString<Theme>],
+                workTheme[colorLabel],
                 presetColors,
               ),
             }}
@@ -80,10 +79,7 @@ export default function ColorPicker({
               </h3>
               <div className={s.picker}>
                 <HexColorPicker
-                  color={colorNameToHex(
-                    workTheme[colorLabel as keyof OnlyString<Theme>],
-                    presetColors,
-                  )}
+                  color={colorNameToHex(workTheme[colorLabel], presetColors)}
                   onChange={handleChange}
                 />
               </div>
@@ -93,16 +89,13 @@ export default function ColorPicker({
                   className={s.halfWidth}
                   style={{
                     backgroundColor: colorNameToHex(
-                      workTheme[colorLabel as keyof OnlyString<Theme>],
+                      workTheme[colorLabel],
                       presetColors,
                     ),
                   }}
                 ></div>
                 <HexColorInput
-                  color={colorNameToHex(
-                    workTheme[colorLabel as keyof OnlyString<Theme>],
-                    presetColors,
-                  )}
+                  color={colorNameToHex(workTheme[colorLabel], presetColors)}
                   onChange={handleChange}
                   prefixed={true}
                   className={s.halfWidth}

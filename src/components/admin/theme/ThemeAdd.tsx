@@ -22,8 +22,10 @@ export default function ThemeAdd({ themes }: Props) {
     if (state) {
       alert(state.message, state.isError);
       if (!state.isError) {
-        const _workTheme = themes.find((t) => t.name === themeName);
-        if (_workTheme) setWorkTheme(_workTheme);
+        const newTheme = themes.find((t) => t.name === themeName);
+        if (newTheme) {
+          setWorkTheme(newTheme);
+        }
         setThemeName("");
       }
     }

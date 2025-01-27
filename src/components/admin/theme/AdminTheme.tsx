@@ -35,7 +35,6 @@ export default function AdminTheme({ themes, presetColors }: Props) {
   const onActivateTheme = () => {
     startTransition(async () => {
       const res = await activateTheme(workTheme.id);
-
       alert(res.message, res.isError);
     });
   };
@@ -81,7 +80,7 @@ export default function AdminTheme({ themes, presetColors }: Props) {
       </div>
       <div className={themeStyle.themeContainer}>
         <h2>Thème sélectionné :</h2>
-        <ThemeDashboard presetColors={presetColors} />
+        <ThemeDashboard presetColors={presetColors} themes={themes} />
       </div>
       <div className={themeStyle.themeActionContainer}>
         <ThemeUpdate presetColors={presetColors} />

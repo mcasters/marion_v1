@@ -5,13 +5,14 @@ import React from "react";
 import s from "../../../styles/admin/AdminTheme.module.css";
 import PresetColorDashboard from "@/components/admin/theme/presetColor/PresetColorDashboard";
 import { PAGE_TYPE } from "@/constants/admin";
-import { PresetColor } from "@prisma/client";
+import { PresetColor, Theme } from "@prisma/client";
 
 type Props = {
   presetColors: PresetColor[];
+  themes: Theme[];
 };
 
-export default function ThemeDashboard({ presetColors }: Props) {
+export default function ThemeDashboard({ presetColors, themes }: Props) {
   return (
     <div className={s.grid}>
       <section>
@@ -197,7 +198,7 @@ export default function ThemeDashboard({ presetColors }: Props) {
       <section></section>
       <section>
         <h3 className={s.sectionTitle}>Couleurs perso</h3>
-        <PresetColorDashboard presetColors={presetColors} />
+        <PresetColorDashboard presetColors={presetColors} themes={themes} />
       </section>
     </div>
   );

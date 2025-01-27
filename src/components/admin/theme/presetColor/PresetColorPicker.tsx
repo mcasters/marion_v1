@@ -1,23 +1,26 @@
 "use client";
 
 import s from "@/styles/admin/AdminTheme.module.css";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import Modal from "@/components/admin/form/modal/Modal";
 import useModal from "@/components/admin/form/modal/useModal";
-import { PresetColor } from "@prisma/client";
+import { PresetColor, Theme } from "@prisma/client";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import { useAlert } from "@/app/context/AlertProvider";
 import {
   deletePresetColor,
   updatePresetColor,
 } from "@/app/actions/theme/admin";
+import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 
 interface Props {
   presetColor: PresetColor;
+  themes: Theme[];
 }
 
-export default function PresetColorPicker({ presetColor }: Props) {
+export default function PresetColorPicker({ presetColor, themes }: Props) {
+  const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const { isOpen, toggle } = useModal();
   const alert = useAlert();
   const [color, setColor] = useState<string>(presetColor.color);
@@ -29,6 +32,11 @@ export default function PresetColorPicker({ presetColor }: Props) {
       alert(res.message, res.isError);
     });
   };
+
+  useEffect(() => {
+    const updatedTheme = themes.find((t) => t.id === workTheme.id);
+    if (updatedTheme) setWorkTheme(updatedTheme);
+  }, [themes]);
 
   const onUpdatePresetColor = () => {
     startTransition(async () => {
