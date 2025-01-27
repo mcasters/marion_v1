@@ -13,6 +13,7 @@ import {
   updatePresetColor,
 } from "@/app/actions/theme/admin";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
+import { BASE_PRESET_COLOR } from "@/constants/specific";
 
 interface Props {
   presetColor: PresetColor;
@@ -105,6 +106,7 @@ export default function PresetColorPicker({ presetColor, themes }: Props) {
         className="iconButton"
         aria-label="Supprimer"
         onClick={onDeletePresetColor}
+        disabled={presetColor.name === BASE_PRESET_COLOR.name}
       >
         <DeleteIcon />
       </button>
