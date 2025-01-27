@@ -2,16 +2,16 @@
 
 import s from "@/styles/admin/AdminTheme.module.css";
 import React, { useState, useTransition } from "react";
-import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import Modal from "@/components/admin/form/modal/Modal";
 import useModal from "@/components/admin/form/modal/useModal";
 import { PresetColor } from "@prisma/client";
-import { useAdminPresetColorsContext } from "@/app/context/adminPresetColorsProvider";
-import CancelButton from "@/components/admin/form/CancelButton";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import { useAlert } from "@/app/context/AlertProvider";
-import { deletePresetColor } from "@/app/actions/theme/admin";
+import {
+  deletePresetColor,
+  updatePresetColor,
+} from "@/app/actions/theme/admin";
 
 interface Props {
   presetColor: PresetColor;
@@ -19,11 +19,8 @@ interface Props {
 
 export default function PresetColorPicker({ presetColor }: Props) {
   const { isOpen, toggle } = useModal();
-  const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
-  const { setPresetColors } = useAdminPresetColorsContext();
   const alert = useAlert();
-  const [currentPresetColor, setCurrentPresetColor] =
-    useState<PresetColor>(presetColor);
+  const [color, setColor] = useState<string>(presetColor.color);
   const [, startTransition] = useTransition();
 
   const onDeletePresetColor = () => {
@@ -33,23 +30,15 @@ export default function PresetColorPicker({ presetColor }: Props) {
     });
   };
 
-  const updatePresetColor = () => {
-    fetch("admin/api/theme/preset-color/update", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ ...currentPresetColor }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        const updatedPresetColors: PresetColor[] = json.updatedPresetColors;
-        if (updatedPresetColors) {
-          setPresetColors(updatedPresetColors);
-          toggle();
-          alert("Couleur perso mise à jour");
-        } else alert("Erreur à l'enregistrement", true);
-      });
+  const onUpdatePresetColor = () => {
+    startTransition(async () => {
+      const res = await updatePresetColor({
+        ...presetColor,
+        color,
+      } as PresetColor);
+      alert(res.message, res.isError);
+      if (!res.isError) toggle();
+    });
   };
 
   return (
@@ -59,7 +48,7 @@ export default function PresetColorPicker({ presetColor }: Props) {
         <button
           className={`${s.swatch} ${s.presetColor}`}
           style={{
-            backgroundColor: currentPresetColor.color,
+            backgroundColor: color,
           }}
           onClick={(e) => {
             e.preventDefault();
@@ -71,38 +60,36 @@ export default function PresetColorPicker({ presetColor }: Props) {
           <div className={s.colorPicker}>
             <h3>Modification : {presetColor.name}</h3>
             <p>
-              (s&apos;appliquera à toutes les couleurs &quot;
+              (s&apos;appliquera à toutes les couleurs perso &quot;
               {presetColor.name}&quot; du thème)
             </p>
             <div className={s.picker}>
-              <HexColorPicker
-                color={currentPresetColor.color}
-                onChange={(c) =>
-                  setCurrentPresetColor({ ...presetColor, color: c })
-                }
-              />
+              <HexColorPicker color={color} onChange={setColor} />
             </div>
             <p>Couleur sélectionnée (notation hexadécimale) :</p>
             <div>
               <div
                 className={s.halfWidth}
                 style={{
-                  backgroundColor: currentPresetColor.color,
+                  backgroundColor: color,
                 }}
               ></div>
               <HexColorInput
-                color={currentPresetColor.color}
-                onChange={(c) =>
-                  setCurrentPresetColor({ ...presetColor, color: c })
-                }
+                color={color}
+                onChange={setColor}
                 prefixed={true}
                 className={s.halfWidth}
               />
             </div>
-            <button className="adminButton" onClick={updatePresetColor}>
+            <button
+              className={`adminButton ${s.halfWidth}`}
+              onClick={onUpdatePresetColor}
+            >
               OK
             </button>
-            <CancelButton onCancel={toggle} />
+            <button onClick={toggle} className={`adminButton ${s.halfWidth}`}>
+              Annuler
+            </button>
           </div>
         </Modal>
       </div>

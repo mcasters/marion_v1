@@ -25,7 +25,7 @@ export default function ThemeUpdate() {
       className={`${s.themeInput} "adminButton"`}
       disabled={workTheme.name === THEME.BASE_THEME}
     >
-      {`Mettre à jour "${workTheme.name}"`}
+      {`Mettre à jour le thème "${workTheme.name}"`}
     </button>
   );
 }

@@ -22,7 +22,6 @@ export default function DeleteButton({ deleteAction, id, disabled }: Props) {
 
   useEffect(() => {
     if (state.message !== "") {
-      console.log("ENETER");
       alert(state.message, state.isError);
     }
   }, [state]);

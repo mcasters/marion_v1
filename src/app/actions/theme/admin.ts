@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/db/prisma";
 import { revalidatePath } from "next/cache";
-import { Theme } from "@prisma/client";
+import { PresetColor, Theme } from "@prisma/client";
 import { THEME } from "@/constants/admin";
 import { OnlyString } from "@/lib/db/theme";
 
@@ -122,6 +122,26 @@ export async function createPresetColor(name: string, color: string) {
     });
     revalidatePath("/admin");
     return { message: "Couleur perso ajoutée", isError: false };
+  } catch (e) {
+    return {
+      message: "Erreur à la création de la couleur perso",
+      isError: true,
+    };
+  }
+}
+
+export async function updatePresetColor(presetColor: PresetColor) {
+  try {
+    await prisma.presetColor.update({
+      where: {
+        id: presetColor.id,
+      },
+      data: {
+        color: presetColor.color,
+      },
+    });
+    revalidatePath("/admin");
+    return { message: "Couleur perso modifiée", isError: false };
   } catch (e) {
     return {
       message: "Erreur à la création de la couleur perso",
