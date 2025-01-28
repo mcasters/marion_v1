@@ -151,10 +151,19 @@ export default function ColorPicker({
                 </div>
               ))}
             </div>
+            <button className={s.halfWidth} onClick={updateWorkTheme}>
+              OK
+            </button>
+            <button
+              onClick={() => {
+                setColor(workTheme[colorLabel]);
+                toggle();
+              }}
+              className={s.halfWidth}
+            >
+              Annuler
+            </button>
           </div>
-          <button className="adminButton" onClick={updateWorkTheme}>
-            OK
-          </button>
         </Modal>
       </div>
     </div>

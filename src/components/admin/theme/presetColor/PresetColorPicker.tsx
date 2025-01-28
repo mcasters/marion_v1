@@ -50,7 +50,7 @@ export default function PresetColorPicker({ presetColor, onDelete }: Props) {
       <p className={s.label}>{presetColor.name}</p>
       <div className={s.colorPickerContainer}>
         <button
-          className={`${s.swatch} ${s.presetColor}`}
+          className={`${s.swatchFocus} ${s.presetColor}`}
           style={{
             backgroundColor: color,
           }}
@@ -91,7 +91,13 @@ export default function PresetColorPicker({ presetColor, onDelete }: Props) {
             >
               OK
             </button>
-            <button onClick={toggle} className={`adminButton ${s.halfWidth}`}>
+            <button
+              onClick={() => {
+                setColor(presetColor.color);
+                toggle();
+              }}
+              className={`adminButton ${s.halfWidth}`}
+            >
               Annuler
             </button>
           </div>

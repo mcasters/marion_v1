@@ -1,5 +1,12 @@
 .adminWrapper {
-    padding: 3em 10em;
+  padding: 6em 2em 1em;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .adminWrapper {
+    padding: 6em 10em 3em;
+  }
 }
 
 .button {
@@ -143,12 +150,4 @@ h2.homepage {
 
 .imageFormContainer {
     margin: 5em auto 0;
-}
-
-/* Mobile */
-@media (max-width: 700px) {
-    .adminWrapper {
-        padding: 1em 2em 1em;
-    }
-
 }

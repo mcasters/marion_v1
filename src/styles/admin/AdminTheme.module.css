@@ -91,7 +91,7 @@ ColorPicker
     height: 28px;
     margin: 3px;
     border-radius: 1px;
-    outline: solid #94afb9 2px;
+    outline: solid #1196c7 2px;
     outline-offset: 2px;
     cursor: pointer;
 }
@@ -117,7 +117,7 @@ ColorPicker
 
 .pickerSwatches {
     display: flex;
-    padding: 2px;
+    padding: 2px 2px 20px;
     flex-wrap: wrap;
 }
 
@@ -143,13 +143,13 @@ ColorPicker
 
 .actionContainer {
   display: flex;
+  flex-wrap: wrap;
   text-align: center;
   padding-bottom: 2em;
 }
 
 .actionPartContainer {
   flex: auto;
-  display: inline-block;
 }
 
 .actionPartContainer button, .actionPartContainer input {
