@@ -12,7 +12,6 @@ import {
   deletePresetColor,
   updatePresetColor,
 } from "@/app/actions/theme/admin";
-import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { BASE_PRESET_COLOR } from "@/constants/specific";
 
 interface Props {
@@ -21,7 +20,6 @@ interface Props {
 }
 
 export default function PresetColorPicker({ presetColor, onDelete }: Props) {
-  const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const { isOpen, toggle } = useModal();
   const alert = useAlert();
   const [color, setColor] = useState<string>(presetColor.color);

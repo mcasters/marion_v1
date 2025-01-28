@@ -1,21 +1,24 @@
 "use client";
 
 import ColorPicker from "@/components/admin/theme/ColorPicker";
-import React, { useState } from "react";
+import React from "react";
 import s from "../../../styles/admin/AdminTheme.module.css";
-import PresetColorDashboard from "@/components/admin/theme/presetColor/PresetColorDashboard";
 import { PAGE_TYPE } from "@/constants/admin";
 import { PresetColor } from "@prisma/client";
 
 type Props = {
   presetColors: PresetColor[];
+  deletedPresetColor: PresetColor;
+  isToUpdate: boolean;
 };
 
-export default function ThemeDashboard({ presetColors }: Props) {
-  const [deletedPresetColor, setDeletedPresetColor] = useState(null);
-
+export default function ThemeDashboard({
+  presetColors,
+  deletedPresetColor,
+  isToUpdate,
+}: Props) {
   return (
-    <div className={s.grid}>
+    <div className={`${s.grid} ${isToUpdate ? s.toUpdate : ""}`}>
       <section>
         <h3 className={s.sectionTitle}>{PAGE_TYPE.GENERAL}</h3>
         <ColorPicker
@@ -224,14 +227,7 @@ export default function ThemeDashboard({ presetColors }: Props) {
           deletedPresetColor={deletedPresetColor}
         />
       </section>
-      <section></section>
-      <section>
-        <h3 className={s.sectionTitle}>Couleurs perso</h3>
-        <PresetColorDashboard
-          presetColors={presetColors}
-          onDeletePresetColor={setDeletedPresetColor}
-        />
-      </section>
+      {isToUpdate && <span>Thème modifié (à sauvegarder)</span>}
     </div>
   );
 }

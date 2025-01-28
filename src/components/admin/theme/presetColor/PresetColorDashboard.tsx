@@ -2,6 +2,7 @@
 
 import { PresetColor } from "@prisma/client";
 import PresetColorPicker from "@/components/admin/theme/presetColor/PresetColorPicker";
+import s from "@/styles/admin/AdminTheme.module.css";
 
 type Props = {
   presetColors: PresetColor[];
@@ -12,11 +13,17 @@ export default function PresetColorDashboard({
   presetColors,
   onDeletePresetColor,
 }: Props) {
-  return presetColors.map((presetColor: PresetColor) => (
-    <PresetColorPicker
-      key={presetColor.id}
-      presetColor={presetColor}
-      onDelete={onDeletePresetColor}
-    />
-  ));
+  return (
+    <div className={s.grid}>
+      <section>
+        {presetColors.map((presetColor: PresetColor) => (
+          <PresetColorPicker
+            key={presetColor.id}
+            presetColor={presetColor}
+            onDelete={onDeletePresetColor}
+          />
+        ))}
+      </section>
+    </div>
+  );
 }

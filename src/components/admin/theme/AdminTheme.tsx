@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useTransition } from "react";
+import React, { useState, useTransition } from "react";
 import themeStyle from "../../../styles/admin/AdminTheme.module.css";
 import ThemeAdd from "@/components/admin/theme/ThemeAdd";
 import ThemeDashboard from "@/components/admin/theme/ThemeDashboard";
@@ -12,6 +12,7 @@ import { THEME } from "@/constants/admin";
 import s from "@/styles/admin/Admin.module.css";
 import { activateTheme, deleteTheme } from "@/app/actions/theme/admin";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
+import PresetColorDashboard from "@/components/admin/theme/presetColor/PresetColorDashboard";
 
 type Props = {
   themes: Theme[];
@@ -20,8 +21,10 @@ type Props = {
 
 export default function AdminTheme({ themes, presetColors }: Props) {
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
+  const [deletedPresetColor, setDeletedPresetColor] = useState(null);
   const alert = useAlert();
   const [, startTransition] = useTransition();
+  const savedWorkTheme = themes.find((t) => t.id === workTheme.id);
 
   const onDeleteTheme = () => {
     startTransition(async () => {
@@ -48,7 +51,7 @@ export default function AdminTheme({ themes, presetColors }: Props) {
     <>
       <h1>Gestion du thème</h1>
       <div className={themeStyle.themeContainer}>
-        <h2>Liste des thèmes :</h2>
+        <h2>Thèmes :</h2>
         <select
           name="name"
           value={workTheme.id}
@@ -79,14 +82,36 @@ export default function AdminTheme({ themes, presetColors }: Props) {
       </div>
       <div className={themeStyle.themeContainer}>
         <h2>Détail du thème sélectionné :</h2>
-        <ThemeDashboard presetColors={presetColors} />
+        <ThemeDashboard
+          presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
+          isToUpdate={
+            workTheme.name != THEME.BASE_THEME &&
+            Object.entries(workTheme).sort().toString() !=
+              Object.entries(savedWorkTheme).sort().toString()
+          }
+        />
       </div>
-      <div className={themeStyle.themeActionContainer}>
-        <ThemeUpdate />
-        <CancelButton onCancel={handleCancel} text="Annuler les changements" />
+      <div className={themeStyle.actionContainer}>
+        <div className={themeStyle.actionPartContainer}>
+          <ThemeAdd themes={themes} />
+        </div>
+        <div className={themeStyle.actionPartContainer}>
+          <ThemeUpdate />
+        </div>
+        <div className={themeStyle.actionPartContainer}>
+          <CancelButton
+            onCancel={handleCancel}
+            text="Annuler les changements"
+          />
+        </div>
       </div>
-      <div className={themeStyle.themeActionContainer}>
-        <ThemeAdd themes={themes} />
+      <div className={themeStyle.themeContainer}>
+        <h2>Couleurs personnalisées</h2>
+        <PresetColorDashboard
+          presetColors={presetColors}
+          onDeletePresetColor={setDeletedPresetColor}
+        />
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 .themeContainer {
-    padding: 4em 0;
+    padding: 4rem 0 2rem;
 }
 
 .themeContainer h2, .noteContainer h2 {
@@ -15,6 +15,17 @@ Grille de couleur
 .grid {
     display: flex;
     flex-wrap: wrap;
+}
+
+.toUpdate {
+  border: red solid 3px;
+}
+
+.toUpdate span {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: red;
 }
 
 .themeContainer section {
@@ -130,9 +141,19 @@ ColorPicker
     padding: 0 0.4em;
 }
 
-.themeActionContainer {
-    text-align: center;
-    padding-bottom: 2em;
+.actionContainer {
+  display: flex;
+  text-align: center;
+  padding-bottom: 2em;
+}
+
+.actionPartContainer {
+  flex: auto;
+  display: inline-block;
+}
+
+.actionPartContainer button, .actionPartContainer input {
+  width: 250px;
 }
 
 .themeInput {

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useTransition } from "react";
-import s from "@/styles/admin/AdminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { useAlert } from "@/app/context/AlertProvider";
 import { THEME } from "@/constants/admin";
@@ -22,10 +21,10 @@ export default function ThemeUpdate() {
   return (
     <button
       onClick={saveTheme}
-      className={`${s.themeInput} "adminButton"`}
+      className="adminButton"
       disabled={workTheme.name === THEME.BASE_THEME}
     >
-      {`Mettre à jour le thème "${workTheme.name}"`}
+      {`Sauvegarder le thème "${workTheme.name}"`}
     </button>
   );
 }

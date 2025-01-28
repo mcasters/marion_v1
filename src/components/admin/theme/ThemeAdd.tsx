@@ -32,7 +32,7 @@ export default function ThemeAdd({ themes }: Props) {
   }, [state]);
 
   return (
-    <form action={action} className={s.themeActionContainer}>
+    <form action={action}>
       <input
         required
         className={s.themeInput}
@@ -46,7 +46,7 @@ export default function ThemeAdd({ themes }: Props) {
         style={{ marginRight: "0" }}
       />
       <button type="submit" className="adminButton" style={{ marginLeft: "0" }}>
-        Mémoriser en nouveau thème
+        Sauvegarder en nouveau thème
       </button>
     </form>
   );
