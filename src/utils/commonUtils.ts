@@ -1,5 +1,4 @@
 import { Label, PresetColor, Theme } from "@prisma/client";
-import { OnlyString } from "@/lib/db/theme";
 import {
   ContentFull,
   Image,
@@ -127,9 +126,22 @@ export const themeToHexa = (
     if (typeof value === "string" && value.charAt(0) !== "#") {
       presetColors.find((p) => {
         if (p.name === value) {
-          updatedTheme[key as keyof OnlyString<Theme>] = p.color;
+          updatedTheme[key] = p.color;
         }
       });
+    }
+  });
+  return updatedTheme;
+};
+
+export const oneColorThemeToHexa = (
+  theme: Theme,
+  presetColor: PresetColor,
+): Theme => {
+  const updatedTheme = theme;
+  Object.entries(theme).forEach(([key, value]) => {
+    if (value === presetColor.name && key !== "name") {
+      updatedTheme[key] = presetColor.color;
     }
   });
   return updatedTheme;

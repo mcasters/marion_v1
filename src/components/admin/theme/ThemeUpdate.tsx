@@ -12,7 +12,7 @@ export default function ThemeUpdate() {
   const alert = useAlert();
   const [, startTransition] = useTransition();
 
-  const save = () => {
+  const saveTheme = () => {
     startTransition(async () => {
       const res = await updateTheme(workTheme);
       alert(res.message, res.isError);
@@ -21,7 +21,7 @@ export default function ThemeUpdate() {
 
   return (
     <button
-      onClick={save}
+      onClick={saveTheme}
       className={`${s.themeInput} "adminButton"`}
       disabled={workTheme.name === THEME.BASE_THEME}
     >
