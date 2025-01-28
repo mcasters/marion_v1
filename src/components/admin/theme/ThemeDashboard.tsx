@@ -1,18 +1,19 @@
 "use client";
 
 import ColorPicker from "@/components/admin/theme/ColorPicker";
-import React from "react";
+import React, { useState } from "react";
 import s from "../../../styles/admin/AdminTheme.module.css";
 import PresetColorDashboard from "@/components/admin/theme/presetColor/PresetColorDashboard";
 import { PAGE_TYPE } from "@/constants/admin";
-import { PresetColor, Theme } from "@prisma/client";
+import { PresetColor } from "@prisma/client";
 
 type Props = {
   presetColors: PresetColor[];
-  themes: Theme[];
 };
 
-export default function ThemeDashboard({ presetColors, themes }: Props) {
+export default function ThemeDashboard({ presetColors }: Props) {
+  const [deletedPresetColor, setDeletedPresetColor] = useState(null);
+
   return (
     <div className={s.grid}>
       <section>
@@ -22,30 +23,35 @@ export default function ThemeDashboard({ presetColors, themes }: Props) {
           colorLabel="lineColor"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur de fond"
           colorLabel="backgroundColor"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte"
           colorLabel="color"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur des liens"
           colorLabel="linkColor"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur des liens hover"
           colorLabel="linkHoverColor"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
       </section>
       <section>
@@ -55,42 +61,49 @@ export default function ThemeDashboard({ presetColors, themes }: Props) {
           colorLabel="titleColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur de fond du menu 1"
           colorLabel="menu1HomeColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur de fond du menu 2"
           colorLabel="menu2HomeColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte du menu 1"
           colorLabel="menu1LinkHomeColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte hover du menu 1"
           colorLabel="menu1LinkHomeHoverColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte du menu 2"
           colorLabel="menu2LinkHomeColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte hover du menu 2"
           colorLabel="menu2LinkHomeHoverColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
       </section>
       <section>
@@ -100,36 +113,42 @@ export default function ThemeDashboard({ presetColors, themes }: Props) {
           colorLabel="menu1Color"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur de fond du menu 2"
           colorLabel="menu2Color"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte du menu 1"
           colorLabel="menu1LinkColor"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte hover du menu 1"
           colorLabel="menu1LinkHoverColor"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte du menu 2"
           colorLabel="menu2LinkColor"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte hover du menu 2"
           colorLabel="menu2LinkHoverColor"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
       </section>
       <section>
@@ -139,66 +158,79 @@ export default function ThemeDashboard({ presetColors, themes }: Props) {
           colorLabel="backgroundColorItem"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte"
           colorLabel="colorItem"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur des liens"
           colorLabel="linkItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur des liens hover"
           colorLabel="linkHoverItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur de fond du menu 1"
           colorLabel="menu1ItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur de fond du menu 2"
           colorLabel="menu2ItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte du menu 1"
           colorLabel="menu1LinkItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte hover du menu 1"
           colorLabel="menu1LinkHoverItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte du menu 2"
           colorLabel="menu2LinkItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
           label="Couleur du texte hover du menu 2"
           colorLabel="menu2LinkHoverItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
         />
       </section>
       <section></section>
       <section>
         <h3 className={s.sectionTitle}>Couleurs perso</h3>
-        <PresetColorDashboard presetColors={presetColors} themes={themes} />
+        <PresetColorDashboard
+          presetColors={presetColors}
+          onDeletePresetColor={setDeletedPresetColor}
+        />
       </section>
     </div>
   );

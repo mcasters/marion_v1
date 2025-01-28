@@ -3,13 +3,11 @@
 import { PresetColor, Theme } from "@prisma/client";
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/Modal";
-import React, { useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
 import s from "@/styles/admin/AdminTheme.module.css";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import { OnlyString } from "@/lib/db/theme";
 import { colorNameToHex } from "@/utils/commonUtils";
-import ColorPickerPresetPart from "@/components/admin/theme/presetColor/ColorPicketPresetPart";
 import { useAlert } from "@/app/context/AlertProvider";
 import { createPresetColor } from "@/app/actions/theme/admin";
 
@@ -18,6 +16,7 @@ interface Props {
   colorLabel: string;
   pageTypeName: string;
   presetColors: PresetColor[];
+  deletedPresetColor: PresetColor;
 }
 
 export default function ColorPicker({
@@ -25,27 +24,52 @@ export default function ColorPicker({
   colorLabel, // key name in theme object
   pageTypeName,
   presetColors,
+  deletedPresetColor,
 }: Props) {
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const { isOpen, toggle } = useModal();
   const alert = useAlert();
   const [, startTransition] = useTransition();
+  const [color, setColor] = useState<string>(workTheme[colorLabel]);
+  const [nameToSave, setNameToSave] = useState<string>("");
 
-  const onAddPresetColor = (name) => {
+  useEffect(() => {
+    setColor(workTheme[colorLabel]);
+  }, [workTheme, colorLabel]);
+
+  useEffect(() => {
+    if (deletedPresetColor && deletedPresetColor.name === color)
+      setColor(deletedPresetColor.color);
+  }, [deletedPresetColor, color]);
+  if (colorLabel === "backgroundColor") console.log(color);
+
+  const onAddPresetColor = () => {
     startTransition(async () => {
-      const res = await createPresetColor(
-        name,
-        workTheme[colorLabel as keyof OnlyString<Theme>],
-      );
-      toggle();
+      const res = await createPresetColor(nameToSave, color);
       alert(res.message, res.isError);
     });
+    const updatedWorkTheme = { ...workTheme } as Theme;
+    updatedWorkTheme[colorLabel] = nameToSave;
+    setWorkTheme(updatedWorkTheme);
+    setColor(nameToSave);
+    setNameToSave("");
+  };
+
+  const onSelectPresetColor = (colorName: string): void => {
+    const updatedWorkTheme = { ...workTheme } as Theme;
+    updatedWorkTheme[colorLabel] = colorName;
+    setWorkTheme(updatedWorkTheme);
   };
 
   const handleChange = (color: string): void => {
+    setColor(color);
+  };
+
+  const updateWorkTheme = () => {
     const updatedWorkTheme = { ...workTheme } as Theme;
     updatedWorkTheme[colorLabel] = color;
     setWorkTheme(updatedWorkTheme);
+    toggle();
   };
 
   return (
@@ -57,15 +81,12 @@ export default function ColorPicker({
             className={
               isOpen
                 ? s.swatchOpen
-                : workTheme[colorLabel].charAt(0) !== "#"
+                : color.charAt(0) !== "#"
                   ? s.swatchFocus
                   : s.swatch
             }
             style={{
-              backgroundColor: colorNameToHex(
-                workTheme[colorLabel],
-                presetColors,
-              ),
+              backgroundColor: colorNameToHex(color, presetColors),
             }}
             onClick={(e) => {
               e.preventDefault();
@@ -79,7 +100,7 @@ export default function ColorPicker({
               </h3>
               <div className={s.picker}>
                 <HexColorPicker
-                  color={colorNameToHex(workTheme[colorLabel], presetColors)}
+                  color={colorNameToHex(color, presetColors)}
                   onChange={handleChange}
                 />
               </div>
@@ -88,26 +109,54 @@ export default function ColorPicker({
                 <div
                   className={s.halfWidth}
                   style={{
-                    backgroundColor: colorNameToHex(
-                      workTheme[colorLabel],
-                      presetColors,
-                    ),
+                    backgroundColor: colorNameToHex(color, presetColors),
                   }}
                 ></div>
                 <HexColorInput
-                  color={colorNameToHex(workTheme[colorLabel], presetColors)}
+                  color={colorNameToHex(color, presetColors)}
                   onChange={handleChange}
                   prefixed={true}
                   className={s.halfWidth}
                 />
               </div>
-              <ColorPickerPresetPart
-                colorLabel={colorLabel}
-                onChange={handleChange}
-                onSave={onAddPresetColor}
-                presetColors={presetColors}
-              />
+              <div className={s.presetColorForm}>
+                <input
+                  className={s.halfWidth}
+                  placeholder="Nom de la couleur"
+                  value={nameToSave}
+                  onChange={(e) => setNameToSave(e.target.value)}
+                />
+                <button
+                  onClick={onAddPresetColor}
+                  className={`${s.halfWidth} adminButton`}
+                  disabled={nameToSave === ""}
+                >
+                  Mémoriser la couleur
+                </button>
+              </div>
+              <div className={s.pickerSwatches}>
+                {presetColors?.map((p) => (
+                  <div key={p.id} className={s.presetColorContainer}>
+                    <button
+                      className={
+                        p.name === workTheme[colorLabel] &&
+                        p.color === colorNameToHex(color, presetColors)
+                          ? s.swatchFocus
+                          : s.swatch
+                      }
+                      style={{
+                        background: p.color,
+                      }}
+                      onClick={() => onSelectPresetColor(p.name)}
+                    />
+                    <p className={s.colorName}>{p.name}</p>
+                  </div>
+                ))}
+              </div>
             </div>
+            <button className="adminButton" onClick={updateWorkTheme}>
+              OK
+            </button>
           </Modal>
         </div>
       </div>

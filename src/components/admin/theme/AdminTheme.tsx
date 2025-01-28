@@ -4,7 +4,6 @@ import React, { useTransition } from "react";
 import themeStyle from "../../../styles/admin/AdminTheme.module.css";
 import ThemeAdd from "@/components/admin/theme/ThemeAdd";
 import ThemeDashboard from "@/components/admin/theme/ThemeDashboard";
-import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import ThemeUpdate from "@/components/admin/theme/ThemeUpdate";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { PresetColor, Theme } from "@prisma/client";
@@ -12,6 +11,7 @@ import { useAlert } from "@/app/context/AlertProvider";
 import { THEME } from "@/constants/admin";
 import s from "@/styles/admin/Admin.module.css";
 import { activateTheme, deleteTheme } from "@/app/actions/theme/admin";
+import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 
 type Props = {
   themes: Theme[];
@@ -53,10 +53,9 @@ export default function AdminTheme({ themes, presetColors }: Props) {
           name="name"
           value={workTheme.id}
           onChange={(e) => {
-            const theme = themes.find(
-              (t) => t.id?.toString() === e.target.value,
+            setWorkTheme(
+              themes.find((t) => t.id?.toString() === e.target.value) as Theme,
             );
-            if (theme) setWorkTheme(theme);
           }}
           className={s.select}
         >
@@ -79,11 +78,11 @@ export default function AdminTheme({ themes, presetColors }: Props) {
         </button>
       </div>
       <div className={themeStyle.themeContainer}>
-        <h2>Thème sélectionné :</h2>
-        <ThemeDashboard presetColors={presetColors} themes={themes} />
+        <h2>Détail du thème sélectionné :</h2>
+        <ThemeDashboard presetColors={presetColors} />
       </div>
       <div className={themeStyle.themeActionContainer}>
-        <ThemeUpdate presetColors={presetColors} />
+        <ThemeUpdate />
         <CancelButton onCancel={handleCancel} text="Annuler les changements" />
       </div>
       <div className={themeStyle.themeActionContainer}>

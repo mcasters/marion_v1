@@ -1,19 +1,22 @@
 "use client";
 
-import { PresetColor, Theme } from "@prisma/client";
+import { PresetColor } from "@prisma/client";
 import PresetColorPicker from "@/components/admin/theme/presetColor/PresetColorPicker";
 
 type Props = {
   presetColors: PresetColor[];
-  themes: Theme[];
+  onDeletePresetColor: (arg0: PresetColor) => void;
 };
 
-export default function PresetColorDashboard({ presetColors, themes }: Props) {
+export default function PresetColorDashboard({
+  presetColors,
+  onDeletePresetColor,
+}: Props) {
   return presetColors.map((presetColor: PresetColor) => (
     <PresetColorPicker
       key={presetColor.id}
       presetColor={presetColor}
-      themes={themes}
+      onDelete={onDeletePresetColor}
     />
   ));
 }
