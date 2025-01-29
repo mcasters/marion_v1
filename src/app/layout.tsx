@@ -6,7 +6,7 @@ import { getIntroText, themeToHexa } from "@/utils/commonUtils";
 import React from "react";
 import StyledJsxRegistry from "./registry";
 import { DESCRIPTION, GENERAL, KEYWORDS } from "@/constants/specific/metaHtml";
-import { getSession } from "@/app/lib/auth/lib";
+import { getSession } from "@/app/lib/auth";
 import { TEXTS } from "@/constants/specific";
 
 import { getSculptureCategoriesFull } from "@/app/actions/sculptures";

@@ -2,7 +2,7 @@
 
 import React, { useActionState, useEffect, useRef, useState } from "react";
 import s from "@/styles/admin/Admin.module.css";
-import { CategoryFull, ItemFull, Type } from "@/lib/db/item";
+import { CategoryFull, ItemFull, Type } from "@/lib/model";
 import { getEmptyItem } from "@/utils/commonUtils";
 import { useAlert } from "@/app/context/AlertProvider";
 import Preview from "@/components/admin/form/imageForm/Preview";

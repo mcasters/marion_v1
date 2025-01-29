@@ -1,6 +1,6 @@
 "use client";
 
-import { Photo } from "@/lib/db/item";
+import { Photo } from "@/lib/model";
 import Slider from "@/components/image/slideshow/Slider";
 
 type Props = {

@@ -1,6 +1,6 @@
 "use client";
 import { createContext, ReactNode, useContext } from "react";
-import { Session } from "@/lib/db/item";
+import { Session } from "@/lib/model";
 
 const SessionContext = createContext<Session | null>(null);
 

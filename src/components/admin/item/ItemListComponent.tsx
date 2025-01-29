@@ -4,7 +4,7 @@ import RowItemListComponent from "./RowItemListComponent";
 import React, { useEffect, useMemo, useState } from "react";
 import s from "@/styles/admin/AdminList.module.css";
 import style from "@/styles/admin/Admin.module.css";
-import { CategoryFull, ItemFull } from "@/lib/db/item";
+import { CategoryFull, ItemFull } from "@/lib/model";
 
 interface Props {
   items: ItemFull[];

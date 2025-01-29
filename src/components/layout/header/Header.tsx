@@ -7,7 +7,7 @@ import s from "../../../styles/Header.module.css";
 import { BASE_PATH } from "@/constants/specific/routes";
 import { useTheme } from "@/app/context/themeProvider";
 import React, { useState } from "react";
-import { CategoryFull } from "@/lib/db/item";
+import { CategoryFull } from "@/lib/model";
 import HomeSection from "@/components/layout/header/HomeSection";
 
 interface Props {

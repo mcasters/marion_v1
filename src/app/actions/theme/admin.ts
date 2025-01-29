@@ -1,10 +1,9 @@
 "use server";
 
-import prisma from "@/lib/db/prisma";
+import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { PresetColor, Theme } from "@prisma/client";
 import { THEME } from "@/constants/admin";
-import { OnlyString } from "@/lib/db/theme";
 
 export async function createTheme(
   theme: Theme,
@@ -171,7 +170,7 @@ export async function deletePresetColor(id: number) {
             key !== "isActive"
           ) {
             isModified = true;
-            updatedTheme[key as keyof OnlyString<Theme>] = presetColor.color;
+            updatedTheme[key] = presetColor.color;
           }
         }
         if (isModified) updatedThemes.push(updatedTheme);

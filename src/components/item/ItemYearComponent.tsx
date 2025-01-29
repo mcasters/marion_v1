@@ -3,7 +3,7 @@
 import ItemComponent from "@/components/item/ItemComponent";
 import s from "@/styles/ItemPage.module.css";
 import React, { useEffect, useState } from "react";
-import { ItemFull } from "@/lib/db/item";
+import { ItemFull } from "@/lib/model";
 
 interface Props {
   items: ItemFull[];

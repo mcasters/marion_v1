@@ -7,3 +7,5 @@ export const PAGE_TYPE = {
 export const THEME = {
   BASE_THEME: "Thème de base",
 };
+
+export const COOKIE_NAME = "adminSession";

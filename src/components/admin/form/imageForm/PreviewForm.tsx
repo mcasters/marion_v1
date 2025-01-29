@@ -3,7 +3,7 @@
 import React, { useActionState, useEffect } from "react";
 import Image from "next/image";
 import s from "@/styles/admin/Admin.module.css";
-import { Image as IImage } from "@/lib/db/item";
+import { Image as IImage } from "@/lib/model";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import { useAlert } from "@/app/context/AlertProvider";
 import { Label } from "@prisma/client";

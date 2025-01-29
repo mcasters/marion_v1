@@ -5,7 +5,7 @@ import Image from "next/image";
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import UpdateItemButton from "@/components/admin/form/UpdateItemButton";
 import s from "../../../styles/admin/AdminList.module.css";
-import { CategoryFull, ItemFull, Type } from "@/lib/db/item";
+import { CategoryFull, ItemFull, Type } from "@/lib/model";
 import { deletePainting } from "@/app/actions/paintings/admin";
 import { deleteSculpture } from "@/app/actions/sculptures/admin";
 import { deleteDrawing } from "@/app/actions/drawings/admin";

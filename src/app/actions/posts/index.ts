@@ -1,6 +1,6 @@
 "use server";
-import { PostFull } from "@/lib/db/item";
-import prisma from "@/lib/db/prisma";
+import { PostFull } from "@/lib/model";
+import prisma from "@/lib/prisma";
 
 export async function getPostsFull(): Promise<PostFull[]> {
   const res = await prisma.post.findMany({

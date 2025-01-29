@@ -2,7 +2,7 @@
 
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import s from "../../../../styles/admin/AdminList.module.css";
-import { CategoryFull, Type } from "@/lib/db/item";
+import { CategoryFull, Type } from "@/lib/model";
 import UpdateCategoryButton from "@/components/admin/form/UpdateCategoryButton";
 import { deleteCategoryPainting } from "@/app/actions/paintings/admin";
 import { deleteCategoryDrawing } from "@/app/actions/drawings/admin";

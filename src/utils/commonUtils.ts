@@ -6,7 +6,7 @@ import {
   PhotoTab,
   PostFull,
   Type,
-} from "@/lib/db/item";
+} from "@/lib/model";
 
 import { BASE_PRESET_COLOR, BASE_THEME, TEXTS } from "@/constants/specific";
 

@@ -3,7 +3,7 @@
 import CategoryListComponent from "@/components/admin/item/category/CategoryListComponent";
 import CategoryForm from "@/components/admin/form/CategoryForm";
 import s from "../../../../styles/admin/AdminList.module.css";
-import { CategoryFull, Type } from "@/lib/db/item";
+import { CategoryFull, Type } from "@/lib/model";
 import { createCategorySculpture } from "@/app/actions/sculptures/admin";
 import { createCategoryDrawing } from "@/app/actions/drawings/admin";
 import { createCategoryPainting } from "@/app/actions/paintings/admin";

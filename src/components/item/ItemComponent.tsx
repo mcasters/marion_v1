@@ -3,7 +3,7 @@
 import s from "./ItemComponent.module.css";
 import { getPhotoTab } from "@/utils/commonUtils";
 import Lightbox from "@/components/image/lightbox/Lightbox";
-import { ItemFull, Type } from "@/lib/db/item";
+import { ItemFull, Type } from "@/lib/model";
 import { useMemo } from "react";
 
 interface Props {

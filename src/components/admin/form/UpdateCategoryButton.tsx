@@ -3,7 +3,7 @@
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/Modal";
 import CategoryForm from "@/components/admin/form/CategoryForm";
-import { CategoryFull, Type } from "@/lib/db/item";
+import { CategoryFull, Type } from "@/lib/model";
 import UpdateIcon from "@/components/icons/UpdateIcon";
 import { updateCategorySculpture } from "@/app/actions/sculptures/admin";
 import { updateCategoryDrawing } from "@/app/actions/drawings/admin";

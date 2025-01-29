@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import s from "./NavItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
-import { CategoryFull } from "@/lib/db/item";
+import { CategoryFull } from "@/lib/model";
 import { MENU_1_ITEMS } from "@/constants/specific/routes";
 import { usePathname } from "next/navigation";
 

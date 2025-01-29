@@ -3,7 +3,7 @@
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE, IMAGE_SIZE } from "@/constants/image";
 import React, { useMemo } from "react";
-import { Image, Photo } from "@/lib/db/item";
+import { Image, Photo } from "@/lib/model";
 import Slideshow from "@/components/image/slideshow/Slideshow";
 
 export type Props = {

@@ -1,7 +1,7 @@
 "use client";
 
 import s from "./Lightbox.module.css";
-import { Photo } from "@/lib/db/item";
+import { Photo } from "@/lib/model";
 import { useState } from "react";
 import ArrowPrev from "@/components/icons/ArrowPrev";
 import ArrowNext from "@/components/icons/ArrowNext";
