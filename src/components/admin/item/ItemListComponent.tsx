@@ -12,7 +12,8 @@ interface Props {
   years: number[];
 }
 export default function ItemListComponent({ items, categories, years }: Props) {
-  const title = `Liste des ${items[0]?.type ? items[0].type : "item"}s`;
+  const itemName = items[0]?.type ? items[0].type : "item";
+  const title = `Liste des ${itemName}s`;
   const [categoryFilter, setCategoryFilter] = useState<number>(-1);
   const [yearFilter, setYearFilter] = useState<number>(-1);
   const [filteredItems, setFilteredItems] = useState<ItemFull[]>(items);
@@ -55,8 +56,9 @@ export default function ItemListComponent({ items, categories, years }: Props) {
 
   return (
     <div className={s.listContainer}>
-      <h2>{title}</h2>
-      <h4>( total : {items.length} )</h4>
+      <h2>
+        {title} ( total : {items.length} )
+      </h2>
       <label className={s.filter}>
         Filtre par catégorie
         <select
@@ -93,6 +95,9 @@ export default function ItemListComponent({ items, categories, years }: Props) {
             ))}
         </select>
       </label>
+      <h5>
+        ( {filteredItems.length} {itemName}s )
+      </h5>
       <div className={s.list}>
         {filteredItems &&
           filteredItems.map((item: ItemFull) => {
