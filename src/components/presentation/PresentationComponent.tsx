@@ -4,7 +4,7 @@ import s from "./PresentationComponent.module.css";
 import React from "react";
 import Image from "next/image";
 import { DEVICE } from "@/constants/image";
-import { ContentFull } from "@/lib/model";
+import { ContentFull } from "@/lib/type";
 import { GENERAL } from "@/constants/specific/metaHtml";
 
 interface Props {

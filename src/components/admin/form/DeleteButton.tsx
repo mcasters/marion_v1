@@ -7,7 +7,7 @@ import { useAlert } from "@/app/context/AlertProvider";
 type Props = {
   deleteAction: (id: number) => Promise<{
     message: string;
-    isError: false;
+    isError: boolean;
   }>;
   id: number;
   disabled?: boolean;

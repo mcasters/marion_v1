@@ -1,7 +1,12 @@
 "use client";
 
 import s from "@/styles/admin/AdminTheme.module.css";
-import React, { useState, useTransition } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useState,
+  useTransition,
+} from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import Modal from "@/components/admin/form/modal/Modal";
 import useModal from "@/components/admin/form/modal/useModal";
@@ -16,7 +21,7 @@ import { BASE_PRESET_COLOR } from "@/constants/specific";
 
 interface Props {
   presetColor: PresetColor;
-  onDelete: (arg0: PresetColor) => void;
+  onDelete: Dispatch<SetStateAction<PresetColor | null>>;
 }
 
 export default function PresetColorPicker({ presetColor, onDelete }: Props) {

@@ -8,7 +8,7 @@ import { PresetColor } from "@prisma/client";
 
 type Props = {
   presetColors: PresetColor[];
-  deletedPresetColor: PresetColor;
+  deletedPresetColor: PresetColor | null;
   isToUpdate: boolean;
 };
 

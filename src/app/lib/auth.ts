@@ -3,7 +3,7 @@
 import { JWTPayload, jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { User } from ".prisma/client";
-import { Session } from "@/lib/model";
+import { Session } from "@/lib/type";
 import { COOKIE_NAME } from "@/constants/admin";
 
 const secretKey = process.env.AUTH_SECRET;

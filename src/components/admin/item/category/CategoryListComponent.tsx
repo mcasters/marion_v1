@@ -3,7 +3,7 @@
 import RowCategoryListComponent from "./RowCategoryListComponent";
 import React from "react";
 import s from "../../../../styles/admin/AdminList.module.css";
-import { CategoryFull, Type } from "@/lib/model";
+import { CategoryFull, Type } from "@/lib/type";
 
 interface Props {
   itemType: Type;

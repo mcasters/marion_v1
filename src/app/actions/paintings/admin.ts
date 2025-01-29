@@ -17,8 +17,8 @@ export async function createPainting(
   const dir = getPaintingDir();
   createDirIfNecessary(dir);
   const rawFormData = Object.fromEntries(formData);
-  const file = rawFormData.file;
-  const title = rawFormData.title;
+  const file = rawFormData.file as File;
+  const title = rawFormData.title as string;
   const fileInfo = await resizeAndSaveImage(file, title, dir);
 
   try {
@@ -27,8 +27,8 @@ export async function createPainting(
         data: {
           title,
           date: new Date(Number(rawFormData.date), 1),
-          technique: rawFormData.technique,
-          description: rawFormData.description,
+          technique: rawFormData.technique as string,
+          description: rawFormData.description as string,
           height: Number(rawFormData.height),
           width: Number(rawFormData.width),
           isToSell: rawFormData.isToSell === "true",
@@ -69,7 +69,7 @@ export async function updatePainting(
     if (oldPaint) {
       let fileInfo = null;
       const newFile = rawFormData.file as File;
-      const title = rawFormData.title;
+      const title = rawFormData.title as string;
       if (newFile.size > 0) {
         deleteFile(dir, oldPaint.images[0].filename);
         fileInfo = await resizeAndSaveImage(newFile, title, dir);
@@ -95,8 +95,8 @@ export async function updatePainting(
         data: {
           title,
           date: new Date(Number(rawFormData.date), 1),
-          technique: rawFormData.technique,
-          description: rawFormData.description,
+          technique: rawFormData.technique as string,
+          description: rawFormData.description as string,
           height: Number(rawFormData.height),
           width: Number(rawFormData.width),
           isToSell: rawFormData.isToSell === "true",

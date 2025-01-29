@@ -17,8 +17,8 @@ export async function createDrawing(
   const dir = getDrawingDir();
   createDirIfNecessary(dir);
   const rawFormData = Object.fromEntries(formData);
-  const file = rawFormData.file;
-  const title = rawFormData.title;
+  const file = rawFormData.file as File;
+  const title = rawFormData.title as string;
   const fileInfo = await resizeAndSaveImage(file, title, dir);
 
   try {
@@ -27,8 +27,8 @@ export async function createDrawing(
         data: {
           title,
           date: new Date(Number(rawFormData.date), 1),
-          technique: rawFormData.technique,
-          description: rawFormData.description,
+          technique: rawFormData.technique as string,
+          description: rawFormData.description as string,
           height: Number(rawFormData.height),
           width: Number(rawFormData.width),
           isToSell: rawFormData.isToSell === "true",
@@ -69,7 +69,7 @@ export async function updateDrawing(
     if (oldDraw) {
       let fileInfo = null;
       const newFile = rawFormData.file as File;
-      const title = rawFormData.title;
+      const title = rawFormData.title as string;
       if (newFile.size !== 0) {
         deleteFile(dir, oldDraw.images[0].filename);
         fileInfo = await resizeAndSaveImage(newFile, title, dir);
@@ -95,8 +95,8 @@ export async function updateDrawing(
         data: {
           title,
           date: new Date(Number(rawFormData.date), 1),
-          technique: rawFormData.technique,
-          description: rawFormData.description,
+          technique: rawFormData.technique as string,
+          description: rawFormData.description as string,
           height: Number(rawFormData.height),
           width: Number(rawFormData.width),
           isToSell: rawFormData.isToSell === "true",

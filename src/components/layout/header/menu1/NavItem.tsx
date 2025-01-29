@@ -5,7 +5,7 @@ import { MENU_1_ITEMS } from "@/constants/specific/routes";
 import Dropdown from "@/components/layout/header/menu1/DropDown";
 import s from "./NavItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
-import { CategoryFull } from "@/lib/model";
+import { CategoryFull } from "@/lib/type";
 import React, { useMemo } from "react";
 import LAYOUT from "@/constants/layout";
 import { usePathname } from "next/navigation";

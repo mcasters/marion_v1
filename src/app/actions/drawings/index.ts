@@ -1,5 +1,5 @@
 "use server";
-import { CategoryFull, ItemFull } from "@/lib/model";
+import { CategoryFull, ItemFull } from "@/lib/type";
 import prisma from "@/lib/prisma";
 
 export async function getDrawingsFull(): Promise<ItemFull[]> {

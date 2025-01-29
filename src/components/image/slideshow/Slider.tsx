@@ -1,6 +1,6 @@
 "use client";
 
-import { Photo } from "@/lib/model";
+import { Photo } from "@/lib/type";
 import s from "./Slider.module.css";
 import { useEffect, useState } from "react";
 import Image from "next/image";

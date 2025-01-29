@@ -10,7 +10,7 @@ import Footer from "./Footer";
 import s from "@/styles/Layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { hexToRgb } from "@/utils/commonUtils";
-import { CategoryFull } from "@/lib/model";
+import { CategoryFull } from "@/lib/type";
 
 interface Props {
   introduction: string;

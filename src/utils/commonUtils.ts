@@ -3,10 +3,11 @@ import {
   ContentFull,
   Image,
   ItemFull,
+  OnlyString,
   PhotoTab,
   PostFull,
   Type,
-} from "@/lib/model";
+} from "@/lib/type";
 
 import { BASE_PRESET_COLOR, BASE_THEME, TEXTS } from "@/constants/specific";
 
@@ -126,7 +127,7 @@ export const themeToHexa = (
     if (typeof value === "string" && value.charAt(0) !== "#") {
       presetColors.find((p) => {
         if (p.name === value) {
-          updatedTheme[key] = p.color;
+          updatedTheme[key as keyof OnlyString<Theme>] = p.color;
         }
       });
     }
@@ -141,7 +142,7 @@ export const oneColorThemeToHexa = (
   const updatedTheme = theme;
   Object.entries(theme).forEach(([key, value]) => {
     if (value === presetColor.name && key !== "name") {
-      updatedTheme[key] = presetColor.color;
+      updatedTheme[key as keyof OnlyString<Theme>] = presetColor.color;
     }
   });
   return updatedTheme;

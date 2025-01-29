@@ -20,6 +20,7 @@
     "deploy-build": "prisma generate && dotenv -e .env.local -- prisma migrate deploy && next build"
   },
   "dependencies": {
+    "@eslint/eslintrc": "^3.2.0",
     "@prisma/client": "^6.2.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.10.10",

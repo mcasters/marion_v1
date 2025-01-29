@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import s from "@/styles/admin/Admin.module.css";
-import { Image as IImage } from "@/lib/model";
+import { Image as IImage } from "@/lib/type";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 
 type Props = {

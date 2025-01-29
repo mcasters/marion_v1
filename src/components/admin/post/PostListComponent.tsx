@@ -3,7 +3,7 @@
 import React from "react";
 import s from "../../../styles/admin/AdminList.module.css";
 import RowPostListComponent from "@/components/admin/post/RowPostListComponent";
-import { PostFull } from "@/lib/model";
+import { PostFull } from "@/lib/type";
 
 interface Props {
   posts?: PostFull[];

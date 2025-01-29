@@ -6,7 +6,7 @@ import s from "@/styles/admin/Admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { useAlert } from "@/app/context/AlertProvider";
-import { Category } from "@/lib/model";
+import { Category } from "@/lib/type";
 
 interface Props {
   categoryAction: (

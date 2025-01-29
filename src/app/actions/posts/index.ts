@@ -1,5 +1,5 @@
 "use server";
-import { PostFull } from "@/lib/model";
+import { PostFull } from "@/lib/type";
 import prisma from "@/lib/prisma";
 
 export async function getPostsFull(): Promise<PostFull[]> {

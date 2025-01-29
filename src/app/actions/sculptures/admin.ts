@@ -18,7 +18,7 @@ export async function createSculpture(
   createDirIfNecessary(dir);
   const rawFormData = Object.fromEntries(formData);
   const files = formData.getAll("files") as File[];
-  const title = rawFormData.title;
+  const title = rawFormData.title as string;
   const images = [];
   for (const file of files) {
     if (file.size > 0) {
@@ -38,8 +38,8 @@ export async function createSculpture(
         data: {
           title,
           date: new Date(Number(rawFormData.date), 1),
-          technique: rawFormData.technique,
-          description: rawFormData.description,
+          technique: rawFormData.technique as string,
+          description: rawFormData.description as string,
           height: Number(rawFormData.height),
           width: Number(rawFormData.width),
           length: Number(rawFormData.length),
@@ -95,7 +95,7 @@ export async function updateSculpture(
       }
 
       const files = formData.getAll("files") as File[];
-      const title = rawFormData.title;
+      const title = rawFormData.title as string;
       const images = [];
       for (const file of files) {
         if (file.size > 0) {
@@ -129,8 +129,8 @@ export async function updateSculpture(
         data: {
           title,
           date: new Date(Number(rawFormData.date), 1),
-          technique: rawFormData.technique,
-          description: rawFormData.description,
+          technique: rawFormData.technique as string,
+          description: rawFormData.description as string,
           height: Number(rawFormData.height),
           width: Number(rawFormData.width),
           length: Number(rawFormData.length),

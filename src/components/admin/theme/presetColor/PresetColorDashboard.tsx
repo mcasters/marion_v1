@@ -3,10 +3,11 @@
 import { PresetColor } from "@prisma/client";
 import PresetColorPicker from "@/components/admin/theme/presetColor/PresetColorPicker";
 import s from "@/styles/admin/AdminTheme.module.css";
+import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   presetColors: PresetColor[];
-  onDeletePresetColor: (arg0: PresetColor) => void;
+  onDeletePresetColor: Dispatch<SetStateAction<PresetColor | null>>;
 };
 
 export default function PresetColorDashboard({

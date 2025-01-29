@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { PresetColor, Theme } from "@prisma/client";
 import { THEME } from "@/constants/admin";
+import { OnlyString } from "@/lib/type";
 
 export async function createTheme(
   theme: Theme,
@@ -14,7 +15,7 @@ export async function createTheme(
     const { id, isActive, name, ...rest } = theme;
     await prisma.theme.create({
       data: {
-        name: formData.get("name"),
+        name: formData.get("name") as string,
         isActive: false,
         ...rest,
       },
@@ -158,7 +159,7 @@ export async function deletePresetColor(id: number) {
     });
 
     if (presetColor) {
-      const themes = await prisma.theme.findMany();
+      const themes: Theme[] = await prisma.theme.findMany();
       const updatedThemes = [];
       for await (const theme of themes) {
         const updatedTheme = theme;
@@ -170,7 +171,7 @@ export async function deletePresetColor(id: number) {
             key !== "isActive"
           ) {
             isModified = true;
-            updatedTheme[key] = presetColor.color;
+            updatedTheme[key as keyof OnlyString<Theme>] = presetColor.color;
           }
         }
         if (isModified) updatedThemes.push(updatedTheme);

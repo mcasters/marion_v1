@@ -1,5 +1,5 @@
 import ItemComponent from "@/components/item/ItemComponent";
-import { ItemFull } from "@/lib/model";
+import { ItemFull } from "@/lib/type";
 import { getSculpturesFull } from "@/app/actions/sculptures";
 
 export default async function Page() {

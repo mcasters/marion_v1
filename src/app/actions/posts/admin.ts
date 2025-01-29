@@ -19,7 +19,7 @@ export async function createPost(
   const rawFormData = Object.fromEntries(formData);
   const mainFile = rawFormData.file as File;
   const files = formData.getAll("files") as File[];
-  const title = rawFormData.title;
+  const title = rawFormData.title as string;
 
   try {
     const images = [];
@@ -49,7 +49,7 @@ export async function createPost(
       data: {
         title,
         date: new Date(Number(rawFormData.date), 1),
-        text: rawFormData.text,
+        text: rawFormData.text as string,
         images: {
           create: images,
         },
@@ -84,7 +84,7 @@ export async function updatePost(
     });
 
     if (oldPost) {
-      const mainFilenameToDelete = rawFormData.mainFilenameToDelete;
+      const mainFilenameToDelete = rawFormData.mainFilenameToDelete as string;
       if (mainFilenameToDelete) {
         if (deleteFile(dir, mainFilenameToDelete)) {
           await prisma.postImage.delete({
@@ -105,7 +105,7 @@ export async function updatePost(
 
       const images = [];
       const mainFile = rawFormData.file as File;
-      const title = rawFormData.title;
+      const title = rawFormData.title as string;
       if (mainFile.size > 0) {
         const fileInfo = await resizeAndSaveImage(mainFile, title, dir);
         if (fileInfo)
@@ -149,7 +149,7 @@ export async function updatePost(
         data: {
           title,
           date: new Date(Number(rawFormData.date), 1),
-          text: rawFormData.text,
+          text: rawFormData.text as string,
           images: {
             create: images,
           },

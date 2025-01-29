@@ -5,7 +5,7 @@ import s from "./PostComponent.module.css";
 import Gallery from "@/components/image/Gallery";
 import { useMemo } from "react";
 import { getPhotoTab } from "@/utils/commonUtils";
-import { PostFull } from "@/lib/model";
+import { PostFull } from "@/lib/type";
 
 interface Props {
   post: PostFull;

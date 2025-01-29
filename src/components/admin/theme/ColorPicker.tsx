@@ -10,13 +10,14 @@ import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { colorNameToHex } from "@/utils/commonUtils";
 import { useAlert } from "@/app/context/AlertProvider";
 import { createPresetColor } from "@/app/actions/theme/admin";
+import { OnlyString } from "@/lib/type";
 
 interface Props {
   label: string;
   colorLabel: string;
   pageTypeName: string;
   presetColors: PresetColor[];
-  deletedPresetColor: PresetColor;
+  deletedPresetColor: PresetColor | null;
 }
 
 export default function ColorPicker({
@@ -30,11 +31,13 @@ export default function ColorPicker({
   const { isOpen, toggle } = useModal();
   const alert = useAlert();
   const [, startTransition] = useTransition();
-  const [color, setColor] = useState<string>(workTheme[colorLabel]);
+  const [color, setColor] = useState<string>(
+    workTheme[colorLabel as keyof OnlyString<Theme>],
+  );
   const [nameToSave, setNameToSave] = useState<string>("");
 
   useEffect(() => {
-    setColor(workTheme[colorLabel]);
+    setColor(workTheme[colorLabel as keyof OnlyString<Theme>]);
   }, [workTheme, colorLabel]);
 
   useEffect(() => {
@@ -48,7 +51,7 @@ export default function ColorPicker({
       alert(res.message, res.isError);
     });
     const updatedWorkTheme = { ...workTheme } as Theme;
-    updatedWorkTheme[colorLabel] = nameToSave;
+    updatedWorkTheme[colorLabel as keyof OnlyString<Theme>] = nameToSave;
     setWorkTheme(updatedWorkTheme);
     setColor(nameToSave);
     setNameToSave("");
@@ -56,7 +59,7 @@ export default function ColorPicker({
 
   const onSelectPresetColor = (colorName: string): void => {
     const updatedWorkTheme = { ...workTheme } as Theme;
-    updatedWorkTheme[colorLabel] = colorName;
+    updatedWorkTheme[colorLabel as keyof OnlyString<Theme>] = colorName;
     setWorkTheme(updatedWorkTheme);
   };
 
@@ -66,7 +69,7 @@ export default function ColorPicker({
 
   const updateWorkTheme = () => {
     const updatedWorkTheme = { ...workTheme } as Theme;
-    updatedWorkTheme[colorLabel] = color;
+    updatedWorkTheme[colorLabel as keyof OnlyString<Theme>] = color;
     setWorkTheme(updatedWorkTheme);
     toggle();
   };
@@ -137,7 +140,8 @@ export default function ColorPicker({
                 <div key={p.id} className={s.presetColorContainer}>
                   <button
                     className={
-                      p.name === workTheme[colorLabel] &&
+                      p.name ===
+                        workTheme[colorLabel as keyof OnlyString<Theme>] &&
                       p.color === colorNameToHex(color, presetColors)
                         ? s.swatchFocus
                         : s.swatch
@@ -156,7 +160,7 @@ export default function ColorPicker({
             </button>
             <button
               onClick={() => {
-                setColor(workTheme[colorLabel]);
+                setColor(workTheme[colorLabel as keyof OnlyString<Theme>]);
                 toggle();
               }}
               className={s.halfWidth}

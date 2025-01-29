@@ -21,7 +21,8 @@ type Props = {
 
 export default function AdminTheme({ themes, presetColors }: Props) {
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
-  const [deletedPresetColor, setDeletedPresetColor] = useState(null);
+  const [deletedPresetColor, setDeletedPresetColor] =
+    useState<PresetColor | null>(null);
   const alert = useAlert();
   const [, startTransition] = useTransition();
   const savedWorkTheme = themes.find((t) => t.id === workTheme.id);
@@ -87,6 +88,7 @@ export default function AdminTheme({ themes, presetColors }: Props) {
           deletedPresetColor={deletedPresetColor}
           isToUpdate={
             workTheme.name != THEME.BASE_THEME &&
+            savedWorkTheme !== undefined &&
             Object.entries(workTheme).sort().toString() !=
               Object.entries(savedWorkTheme).sort().toString()
           }

@@ -3,7 +3,7 @@
 import React, { useActionState, useEffect, useRef, useState } from "react";
 
 import Images from "@/components/admin/form/imageForm/Images";
-import { PostFull } from "@/lib/model";
+import { PostFull } from "@/lib/type";
 import s from "@/styles/admin/Admin.module.css";
 import { getEmptyPost, getMainImage } from "@/utils/commonUtils";
 import Preview from "@/components/admin/form/imageForm/Preview";

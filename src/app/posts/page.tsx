@@ -1,6 +1,6 @@
 import React from "react";
 import PostComponent from "@/components/post/PostComponent";
-import { PostFull } from "@/lib/model";
+import { PostFull } from "@/lib/type";
 import { getPostsFull } from "@/app/actions/posts";
 
 export default async function Posts() {

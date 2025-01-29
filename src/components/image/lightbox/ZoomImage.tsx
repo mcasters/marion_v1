@@ -5,7 +5,7 @@ import s from "@/components/image/lightbox/Lightbox.module.css";
 import ZoomInIcon from "@/components/icons/ZoomInIcon";
 import ZoomOutIcon from "@/components/icons/ZoomOutIcon";
 import CloseIcon from "@/components/icons/CloseIcon";
-import { Photo } from "@/lib/model";
+import { Photo } from "@/lib/type";
 
 const ZOOM_SENSITIVITY = 0.4;
 const ZOOM_SENSITIVITY_MOBILE = 0.6;

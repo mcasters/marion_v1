@@ -1,5 +1,11 @@
 import { User } from ".prisma/client";
 
+type StringKeys<T> = {
+  [k in keyof T]: T[k] extends string ? k : never;
+}[keyof T];
+
+export type OnlyString<T> = { [k in StringKeys<T>]: boolean };
+
 export type ItemFull = {
   id: number;
   type: Type.SCULPTURE | Type.PAINTING | Type.DRAWING;

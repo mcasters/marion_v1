@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { RowsPhotoAlbum } from "react-photo-album";
 import "react-photo-album/rows.css";
 import { DEVICE } from "@/constants/image";
-import { PhotoTab } from "@/lib/model";
+import { PhotoTab } from "@/lib/type";
 import { createPortal } from "react-dom";
 import LightboxContent from "@/components/image/lightbox/LightboxContent";
 import useWindowSize from "@/components/hooks/useWindowSize";

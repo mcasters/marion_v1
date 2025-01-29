@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { DEVICE } from "@/constants/image";
 import s from "@/components/image/lightbox/Lightbox.module.css";
-import { PhotoTab } from "@/lib/model";
+import { PhotoTab } from "@/lib/type";
 import Image from "next/image";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { createPortal } from "react-dom";

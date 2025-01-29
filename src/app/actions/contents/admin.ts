@@ -133,29 +133,31 @@ export async function deleteContentImage(
   formData: FormData,
 ) {
   const dir = getMiscellaneousDir();
-  const filename = formData.get("filename");
+  const filename = formData.get("filename") as string;
 
   try {
-    const content = await prisma.content.findFirst({
-      where: {
-        images: {
-          some: {
-            filename,
-          },
-        },
-      },
-    });
-
-    if (content) {
-      deleteFile(dir, filename);
-      await prisma.content.update({
-        where: { id: content.id },
-        data: {
+    if (filename) {
+      const content = await prisma.content.findFirst({
+        where: {
           images: {
-            delete: { filename },
+            some: {
+              filename,
+            },
           },
         },
       });
+
+      if (content) {
+        deleteFile(dir, filename);
+        await prisma.content.update({
+          where: { id: content.id },
+          data: {
+            images: {
+              delete: { filename },
+            },
+          },
+        });
+      }
     }
     const label = formData.get("label");
     const path =
