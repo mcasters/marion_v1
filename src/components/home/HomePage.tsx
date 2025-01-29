@@ -5,6 +5,7 @@ import { DEVICE, IMAGE_SIZE } from "@/constants/image";
 import React, { useMemo } from "react";
 import { Image, Photo } from "@/lib/type";
 import Slideshow from "@/components/image/slideshow/Slideshow";
+import { TEXTS } from "@/constants/specific";
 
 export type Props = {
   portraitImages: Image[];
@@ -27,7 +28,7 @@ export default function HomePage({ portraitImages, landscapeImages }: Props) {
           height: isSmall
             ? Math.round((height / width) * IMAGE_SIZE.MD_PX)
             : height,
-          alt: "Œuvre de Marion Casters",
+          alt: `Œuvre de ${TEXTS.TITLE}`,
           title: "",
           date: new Date(),
           isMain: image.isMain,
@@ -47,7 +48,7 @@ export default function HomePage({ portraitImages, landscapeImages }: Props) {
           height: isSmall
             ? Math.round((height / width) * IMAGE_SIZE.MD_PX)
             : height,
-          alt: "Œuvre de Marion Casters",
+          alt: `Œuvre de ${TEXTS.TITLE}`,
           title: "",
           date: new Date(),
           isMain: image.isMain,

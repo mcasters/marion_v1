@@ -1,11 +1,12 @@
 .themeContainer {
-    padding: 4rem 0 2rem;
+  padding: 4rem 0 2rem;
 }
 
-.themeContainer h2, .noteContainer h2 {
-    font-size: var(--font-size-title);
-    text-align: left;
-    padding-bottom: 1em;
+.themeContainer h2,
+.noteContainer h2 {
+  font-size: var(--font-size-title);
+  text-align: left;
+  padding-bottom: 1em;
 }
 
 /*
@@ -13,8 +14,8 @@ Grille de couleur
  */
 
 .grid {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .toUpdate {
@@ -29,31 +30,31 @@ Grille de couleur
 }
 
 .themeContainer section {
-    flex: auto;
-    padding: 2em;
-    max-width: 400px;
+  flex: auto;
+  padding: 2em;
+  max-width: 400px;
 }
 
 .sectionTitle {
-    font-variant-caps: small-caps;
-    letter-spacing: 3px;
-    padding-bottom: 1em;
-    font-size: 1.1em;
-    text-align: left;
+  font-variant-caps: small-caps;
+  letter-spacing: 3px;
+  padding-bottom: 1em;
+  font-size: 1.1em;
+  text-align: left;
 }
 
 .colorContainer {
-    display: flex;
-    text-align: left;
-    min-width: 270px;
+  display: flex;
+  text-align: left;
+  min-width: 270px;
 }
 
 .label {
-    flex: auto;
-    vertical-align: top;
-    height: 30px;
-    line-height: 30px;
-    padding-right: 1em;
+  flex: auto;
+  vertical-align: top;
+  height: 30px;
+  line-height: 30px;
+  padding-right: 1em;
 }
 
 /*
@@ -61,84 +62,84 @@ ColorPicker
  */
 
 .colorPickerContainer {
-    position: relative;
+  position: relative;
 }
 
 .colorPicker {
-    text-align: center;
-    width: 400px;
-    max-height: 90vh;
-    padding: 1.5em 1em 1em;
+  text-align: center;
+  width: 400px;
+  max-height: 90vh;
+  padding: 1.5em 1em 1em;
 }
 
 .picker {
-    margin: 15px auto 15px;
-    width: 200px;
+  margin: 15px auto 15px;
+  width: 200px;
 }
 
 .swatch {
-    width: 28px;
-    height: 28px;
-    border-radius: 1px;
-    border: 1px solid #aaa;
-    cursor: pointer;
-    margin: 3px;
+  width: 28px;
+  height: 28px;
+  border-radius: 1px;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  margin: 3px;
 }
 
 .swatchFocus {
-    all: unset;
-    width: 28px;
-    height: 28px;
-    margin: 3px;
-    border-radius: 1px;
-    outline: solid #1196c7 2px;
-    outline-offset: 2px;
-    cursor: pointer;
+  all: unset;
+  width: 28px;
+  height: 28px;
+  margin: 3px;
+  border-radius: 1px;
+  outline: solid #1196c7 2px;
+  outline-offset: 2px;
+  cursor: pointer;
 }
 
 .swatchOpen {
-    all: unset;
-    width: 28px;
-    height: 28px;
-    margin: 3px;
-    border-radius: 1px;
-    outline: solid #204c5d 3px;
-    outline-offset: 2px;
-    cursor: pointer;
+  all: unset;
+  width: 28px;
+  height: 28px;
+  margin: 3px;
+  border-radius: 1px;
+  outline: solid #204c5d 3px;
+  outline-offset: 2px;
+  cursor: pointer;
 }
 
 .presetColor {
-    margin-right: 2em;
+  margin-right: 2em;
 }
 
 .presetColorForm {
-    margin-top: 1em;
+  margin-top: 1em;
 }
 
 .pickerSwatches {
-    display: flex;
-    padding: 2px 2px 20px;
-    flex-wrap: wrap;
+  display: flex;
+  padding: 2px 2px 20px;
+  flex-wrap: wrap;
 }
 
 .presetColorContainer {
-    width: 50px;
-    margin: 3px;
+  width: 50px;
+  margin: 3px;
 }
 
 .colorName {
-    font-size: 11px;
-    display: block;
+  font-size: 11px;
+  display: block;
 }
 
 .halfWidth {
-    display: inline-block;
-    width: 45%;
-    height: 36px;
-    line-height: 2.3;
-    vertical-align: top;
-    margin: 0.3em;
-    padding: 0 0.4em;
+  display: inline-block;
+  width: 45%;
+  height: 36px;
+  line-height: 2.3;
+  vertical-align: top;
+  margin: 0.3em;
+  padding: 0 0.4em;
 }
 
 .actionContainer {
@@ -152,18 +153,19 @@ ColorPicker
   flex: auto;
 }
 
-.actionPartContainer button, .actionPartContainer input {
+.actionPartContainer button,
+.actionPartContainer input {
   width: 250px;
 }
 
 .themeInput {
-    width: 25%;
-    padding: 0.5em;
-    margin: 0.5em;
-    line-height: 2.3;
+  width: 25%;
+  padding: 0.5em;
+  margin: 0.5em;
+  line-height: 2.3;
 }
 
 .noteContainer {
-    text-align: left;
-    padding: 7em 0 0;
+  text-align: left;
+  padding: 7em 0 0;
 }

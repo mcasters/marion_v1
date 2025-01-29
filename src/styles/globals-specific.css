@@ -38,6 +38,7 @@
   --color-dark: #818181;
   --color-xdark: #333;
 
+
   --link-color-xdark: #8a2101;
   --link-color-dark: #be2d01;
   --link-color-light: #e57c52;
@@ -47,6 +48,8 @@
   common home and other pages
    */
 
+  --color-auth-status: var(--color-medium);
+  --color-border-auth-status: var(--color-xdark);
   --color-border-menu1: var(--color-medium);
   --color-border-menu2: var(--color-medium);
   --color-border-menu1-dark: var(--color-medium);

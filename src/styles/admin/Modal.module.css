@@ -1,27 +1,27 @@
 .modalOverlay {
-    z-index: 4;
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  z-index: 4;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modalBox {
-    display: block;
-    background: var(--color-light);
-    max-height: 90%;
-    border-radius: 0.2rem;
-    overflow: scroll;
+  display: block;
+  background: var(--color-light);
+  max-height: 90%;
+  border-radius: 0.2rem;
+  overflow: scroll;
 }
 
 /* Mobile */
 @media (max-width: 700px) {
-    .modalBox {
-        width: 90vw;
-    }
+  .modalBox {
+    width: 90vw;
+  }
 }

@@ -3,7 +3,7 @@
 }
 
 .filter {
- width: 40%;
+  width: 40%;
   padding: 1rem;
 }
 
@@ -54,22 +54,25 @@
 
 .itemTitle {
   text-align: left;
-  flex:  35%;
+  flex: 35%;
 }
 
 .itemYear {
-  flex:  8%;
+  flex: 8%;
 }
 
 .itemCategory {
-  flex:  10%;
+  flex: 10%;
 }
 
-.itemImage, .itemInfo, .itemIcon {
+.itemImage,
+.itemInfo,
+.itemIcon {
   flex: auto;
 }
 
-.title, .name {
+.title,
+.name {
   font-weight: bold;
 }
 

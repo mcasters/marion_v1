@@ -4,15 +4,15 @@
   left: 20px;
   z-index: 15;
   width: 180px;
-  background-color: var(--color-medium);
+  background-color: var(--color-auth-status);
   font-size: 1rem;
   padding: 2px;
-  border: #9d9d9d solid 1px;
+  border: var(--color-border-auth-status) solid 1px;
   box-shadow: 0 0 7px #363636;
 }
 
 .container {
-  border: #333333 solid 1px;
+  border: var(--color-border-auth-status) solid 1px;
   font-size: 0.8em;
   text-align: center;
   padding: 5px;
