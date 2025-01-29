@@ -45,16 +45,6 @@ font-size: var(--font-size-title);
     color: var(--link-color-xlight);
 }
 
-
-.authStatus {
-    background-color: var(--color-light);
-    padding: 1em;
-    font-size: 0.8em;
-    position: absolute;
-    top: 0;
-    text-align: center;
-}
-
 .authStatus p, .authStatus button, .authStatus a  {
     font-size: 1em;
     display: block;

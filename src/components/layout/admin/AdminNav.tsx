@@ -2,13 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-import AuthStatus from "@/components/auth/AuthStatus";
 import { ADMIN_MENU } from "@/constants/specific/routes";
 import s from "@/styles/admin/AdminNav.module.css";
 
 export default function AdminNav() {
-  const authStatus = AuthStatus();
   const pathname = usePathname();
 
   return (
@@ -32,7 +29,6 @@ export default function AdminNav() {
           );
         })}
       </ul>
-      <div className={s.authStatus}>{authStatus}</div>
     </nav>
   );
 }

@@ -1,14 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-
-import AuthStatus from "@/components/auth/AuthStatus";
 import s from "@/styles/Footer.module.css";
-import { BASE_PATH } from "@/constants/specific/routes";
+import { BASE_PATH, ROUTES } from "@/constants/specific/routes";
 import { TEXTS } from "@/constants/specific";
+import { useSession } from "@/app/context/sessionProvider";
+import Link from "next/link";
 
 export default function Footer() {
-  const authStatus = AuthStatus();
+  const session = useSession();
   const basePath = usePathname().split("/")[1];
   const isPainting = basePath === BASE_PATH.PAINTING;
   const isSculpture = basePath === BASE_PATH.SCULPTURE;
@@ -25,7 +25,7 @@ export default function Footer() {
           <p>{text}</p>
           <br />
           <br />
-          {authStatus}
+          {!session?.user && <Link href={ROUTES.LOGIN}>Admin</Link>}
         </div>
       </footer>
     </>

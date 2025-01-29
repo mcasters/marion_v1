@@ -11,6 +11,8 @@ import s from "@/styles/Layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { hexToRgb } from "@/utils/commonUtils";
 import { CategoryFull } from "@/lib/type";
+import AuthStatus from "@/components/auth/AuthStatus";
+import { useSession } from "@/app/context/sessionProvider";
 
 interface Props {
   introduction: string;
@@ -29,6 +31,7 @@ export default function Layout({
 }: Props) {
   const theme = useTheme();
   const basePath = usePathname().split("/")[1];
+  const session = useSession();
 
   const isHome = basePath === BASE_PATH.HOME;
   const isPainting = basePath === BASE_PATH.PAINTING;
@@ -48,6 +51,7 @@ export default function Layout({
       }
     >
       <div className={`${s.line} line`}></div>
+      {session?.user && <AuthStatus email={session.user.email} />}
       {isHome && <div className={`${s.gradient} gradient`}></div>}
       {isAdmin && (
         <>
