@@ -3,7 +3,8 @@
 import { JWTPayload, jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
 import { User } from ".prisma/client";
-import { Session } from "@/lib/db/item";
+import { Session } from "@/lib/model";
+import { COOKIE_NAME } from "@/constants/admin";
 
 const secretKey = process.env.AUTH_SECRET;
 const key = new TextEncoder().encode(secretKey);
@@ -28,7 +29,7 @@ export async function setCookie(user: User) {
   const session = await encrypt({ user, expires });
 
   const cookieStore = await cookies();
-  cookieStore.set("adminSession", session, {
+  cookieStore.set(COOKIE_NAME, session, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     expires,
@@ -38,11 +39,11 @@ export async function setCookie(user: User) {
 
 export async function removeCookie() {
   const cookieStore = await cookies();
-  cookieStore.delete("adminSession");
+  cookieStore.delete(COOKIE_NAME);
 }
 
 export async function getSession(): Promise<Session | null> {
   const cookieStore = await cookies();
-  const encryptSession = cookieStore.get("adminSession")?.value;
+  const encryptSession = cookieStore.get(COOKIE_NAME)?.value;
   return encryptSession ? ((await decrypt(encryptSession)) as Session) : null;
 }
