@@ -31,7 +31,6 @@ export default function PresetColorPicker({ presetColor, onDelete }: Props) {
   const [, startTransition] = useTransition();
 
   const onDeletePresetColor = () => {
-    // setWorkTheme(oneColorThemeToHexa(workTheme, presetColor));
     startTransition(async () => {
       const res = await deletePresetColor(presetColor.id);
       alert(res.message, res.isError);
