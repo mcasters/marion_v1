@@ -1,5 +1,5 @@
 export const PAGE_TYPE = {
-  GENERAL: "Commun à home et autres pages",
+  GENERAL: "Commun",
   ITEM: "Pages d'items",
   OTHERS: "Autres pages",
   HOME: "Page home",

@@ -76,7 +76,6 @@ export default function ColorPicker({
 
   return (
     <div className={s.colorContainer}>
-      <p className={s.label}>{label}</p>
       <div className={s.colorPickerContainer}>
         <button
           className={
@@ -170,6 +169,7 @@ export default function ColorPicker({
           </div>
         </Modal>
       </div>
+      <p className={s.label}>{label}</p>
     </div>
   );
 }

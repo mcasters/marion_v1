@@ -15,7 +15,7 @@ export default function PresetColorDashboard({
   onDeletePresetColor,
 }: Props) {
   return (
-    <div className={s.grid}>
+    <div className={s.flex}>
       <section>
         {presetColors.map((presetColor: PresetColor) => (
           <PresetColorPicker
