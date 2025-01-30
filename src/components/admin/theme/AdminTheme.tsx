@@ -13,6 +13,7 @@ import s from "@/styles/admin/Admin.module.css";
 import { activateTheme, deleteTheme } from "@/app/actions/theme/admin";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import PresetColorDashboard from "@/components/admin/theme/presetColor/PresetColorDashboard";
+import { NOTES, TEXTS } from "@/constants/specific";
 
 type Props = {
   themes: Theme[];
@@ -115,6 +116,22 @@ export default function AdminTheme({ themes, presetColors }: Props) {
           onDeletePresetColor={setDeletedPresetColor}
         />
       </div>
+      {TEXTS.TITLE === "Thierry Casters" && (
+        <div className={themeStyle.noteContainer}>
+          <h2>Notes</h2>
+          <p>Mise à jour : 30/01/2025</p>
+          <div className={themeStyle.grid}>
+            {Object.entries(NOTES).map(([key, value]) => {
+              return (
+                <section key={key}>
+                  <h3 className={themeStyle.sectionTitle}>{key}</h3>
+                  <p>{value}</p>
+                </section>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </>
   );
 }

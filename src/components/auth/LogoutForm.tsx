@@ -10,7 +10,7 @@ export default function LogoutForm() {
   return (
     <form className={s.logoutForm}>
       <button formAction={formAction} className="buttonLink">
-        Logout
+        Déconnexion
       </button>
     </form>
   );

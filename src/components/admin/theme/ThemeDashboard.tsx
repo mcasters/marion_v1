@@ -18,7 +18,7 @@ export default function ThemeDashboard({
   isToUpdate,
 }: Props) {
   return (
-    <div className={`${s.grid} ${isToUpdate ? s.toUpdate : ""}`}>
+    <div className={`${s.flex} ${isToUpdate ? s.toUpdate : ""}`}>
       <section>
         <h3 className={s.sectionTitle}>{PAGE_TYPE.GENERAL}</h3>
         <ColorPicker
@@ -50,7 +50,7 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur des liens hover"
+          label="Couleur des liens pointé*"
           colorLabel="linkHoverColor"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
@@ -74,13 +74,6 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur de fond du menu 2"
-          colorLabel="menu2HomeColor"
-          pageTypeName={PAGE_TYPE.HOME}
-          presetColors={presetColors}
-          deletedPresetColor={deletedPresetColor}
-        />
-        <ColorPicker
           label="Couleur du texte du menu 1"
           colorLabel="menu1LinkHomeColor"
           pageTypeName={PAGE_TYPE.HOME}
@@ -88,8 +81,15 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte hover du menu 1"
+          label="Couleur du texte du menu 1 pointé*"
           colorLabel="menu1LinkHomeHoverColor"
+          pageTypeName={PAGE_TYPE.HOME}
+          presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
+        />
+        <ColorPicker
+          label="Couleur de fond du menu 2"
+          colorLabel="menu2HomeColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
@@ -102,7 +102,7 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte hover du menu 2"
+          label="Couleur du texte du menu 2 pointé*"
           colorLabel="menu2LinkHomeHoverColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
@@ -119,13 +119,6 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur de fond du menu 2"
-          colorLabel="menu2Color"
-          pageTypeName={PAGE_TYPE.OTHERS}
-          presetColors={presetColors}
-          deletedPresetColor={deletedPresetColor}
-        />
-        <ColorPicker
           label="Couleur du texte du menu 1"
           colorLabel="menu1LinkColor"
           pageTypeName={PAGE_TYPE.OTHERS}
@@ -133,8 +126,15 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte hover du menu 1"
+          label="Couleur du texte du menu 1 pointé*"
           colorLabel="menu1LinkHoverColor"
+          pageTypeName={PAGE_TYPE.OTHERS}
+          presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
+        />
+        <ColorPicker
+          label="Couleur de fond du menu 2"
+          colorLabel="menu2Color"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
@@ -147,7 +147,7 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte hover du menu 2"
+          label="Couleur du texte du menu 2 pointé*"
           colorLabel="menu2LinkHoverColor"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
@@ -192,13 +192,6 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur de fond du menu 2"
-          colorLabel="menu2ItemColor"
-          pageTypeName={PAGE_TYPE.ITEM}
-          presetColors={presetColors}
-          deletedPresetColor={deletedPresetColor}
-        />
-        <ColorPicker
           label="Couleur du texte du menu 1"
           colorLabel="menu1LinkItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
@@ -206,8 +199,15 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte hover du menu 1"
+          label="Couleur du texte du menu 1 pointé*"
           colorLabel="menu1LinkHoverItemColor"
+          pageTypeName={PAGE_TYPE.ITEM}
+          presetColors={presetColors}
+          deletedPresetColor={deletedPresetColor}
+        />
+        <ColorPicker
+          label="Couleur de fond du menu 2"
+          colorLabel="menu2ItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
@@ -220,13 +220,14 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte hover du menu 2"
+          label="Couleur du texte du menu 2 pointé*"
           colorLabel="menu2LinkHoverItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
       </section>
+      <p>* lorsque la souris survole le texte</p>
       {isToUpdate && <span>Thème modifié (à sauvegarder)</span>}
     </div>
   );
