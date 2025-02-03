@@ -117,20 +117,21 @@ export default function AdminTheme({ themes, presetColors }: Props) {
         />
       </div>
       {TEXTS.TITLE === "Thierry Casters" && (
-        <div className={themeStyle.noteContainer}>
+        <section className={themeStyle.noteContainer}>
           <h2>Notes</h2>
-          <p>Mise à jour : 30/01/2025</p>
+          <p>Mise à jour : {NOTES.Date}</p>
           <div className={themeStyle.grid}>
             {Object.entries(NOTES).map(([key, value]) => {
-              return (
-                <section key={key}>
-                  <h3 className={themeStyle.sectionTitle}>{key}</h3>
-                  <p>{value}</p>
-                </section>
-              );
+              if (key !== "Date")
+                return (
+                  <div key={key}>
+                    <h3 className={themeStyle.sectionTitle}>{key}</h3>
+                    <p>{value}</p>
+                  </div>
+                );
             })}
           </div>
-        </div>
+        </section>
       )}
     </>
   );
