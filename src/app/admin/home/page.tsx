@@ -1,8 +1,4 @@
-import {
-  getIntroText,
-  getSlidersLandscapeImages,
-  getSlidersPortraitImages,
-} from "@/utils/commonUtils";
+import { getIntroText } from "@/utils/commonUtils";
 import { Label } from "@prisma/client";
 import s from "@/styles/admin/Admin.module.css";
 import React from "react";
@@ -10,6 +6,10 @@ import ImagesForm from "@/components/admin/form/imageForm/ImagesForm";
 import TextAreaForm from "@/components/admin/form/TextAreaForm";
 import { getContentsFull } from "@/app/actions/contents";
 import PreviewForm from "@/components/admin/form/imageForm/PreviewForm";
+import {
+  getSliderLandscapeImages,
+  getSliderPortraitImages,
+} from "@/utils/imageUtils";
 
 export default async function Home() {
   const contents = await getContentsFull();
@@ -24,7 +24,7 @@ export default async function Home() {
         <h2 className={s.homepage}>Images affichées sur écran mobile</h2>
         <p>(le format portrait est plus adapté)</p>
         <PreviewForm
-          images={getSlidersPortraitImages(contents)}
+          images={getSliderPortraitImages(contents)}
           contentLabel={Label.SLIDER}
         />
         <ImagesForm
@@ -39,7 +39,7 @@ export default async function Home() {
         <h2 className={s.homepage}>Images affichées sur écran ordinateur</h2>
         <p>(le format paysage ou carré est plus adapté)</p>
         <PreviewForm
-          images={getSlidersLandscapeImages(contents)}
+          images={getSliderLandscapeImages(contents)}
           contentLabel={Label.SLIDER}
         />
         <ImagesForm isMultiple={true} label={Label.SLIDER} smallImage={false} />

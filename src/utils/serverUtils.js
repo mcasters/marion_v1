@@ -1,9 +1,9 @@
 import { mkdir, stat, unlinkSync } from "fs";
 import sharp from "sharp";
 import { join } from "path";
-import { IMAGE_SIZE } from "@/constants/image";
 import { transformValueToKey } from "@/utils/commonUtils";
 import { TEXTS } from "@/constants/specific";
+import { IMAGE } from "@/constants/image";
 
 const serverLibraryPath = process.env.PHOTOS_PATH;
 
@@ -96,7 +96,7 @@ export const resizeAndSaveImage = async (file, title = "", dir) => {
     sharpStream
       .clone()
       .resize({
-        width: IMAGE_SIZE.MD_PX,
+        width: IMAGE.MD_PX,
         fit: sharp.fit.inside,
         withoutEnlargement: true,
       })
@@ -114,7 +114,7 @@ export const resizeAndSaveImage = async (file, title = "", dir) => {
     sharpStream
       .clone()
       .resize({
-        width: IMAGE_SIZE.SM_PX,
+        width: IMAGE.SM_PX,
         fit: sharp.fit.inside,
         withoutEnlargement: true,
       })

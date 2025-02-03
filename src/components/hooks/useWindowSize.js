@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const useWindowSize = () => {
   const [windowRect, setWindowRect] = useState({
-    innerWidth: 374,
+    innerWidth: 375,
     innerHeight: 667,
   });
 

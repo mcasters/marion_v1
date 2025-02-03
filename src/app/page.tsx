@@ -1,6 +1,6 @@
 import HomePage from "../components/home/HomePage";
-import { getSlidersLandscapeAndPortait } from "@/utils/commonUtils";
 import { getContentsFull } from "@/app/actions/contents";
+import { getSliderPhotoTab } from "@/utils/imageUtils";
 
 export default async function Page() {
   // This request should be cached until manually invalidated.
@@ -18,13 +18,7 @@ export default async function Page() {
   //   next: { revalidate: 10 },
   // });
   const contents = await getContentsFull();
-  const { portraitImages, landscapeImages } =
-    getSlidersLandscapeAndPortait(contents);
+  const { photos, mainPhotos } = getSliderPhotoTab(contents);
 
-  return (
-    <HomePage
-      portraitImages={portraitImages}
-      landscapeImages={landscapeImages}
-    />
-  );
+  return <HomePage portraitPhotos={mainPhotos} landscapePhotos={photos} />;
 }

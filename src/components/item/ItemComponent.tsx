@@ -1,10 +1,10 @@
 "use client";
 
 import s from "./ItemComponent.module.css";
-import { getPhotoTab } from "@/utils/commonUtils";
 import Lightbox from "@/components/image/lightbox/Lightbox";
 import { ItemFull, Type } from "@/lib/type";
 import { useMemo } from "react";
+import { getPhotoTab } from "@/utils/imageUtils";
 
 interface Props {
   item: ItemFull;

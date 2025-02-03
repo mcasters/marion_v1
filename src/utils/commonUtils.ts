@@ -4,12 +4,11 @@ import {
   Image,
   ItemFull,
   OnlyString,
-  PhotoTab,
   PostFull,
   Type,
 } from "@/lib/type";
 
-import { BASE_PRESET_COLOR, BASE_THEME, TEXTS } from "@/constants/specific";
+import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
 
 export const transformValueToKey = (value: string): string => {
   return value
@@ -59,37 +58,6 @@ export const getSliders = (contents: ContentFull[]): Image[] | [] => {
   return contents?.filter((c) => c.label === Label.SLIDER)[0]?.images || [];
 };
 
-export const getSlidersLandscapeAndPortait = (
-  contents: ContentFull[],
-): { portraitImages: Image[]; landscapeImages: Image[] } => {
-  const images: Image[] = getSliders(contents);
-  const portraitImages: Image[] = [];
-  const landscapeImages: Image[] = [];
-  images.forEach((i) => {
-    if (i.isMain) portraitImages.push(i);
-    if (!i.isMain) landscapeImages.push(i);
-  });
-  return { portraitImages, landscapeImages };
-};
-
-export const getSlidersLandscapeImages = (contents: ContentFull[]): Image[] => {
-  const images: Image[] = getSliders(contents);
-  const tab: Image[] = [];
-  images.forEach((i) => {
-    if (!i.isMain) tab.push(i);
-  });
-  return tab;
-};
-
-export const getSlidersPortraitImages = (contents: ContentFull[]): Image[] => {
-  const images: Image[] = getSliders(contents);
-  const tab: Image[] = [];
-  images.forEach((i) => {
-    if (i.isMain) tab.push(i);
-  });
-  return tab;
-};
-
 export const getAddressText = (contents: ContentFull[]): string => {
   return contents?.filter((c) => c.label === Label.ADDRESS)[0]?.text || "";
 };
@@ -135,19 +103,6 @@ export const themeToHexa = (
   return updatedTheme;
 };
 
-export const oneColorThemeToHexa = (
-  theme: Theme,
-  presetColor: PresetColor,
-): Theme => {
-  const updatedTheme = theme;
-  Object.entries(theme).forEach(([key, value]) => {
-    if (value === presetColor.name && key !== "name") {
-      updatedTheme[key as keyof OnlyString<Theme>] = presetColor.color;
-    }
-  });
-  return updatedTheme;
-};
-
 export const colorNameToHex = (
   colorName: string,
   presetColors: PresetColor[],
@@ -184,65 +139,6 @@ function componentToHex(c: number): string {
 export function rgbToHex(r: number, g: number, b: number): string {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 } // rgbToHex(0, 51, 255); // #0033ff
-
-const restForPhotoTab = (item: ItemFull | PostFull) => {
-  return {
-    alt:
-      item.type === Type.POST
-        ? `${item.title} - photo d'un post de ${TEXTS.TITLE}`
-        : `${item.title} - ${item.type} de ${TEXTS.TITLE}`,
-    title: item.title,
-    date: item.date,
-  };
-};
-
-export const getPhotoTab = (
-  item: PostFull | ItemFull,
-  splitMain: boolean = false,
-): {
-  mainPhotos: PhotoTab;
-  photos: PhotoTab;
-} => {
-  const mainPhotos: PhotoTab = { sm: [], md: [], lg: [] };
-  const photos: PhotoTab = { sm: [], md: [], lg: [] };
-
-  for (const image of item.images) {
-    const photosSM = {
-      src: `/images/${item.type}/sm/${image.filename}`,
-      width: image.width < 384 ? image.width : 384,
-      height:
-        image.width < 384 ? image.height : (image.height * 384) / image.width,
-      isMain: image.isMain,
-      ...restForPhotoTab(item),
-    };
-    const photosMD = {
-      src: `/images/${item.type}/md/${image.filename}`,
-      width: image.width < 640 ? image.width : 640,
-      height:
-        image.width < 640 ? image.height : (image.height * 640) / image.width,
-      isMain: image.isMain,
-      ...restForPhotoTab(item),
-    };
-    const photosLG = {
-      src: `/images/${item.type}/${image.filename}`,
-      width: image.width,
-      height: image.height,
-      isMain: image.isMain,
-      ...restForPhotoTab(item),
-    };
-
-    if (splitMain && image.isMain) {
-      mainPhotos.sm.push(photosSM);
-      mainPhotos.md.push(photosMD);
-      mainPhotos.lg.push(photosLG);
-    } else {
-      photos.sm.push(photosSM);
-      photos.md.push(photosMD);
-      photos.lg.push(photosLG);
-    }
-  }
-  return { mainPhotos, photos };
-};
 
 export const getEmptyItem = (
   type: Type.SCULPTURE | Type.DRAWING | Type.PAINTING,

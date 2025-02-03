@@ -45,3 +45,5 @@ export const BASE_PRESET_COLOR = {
   name: "Red",
   color: "#be2d01",
 };
+
+export const NOTES = {};

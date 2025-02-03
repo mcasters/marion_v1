@@ -1,4 +1,4 @@
-export const IMAGE_SIZE = {
+export const IMAGE = {
   SM_PX: 384,
   MD_PX: 640,
   MAX_PX: 2000,
