@@ -24,10 +24,7 @@ export default function UpdateCategoryButton({
   return (
     <>
       <button
-        onClick={(e) => {
-          e.preventDefault();
-          toggle();
-        }}
+        onClick={toggle}
         className="iconButton"
         aria-label="Mise à jour"
         disabled={disabled ? disabled : false}
