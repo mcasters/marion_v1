@@ -56,7 +56,7 @@ export async function getYearsForDrawing(): Promise<number[]> {
 }
 
 export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
-  const res = await prisma.drawingCategory.findMany({
+  const categories = await prisma.drawingCategory.findMany({
     include: {
       _count: {
         select: { drawings: true },
@@ -64,26 +64,31 @@ export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
     },
   });
 
-  const updatedTab = res.map((categorie) => {
-    const { _count, ...rest } = categorie;
-    return { count: _count.drawings, ...rest };
-  });
+  let updatedCategories;
 
-  const drawingWithoutCategory = await prisma.drawing.findMany({
-    where: {
-      category: null,
-    },
-  });
-
-  const drawingWithoutCategory_count = drawingWithoutCategory.length;
-  if (drawingWithoutCategory_count > 0) {
-    updatedTab.push({
-      count: drawingWithoutCategory_count,
-      key: "no-category",
-      value: "Sans catégorie",
-      id: 0,
+  if (categories.length === 0) {
+    updatedCategories = categories;
+  } else {
+    updatedCategories = categories.map((categorie) => {
+      const { _count, ...rest } = categorie;
+      return { count: _count.drawings, ...rest };
     });
-  }
 
-  return JSON.parse(JSON.stringify(updatedTab));
+    const drawingWithoutCategory = await prisma.drawing.findMany({
+      where: {
+        category: null,
+      },
+    });
+
+    const drawingWithoutCategory_count = drawingWithoutCategory.length;
+    if (drawingWithoutCategory_count > 0) {
+      updatedCategories.push({
+        count: drawingWithoutCategory_count,
+        key: "no-category",
+        value: "Sans catégorie",
+        id: 0,
+      });
+    }
+  }
+  return JSON.parse(JSON.stringify(updatedCategories));
 }

@@ -6,6 +6,7 @@ import {
 } from "@/app/actions/paintings";
 import ItemPageComponent from "@/components/item/ItemPageComponent";
 import { TAGS } from "@/constants/specific/routes";
+import s from "@/styles/ItemPage.module.css";
 
 export default async function Page() {
   const paintings = await getPaintingsFull();
@@ -15,6 +16,8 @@ export default async function Page() {
     return <ItemPageComponent categories={categories} tag={TAGS.PAINTING} />;
   else
     return paintings.map((painting: ItemFull) => (
-      <ItemComponent key={painting.id} item={painting} />
+      <div className={s.paintingContent}>
+        <ItemComponent key={painting.id} item={painting} />
+      </div>
     ));
 }
