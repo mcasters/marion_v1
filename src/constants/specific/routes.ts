@@ -28,7 +28,7 @@ export const BASE_PATH = {
   ADMIN: "admin",
 };
 
-export const NAMES = {
+export const TAGS = {
   PRESENTATION: "Présentation",
   PAINTING: "Peintures",
   SCULPTURE: "Sculptures",
@@ -43,29 +43,29 @@ export const NAMES = {
 export const MENU_1 = [
   {
     BASE_PATH: BASE_PATH.PAINTING,
-    NAME: NAMES.PAINTING,
+    TAG: TAGS.PAINTING,
   },
   {
     BASE_PATH: BASE_PATH.SCULPTURE,
-    NAME: NAMES.SCULPTURE,
+    TAG: TAGS.SCULPTURE,
   },
   {
     BASE_PATH: BASE_PATH.DRAWING,
-    NAME: NAMES.DRAWING,
+    TAG: TAGS.DRAWING,
   },
 ];
 
 export const MENU_1_ITEMS = {
-  [NAMES.PAINTING]: {
-    NAME: NAMES.PAINTING,
+  [TAGS.PAINTING]: {
+    TAG: TAGS.PAINTING,
     BASE_PATH: BASE_PATH.PAINTING,
   },
-  [NAMES.SCULPTURE]: {
-    NAME: NAMES.SCULPTURE,
+  [TAGS.SCULPTURE]: {
+    TAG: TAGS.SCULPTURE,
     BASE_PATH: BASE_PATH.SCULPTURE,
   },
-  [NAMES.DRAWING]: {
-    NAME: NAMES.DRAWING,
+  [TAGS.DRAWING]: {
+    TAG: TAGS.DRAWING,
     BASE_PATH: BASE_PATH.DRAWING,
   },
 };
@@ -73,45 +73,45 @@ export const MENU_1_ITEMS = {
 export const MENU_2 = [
   {
     PATH: ROUTES.PRESENTATION,
-    NAME: NAMES.PRESENTATION,
+    TAG: TAGS.PRESENTATION,
   },
   {
     PATH: ROUTES.HOME,
-    NAME: NAMES.HOME,
+    TAG: TAGS.HOME,
   },
   {
     PATH: ROUTES.CONTACT,
-    NAME: NAMES.CONTACT,
+    TAG: TAGS.CONTACT,
   },
 ];
 
 export const ADMIN_MENU = [
   {
     PATH: ROUTES.ADMIN,
-    NAME: NAMES.ADMIN,
+    TAG: TAGS.ADMIN,
   },
   {
     PATH: ROUTES.A_HOME,
-    NAME: NAMES.HOME,
+    TAG: TAGS.HOME,
   },
   {
     PATH: ROUTES.A_PAINTING,
-    NAME: NAMES.PAINTING,
+    TAG: TAGS.PAINTING,
   },
   {
     PATH: ROUTES.A_SCULPTURE,
-    NAME: NAMES.SCULPTURE,
+    TAG: TAGS.SCULPTURE,
   },
   {
     PATH: ROUTES.A_DRAWING,
-    NAME: NAMES.DRAWING,
+    TAG: TAGS.DRAWING,
   },
   {
     PATH: ROUTES.A_PRESENTATION,
-    NAME: NAMES.PRESENTATION,
+    TAG: TAGS.PRESENTATION,
   },
   {
     PATH: ROUTES.A_CONTACT,
-    NAME: NAMES.CONTACT,
+    TAG: TAGS.CONTACT,
   },
 ];
