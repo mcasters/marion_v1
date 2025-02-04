@@ -14,13 +14,13 @@ export default async function Page({ params }: Props) {
       ? "Sans catégorie"
       : paintings[0]?.category?.value;
   return (
-    <>
+    <div className={s.paintingContent}>
       <h2 className={`${s.categoryTitle} ${s.paintingCategoryTitle}`}>
         {categoryTitle}
       </h2>
       {paintings.map((painting) => (
         <ItemComponent key={painting.id} item={painting} />
       ))}
-    </>
+    </div>
   );
 }
