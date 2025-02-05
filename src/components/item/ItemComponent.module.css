@@ -1,3 +1,17 @@
+.itemPageList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style-type: none;
+}
+
+.imageWrap {
+  position: relative;
+  display: inline-block;
+  padding: 2rem;
+  height: 30vh;
+  width: 100%;
+}
+
 .article {
     padding: 0;
 }
