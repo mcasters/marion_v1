@@ -111,6 +111,16 @@ model Sculpture {
   categoryId  Int?
 }
 
+model SculptureImage {
+  id          Int        @id @default(autoincrement())
+  filename    String     @unique
+  width       Int
+  height      Int
+  isMain      Boolean    @default(false)
+  sculpture   Sculpture? @relation(fields: [sculptureId], references: [id])
+  sculptureId Int?
+}
+
 model Drawing {
   id            Int              @id @default(autoincrement())
   type          String           @default("dessin")
@@ -132,35 +142,43 @@ model Drawing {
   categoryId    Int?
 }
 
-model SculptureImage {
-  id          Int        @id @default(autoincrement())
-  filename    String     @unique
-  width       Int
-  height      Int
-  isMain      Boolean    @default(false)
-  sculpture   Sculpture? @relation(fields: [sculptureId], references: [id])
-  sculptureId Int?
-}
-
 model PaintingCategory {
-  id        Int        @id @default(autoincrement())
-  key       String     @unique
-  value     String
-  paintings Painting[]
+  id                Int              @id @default(autoincrement())
+  key               String           @unique
+  value             String
+  paintings         Painting[]
+  content           CategoryContent? @relation(fields: [categoryContentId], references: [id])
+  categoryContentId Int?             @unique
 }
 
 model SculptureCategory {
-  id         Int         @id @default(autoincrement())
-  key        String      @unique
-  value      String
-  sculptures Sculpture[]
+  id                Int              @id @default(autoincrement())
+  key               String           @unique
+  value             String
+  sculptures        Sculpture[]
+  content           CategoryContent? @relation(fields: [categoryContentId], references: [id])
+  categoryContentId Int?             @unique
 }
 
 model DrawingCategory {
-  id       Int       @id @default(autoincrement())
-  key      String    @unique
-  value    String
-  drawings Drawing[]
+  id                Int              @id @default(autoincrement())
+  key               String           @unique
+  value             String
+  drawings          Drawing[]
+  content           CategoryContent? @relation(fields: [categoryContentId], references: [id])
+  categoryContentId Int?             @unique
+}
+
+model CategoryContent {
+  id             Int                @id @default(autoincrement())
+  title          String?
+  text           String             @db.LongText
+  imageFilename  String             @default("")
+  imageWidth     Int                @default(0)
+  imageHeight    Int                @default(0)
+  paintCategory  PaintingCategory?
+  sculptCategory SculptureCategory?
+  drawCategory   DrawingCategory?
 }
 
 model Theme {
