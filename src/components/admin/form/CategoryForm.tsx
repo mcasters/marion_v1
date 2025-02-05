@@ -21,7 +21,6 @@ interface Props {
 }
 export default function CategoryForm({
   category,
-  type,
   categoryAction,
   toggleModal,
 }: Props) {
@@ -35,8 +34,9 @@ export default function CategoryForm({
   const reset = () => {
     if (toggleModal) toggleModal();
     else {
-      setWorkCategory(getEmptyCategory());
-      setImage(null);
+      const emptyCat = getEmptyCategory();
+      setWorkCategory(emptyCat);
+      setImage(emptyCat.content.image);
       resetImageRef.current = resetImageRef.current + 1;
     }
   };

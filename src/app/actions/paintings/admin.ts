@@ -165,8 +165,8 @@ export async function createCategoryPainting(
             title: rawFormData.title as string,
             text: rawFormData.text as string,
             imageFilename: rawFormData.filename as string,
-            imageWidth: rawFormData.width as string,
-            imageHeight: rawFormData.height as string,
+            imageWidth: Number(rawFormData.width),
+            imageHeight: Number(rawFormData.height),
           },
         },
       },
@@ -174,7 +174,7 @@ export async function createCategoryPainting(
     revalidatePath("/admin/peintures");
     return { message: "Catégorie ajoutée", isError: false };
   } catch (e) {
-    return { message: "Erreur à la création", isError: true };
+    return { message: `Erreur à la création`, isError: true };
   }
 }
 
@@ -189,23 +189,38 @@ export async function updateCategoryPainting(
   try {
     const oldCat = await prisma.paintingCategory.findUnique({
       where: { id },
+      include: { content: true },
     });
 
     if (oldCat) {
+      let content;
+      if (!oldCat.content) {
+        content = {
+          create: {
+            title: rawFormData.title as string,
+            text: rawFormData.text as string,
+            imageFilename: rawFormData.filename as string,
+            imageWidth: Number(rawFormData.width),
+            imageHeight: Number(rawFormData.height),
+          },
+        };
+      } else {
+        content = {
+          update: {
+            title: rawFormData.title as string,
+            text: rawFormData.text as string,
+            imageFilename: rawFormData.filename as string,
+            imageWidth: Number(rawFormData.width),
+            imageHeight: Number(rawFormData.height),
+          },
+        };
+      }
       await prisma.paintingCategory.update({
         where: { id },
         data: {
           key: transformValueToKey(value),
           value,
-          content: {
-            create: {
-              title: rawFormData.title as string,
-              text: rawFormData.text as string,
-              imageFilename: rawFormData.filename as string,
-              imageWidth: Number(rawFormData.width),
-              imageHeight: Number(rawFormData.height),
-            },
-          },
+          content,
         },
       });
     }
