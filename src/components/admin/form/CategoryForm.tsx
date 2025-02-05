@@ -5,11 +5,10 @@ import React, { useActionState, useEffect, useRef, useState } from "react";
 import s from "@/styles/admin/Admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
-import { CategoryFull, Type } from "@/lib/type";
+import { CategoryFull, Image, Type } from "@/lib/type";
 import { useAlert } from "@/app/context/AlertProvider";
 import { getEmptyCategory } from "@/utils/commonUtils";
-import Preview from "@/components/admin/form/imageForm/Preview";
-import Images from "@/components/admin/form/imageForm/Images";
+import SelectImageForm from "@/components/admin/form/imageForm/SelectImageForm";
 
 interface Props {
   category: CategoryFull;
@@ -28,9 +27,7 @@ export default function CategoryForm({
 }: Props) {
   const isUpdate = category.id !== 0;
   const [workCategory, setWorkCategory] = useState<CategoryFull>(category);
-  const [image, setImage] = useState<string[]>([
-    category.content.image.filename,
-  ]);
+  const [image, setImage] = useState<Image>(category.content.image);
   const [state, action] = useActionState(categoryAction, null);
   const resetImageRef = useRef<number>(0);
   const alert = useAlert();
@@ -39,7 +36,7 @@ export default function CategoryForm({
     if (toggleModal) toggleModal();
     else {
       setWorkCategory(getEmptyCategory());
-      setImage([]);
+      setImage(null);
       resetImageRef.current = resetImageRef.current + 1;
     }
   };
@@ -59,7 +56,10 @@ export default function CategoryForm({
         {isUpdate ? "Modification d'une catégorie" : "Ajout d'une catégorie"}
       </h2>
       <form action={action}>
-        {isUpdate && <input type="hidden" name="id" value={category?.id} />}
+        {isUpdate && <input type="hidden" name="id" value={category.id} />}
+        <input type="hidden" name="filename" value={image.filename} />
+        <input type="hidden" name="width" value={image.width} />
+        <input type="hidden" name="height" value={image.height} />
         <label className={s.formLabel}>
           Nom de la catégorie
           <input
@@ -72,26 +72,36 @@ export default function CategoryForm({
             required
           />
         </label>
-        <p className={s.catInfo}>
-          La partie descriptive d'une catégorie est facultative. Lorsqu'une
-          peinture, par exemple, comporte des catégories, mais qu'au lieu de
-          cliquer sur l'une des catégories dans le sous-menu de 'peinture", on
-          clique directement sur le menu 'peinture', alors on arrive sur une
-          page où figurent toutes les catégories, avec notamment la photo
-          descriptive de la catégorie. Cela permet de voir un peu à quel genre
-          s'attendre dans les diverses catégories.
-          <br />
-          Le titre et le texte, eux aussi facultatifs, seront affichés en
-          introduction en haut de la page des œuvres en question.
-        </p>
+        {!isUpdate && (
+          <p className={s.catInfo}>
+            La partie descriptive d'une catégorie est facultative. Lorsqu'une
+            peinture, par exemple, comporte des catégories, mais qu'au lieu de
+            cliquer sur l'une des catégories dans le sous-menu de 'peinture", on
+            clique plutôt sur le menu 'peinture', alors on arrive sur une page
+            où figurent toutes les catégories, avec la photo représentative de
+            la catégorie. Cela permet de voir un peu à quel genre s'attendre
+            dans les diverses catégories.
+            <br />
+            Le titre et le texte, eux aussi facultatifs, seront affichés en
+            introduction en haut de la page des œuvres de la catégorie.
+            <br />À noter que l'image de la catégorie ne peut être ajoutée
+            qu'une fois que la catégorie a été créée et que des items sont
+            classés dedans. Il faudra alors aller sur la modification de la
+            catégorie, où tu pourras choisir parmi les photos des items qui y
+            sont classés.
+          </p>
+        )}
         <label className={s.formLabel}>
           titre du descriptif (facultatif)
           <input
             name="title"
             type="text"
-            value={workCategory.content?.title}
+            value={workCategory.content.title}
             onChange={(e) =>
-              setWorkCategory({ ...workCategory, title: e.target.value })
+              setWorkCategory({
+                ...workCategory,
+                content: { ...workCategory.content, title: e.target.value },
+              })
             }
           />
         </label>
@@ -100,32 +110,26 @@ export default function CategoryForm({
           <textarea
             name="text"
             rows={5}
-            value={workCategory.content?.text}
+            value={workCategory.content.text}
             onChange={(e) =>
-              setWorkCategory({ ...workCategory, text: e.target.value })
+              setWorkCategory({
+                ...workCategory,
+                content: { ...workCategory.content, text: e.target.value },
+              })
             }
           />
         </label>
-        <div className={s.imageFormContainer}>
-          {isUpdate && workCategory.content.image.filename !== "" && (
-            <Preview
-              images={[workCategory.content.image]}
-              pathImage={`/images/${type}`}
-              onDelete={() => {
-                setImage([]);
-              }}
-            />
-          )}
-          <Images
-            isMultiple={false}
-            title={"Une photo descriptive (facultative)"}
-            reset={resetImageRef.current}
-            onNewImages={setImage}
-            smallImage={true}
+        {isUpdate && (
+          <SelectImageForm
+            items={category.items}
+            value={workCategory.content.image}
+            onChange={(image) => setImage(image)}
           />
+        )}
+        <div className={s.buttonSection}>
+          <SubmitButton />
+          <CancelButton onCancel={reset} />
         </div>
-        <SubmitButton />
-        <CancelButton onCancel={reset} />
       </form>
     </div>
   );

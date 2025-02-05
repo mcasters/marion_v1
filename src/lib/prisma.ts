@@ -15,11 +15,14 @@ const prismaClientSingleton = () => {
     result: {
       painting: {
         images: {
-          needs: { imageFilename: true, imageWidth: true, imageHeight: true },
+          needs: {
+            imageFilename: true,
+            imageWidth: true,
+            imageHeight: true,
+          },
           compute(painting) {
             return [
               {
-                id: 0,
                 filename: painting.imageFilename,
                 width: painting.imageWidth,
                 height: painting.imageHeight,
@@ -36,11 +39,14 @@ const prismaClientSingleton = () => {
       },
       drawing: {
         images: {
-          needs: { imageFilename: true, imageWidth: true, imageHeight: true },
+          needs: {
+            imageFilename: true,
+            imageWidth: true,
+            imageHeight: true,
+          },
           compute(drawing) {
             return [
               {
-                id: 0,
                 filename: drawing.imageFilename,
                 width: drawing.imageWidth,
                 height: drawing.imageHeight,
@@ -57,22 +63,18 @@ const prismaClientSingleton = () => {
       },
       categoryContent: {
         image: {
-          needs: { imageFilename: true, imageWidth: true, imageHeight: true },
-          compute(categoryContent) {
-            return [
-              {
-                id: 0,
-                filename: categoryContent.imageFilename,
-                width: categoryContent.imageWidth,
-                height: categoryContent.imageHeight,
-                isMain: true,
-              },
-            ];
+          needs: {
+            imageFilename: true,
+            imageWidth: true,
+            imageHeight: true,
           },
-        },
-        length: {
-          compute() {
-            return 0;
+          compute(categoryContent) {
+            return {
+              filename: categoryContent.imageFilename,
+              width: categoryContent.imageWidth,
+              height: categoryContent.imageHeight,
+              isMain: true,
+            };
           },
         },
       },

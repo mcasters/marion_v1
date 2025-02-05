@@ -152,14 +152,23 @@ export async function createCategoryPainting(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
+  const rawFormData = Object.fromEntries(formData);
   try {
-    const value = formData.get("text") as string;
-    const key = transformValueToKey(value);
+    const value = rawFormData.value as string;
 
     await prisma.paintingCategory.create({
       data: {
-        key,
+        key: transformValueToKey(value),
         value,
+        content: {
+          create: {
+            title: rawFormData.title as string,
+            text: rawFormData.text as string,
+            imageFilename: rawFormData.filename as string,
+            imageWidth: rawFormData.width as string,
+            imageHeight: rawFormData.height as string,
+          },
+        },
       },
     });
     revalidatePath("/admin/peintures");
@@ -173,22 +182,36 @@ export async function updateCategoryPainting(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  try {
-    const rawFormData = Object.fromEntries(formData);
-    const id = Number(rawFormData.id);
-    const value = rawFormData.text as string;
-    const key = transformValueToKey(value);
+  const rawFormData = Object.fromEntries(formData);
+  const id = Number(rawFormData.id);
+  const value = rawFormData.value as string;
 
-    await prisma.paintingCategory.update({
+  try {
+    const oldCat = await prisma.paintingCategory.findUnique({
       where: { id },
-      data: {
-        key,
-        value,
-      },
     });
+
+    if (oldCat) {
+      await prisma.paintingCategory.update({
+        where: { id },
+        data: {
+          key: transformValueToKey(value),
+          value,
+          content: {
+            create: {
+              title: rawFormData.title as string,
+              text: rawFormData.text as string,
+              imageFilename: rawFormData.filename as string,
+              imageWidth: Number(rawFormData.width),
+              imageHeight: Number(rawFormData.height),
+            },
+          },
+        },
+      });
+    }
     revalidatePath("/admin/peintures");
     return { message: "Catégorie modifiée", isError: false };
   } catch (e) {
-    return { message: "Erreur à la modification", isError: true };
+    return { message: `Erreur à la modification`, isError: true };
   }
 }

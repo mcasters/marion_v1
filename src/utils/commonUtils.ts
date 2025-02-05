@@ -198,5 +198,6 @@ export const getEmptyCategory = (): CategoryFull => {
     value: "",
     count: 0,
     content: getEmptyContent(),
+    items: [],
   };
 };

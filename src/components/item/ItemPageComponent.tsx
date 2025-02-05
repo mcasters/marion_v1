@@ -3,18 +3,17 @@
 import { CategoryFull, Type } from "@/lib/type";
 import Link from "next/link";
 import React from "react";
-import { PATH } from "@/constants/specific/routes";
 import s from "./ItemComponent.module.css";
 import Image from "next/image";
 import { GENERAL } from "@/constants/specific/metaHtml";
 import { DEVICE } from "@/constants/image";
+import { PATH } from "@/constants/specific/routes";
 
 interface Props {
   type: Type;
   categories: CategoryFull[];
 }
 export default function ItemPageComponent({ categories, type }: Props) {
-  const path = PATH[type];
   const isSmall = window.innerWidth < DEVICE.SMALL;
 
   return (
@@ -22,18 +21,20 @@ export default function ItemPageComponent({ categories, type }: Props) {
       {categories.map((category) => {
         return (
           <li key={category.key}>
-            <Link href={`/${path}/${category.key}`}>
+            <Link href={`/${PATH[type]}/${category.key}`}>
               <div>
                 <h3>{category.value}</h3>
-                {category.image && (
+                {category.content.image.filename !== "" && (
                   <div
                     className={s.imageWrap}
                     style={{
-                      aspectRatio: category.image.width / category.image.height,
+                      aspectRatio:
+                        category.content.image.width /
+                        category.content.image.height,
                     }}
                   >
                     <Image
-                      src={`/images/${path}/${isSmall ? "sm" : "md"}/${category.image.filename}`}
+                      src={`/images/${type}/${isSmall ? "sm" : "md"}/${category.content.image.filename}`}
                       fill
                       alt={GENERAL.ALT_PHOTO_PRESENTATION}
                       style={{
@@ -44,7 +45,7 @@ export default function ItemPageComponent({ categories, type }: Props) {
                     />
                   </div>
                 )}
-                <p>{category.text}</p>
+                <p>{category.content.text}</p>
               </div>
             </Link>
           </li>
