@@ -46,8 +46,10 @@ export default function CategoryForm({
 
   useEffect(() => {
     if (state) {
-      if (!state.isError) reset();
-      else alert(state.message, true);
+      if (!state.isError) {
+        alert(state.message, false);
+        reset();
+      } else alert(state.message, true);
     }
   }, [state]);
 
@@ -105,7 +107,7 @@ export default function CategoryForm({
           />
         </label>
         <div className={s.imageFormContainer}>
-          {isUpdate && workCategory.content.image && (
+          {isUpdate && workCategory.content.image.filename !== "" && (
             <Preview
               images={[workCategory.content.image]}
               pathImage={`/images/${type}`}

@@ -183,16 +183,20 @@ export const getEmptyImage = (): Image => {
   };
 };
 
+export const getEmptyContent = () => {
+  return {
+    title: "",
+    text: "",
+    image: getEmptyImage(),
+  };
+};
+
 export const getEmptyCategory = (): CategoryFull => {
   return {
     id: 0,
     key: "",
     value: "",
     count: 0,
-    content: {
-      title: "",
-      text: "",
-      image: getEmptyImage(),
-    },
+    content: getEmptyContent(),
   };
 };

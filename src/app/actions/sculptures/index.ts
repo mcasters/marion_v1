@@ -1,6 +1,7 @@
 "use server";
 import prisma from "@/lib/prisma";
 import { CategoryFull, ItemFull } from "@/lib/type";
+import { getEmptyContent } from "@/utils/commonUtils";
 
 export async function getSculpturesFull(): Promise<ItemFull[]> {
   const res = await prisma.sculpture.findMany({
@@ -72,8 +73,12 @@ export async function getSculptureCategoriesFull(): Promise<CategoryFull[]> {
     updatedCategories = categories;
   } else {
     updatedCategories = categories.map((categorie) => {
-      const { _count, ...rest } = categorie;
-      return { count: _count.sculptures, ...rest };
+      const { _count, content, ...rest } = categorie;
+      return {
+        count: _count.sculptures,
+        content: content ? content : getEmptyContent(),
+        ...rest,
+      };
     });
 
     const sculptureWithoutCategory = await prisma.sculpture.findMany({
@@ -89,6 +94,7 @@ export async function getSculptureCategoriesFull(): Promise<CategoryFull[]> {
         key: "no-category",
         value: "Sans catégorie",
         id: 0,
+        content: getEmptyContent(),
       });
     }
   }
