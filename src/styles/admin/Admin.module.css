@@ -66,6 +66,10 @@ h2.formLabel,
   margin-top: 1rem;
 }
 
+.catInfo {
+  margin: 3rem 0 0;
+}
+
 .select {
   background-color: white;
   border: var(--color-medium) solid 1px;
@@ -110,7 +114,7 @@ h2.formLabel,
 }
 
 .inputButton {
-  padding: 0 0 5px;
+  padding: 15px 0;
 }
 
 .radioInput {
@@ -121,6 +125,16 @@ h2.formLabel,
 
 .radioLabel {
   display: inline;
+}
+
+.imageWrapper {
+  padding: 1rem 0.8rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.imageFormContainer {
+  margin: 1rem auto 1rem;
 }
 
 /* End image */
@@ -141,14 +155,4 @@ h2.homepage {
 }
 .info p {
   padding: 1em;
-}
-
-.imageWrapper {
-  padding: 1.5em 0.2em;
-  display: inline-block;
-  text-align: center;
-}
-
-.imageFormContainer {
-  margin: 5em auto 0;
 }

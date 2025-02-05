@@ -20,26 +20,20 @@ export default function ItemPageComponent({ categories, type }: Props) {
   return (
     <ul className={s.itemPageList}>
       {categories.map((category) => {
-        //const image = category.item.images[0];
-        const image = {
-          width: 40,
-          height: 30,
-          filename: "coucou.jpg",
-        };
         return (
           <li key={category.key}>
             <Link href={`/${path}/${category.key}`}>
               <div>
                 <h3>{category.value}</h3>
-                {category.item && (
+                {category.image && (
                   <div
                     className={s.imageWrap}
                     style={{
-                      aspectRatio: image.width / image.height,
+                      aspectRatio: category.image.width / category.image.height,
                     }}
                   >
                     <Image
-                      src={`/images/${path}/${isSmall ? "sm" : "md"}/${image.filename}`}
+                      src={`/images/${path}/${isSmall ? "sm" : "md"}/${category.image.filename}`}
                       fill
                       alt={GENERAL.ALT_PHOTO_PRESENTATION}
                       style={{
@@ -50,7 +44,7 @@ export default function ItemPageComponent({ categories, type }: Props) {
                     />
                   </div>
                 )}
-                <p>{category.description}</p>
+                <p>{category.text}</p>
               </div>
             </Link>
           </li>

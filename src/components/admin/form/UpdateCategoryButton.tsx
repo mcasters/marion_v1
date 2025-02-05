@@ -33,6 +33,8 @@ export default function UpdateCategoryButton({
       </button>
       <Modal isOpen={isOpen} toggle={toggle}>
         <CategoryForm
+          category={category}
+          type={itemType}
           categoryAction={
             itemType === Type.SCULPTURE
               ? updateCategorySculpture
@@ -40,7 +42,6 @@ export default function UpdateCategoryButton({
                 ? updateCategoryDrawing
                 : updateCategoryPainting
           }
-          category={category}
           toggleModal={toggle}
         />
       </Modal>

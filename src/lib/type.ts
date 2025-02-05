@@ -82,9 +82,11 @@ export type CategoryFull = {
   key: string;
   value: string;
   count: number;
-  title: string;
-  text: string;
-  image: Image;
+  content: {
+    title: string;
+    text: string;
+    image: Image;
+  };
 };
 
 export type Session = {
