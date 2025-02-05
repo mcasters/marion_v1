@@ -61,11 +61,12 @@ export async function getPaintingCategoriesFull(): Promise<CategoryFull[]> {
       _count: {
         select: { paintings: true },
       },
+      content: true,
     },
   });
 
   let updatedCategories;
-
+  console.log(categories);
   if (categories.length === 0) {
     updatedCategories = categories;
   } else {

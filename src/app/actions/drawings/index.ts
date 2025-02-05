@@ -61,6 +61,7 @@ export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
       _count: {
         select: { drawings: true },
       },
+      content: true,
     },
   });
 
