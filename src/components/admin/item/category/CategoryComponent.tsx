@@ -21,6 +21,7 @@ export default function CategoryComponent({ categories, itemType }: Props) {
       : itemType === Type.DRAWING
         ? createCategoryDrawing
         : createCategoryPainting;
+
   return (
     <div className={s.listContainer}>
       <h2>{title}</h2>

@@ -153,8 +153,8 @@ export async function createCategoryDrawing(
   formData: FormData,
 ) {
   const rawFormData = Object.fromEntries(formData);
-  const file = rawFormData.file as File;
   const value = rawFormData.value as string;
+
   try {
     await prisma.drawingCategory.create({
       data: {
@@ -164,10 +164,14 @@ export async function createCategoryDrawing(
           create: {
             title: rawFormData.title as string,
             text: rawFormData.text as string,
+            imageFilename: rawFormData.filename as string,
+            imageWidth: Number(rawFormData.width),
+            imageHeight: Number(rawFormData.height),
           },
         },
       },
     });
+
     revalidatePath("/admin/dessins");
     return { message: "Catégorie ajoutée", isError: false };
   } catch (e) {
@@ -179,19 +183,46 @@ export async function updateCategoryDrawing(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  try {
-    const rawFormData = Object.fromEntries(formData);
-    const id = Number(rawFormData.id);
-    const value = rawFormData.text as string;
-    const key = transformValueToKey(value);
+  const rawFormData = Object.fromEntries(formData);
+  const id = Number(rawFormData.id);
+  const value = rawFormData.value as string;
 
-    await prisma.drawingCategory.update({
+  try {
+    const oldCat = await prisma.drawingCategory.findUnique({
       where: { id },
-      data: {
-        key,
-        value,
-      },
+      include: { content: true },
     });
+
+    if (oldCat) {
+      let content;
+      const data = {
+        title: rawFormData.title as string,
+        text: rawFormData.text as string,
+        imageFilename: rawFormData.filename as string,
+        imageWidth: Number(rawFormData.width),
+        imageHeight: Number(rawFormData.height),
+      };
+
+      if (!oldCat.content) {
+        content = {
+          create: data,
+        };
+      } else {
+        content = {
+          update: data,
+        };
+      }
+
+      await prisma.drawingCategory.update({
+        where: { id },
+        data: {
+          key: transformValueToKey(value),
+          value,
+          content,
+        },
+      });
+    }
+
     revalidatePath("/admin/dessins");
     return { message: "Catégorie modifiée", isError: false };
   } catch (e) {

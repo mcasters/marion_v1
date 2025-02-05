@@ -64,7 +64,9 @@ export async function getSculptureCategoriesFull(): Promise<CategoryFull[]> {
         },
       },
       content: true,
-      sculptures: true,
+      sculptures: {
+        include: { images: true },
+      },
     },
   });
 
