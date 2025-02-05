@@ -63,6 +63,7 @@ export async function getDrawingCategoriesFull(): Promise<CategoryFull[]> {
         select: { drawings: true },
       },
       content: true,
+      drawings: true,
     },
   });
 

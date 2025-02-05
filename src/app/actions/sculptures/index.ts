@@ -64,6 +64,7 @@ export async function getSculptureCategoriesFull(): Promise<CategoryFull[]> {
         },
       },
       content: true,
+      sculptures: true,
     },
   });
 

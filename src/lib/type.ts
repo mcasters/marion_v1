@@ -87,6 +87,7 @@ export type CategoryFull = {
     text: string;
     image: Image;
   };
+  items: ItemFull[];
 };
 
 export type Session = {

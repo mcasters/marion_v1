@@ -76,6 +76,30 @@ const prismaClientSingleton = () => {
           },
         },
       },
+      paintingCategory: {
+        items: {
+          needs: { paintings: true },
+          compute(paintingCategory) {
+            return paintingCategory.paintings;
+          },
+        },
+      },
+      sculptureCategory: {
+        items: {
+          needs: { sculptures: true },
+          compute(sculptureCategory) {
+            return sculptureCategory.sculptures;
+          },
+        },
+      },
+      drawingCategory: {
+        items: {
+          needs: { drawings: true },
+          compute(drawingCategory) {
+            return drawingCategory.drawings;
+          },
+        },
+      },
     },
   });
 };
