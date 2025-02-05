@@ -16,13 +16,13 @@ export default async function Page({ params }: Props) {
       : drawings[0]?.category?.value;
 
   return (
-    <>
+    <div className={s.paintingContent}>
       <h2 className={`${s.categoryTitle} ${s.paintingCategoryTitle}`}>
         {categoryTitle}
       </h2>
       {drawings.map((drawing) => (
         <ItemComponent key={drawing.id} item={drawing} />
       ))}
-    </>
+    </div>
   );
 }

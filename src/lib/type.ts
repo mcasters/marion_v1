@@ -82,6 +82,12 @@ export type CategoryFull = {
   key: string;
   value: string;
   count: number;
+  content: {
+    title: string;
+    text: string;
+    image: Image;
+  };
+  items: ItemFull[];
 };
 
 export type Session = {

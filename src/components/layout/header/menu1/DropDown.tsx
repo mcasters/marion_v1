@@ -9,14 +9,14 @@ import { MENU_1_ITEMS } from "@/constants/specific/routes";
 import { usePathname } from "next/navigation";
 
 interface Props {
-  itemName: string;
+  itemTag: string;
   menuItems: CategoryFull[];
   themeLink: string;
   themeLinkHover: string;
   themeBorderActive: string;
 }
 export default function Dropdown({
-  itemName,
+  itemTag,
   menuItems,
   themeLink,
   themeLinkHover,
@@ -24,14 +24,9 @@ export default function Dropdown({
 }: Props) {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const item = MENU_1_ITEMS[itemName];
+  const item = MENU_1_ITEMS[itemTag];
   const basePath = usePathname().split("/")[1];
   const isActive = basePath === item.BASE_PATH;
-
-  const toggle = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    setOpen(!open);
-  };
 
   const openMenu = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -45,16 +40,17 @@ export default function Dropdown({
 
   return (
     <div className={s.dropdown}>
-      <button
-        onClick={toggle}
-        onMouseEnter={openMenu}
-        onMouseLeave={closeMenu}
-        className={
-          isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
-        }
-      >
-        {itemName}
-      </button>
+      <Link href={`/${item.BASE_PATH}`} legacyBehavior>
+        <a
+          className={
+            isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
+          }
+          onMouseEnter={openMenu}
+          onMouseLeave={closeMenu}
+        >
+          {item.TAG}
+        </a>
+      </Link>
       {open ? (
         <ul
           className={s.subMenu}

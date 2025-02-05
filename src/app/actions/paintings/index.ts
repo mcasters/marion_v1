@@ -1,6 +1,7 @@
 "use server";
 import prisma from "@/lib/prisma";
 import { CategoryFull, ItemFull } from "@/lib/type";
+import { getEmptyContent } from "@/utils/commonUtils";
 
 export async function getPaintingsFull(): Promise<ItemFull[]> {
   const res = await prisma.painting.findMany({
@@ -56,34 +57,46 @@ export async function getYearsForPainting(): Promise<number[]> {
 }
 
 export async function getPaintingCategoriesFull(): Promise<CategoryFull[]> {
-  const res = await prisma.paintingCategory.findMany({
+  const categories = await prisma.paintingCategory.findMany({
     include: {
       _count: {
         select: { paintings: true },
       },
+      content: true,
+      paintings: true,
     },
   });
 
-  const updatedTab = res.map((categorie) => {
-    const { _count, ...rest } = categorie;
-    return { count: _count.paintings, ...rest };
-  });
+  let updatedCategories;
 
-  const paintingWithoutCategory = await prisma.painting.findMany({
-    where: {
-      category: null,
-    },
-  });
-
-  const paintingWithoutCategory_count = paintingWithoutCategory.length;
-  if (paintingWithoutCategory_count > 0) {
-    updatedTab.push({
-      count: paintingWithoutCategory_count,
-      key: "no-category",
-      value: "Sans catégorie",
-      id: 0,
+  if (categories.length === 0) {
+    updatedCategories = categories;
+  } else {
+    updatedCategories = categories.map((categorie) => {
+      const { _count, content, ...rest } = categorie;
+      return {
+        count: _count.paintings,
+        content: content ? content : getEmptyContent(),
+        ...rest,
+      };
     });
-  }
 
-  return JSON.parse(JSON.stringify(updatedTab));
+    const paintingWithoutCategory = await prisma.painting.findMany({
+      where: {
+        category: null,
+      },
+    });
+
+    const paintingWithoutCategory_count = paintingWithoutCategory.length;
+    if (paintingWithoutCategory_count > 0) {
+      updatedCategories.push({
+        count: paintingWithoutCategory_count,
+        key: "no-category",
+        value: "Sans catégorie",
+        id: 0,
+        content: getEmptyContent(),
+      });
+    }
+  }
+  return JSON.parse(JSON.stringify(updatedCategories));
 }

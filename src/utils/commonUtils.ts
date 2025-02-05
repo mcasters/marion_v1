@@ -1,5 +1,6 @@
 import { Label, PresetColor, Theme } from "@prisma/client";
 import {
+  CategoryFull,
   ContentFull,
   Image,
   ItemFull,
@@ -169,5 +170,34 @@ export const getEmptyPost = (): PostFull => {
     date: new Date(),
     text: "",
     images: [],
+  };
+};
+
+export const getEmptyImage = (): Image => {
+  return {
+    id: 0,
+    filename: "",
+    width: 0,
+    height: 0,
+    isMain: false,
+  };
+};
+
+export const getEmptyContent = () => {
+  return {
+    title: "",
+    text: "",
+    image: getEmptyImage(),
+  };
+};
+
+export const getEmptyCategory = (): CategoryFull => {
+  return {
+    id: 0,
+    key: "",
+    value: "",
+    count: 0,
+    content: getEmptyContent(),
+    items: [],
   };
 };

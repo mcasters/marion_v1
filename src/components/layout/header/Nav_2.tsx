@@ -20,10 +20,10 @@ export default function Nav_2({ navLayout }: Props) {
       <nav className={`${s[navLayout]} ${navLayout}`}>
         <ul className={s.menu}>
           {MENU_2.map((menuItem) => {
-            if (menuItem.NAME === "Home")
+            if (menuItem.TAG === "Home")
               return (
-                <li key={menuItem.NAME} className={s.liHome}>
-                  <Link href={menuItem.PATH} key={menuItem.NAME}>
+                <li key={menuItem.TAG} className={s.liHome}>
+                  <Link href={menuItem.PATH} key={menuItem.TAG}>
                     <Image
                       loader={({ src }) => {
                         return `/${src}`;
@@ -42,9 +42,9 @@ export default function Nav_2({ navLayout }: Props) {
                 </li>
               );
             return (
-              <li key={menuItem.NAME}>
-                <Link href={menuItem.PATH} key={menuItem.NAME} legacyBehavior>
-                  <a className={`${s.link} link`}>{menuItem.NAME}</a>
+              <li key={menuItem.TAG}>
+                <Link href={menuItem.PATH} key={menuItem.TAG} legacyBehavior>
+                  <a className={`${s.link} link`}>{menuItem.TAG}</a>
                 </Link>
               </li>
             );

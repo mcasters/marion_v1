@@ -229,7 +229,7 @@ export default function ItemForm({
           )}
           <Images
             isMultiple={isSculpture}
-            title={isSculpture ? "1 photo minimum" : "1 seule photo"}
+            title={isSculpture ? "Une photo minimum" : "Une seule photo"}
             reset={resetImageRef.current}
             onNewImages={setNewImages}
             smallImage={true}

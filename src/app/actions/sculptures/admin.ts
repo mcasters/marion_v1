@@ -77,7 +77,6 @@ export async function updateSculpture(
   const rawFormData = Object.fromEntries(formData);
   const id = Number(rawFormData.id);
   try {
-    const id = Number(rawFormData.id);
     const oldSculpt = await prisma.sculpture.findUnique({
       where: { id },
     });
@@ -203,7 +202,7 @@ export async function createCategorySculpture(
   formData: FormData,
 ) {
   try {
-    const value = formData.get("text") as string;
+    const value = formData.get("value") as string;
     const key = transformValueToKey(value);
 
     await prisma.sculptureCategory.create({

@@ -1,6 +1,6 @@
 "use client";
 
-import { MENU_1, NAMES } from "@/constants/specific/routes";
+import { MENU_1, TAGS } from "@/constants/specific/routes";
 import s from "@/styles/Nav_1.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { CategoryFull } from "@/lib/type";
@@ -26,19 +26,19 @@ export default function Nav_1({
       <nav className={`${s[navLayout]} ${navLayout}`}>
         <ul className={s.ul}>
           {MENU_1.map((item) => {
-            const name = item.NAME;
+            const tag = item.TAG;
 
             return (
-              <li key={name}>
+              <li key={tag}>
                 <NavItem
-                  itemName={name}
+                  itemTag={tag}
                   navLayout={navLayout}
                   categories={
-                    name === NAMES.SCULPTURE
+                    tag === TAGS.SCULPTURE
                       ? sculptureCategories
-                      : name === NAMES.PAINTING
+                      : tag === TAGS.PAINTING
                         ? paintingCategories
-                        : name === NAMES.DRAWING && drawingCategories
+                        : tag === TAGS.DRAWING && drawingCategories
                           ? drawingCategories
                           : []
                   }

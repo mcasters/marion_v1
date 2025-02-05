@@ -24,21 +24,21 @@
 }
 
 .formContainer {
-  max-width: 50vw;
-  margin: 0 auto 5em;
+  max-width: unset;
+  margin: 2em 0 0;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .formContainer {
+    max-width: 50vw;
+    margin: 0 auto 5em;
+  }
 }
 
 .wrapperModal {
   max-width: 50vw;
   padding: 2em;
-}
-
-/* Mobile */
-@media (max-width: 700px) {
-  .formContainer {
-    max-width: unset;
-    margin: 2em 0 0;
-  }
 }
 
 .formContainer h2 {
@@ -64,6 +64,10 @@ h2.formLabel,
   text-align: left;
   font-size: var(--font-size);
   margin-top: 1rem;
+}
+
+.catInfo {
+  margin: 3rem 0 0;
 }
 
 .select {
@@ -110,7 +114,7 @@ h2.formLabel,
 }
 
 .inputButton {
-  padding: 0 0 5px;
+  padding: 15px 0;
 }
 
 .radioInput {
@@ -121,6 +125,16 @@ h2.formLabel,
 
 .radioLabel {
   display: inline;
+}
+
+.imageWrapper {
+  padding: 1rem 0.8rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.imageFormContainer {
+  margin: 1rem auto 1rem;
 }
 
 /* End image */
@@ -143,12 +157,29 @@ h2.homepage {
   padding: 1em;
 }
 
-.imageWrapper {
-  padding: 1.5em 0.2em;
-  display: inline-block;
-  text-align: center;
+/* Select Image */
+
+.selectList {
+  height: 200px;
+  line-height: 80px;
+  vertical-align: middle;
+  position: relative;
+  background: white;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
-.imageFormContainer {
-  margin: 5em auto 0;
+.imageSelected {
+  background-color: var(--link-color-dark);
 }
+
+.option:hover {
+  background-color: var(--color-medium);
+}
+
+.option {
+  height: 80px;
+}
+
+/* End Select Image */

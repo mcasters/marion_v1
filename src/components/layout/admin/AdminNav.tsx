@@ -16,14 +16,14 @@ export default function AdminNav() {
           const isActive = pathname === item.PATH;
 
           return (
-            <li key={item.NAME}>
+            <li key={item.TAG}>
               <Link
                 href={item.PATH}
-                key={item.NAME}
+                key={item.TAG}
                 className={isActive ? `${s.link} ${s.active}` : `${s.link}`}
                 legacyBehavior={false}
               >
-                {item.NAME}
+                {item.TAG}
               </Link>
             </li>
           );

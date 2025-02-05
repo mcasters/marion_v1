@@ -152,14 +152,20 @@ export async function createCategoryDrawing(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
+  const rawFormData = Object.fromEntries(formData);
+  const file = rawFormData.file as File;
+  const value = rawFormData.value as string;
   try {
-    const value = formData.get("text") as string;
-    const key = transformValueToKey(value);
-
     await prisma.drawingCategory.create({
       data: {
-        key,
+        key: transformValueToKey(value),
         value,
+        content: {
+          create: {
+            title: rawFormData.title as string,
+            text: rawFormData.text as string,
+          },
+        },
       },
     });
     revalidatePath("/admin/dessins");

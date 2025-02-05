@@ -12,14 +12,14 @@ import { usePathname } from "next/navigation";
 import { TEXTS } from "@/constants/specific";
 
 interface Props {
-  itemName: string;
+  itemTag: string;
   navLayout: string;
   categories: CategoryFull[];
 }
 
-export default function NavItem({ itemName, navLayout, categories }: Props) {
+export default function NavItem({ itemTag, navLayout, categories }: Props) {
   const theme = useTheme();
-  const item = MENU_1_ITEMS[itemName];
+  const item = MENU_1_ITEMS[itemTag];
   const basePath = usePathname().split("/")[1];
   const isActive = basePath === item.BASE_PATH;
 
@@ -51,7 +51,7 @@ export default function NavItem({ itemName, navLayout, categories }: Props) {
   )
     return (
       <Dropdown
-        itemName={item.NAME}
+        itemTag={item.TAG}
         menuItems={categories}
         themeLink={themeLink}
         themeLinkHover={themeLinkHover}
@@ -67,7 +67,7 @@ export default function NavItem({ itemName, navLayout, categories }: Props) {
             isActive ? `${s.link} ${s.active} link active` : `${s.link} link`
           }
         >
-          {item.NAME}
+          {item.TAG}
         </a>
       </Link>
       <style jsx>{`

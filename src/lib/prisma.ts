@@ -5,16 +5,24 @@ const prismaClientSingleton = () => {
     omit: {
       painting: { imageFilename: true, imageWidth: true, imageHeight: true },
       drawing: { imageFilename: true, imageWidth: true, imageHeight: true },
+      categoryContent: {
+        imageFilename: true,
+        imageWidth: true,
+        imageHeight: true,
+      },
     },
   }).$extends({
     result: {
       painting: {
         images: {
-          needs: { imageFilename: true, imageWidth: true, imageHeight: true },
+          needs: {
+            imageFilename: true,
+            imageWidth: true,
+            imageHeight: true,
+          },
           compute(painting) {
             return [
               {
-                id: 0,
                 filename: painting.imageFilename,
                 width: painting.imageWidth,
                 height: painting.imageHeight,
@@ -31,11 +39,14 @@ const prismaClientSingleton = () => {
       },
       drawing: {
         images: {
-          needs: { imageFilename: true, imageWidth: true, imageHeight: true },
+          needs: {
+            imageFilename: true,
+            imageWidth: true,
+            imageHeight: true,
+          },
           compute(drawing) {
             return [
               {
-                id: 0,
                 filename: drawing.imageFilename,
                 width: drawing.imageWidth,
                 height: drawing.imageHeight,
@@ -47,6 +58,47 @@ const prismaClientSingleton = () => {
         length: {
           compute() {
             return 0;
+          },
+        },
+      },
+      categoryContent: {
+        image: {
+          needs: {
+            imageFilename: true,
+            imageWidth: true,
+            imageHeight: true,
+          },
+          compute(categoryContent) {
+            return {
+              filename: categoryContent.imageFilename,
+              width: categoryContent.imageWidth,
+              height: categoryContent.imageHeight,
+              isMain: true,
+            };
+          },
+        },
+      },
+      paintingCategory: {
+        items: {
+          needs: { paintings: true },
+          compute(paintingCategory) {
+            return paintingCategory.paintings;
+          },
+        },
+      },
+      sculptureCategory: {
+        items: {
+          needs: { sculptures: true },
+          compute(sculptureCategory) {
+            return sculptureCategory.sculptures;
+          },
+        },
+      },
+      drawingCategory: {
+        items: {
+          needs: { drawings: true },
+          compute(drawingCategory) {
+            return drawingCategory.drawings;
           },
         },
       },

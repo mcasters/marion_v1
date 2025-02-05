@@ -15,11 +15,11 @@ export default async function Page({ params }: Props) {
       : sculptures[0]?.category?.value;
 
   return (
-    <>
+    <div className={s.sculptureContent}>
       <h2 className={s.categoryTitle}>{categoryTitle}</h2>
       {sculptures.map((sculpture) => (
         <ItemComponent key={sculpture.id} item={sculpture} />
       ))}
-    </>
+    </div>
   );
 }
