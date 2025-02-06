@@ -1,7 +1,7 @@
 "use server";
 import { CategoryFull, ItemFull } from "@/lib/type";
 import prisma from "@/lib/prisma";
-import { getEmptyContent } from "@/utils/commonUtils";
+import { getEmptyCategory, getEmptyContent } from "@/utils/commonUtils";
 
 export async function getDrawingsFull(): Promise<ItemFull[]> {
   const res = await prisma.drawing.findMany({
@@ -11,28 +11,35 @@ export async function getDrawingsFull(): Promise<ItemFull[]> {
   return JSON.parse(JSON.stringify(res));
 }
 
-export async function getDrawingsFullByCategory(
+export async function getFullCategoryWithFullDrawings(
   categoryKey: string,
-): Promise<ItemFull[]> {
-  const res =
-    categoryKey === "no-category"
-      ? await prisma.drawing.findMany({
-          where: {
-            category: null,
-          },
-          orderBy: { date: "asc" },
-          include: { category: true },
-        })
-      : await prisma.drawing.findMany({
-          where: {
-            category: {
-              key: categoryKey,
-            },
-          },
-          orderBy: { date: "asc" },
-          include: { category: true },
-        });
+): Promise<CategoryFull> {
+  let res;
 
+  if (categoryKey === "no-category") {
+    const items = await prisma.drawing.findMany({
+      where: {
+        category: null,
+      },
+      orderBy: { date: "asc" },
+    });
+    res = {
+      ...getEmptyCategory(),
+      key: categoryKey,
+      value: "Sans catégorie",
+      items,
+    };
+  } else {
+    res = await prisma.drawingCategory.findUnique({
+      where: {
+        key: categoryKey,
+      },
+      include: {
+        content: true,
+        drawings: true,
+      },
+    });
+  }
   return JSON.parse(JSON.stringify(res));
 }
 

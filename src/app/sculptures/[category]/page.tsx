@@ -1,24 +1,26 @@
 import ItemComponent from "@/components/item/ItemComponent";
 import s from "@/styles/ItemPage.module.css";
-import { getSculpturesFullByCategory } from "@/app/actions/sculptures";
+import { getFullCategoryWithFullSculptures } from "@/app/actions/sculptures";
 
 type Props = {
   params: Promise<{ category: string }>;
 };
 
 export default async function Page({ params }: Props) {
-  const category = (await params).category;
-  const sculptures = await getSculpturesFullByCategory(category);
-  const categoryTitle =
-    category === "no-category"
-      ? "Sans catégorie"
-      : sculptures[0]?.category?.value;
+  const categoryKey = (await params).category;
+  const category = await getFullCategoryWithFullSculptures(categoryKey);
 
   return (
     <div className={s.sculptureContent}>
-      <h2 className={s.categoryTitle}>{categoryTitle}</h2>
-      {sculptures.map((sculpture) => (
-        <ItemComponent key={sculpture.id} item={sculpture} />
+      <h2 className={s.categoryValue}>{category.value}</h2>
+      {categoryKey !== "no-category" && (
+        <div className={s.categoryContent}>
+          <p className={s.categoryTitle}>{category.content.title}</p>
+          <p>{category.content.text}</p>
+        </div>
+      )}
+      {category.items.map((sculpt) => (
+        <ItemComponent key={sculpt.id} item={sculpt} />
       ))}
     </div>
   );
