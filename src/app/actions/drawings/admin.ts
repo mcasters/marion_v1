@@ -138,6 +138,17 @@ export async function deleteDrawing(id: number) {
 
 export async function deleteCategoryDrawing(id: number) {
   try {
+    const cat = await prisma.drawingCategory.findUnique({
+      where: { id },
+    });
+
+    const contentId = cat.categoryContentId;
+    if (contentId) {
+      await prisma.categoryContent.delete({
+        where: { id: contentId },
+      });
+    }
+
     await prisma.drawingCategory.delete({
       where: { id },
     });

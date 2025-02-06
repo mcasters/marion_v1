@@ -187,6 +187,17 @@ export async function deleteSculpture(id: number) {
 
 export async function deleteCategorySculpture(id: number) {
   try {
+    const cat = await prisma.sculptureCategory.findUnique({
+      where: { id },
+    });
+
+    const contentId = cat.categoryContentId;
+    if (contentId) {
+      await prisma.categoryContent.delete({
+        where: { id: contentId },
+      });
+    }
+
     await prisma.sculptureCategory.delete({
       where: { id },
     });

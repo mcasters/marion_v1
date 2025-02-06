@@ -171,11 +171,11 @@ h2.homepage {
 }
 
 .imageSelected {
-  background-color: var(--link-color-dark);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .option:hover {
-  background-color: var(--color-medium);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .option {
