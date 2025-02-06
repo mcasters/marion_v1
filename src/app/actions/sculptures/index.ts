@@ -65,14 +65,57 @@ export async function getYearsForSculpture(): Promise<number[]> {
   return JSON.parse(JSON.stringify(uniqYears));
 }
 
-export async function getSculptureCategoriesFull(): Promise<CategoryFull[]> {
+export async function getFilledSculptureCategories(): Promise<CategoryFull[]> {
+  const categories: CategoryFull[] = await prisma.sculptureCategory.findMany({
+    include: {
+      content: true,
+      sculptures: {
+        include: { images: true },
+      },
+    },
+  });
+
+  let updatedCategories: CategoryFull[] = [];
+
+  if (categories.length === 0) {
+    updatedCategories = categories;
+  } else {
+    categories.forEach((categorie) => {
+      if (categorie.items.length > 0) {
+        const { content, sculptures, ...rest } = categorie;
+        updatedCategories.push({
+          count: sculptures.length,
+          content: content ? content : getEmptyContent(),
+          ...rest,
+        });
+      }
+    });
+
+    const sculptureWithNoCategory = await prisma.sculpture.findMany({
+      where: {
+        category: null,
+      },
+    });
+
+    const sculptureWithNoCategory_count = sculptureWithNoCategory.length;
+    if (sculptureWithNoCategory_count > 0) {
+      updatedCategories.push({
+        count: sculptureWithNoCategory_count,
+        key: "no-category",
+        value: "Sans catégorie",
+        id: 0,
+        content: getEmptyContent(),
+        items: sculptureWithNoCategory,
+      });
+    }
+  }
+
+  return JSON.parse(JSON.stringify(updatedCategories));
+}
+
+export async function getAdminSculptureCategories(): Promise<CategoryFull[]> {
   const categories = await prisma.sculptureCategory.findMany({
     include: {
-      _count: {
-        select: {
-          sculptures: true,
-        },
-      },
       content: true,
       sculptures: {
         include: { images: true },
@@ -86,9 +129,9 @@ export async function getSculptureCategoriesFull(): Promise<CategoryFull[]> {
     updatedCategories = categories;
   } else {
     updatedCategories = categories.map((categorie) => {
-      const { _count, content, ...rest } = categorie;
+      const { content, sculptures, ...rest } = categorie;
       return {
-        count: _count.sculptures,
+        count: sculptures.length,
         content: content ? content : getEmptyContent(),
         ...rest,
       };

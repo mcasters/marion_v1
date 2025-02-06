@@ -63,12 +63,54 @@ export async function getYearsForPainting(): Promise<number[]> {
   return JSON.parse(JSON.stringify(uniqYears));
 }
 
-export async function getPaintingCategoriesFull(): Promise<CategoryFull[]> {
+export async function getFilledPaintingCategories(): Promise<CategoryFull[]> {
+  const categories: CategoryFull[] = await prisma.PaintingCategory.findMany({
+    include: {
+      content: true,
+      paintings: true,
+    },
+  });
+
+  let updatedCategories: CategoryFull[] = [];
+
+  if (categories.length === 0) {
+    updatedCategories = categories;
+  } else {
+    categories.forEach((categorie) => {
+      if (categorie.items.length > 0) {
+        const { content, paintings, ...rest } = categorie;
+        updatedCategories.push({
+          count: paintings.length,
+          content: content ? content : getEmptyContent(),
+          ...rest,
+        });
+      }
+    });
+
+    const paintingWithNoCategory = await prisma.painting.findMany({
+      where: {
+        category: null,
+      },
+    });
+
+    const paintingWithNoCategory_count = paintingWithNoCategory.length;
+    if (paintingWithNoCategory_count > 0)
+      updatedCategories.push({
+        count: paintingWithNoCategory_count,
+        key: "no-category",
+        value: "Sans catégorie",
+        id: 0,
+        content: getEmptyContent(),
+        items: paintingWithNoCategory,
+      });
+  }
+
+  return JSON.parse(JSON.stringify(updatedCategories));
+}
+
+export async function getAdminPaintingCategories(): Promise<CategoryFull[]> {
   const categories = await prisma.paintingCategory.findMany({
     include: {
-      _count: {
-        select: { paintings: true },
-      },
       content: true,
       paintings: true,
     },
@@ -80,9 +122,9 @@ export async function getPaintingCategoriesFull(): Promise<CategoryFull[]> {
     updatedCategories = categories;
   } else {
     updatedCategories = categories.map((categorie) => {
-      const { _count, content, ...rest } = categorie;
+      const { content, paintings, ...rest } = categorie;
       return {
-        count: _count.paintings,
+        count: paintings.length,
         content: content ? content : getEmptyContent(),
         ...rest,
       };

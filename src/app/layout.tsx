@@ -9,9 +9,9 @@ import { DESCRIPTION, GENERAL, KEYWORDS } from "@/constants/specific/metaHtml";
 import { getSession } from "@/app/lib/auth";
 import { TEXTS } from "@/constants/specific";
 
-import { getSculptureCategoriesFull } from "@/app/actions/sculptures";
-import { getPaintingCategoriesFull } from "@/app/actions/paintings";
-import { getDrawingCategoriesFull } from "@/app/actions/drawings";
+import { getFilledSculptureCategories } from "@/app/actions/sculptures";
+import { getFilledPaintingCategories } from "@/app/actions/paintings";
+import { getFilledDrawingCategories } from "@/app/actions/drawings";
 import { getContentsFull } from "@/app/actions/contents";
 import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 
@@ -36,11 +36,11 @@ export default async function RootLayout({
 }) {
   const session = await getSession();
   const contents = await getContentsFull();
-  const paintingCategories = await getPaintingCategoriesFull();
-  const sculptureCategories = await getSculptureCategoriesFull();
+  const paintingCategories = await getFilledPaintingCategories();
+  const sculptureCategories = await getFilledSculptureCategories();
   let drawingCategories = undefined;
   if (TEXTS.TITLE === "Marion Casters")
-    drawingCategories = await getDrawingCategoriesFull();
+    drawingCategories = await getFilledDrawingCategories();
   const theme = await getActiveTheme();
   const presetColors = await getPresetColors();
   const hexaTheme = themeToHexa(theme, presetColors);

@@ -6,7 +6,7 @@ import React from "react";
 import ItemForm from "@/components/admin/form/ItemForm";
 import { getEmptyItem } from "@/utils/commonUtils";
 import {
-  getDrawingCategoriesFull,
+  getAdminDrawingCategories,
   getDrawingsFull,
   getYearsForDrawing,
 } from "@/app/actions/drawings";
@@ -14,7 +14,7 @@ import { createDrawing } from "@/app/actions/drawings/admin";
 
 export default async function Dessins() {
   const drawings = await getDrawingsFull();
-  const categories = await getDrawingCategoriesFull();
+  const categories = await getAdminDrawingCategories();
   const years = await getYearsForDrawing();
 
   return (
