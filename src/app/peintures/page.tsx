@@ -1,18 +1,23 @@
-import ItemComponent from "@/components/item/ItemComponent";
 import { ItemFull, Type } from "@/lib/type";
-import { getFilledPaintingCategories } from "@/app/actions/paintings";
-import ItemPageComponent from "@/components/item/ItemPageComponent";
+import {
+  getFilledPaintingCategories,
+  getPaintingsFull,
+} from "@/app/actions/paintings";
 import s from "@/styles/ItemPage.module.css";
+import ItemPageComponent from "@/components/item/ItemPageComponent";
 
 export default async function Page() {
   const categories = await getFilledPaintingCategories();
+  let items: ItemFull[] = [];
+  if (categories.length === 0) items = await getPaintingsFull();
 
-  if (categories.length > 0)
-    return <ItemPageComponent categories={categories} type={Type.PAINTING} />;
-  else
-    return categories[0].items.map((painting: ItemFull) => (
-      <div className={s.paintingContent}>
-        <ItemComponent key={painting.id} item={painting} />
-      </div>
-    ));
+  return (
+    <div className={s.paintingContent}>
+      <ItemPageComponent
+        categories={categories}
+        type={Type.PAINTING}
+        itemsWhenNoCategory={items}
+      />
+    </div>
+  );
 }
