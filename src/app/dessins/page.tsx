@@ -1,23 +1,23 @@
-import ItemComponent from "@/components/item/ItemComponent";
 import { ItemFull, Type } from "@/lib/type";
-
 import {
-  getDrawingCategoriesFull,
   getDrawingsFull,
+  getFilledDrawingCategories,
 } from "@/app/actions/drawings";
 import ItemPageComponent from "@/components/item/ItemPageComponent";
 import s from "@/styles/ItemPage.module.css";
 
 export default async function Page() {
-  const drawings = await getDrawingsFull();
-  const categories = await getDrawingCategoriesFull();
+  const categories = await getFilledDrawingCategories();
+  let items: ItemFull[] = [];
+  if (categories.length === 0) items = await getDrawingsFull();
 
-  if (categories.length > 0)
-    return <ItemPageComponent categories={categories} type={Type.DRAWING} />;
-  else
-    return drawings.map((drawing: ItemFull) => (
-      <div className={s.paintingContent}>
-        <ItemComponent key={drawing.id} item={drawing} />
-      </div>
-    ));
+  return (
+    <div className={s.paintingContent}>
+      <ItemPageComponent
+        categories={categories}
+        type={Type.DRAWING}
+        itemsWhenNoCategory={items}
+      />
+    </div>
+  );
 }

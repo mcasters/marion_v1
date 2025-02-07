@@ -1,56 +1,81 @@
 "use client";
 
-import { CategoryFull, Type } from "@/lib/type";
-import Link from "next/link";
-import React from "react";
-import s from "./ItemComponent.module.css";
-import Image from "next/image";
-import { GENERAL } from "@/constants/specific/metaHtml";
-import { DEVICE } from "@/constants/image";
-import { PATH } from "@/constants/specific/routes";
+import { CategoryFull, ItemFull, Type } from "@/lib/type";
+import React, { useEffect, useState } from "react";
+import CategorySelectComponent from "@/components/item/categorySelectComponent";
+import ItemComponent from "@/components/item/ItemComponent";
+import s from "@/components/item/ItemComponent.module.css";
 
 interface Props {
   type: Type;
   categories: CategoryFull[];
+  itemsWhenNoCategory: ItemFull[];
 }
-export default function ItemPageComponent({ categories, type }: Props) {
-  const isSmall = window.innerWidth < DEVICE.SMALL;
+export default function ItemPageComponent({
+  categories,
+  type,
+  itemsWhenNoCategory,
+}: Props) {
+  const [selectedCategoryKey, setSelectedCategoryKey] = useState<string>();
+  const [selectedCategory, setSelectedCategory] = useState<
+    CategoryFull | undefined
+  >(undefined);
+  const [title, setTitle] = useState<string>("");
+  const [selectedItems, setSelectedItems] = useState<ItemFull[]>([]);
 
-  return (
-    <ul className={s.itemPageList}>
-      {categories.map((category) => {
-        return (
-          <li key={category.key}>
-            <Link href={`/${PATH[type]}/${category.key}`}>
-              <div>
-                <h3>{category.value}</h3>
-                {category.content.image.filename !== "" && (
-                  <div
-                    className={s.imageWrap}
-                    style={{
-                      aspectRatio:
-                        category.content.image.width /
-                        category.content.image.height,
-                    }}
-                  >
-                    <Image
-                      src={`/images/${type}/${isSmall ? "sm" : "md"}/${category.content.image.filename}`}
-                      fill
-                      alt={GENERAL.ALT_PHOTO_PRESENTATION}
-                      style={{
-                        objectFit: "contain",
-                      }}
-                      priority
-                      unoptimized
-                    />
-                  </div>
-                )}
-                <p>{category.content.text}</p>
-              </div>
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
-  );
+  useEffect(() => {
+    if (selectedCategoryKey === "") {
+      let items: ItemFull[] = [];
+      categories.forEach((category) => {
+        items = items.concat(category.items);
+      });
+      setTitle("Toutes les catégories");
+      setSelectedItems(items);
+    } else {
+      const cat = categories.find(
+        (category) => category.key === selectedCategoryKey,
+      );
+      if (cat) {
+        setSelectedCategory(cat);
+        setTitle(cat.value);
+        setSelectedItems(cat?.items || []);
+      }
+    }
+  }, [selectedCategoryKey]);
+
+  if (itemsWhenNoCategory.length > 0)
+    return itemsWhenNoCategory.map((item) => (
+      <ItemComponent key={item.id} item={item} />
+    ));
+  else
+    return (
+      <>
+        {categories.length > 0 && (
+          <>
+            <div className={s.selectCategoryContainer}>
+              <CategorySelectComponent
+                type={type}
+                categories={categories}
+                onChange={setSelectedCategoryKey}
+              />
+            </div>
+            <div className={s.contentCategoryContainer}>
+              {title && <h2 className={`${s.categoryValue}`}>{title}</h2>}
+              {selectedCategory && (
+                <>
+                  <p className={s.categoryTitle}>
+                    {selectedCategory.content.title}
+                  </p>
+                  <p>{selectedCategory.content.text}</p>
+                </>
+              )}
+            </div>
+          </>
+        )}
+        {selectedItems.length > 0 &&
+          selectedItems.map((item) => (
+            <ItemComponent key={item.id} item={item} />
+          ))}
+      </>
+    );
 }

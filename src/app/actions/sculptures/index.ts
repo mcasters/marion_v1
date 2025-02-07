@@ -1,7 +1,7 @@
 "use server";
 import prisma from "@/lib/prisma";
 import { CategoryFull, ItemFull } from "@/lib/type";
-import { getEmptyContent } from "@/utils/commonUtils";
+import { getEmptyCategory, getEmptyContent } from "@/utils/commonUtils";
 
 export async function getSculpturesFull(): Promise<ItemFull[]> {
   const res = await prisma.sculpture.findMany({
@@ -11,27 +11,38 @@ export async function getSculpturesFull(): Promise<ItemFull[]> {
   return JSON.parse(JSON.stringify(res));
 }
 
-export async function getSculpturesFullByCategory(
+export async function getFullCategoryWithFullSculptures(
   categoryKey: string,
-): Promise<ItemFull[]> {
-  const res =
-    categoryKey === "no-category"
-      ? await prisma.sculpture.findMany({
-          where: {
-            category: null,
-          },
-          orderBy: { date: "asc" },
-          include: { images: true, category: true },
-        })
-      : await prisma.sculpture.findMany({
-          where: {
-            category: {
-              key: categoryKey,
-            },
-          },
-          orderBy: { date: "asc" },
-          include: { images: true, category: true },
-        });
+): Promise<CategoryFull> {
+  let res;
+
+  if (categoryKey === "no-category") {
+    const items = await prisma.sculpture.findMany({
+      where: {
+        category: null,
+      },
+      orderBy: { date: "asc" },
+      include: { images: true },
+    });
+    res = {
+      ...getEmptyCategory(),
+      key: categoryKey,
+      value: "Sans catégorie",
+      items,
+    };
+  } else {
+    res = await prisma.sculptureCategory.findUnique({
+      where: {
+        key: categoryKey,
+      },
+      include: {
+        content: true,
+        sculptures: {
+          include: { images: true },
+        },
+      },
+    });
+  }
   return JSON.parse(JSON.stringify(res));
 }
 
@@ -55,16 +66,63 @@ export async function getYearsForSculpture(): Promise<number[]> {
   return JSON.parse(JSON.stringify(uniqYears));
 }
 
-export async function getSculptureCategoriesFull(): Promise<CategoryFull[]> {
+export async function getFilledSculptureCategories(): Promise<CategoryFull[]> {
+  let updatedCategories: CategoryFull[] = [];
+  const categories: CategoryFull[] = await prisma.sculptureCategory.findMany({
+    include: {
+      content: true,
+      sculptures: {
+        include: { images: true },
+      },
+    },
+  });
+
+  if (categories.length > 0) {
+    let emptyCategories = true;
+    categories.forEach((categorie) => {
+      if (categorie.items.length > 0) {
+        emptyCategories = false;
+        const { content, sculptures, ...rest } = categorie;
+        updatedCategories.push({
+          count: sculptures.length,
+          content: content ? content : getEmptyContent(),
+          ...rest,
+        });
+      }
+    });
+
+    if (!emptyCategories) {
+      const sculptureWithNoCategory = await prisma.sculpture.findMany({
+        where: {
+          category: null,
+        },
+        include: { images: true },
+      });
+
+      const sculptureWithNoCategory_count = sculptureWithNoCategory.length;
+      if (sculptureWithNoCategory_count > 0) {
+        updatedCategories.push({
+          count: sculptureWithNoCategory_count,
+          key: "no-category",
+          value: "Sans catégorie",
+          id: 0,
+          content: getEmptyContent(),
+          items: sculptureWithNoCategory,
+        });
+      }
+    }
+  }
+
+  return JSON.parse(JSON.stringify(updatedCategories));
+}
+
+export async function getAdminSculptureCategories(): Promise<CategoryFull[]> {
   const categories = await prisma.sculptureCategory.findMany({
     include: {
-      _count: {
-        select: {
-          sculptures: true,
-        },
-      },
       content: true,
-      sculptures: true,
+      sculptures: {
+        include: { images: true },
+      },
     },
   });
 
@@ -74,9 +132,9 @@ export async function getSculptureCategoriesFull(): Promise<CategoryFull[]> {
     updatedCategories = categories;
   } else {
     updatedCategories = categories.map((categorie) => {
-      const { _count, content, ...rest } = categorie;
+      const { content, sculptures, ...rest } = categorie;
       return {
-        count: _count.sculptures,
+        count: sculptures.length,
         content: content ? content : getEmptyContent(),
         ...rest,
       };

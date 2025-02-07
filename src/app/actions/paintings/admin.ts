@@ -138,6 +138,17 @@ export async function deletePainting(id: number) {
 
 export async function deleteCategoryPainting(id: number) {
   try {
+    const cat = await prisma.paintingCategory.findUnique({
+      where: { id },
+    });
+
+    const contentId = cat.categoryContentId;
+    if (contentId) {
+      await prisma.categoryContent.delete({
+        where: { id: contentId },
+      });
+    }
+
     await prisma.paintingCategory.delete({
       where: { id },
     });
@@ -153,9 +164,9 @@ export async function createCategoryPainting(
   formData: FormData,
 ) {
   const rawFormData = Object.fromEntries(formData);
-  try {
-    const value = rawFormData.value as string;
+  const value = rawFormData.value as string;
 
+  try {
     await prisma.paintingCategory.create({
       data: {
         key: transformValueToKey(value),
@@ -171,6 +182,7 @@ export async function createCategoryPainting(
         },
       },
     });
+
     revalidatePath("/admin/peintures");
     return { message: "Catégorie ajoutée", isError: false };
   } catch (e) {
@@ -194,27 +206,24 @@ export async function updateCategoryPainting(
 
     if (oldCat) {
       let content;
+      const data = {
+        title: rawFormData.title as string,
+        text: rawFormData.text as string,
+        imageFilename: rawFormData.filename as string,
+        imageWidth: Number(rawFormData.width),
+        imageHeight: Number(rawFormData.height),
+      };
+
       if (!oldCat.content) {
         content = {
-          create: {
-            title: rawFormData.title as string,
-            text: rawFormData.text as string,
-            imageFilename: rawFormData.filename as string,
-            imageWidth: Number(rawFormData.width),
-            imageHeight: Number(rawFormData.height),
-          },
+          create: data,
         };
       } else {
         content = {
-          update: {
-            title: rawFormData.title as string,
-            text: rawFormData.text as string,
-            imageFilename: rawFormData.filename as string,
-            imageWidth: Number(rawFormData.width),
-            imageHeight: Number(rawFormData.height),
-          },
+          update: data,
         };
       }
+
       await prisma.paintingCategory.update({
         where: { id },
         data: {

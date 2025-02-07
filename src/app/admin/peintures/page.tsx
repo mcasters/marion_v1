@@ -6,7 +6,7 @@ import { Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import ItemForm from "@/components/admin/form/ItemForm";
 import {
-  getPaintingCategoriesFull,
+  getAdminPaintingCategories,
   getPaintingsFull,
   getYearsForPainting,
 } from "@/app/actions/paintings";
@@ -14,7 +14,7 @@ import { createPainting } from "@/app/actions/paintings/admin";
 
 export default async function Peintures() {
   const paintings = await getPaintingsFull();
-  const categories = await getPaintingCategoriesFull();
+  const categories = await getAdminPaintingCategories();
   const years = await getYearsForPainting();
 
   return (

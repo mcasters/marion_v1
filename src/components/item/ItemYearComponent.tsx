@@ -25,7 +25,7 @@ export default function ItemYearComponent({ items, years }: Props) {
 
   return (
     <>
-      <div className={`${s.categoryTitle} ${s.paintingCategoryTitle}`}>
+      <div className={`${s.categoryValue} ${s.paintingCategoryTitle}`}>
         <h2>Par année</h2>
         <label className={s.yearSelect}>
           <select
