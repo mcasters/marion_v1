@@ -67,6 +67,7 @@ export async function getYearsForSculpture(): Promise<number[]> {
 }
 
 export async function getFilledSculptureCategories(): Promise<CategoryFull[]> {
+  let updatedCategories: CategoryFull[] = [];
   const categories: CategoryFull[] = await prisma.sculptureCategory.findMany({
     include: {
       content: true,
@@ -76,13 +77,11 @@ export async function getFilledSculptureCategories(): Promise<CategoryFull[]> {
     },
   });
 
-  let updatedCategories: CategoryFull[] = [];
-
-  if (categories.length === 0) {
-    updatedCategories = categories;
-  } else {
+  if (categories.length > 0) {
+    let emptyCategories = true;
     categories.forEach((categorie) => {
       if (categorie.items.length > 0) {
+        emptyCategories = false;
         const { content, sculptures, ...rest } = categorie;
         updatedCategories.push({
           count: sculptures.length,
@@ -92,22 +91,25 @@ export async function getFilledSculptureCategories(): Promise<CategoryFull[]> {
       }
     });
 
-    const sculptureWithNoCategory = await prisma.sculpture.findMany({
-      where: {
-        category: null,
-      },
-    });
-
-    const sculptureWithNoCategory_count = sculptureWithNoCategory.length;
-    if (sculptureWithNoCategory_count > 0) {
-      updatedCategories.push({
-        count: sculptureWithNoCategory_count,
-        key: "no-category",
-        value: "Sans catégorie",
-        id: 0,
-        content: getEmptyContent(),
-        items: sculptureWithNoCategory,
+    if (!emptyCategories) {
+      const sculptureWithNoCategory = await prisma.sculpture.findMany({
+        where: {
+          category: null,
+        },
+        include: { images: true },
       });
+
+      const sculptureWithNoCategory_count = sculptureWithNoCategory.length;
+      if (sculptureWithNoCategory_count > 0) {
+        updatedCategories.push({
+          count: sculptureWithNoCategory_count,
+          key: "no-category",
+          value: "Sans catégorie",
+          id: 0,
+          content: getEmptyContent(),
+          items: sculptureWithNoCategory,
+        });
+      }
     }
   }
 
