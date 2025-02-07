@@ -1,9 +1,14 @@
 /* category select part */
 
+.selectCategoryContainer {
+  display: block;
+  grid-column: 1 / 3;
+  text-align: left;
+}
+
 .ul {
   display: flex;
   list-style-type: none;
-  margin: 4rem 0 0;
 }
 
 .categoryButton {
@@ -53,14 +58,19 @@
   }
 }
 
-.categoryContent {
+.contentCategoryContainer {
   display: block;
   grid-column: 1 / 3;
   text-align: left;
-  padding: 0 2rem 4rem;
+  padding: 3rem 8rem 2rem;
+}
+
+.categoryValue {
+text-align: center;
 }
 
 .categoryTitle {
+  padding-top: 2rem;
   font-weight: bold;
 }
 

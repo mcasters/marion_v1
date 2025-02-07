@@ -1,5 +1,4 @@
 import { ItemFull, Type } from "@/lib/type";
-
 import {
   getDrawingsFull,
   getFilledDrawingCategories,
