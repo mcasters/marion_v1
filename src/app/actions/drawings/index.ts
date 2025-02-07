@@ -64,6 +64,7 @@ export async function getYearsForDrawing(): Promise<number[]> {
 }
 
 export async function getFilledDrawingCategories(): Promise<CategoryFull[]> {
+  let updatedCategories: CategoryFull[] = [];
   const categories: CategoryFull[] = await prisma.drawingCategory.findMany({
     include: {
       content: true,
@@ -71,13 +72,11 @@ export async function getFilledDrawingCategories(): Promise<CategoryFull[]> {
     },
   });
 
-  let updatedCategories: CategoryFull[] = [];
-
-  if (categories.length === 0) {
-    updatedCategories = categories;
-  } else {
+  if (categories.length > 0) {
+    let emptyCategories = true;
     categories.forEach((categorie) => {
       if (categorie.items.length > 0) {
+        emptyCategories = false;
         const { content, drawings, ...rest } = categorie;
         updatedCategories.push({
           count: drawings.length,
@@ -87,22 +86,24 @@ export async function getFilledDrawingCategories(): Promise<CategoryFull[]> {
       }
     });
 
-    const drawingWithNoCategory = await prisma.drawing.findMany({
-      where: {
-        category: null,
-      },
-    });
-
-    const drawingWithNoCategory_count = drawingWithNoCategory.length;
-    if (drawingWithNoCategory_count > 0)
-      updatedCategories.push({
-        count: drawingWithNoCategory_count,
-        key: "no-category",
-        value: "Sans catégorie",
-        id: 0,
-        content: getEmptyContent(),
-        items: drawingWithNoCategory,
+    if (!emptyCategories) {
+      const drawingWithNoCategory = await prisma.drawing.findMany({
+        where: {
+          category: null,
+        },
       });
+
+      const drawingWithNoCategory_count = drawingWithNoCategory.length;
+      if (drawingWithNoCategory_count > 0)
+        updatedCategories.push({
+          count: drawingWithNoCategory_count,
+          key: "no-category",
+          value: "Sans catégorie",
+          id: 0,
+          content: getEmptyContent(),
+          items: drawingWithNoCategory,
+        });
+    }
   }
 
   return JSON.parse(JSON.stringify(updatedCategories));

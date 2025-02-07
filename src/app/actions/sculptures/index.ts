@@ -22,6 +22,7 @@ export async function getFullCategoryWithFullSculptures(
         category: null,
       },
       orderBy: { date: "asc" },
+      include: { images: true },
     });
     res = {
       ...getEmptyCategory(),
