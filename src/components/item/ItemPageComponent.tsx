@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import CategorySelectComponent from "@/components/item/categorySelectComponent";
 import ItemComponent from "@/components/item/ItemComponent";
 import s from "@/components/item/ItemComponent.module.css";
+import { DEVICE } from "@/constants/image";
+import useWindowSize from "@/components/hooks/useWindowSize";
 
 interface Props {
   type: Type;
@@ -16,6 +18,8 @@ export default function ItemPageComponent({
   type,
   itemsWhenNoCategory,
 }: Props) {
+  const window = useWindowSize();
+  const isSmall = window.innerWidth < DEVICE.SMALL;
   const [selectedCategoryKey, setSelectedCategoryKey] = useState<string>();
   const [selectedCategory, setSelectedCategory] = useState<
     CategoryFull | undefined
@@ -44,12 +48,18 @@ export default function ItemPageComponent({
   }, [selectedCategoryKey]);
 
   if (itemsWhenNoCategory.length > 0)
-    return itemsWhenNoCategory.map((item) => (
-      <ItemComponent key={item.id} item={item} />
-    ));
+    return (
+      <div className={s.noAside}>
+        <div className={s.itemsContainer}>
+          {itemsWhenNoCategory.map((item) => (
+            <ItemComponent key={item.id} item={item} />
+          ))}
+        </div>
+      </div>
+    );
   else
     return (
-      <>
+      <div className={`${isSmall ? s.noAside : s.withAside}`}>
         {categories.length > 0 && (
           <>
             <div className={s.selectCategoryContainer}>
@@ -59,7 +69,7 @@ export default function ItemPageComponent({
                 onChange={setSelectedCategoryKey}
               />
             </div>
-            <div className={s.contentCategoryContainer}>
+            <div className={s.descriptionCategoryContainer}>
               {title && <h2 className={`${s.categoryValue}`}>{title}</h2>}
               {selectedCategory && (
                 <>
@@ -72,10 +82,15 @@ export default function ItemPageComponent({
             </div>
           </>
         )}
-        {selectedItems.length > 0 &&
-          selectedItems.map((item) => (
-            <ItemComponent key={item.id} item={item} />
-          ))}
-      </>
+        {selectedItems.length > 0 && (
+          <div
+            className={`${type === Type.SCULPTURE ? s.sculptItemsContainer : s.itemsContainer}`}
+          >
+            {selectedItems.map((item) => (
+              <ItemComponent key={item.id} item={item} />
+            ))}
+          </div>
+        )}
+      </div>
     );
 }

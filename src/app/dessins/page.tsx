@@ -4,7 +4,6 @@ import {
   getFilledDrawingCategories,
 } from "@/app/actions/drawings";
 import ItemPageComponent from "@/components/item/ItemPageComponent";
-import s from "@/styles/ItemPage.module.css";
 
 export default async function Page() {
   const categories = await getFilledDrawingCategories();
@@ -12,12 +11,10 @@ export default async function Page() {
   if (categories.length === 0) items = await getDrawingsFull();
 
   return (
-    <div className={s.paintingContent}>
-      <ItemPageComponent
-        categories={categories}
-        type={Type.DRAWING}
-        itemsWhenNoCategory={items}
-      />
-    </div>
+    <ItemPageComponent
+      categories={categories}
+      type={Type.DRAWING}
+      itemsWhenNoCategory={items}
+    />
   );
 }

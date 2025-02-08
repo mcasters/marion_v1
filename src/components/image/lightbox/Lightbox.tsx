@@ -30,16 +30,17 @@ export default function Lightbox({ photos, isCentered = false }: Props) {
         }
       >
         {photosForButton.map((p, index) => {
+          const ratio = p.width / p.height;
           return (
             <button
               key={p.src}
-              className={s.imageWrap}
+              className={`${ratio > 1 ? s.landscape : s.portrait}`}
               type="button"
               onClick={() => {
                 setIndex(index);
               }}
               style={{
-                aspectRatio: p.width / p.height,
+                aspectRatio: ratio,
               }}
             >
               <Image
