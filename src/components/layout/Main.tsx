@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import LAYOUT from "@/constants/layout";
+import s from "@/styles/Layout.module.css";
 
 export type Props = {
   isHome: boolean;
@@ -9,15 +9,5 @@ export type Props = {
 };
 
 export default function Main({ isHome, children }: Props) {
-  return (
-    <main
-      style={{
-        marginTop: !isHome
-          ? LAYOUT.LINE_HEIGHT + LAYOUT.NAV_1_HEIGHT + LAYOUT.NAV_2_HEIGHT
-          : "",
-      }}
-    >
-      {children}
-    </main>
-  );
+  return <main className={`${isHome ? s.mainHome : ""}`}>{children}</main>;
 }

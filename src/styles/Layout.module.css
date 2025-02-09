@@ -21,3 +21,7 @@
     height: 60vh;
     z-index: 2;
 }
+
+.mainHome {
+  height: var(--line-height) + var(--nav-1-height) + var(--nav-2-height);
+}

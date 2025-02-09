@@ -30,9 +30,8 @@ export default function Lightbox({ photos, isCentered = false }: Props) {
         const onLeft = isMultiple && index % 2 === 0;
         if (isMultiple)
           return (
-            <div className={`${onLeft ? s.left : s.right}`}>
+            <div key={p.src} className={`${onLeft ? s.left : s.right}`}>
               <Image
-                key={p.src}
                 src={p.src}
                 width={p.width}
                 height={p.height}
