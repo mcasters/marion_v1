@@ -42,17 +42,18 @@ export default function SelectComponent({
         <li>
           <button
             onClick={() => changeCategory("")}
-            className={`${s.categoryButton} ${selectedCategoryKey === "" ? s.isSelected : ""}`}
+            className={`${s.categoryButton} ${s.noImage} ${selectedCategoryKey === "" ? s.isSelected : ""}`}
           >
             Toutes catégories
           </button>
         </li>
         {categories.map((category) => {
+          const noCategory = category.key === "no-category";
           return (
             <li key={category.key}>
               <button
                 onClick={() => changeCategory(category.key)}
-                className={`${s.categoryButton} ${selectedCategoryKey === category.key ? s.isSelected : ""}`}
+                className={`${s.categoryButton} ${noCategory ? s.noImage : ""} ${selectedCategoryKey === category.key ? s.isSelected : ""}`}
               >
                 {!isSmall && category.content.image.filename !== "" && (
                   <Image
@@ -67,7 +68,7 @@ export default function SelectComponent({
                     className={s.image}
                   />
                 )}
-                {isSmall || category.key === "no-category" ? (
+                {isSmall || noCategory ? (
                   category.value
                 ) : (
                   <p>{category.value}</p>
