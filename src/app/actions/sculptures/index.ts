@@ -1,48 +1,13 @@
 "use server";
 import prisma from "@/lib/prisma";
 import { CategoryFull, ItemFull } from "@/lib/type";
-import { getEmptyCategory, getEmptyContent } from "@/utils/commonUtils";
+import { getEmptyContent } from "@/utils/commonUtils";
 
 export async function getSculpturesFull(): Promise<ItemFull[]> {
   const res = await prisma.sculpture.findMany({
     orderBy: { date: "asc" },
     include: { images: true, category: true },
   });
-  return JSON.parse(JSON.stringify(res));
-}
-
-export async function getFullCategoryWithFullSculptures(
-  categoryKey: string,
-): Promise<CategoryFull> {
-  let res;
-
-  if (categoryKey === "no-category") {
-    const items = await prisma.sculpture.findMany({
-      where: {
-        category: null,
-      },
-      orderBy: { date: "asc" },
-      include: { images: true },
-    });
-    res = {
-      ...getEmptyCategory(),
-      key: categoryKey,
-      value: "Sans catégorie",
-      items,
-    };
-  } else {
-    res = await prisma.sculptureCategory.findUnique({
-      where: {
-        key: categoryKey,
-      },
-      include: {
-        content: true,
-        sculptures: {
-          include: { images: true },
-        },
-      },
-    });
-  }
   return JSON.parse(JSON.stringify(res));
 }
 
