@@ -1,39 +1,51 @@
-/* Button image */
+/* Image to click */
 
-.landscape, .portrait {
-  position: relative;
-  background-color: unset;
-  border: none;
-  max-height: 40vh;
-  width: 100%;
-  margin: 0 auto 0.5rem;
+.landscape,
+.portrait {
+  margin-bottom: 0.5em;
+}
+
+.landscape {
+  width: 80vw;
+  height: auto;
+}
+
+.portrait {
+  height: 45vh;
+  width: auto;
 }
 
 /* desktop */
 @media (min-width: 769px) {
   .imageGridContainer {
-    width: 50vw;
     display: grid;
     grid-template-columns: auto auto;
-    gap: 0.8rem;
-    margin: 0 auto;
+    gap: 5px;
   }
 
-  .imageContainer,
-  .imageGridContainer {
-    margin-bottom: 0.5rem;
+  .left {
+    text-align: right;
   }
 
-  .landscape, .portrait {
-    margin-bottom: 0;
+  .right {
+    text-align: left;
   }
 
   .landscape {
-    width: 25vw;
+    width: 30vw;
+    height: auto;
   }
 
   .portrait {
-    max-height: 40vh;
+    height: 50vh;
+    width: auto;
+  }
+
+  .right .landscape,
+  .right .portrait,
+  .left .landscape,
+  .left .portrait {
+    margin-bottom: 0;
   }
 }
 
@@ -47,7 +59,7 @@
   bottom: 0;
   background-color: rgba(1, 1, 1, 0.95);
   z-index: 9999;
-  padding: 1rem;
+  padding: 1em;
 }
 
 .canvasContainer {
@@ -101,7 +113,7 @@
     top: 65%;
     font-size: 2.5em;
     font-weight: bold;
-    padding: 3rem;
+    padding: 3em;
     transform: translateY(-100%);
   }
 

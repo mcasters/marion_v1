@@ -1,11 +1,11 @@
 .container {
-    padding: 2.5rem 1.5rem;
+    padding: 2.5em 0.6em;
 }
 
 /* desktop */
 @media (min-width: 769px) {
     .container {
-        padding: 1rem 3rem;
+        padding: 1em 2.5em;
     }
 }
 

@@ -79,6 +79,7 @@ export default function ItemPageComponent({
               onCategoryChange={onCategoryKeyChange}
               years={years}
               onYearChange={onYearChange}
+              isSmall={isSmall}
             />
           </div>
           <div className={s.descriptionCategoryContainer}>

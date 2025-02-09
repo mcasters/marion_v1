@@ -17,55 +17,65 @@ type Props = {
 export default function Lightbox({ photos, isCentered = false }: Props) {
   const window = useWindowSize();
   const isSmall = window.innerWidth < DEVICE.SMALL;
+  const isMultiple = photos.sm.length > 1;
   const [index, setIndex] = useState(-1);
 
   const photosForButton = isSmall ? photos.sm : photos.md;
   const photosForLightbox = isSmall ? photos.md : photos.lg;
 
   return (
-    <>
-      <div
-        className={
-          photos.sm.length > 1 ? s.imageGridContainer : s.imageContainer
-        }
-      >
-        {photosForButton.map((p, index) => {
-          const ratio = p.width / p.height;
+    <div className={isMultiple ? s.imageGridContainer : ""}>
+      {photosForButton.map((p, index) => {
+        const ratio = p.width / p.height;
+        const onLeft = isMultiple && index % 2 === 0;
+        if (isMultiple)
           return (
-            <button
-              key={p.src}
-              className={`${ratio > 1 ? s.landscape : s.portrait}`}
-              type="button"
-              onClick={() => {
-                setIndex(index);
-              }}
-              style={{
-                aspectRatio: ratio,
-              }}
-            >
+            <div className={`${onLeft ? s.left : s.right}`}>
               <Image
+                key={p.src}
                 src={p.src}
-                fill
+                width={p.width}
+                height={p.height}
                 priority={isCentered}
                 style={{ objectFit: "contain" }}
                 alt={p.alt}
                 unoptimized
+                className={`${ratio >= 1 ? s.landscape : s.portrait}`}
+                onClick={() => {
+                  setIndex(index);
+                }}
               />
-            </button>
+            </div>
           );
-        })}
+        else
+          return (
+            <Image
+              key={p.src}
+              src={p.src}
+              width={p.width}
+              height={p.height}
+              priority={isCentered}
+              style={{ objectFit: "contain" }}
+              alt={p.alt}
+              unoptimized
+              className={`${ratio >= 1 ? s.landscape : s.portrait}`}
+              onClick={() => {
+                setIndex(index);
+              }}
+            />
+          );
+      })}
 
-        {index >= 0 &&
-          createPortal(
-            <LightboxContent
-              photos={photosForLightbox}
-              index={index}
-              onClose={() => setIndex(-1)}
-              isSmall={isSmall}
-            />,
-            document.body,
-          )}
-      </div>
-    </>
+      {index >= 0 &&
+        createPortal(
+          <LightboxContent
+            photos={photosForLightbox}
+            index={index}
+            onClose={() => setIndex(-1)}
+            isSmall={isSmall}
+          />,
+          document.body,
+        )}
+    </div>
   );
 }

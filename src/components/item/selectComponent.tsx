@@ -4,7 +4,6 @@ import { CategoryFull, Type } from "@/lib/type";
 import React, { useState } from "react";
 import s from "./ItemComponent.module.css";
 import Image from "next/image";
-import { GENERAL } from "@/constants/specific/metaHtml";
 
 interface Props {
   type: Type;
@@ -12,6 +11,7 @@ interface Props {
   onCategoryChange: (categoryKey: string) => void;
   years: number[];
   onYearChange: (year: number) => void;
+  isSmall: boolean;
 }
 export default function SelectComponent({
   type,
@@ -19,6 +19,7 @@ export default function SelectComponent({
   onCategoryChange,
   years,
   onYearChange,
+  isSmall,
 }: Props) {
   const [selectedCategoryKey, setSelectedCategoryKey] = useState<string>("");
   const [selectedYear, setSelectedYear] = useState<number>(0);
@@ -53,50 +54,43 @@ export default function SelectComponent({
                 onClick={() => changeCategory(category.key)}
                 className={`${s.categoryButton} ${selectedCategoryKey === category.key ? s.isSelected : ""}`}
               >
-                {category.content.image.filename !== "" && (
-                  <div
-                    className={s.imageWrap}
+                {!isSmall && category.content.image.filename !== "" && (
+                  <Image
+                    src={`/images/${type}/sm/${category.content.image.filename}`}
+                    fill
+                    alt=""
                     style={{
-                      aspectRatio:
-                        category.content.image.width /
-                        category.content.image.height,
+                      objectFit: "cover",
                     }}
-                  >
-                    <Image
-                      src={`/images/${type}/sm/${category.content.image.filename}`}
-                      fill
-                      alt={GENERAL.ALT_PHOTO_PRESENTATION}
-                      style={{
-                        objectFit: "cover",
-                      }}
-                      priority
-                      unoptimized
-                      className={s.image}
-                    />
-                  </div>
+                    priority
+                    unoptimized
+                    className={s.image}
+                  />
                 )}
-                {category.value}
+                {isSmall || category.key === "no-category" ? (
+                  category.value
+                ) : (
+                  <p>{category.value}</p>
+                )}
               </button>
             </li>
           );
         })}
       </ul>
-      <label>
-        <select
-          className={s.yearSelect}
-          name="year"
-          value={selectedYear.toString()}
-          onChange={(e) => changeYear(Number(e.target.value))}
-        >
-          <option value="">-- Année --</option>
-          {years &&
-            years.map((year) => (
-              <option key={year} value={year.toString()}>
-                {year.toString()}
-              </option>
-            ))}
-        </select>
-      </label>
+      <select
+        className={s.yearSelect}
+        name="year"
+        value={selectedYear.toString()}
+        onChange={(e) => changeYear(Number(e.target.value))}
+      >
+        <option value="">-- Année --</option>
+        {years &&
+          years.map((year) => (
+            <option key={year} value={year.toString()}>
+              {year.toString()}
+            </option>
+          ))}
+      </select>
     </>
   );
 }
