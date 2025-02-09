@@ -1,5 +1,3 @@
-import { Type } from "@/lib/type";
-
 export const ROUTES = {
   PRESENTATION: "/presentation",
   PAINTING: "/peintures",
@@ -70,12 +68,6 @@ export const MENU_1_ITEMS = {
     TAG: TAGS.DRAWING,
     BASE_PATH: BASE_PATH.DRAWING,
   },
-};
-
-export const PATH = {
-  [Type.PAINTING]: BASE_PATH.PAINTING,
-  [Type.SCULPTURE]: BASE_PATH.SCULPTURE,
-  [Type.DRAWING]: BASE_PATH.DRAWING,
 };
 
 export const MENU_2 = [

@@ -7,24 +7,14 @@ import s from "../../../styles/Header.module.css";
 import { BASE_PATH } from "@/constants/specific/routes";
 import { useTheme } from "@/app/context/themeProvider";
 import React, { useState } from "react";
-import { CategoryFull } from "@/lib/type";
 import HomeSection from "@/components/layout/header/HomeSection";
 
 interface Props {
   basePath: string | null;
   introduction?: string;
-  paintingCategories: CategoryFull[];
-  sculptureCategories: CategoryFull[];
-  drawingCategories?: CategoryFull[];
 }
 
-export default function Header({
-  basePath,
-  introduction,
-  paintingCategories,
-  sculptureCategories,
-  drawingCategories,
-}: Props) {
+export default function Header({ basePath, introduction }: Props) {
   const theme = useTheme();
   const isHome = basePath == BASE_PATH.HOME;
   const isPainting = basePath === BASE_PATH.PAINTING;
@@ -51,9 +41,6 @@ export default function Header({
                 ? LAYOUT.HOME_NAV_FIX
                 : LAYOUT.NAV
         }
-        paintingCategories={paintingCategories}
-        sculptureCategories={sculptureCategories}
-        drawingCategories={drawingCategories}
       />
       <div
         style={{

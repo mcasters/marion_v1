@@ -10,25 +10,15 @@ import Footer from "./Footer";
 import s from "@/styles/Layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { hexToRgb } from "@/utils/commonUtils";
-import { CategoryFull } from "@/lib/type";
 import AuthStatus from "@/components/auth/AuthStatus";
 import { useSession } from "@/app/context/sessionProvider";
 
 interface Props {
   introduction: string;
-  paintingCategories: CategoryFull[];
-  sculptureCategories: CategoryFull[];
-  drawingCategories?: CategoryFull[];
   children: ReactNode;
 }
 
-export default function Layout({
-  introduction,
-  paintingCategories,
-  sculptureCategories,
-  drawingCategories,
-  children,
-}: Props) {
+export default function Layout({ introduction, children }: Props) {
   const theme = useTheme();
   const basePath = usePathname().split("/")[1];
   const session = useSession();
@@ -61,13 +51,7 @@ export default function Layout({
       )}
       {!isAdmin && (
         <>
-          <Header
-            basePath={basePath}
-            introduction={introduction}
-            paintingCategories={paintingCategories}
-            sculptureCategories={sculptureCategories}
-            drawingCategories={drawingCategories}
-          />
+          <Header basePath={basePath} introduction={introduction} />
           <Main isHome={isHome}>{children}</Main>
           <Footer />
         </>
