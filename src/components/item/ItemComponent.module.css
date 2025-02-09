@@ -24,7 +24,7 @@
 
   .withAside .descriptionCategoryContainer,
   .withAside .itemsContainer,
-  .withAside .sculptItemsContainer {
+  .withAside .sculptureContainer {
     margin-left: 180px;
   }
 
@@ -49,7 +49,17 @@
   padding: 1px;
   font-size: var(--font-size-nav-minus);
   width: 120px;
-  height: 100px;
+  height: 60px;
+}
+
+.yearSelect {
+  box-sizing: content-box;
+  border: var(--link-color-dark) solid 1px;
+  background: none;
+  font-size: var(--font-size-nav-minus);
+  width: 120px;
+  height: 50px;
+  margin: 0.2em 2em;
 }
 
 .isSelected {
@@ -59,11 +69,6 @@
 
 .imageWrap {
   position: relative;
-}
-
-.categoryButton {
-  width: 120px;
-  height: 60px;
 }
 
 .imageWrap {
@@ -92,6 +97,11 @@
   .image:hover {
     transform: scale(1.1);
     transform-origin: center;
+  }
+
+  .yearSelect {
+    width: 143px;
+    margin: 2em 0.2em;
   }
 }
 

@@ -201,3 +201,13 @@ export const getEmptyCategory = (): CategoryFull => {
     items: [],
   };
 };
+
+export const getItemsFromCategories = (
+  categories: CategoryFull[],
+): ItemFull[] => {
+  let items: ItemFull[] = [];
+  categories.forEach((category) => {
+    items = items.concat(category.items);
+  });
+  return items;
+};
