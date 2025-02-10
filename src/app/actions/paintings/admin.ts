@@ -71,7 +71,7 @@ export async function updatePainting(
       const newFile = rawFormData.file as File;
       const title = rawFormData.title as string;
       if (newFile.size > 0) {
-        deleteFile(dir, oldPaint.images[0].filename);
+        deleteFile(dir, oldPaint.imageFilename);
         fileInfo = await resizeAndSaveImage(newFile, title, dir);
       }
 
@@ -82,7 +82,7 @@ export async function updatePainting(
                 id: Number(rawFormData.categoryId),
               },
             }
-          : oldPaint.categoryId !== null
+          : oldPaint.categoryId
             ? {
                 disconnect: {
                   id: oldPaint.categoryId,
@@ -122,7 +122,7 @@ export async function deletePainting(id: number) {
       where: { id },
     });
     if (painting) {
-      deleteFile(dir, painting.images[0].filename);
+      deleteFile(dir, painting.imageFilename);
       await prisma.painting.delete({
         where: {
           id,
@@ -142,16 +142,18 @@ export async function deleteCategoryPainting(id: number) {
       where: { id },
     });
 
-    const contentId = cat.categoryContentId;
-    if (contentId) {
-      await prisma.categoryContent.delete({
-        where: { id: contentId },
+    if (cat) {
+      const contentId = cat.categoryContentId;
+      if (contentId) {
+        await prisma.categoryContent.delete({
+          where: { id: contentId },
+        });
+      }
+
+      await prisma.paintingCategory.delete({
+        where: { id },
       });
     }
-
-    await prisma.paintingCategory.delete({
-      where: { id },
-    });
     revalidatePath("/admin/peintures");
     return { message: "Catégorie supprimée", isError: false };
   } catch (e) {

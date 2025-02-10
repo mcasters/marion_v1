@@ -6,7 +6,6 @@ import { getEmptyContent } from "@/utils/commonUtils";
 export async function getPaintingsFull(): Promise<ItemFull[]> {
   const res = await prisma.painting.findMany({
     orderBy: { date: "asc" },
-    include: { category: true },
   });
   return JSON.parse(JSON.stringify(res));
 }
@@ -33,51 +32,7 @@ export async function getYearsForPainting(): Promise<number[]> {
 
 export async function getFilledPaintingCategories(): Promise<CategoryFull[]> {
   let updatedCategories: CategoryFull[] = [];
-  const categories: CategoryFull[] = await prisma.PaintingCategory.findMany({
-    include: {
-      content: true,
-      paintings: true,
-    },
-  });
 
-  if (categories.length > 0) {
-    let emptyCategories = true;
-    categories.forEach((categorie) => {
-      if (categorie.items.length > 0) {
-        emptyCategories = false;
-        const { content, paintings, ...rest } = categorie;
-        updatedCategories.push({
-          count: paintings.length,
-          content: content ? content : getEmptyContent(),
-          ...rest,
-        });
-      }
-    });
-
-    if (!emptyCategories) {
-      const paintingWithNoCategory = await prisma.painting.findMany({
-        where: {
-          category: null,
-        },
-      });
-
-      const paintingWithNoCategory_count = paintingWithNoCategory.length;
-      if (paintingWithNoCategory_count > 0)
-        updatedCategories.push({
-          count: paintingWithNoCategory_count,
-          key: "no-category",
-          value: "Sans catégorie",
-          id: 0,
-          content: getEmptyContent(),
-          items: paintingWithNoCategory,
-        });
-    }
-  }
-
-  return JSON.parse(JSON.stringify(updatedCategories));
-}
-
-export async function getAdminPaintingCategories(): Promise<CategoryFull[]> {
   const categories = await prisma.paintingCategory.findMany({
     include: {
       content: true,
@@ -85,34 +40,78 @@ export async function getAdminPaintingCategories(): Promise<CategoryFull[]> {
     },
   });
 
-  let updatedCategories;
-
-  if (categories.length === 0) {
-    updatedCategories = categories;
-  } else {
-    updatedCategories = categories.map((categorie) => {
-      const { content, paintings, ...rest } = categorie;
-      return {
-        count: paintings.length,
-        content: content ? content : getEmptyContent(),
-        ...rest,
-      };
+  if (categories.length > 0) {
+    let itemsInCategory = false;
+    categories.forEach((categorie) => {
+      if (categorie.paintings.length > 0) {
+        itemsInCategory = true;
+        const { paintings, ...rest } = categorie;
+        updatedCategories.push({
+          items: paintings,
+          count: undefined,
+          ...rest,
+        } as CategoryFull);
+      }
     });
 
-    const paintingWithoutCategory = await prisma.painting.findMany({
+    if (itemsInCategory) {
+      const paintingWithNoCategory = await prisma.painting.findMany({
+        where: {
+          category: null,
+        },
+      });
+
+      if (paintingWithNoCategory.length > 0)
+        updatedCategories.push({
+          id: 0,
+          key: "no-category",
+          value: "Sans catégorie",
+          count: undefined,
+          content: getEmptyContent(),
+          items: paintingWithNoCategory as ItemFull[],
+        });
+    }
+  }
+
+  return JSON.parse(JSON.stringify(updatedCategories));
+}
+
+// Categories with also no Items inside
+export async function getAdminPaintingCategories(): Promise<CategoryFull[]> {
+  let updatedCategories: CategoryFull[] = [];
+
+  const categories = await prisma.paintingCategory.findMany({
+    include: {
+      content: true,
+      paintings: true,
+    },
+  });
+
+  if (categories.length > 0) {
+    updatedCategories = categories.map((categorie) => {
+      const { paintings, ...rest } = categorie;
+      return {
+        count: paintings.length,
+        items: paintings,
+        ...rest,
+      } as CategoryFull;
+    });
+
+    const paintingWithNoCategory = await prisma.painting.findMany({
       where: {
         category: null,
       },
     });
 
-    const paintingWithoutCategory_count = paintingWithoutCategory.length;
-    if (paintingWithoutCategory_count > 0) {
+    const count = paintingWithNoCategory.length;
+    if (count > 0) {
       updatedCategories.push({
-        count: paintingWithoutCategory_count,
+        id: 0,
         key: "no-category",
         value: "Sans catégorie",
-        id: 0,
+        count,
         content: getEmptyContent(),
+        items: paintingWithNoCategory as ItemFull[],
       });
     }
   }

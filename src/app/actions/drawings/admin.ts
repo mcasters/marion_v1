@@ -71,7 +71,7 @@ export async function updateDrawing(
       const newFile = rawFormData.file as File;
       const title = rawFormData.title as string;
       if (newFile.size !== 0) {
-        deleteFile(dir, oldDraw.images[0].filename);
+        deleteFile(dir, oldDraw.imageFilename);
         fileInfo = await resizeAndSaveImage(newFile, title, dir);
       }
 
@@ -82,7 +82,7 @@ export async function updateDrawing(
                 id: Number(rawFormData.categoryId),
               },
             }
-          : oldDraw.categoryId !== null
+          : oldDraw.categoryId
             ? {
                 disconnect: {
                   id: oldDraw.categoryId,
@@ -122,7 +122,7 @@ export async function deleteDrawing(id: number) {
       where: { id },
     });
     if (drawing) {
-      deleteFile(dir, drawing.images[0].filename);
+      deleteFile(dir, drawing.imageFilename);
       await prisma.drawing.delete({
         where: {
           id,
@@ -142,16 +142,18 @@ export async function deleteCategoryDrawing(id: number) {
       where: { id },
     });
 
-    const contentId = cat.categoryContentId;
-    if (contentId) {
-      await prisma.categoryContent.delete({
-        where: { id: contentId },
+    if (cat) {
+      const contentId = cat.categoryContentId;
+      if (contentId) {
+        await prisma.categoryContent.delete({
+          where: { id: contentId },
+        });
+      }
+
+      await prisma.drawingCategory.delete({
+        where: { id },
       });
     }
-
-    await prisma.drawingCategory.delete({
-      where: { id },
-    });
     revalidatePath("/admin/dessins");
     return { message: "Catégorie supprimée", isError: false };
   } catch (e) {

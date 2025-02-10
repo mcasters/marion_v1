@@ -79,6 +79,7 @@ export async function updateSculpture(
   try {
     const oldSculpt = await prisma.sculpture.findUnique({
       where: { id },
+      include: { category: true },
     });
 
     if (oldSculpt) {
@@ -115,7 +116,7 @@ export async function updateSculpture(
                 id: Number(rawFormData.categoryId),
               },
             }
-          : oldSculpt.categoryId !== null
+          : oldSculpt.categoryId
             ? {
                 disconnect: {
                   id: oldSculpt.categoryId,
@@ -191,16 +192,18 @@ export async function deleteCategorySculpture(id: number) {
       where: { id },
     });
 
-    const contentId = cat.categoryContentId;
-    if (contentId) {
-      await prisma.categoryContent.delete({
-        where: { id: contentId },
+    if (cat) {
+      const contentId = cat.categoryContentId;
+      if (contentId) {
+        await prisma.categoryContent.delete({
+          where: { id: contentId },
+        });
+      }
+
+      await prisma.sculptureCategory.delete({
+        where: { id },
       });
     }
-
-    await prisma.sculptureCategory.delete({
-      where: { id },
-    });
     revalidatePath("/admin/sculptures");
     return { message: "Catégorie supprimée", isError: false };
   } catch (e) {

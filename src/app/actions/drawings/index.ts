@@ -31,52 +31,8 @@ export async function getYearsForDrawing(): Promise<number[]> {
 }
 
 export async function getFilledDrawingCategories(): Promise<CategoryFull[]> {
-  let updatedCategories: CategoryFull[] = [];
-  const categories: CategoryFull[] = await prisma.drawingCategory.findMany({
-    include: {
-      content: true,
-      drawings: true,
-    },
-  });
+  let categoryWithItems: CategoryFull[] = [];
 
-  if (categories.length > 0) {
-    let emptyCategories = true;
-    categories.forEach((categorie) => {
-      if (categorie.items.length > 0) {
-        emptyCategories = false;
-        const { content, drawings, ...rest } = categorie;
-        updatedCategories.push({
-          count: drawings.length,
-          content: content ? content : getEmptyContent(),
-          ...rest,
-        });
-      }
-    });
-
-    if (!emptyCategories) {
-      const drawingWithNoCategory = await prisma.drawing.findMany({
-        where: {
-          category: null,
-        },
-      });
-
-      const drawingWithNoCategory_count = drawingWithNoCategory.length;
-      if (drawingWithNoCategory_count > 0)
-        updatedCategories.push({
-          count: drawingWithNoCategory_count,
-          key: "no-category",
-          value: "Sans catégorie",
-          id: 0,
-          content: getEmptyContent(),
-          items: drawingWithNoCategory,
-        });
-    }
-  }
-
-  return JSON.parse(JSON.stringify(updatedCategories));
-}
-
-export async function getAdminDrawingCategories(): Promise<CategoryFull[]> {
   const categories = await prisma.drawingCategory.findMany({
     include: {
       content: true,
@@ -84,36 +40,81 @@ export async function getAdminDrawingCategories(): Promise<CategoryFull[]> {
     },
   });
 
-  let updatedCategories;
-
-  if (categories.length === 0) {
-    updatedCategories = categories;
-  } else {
-    updatedCategories = categories.map((categorie) => {
-      const { content, drawings, ...rest } = categorie;
-      return {
-        count: drawings.length,
-        content: content ? content : getEmptyContent(),
-        ...rest,
-      };
+  if (categories.length > 0) {
+    let itemsInCategory = false;
+    categories.forEach((categorie) => {
+      if (categorie.drawings.length > 0) {
+        itemsInCategory = true;
+        const { drawings, ...rest } = categorie;
+        categoryWithItems.push({
+          items: drawings,
+          count: undefined,
+          ...rest,
+        } as CategoryFull);
+      }
     });
 
-    const drawingWithoutCategory = await prisma.drawing.findMany({
+    if (itemsInCategory) {
+      const drawingWithNoCategory = await prisma.drawing.findMany({
+        where: {
+          category: null,
+        },
+      });
+
+      if (drawingWithNoCategory.length > 0)
+        categoryWithItems.push({
+          id: 0,
+          key: "no-category",
+          value: "Sans catégorie",
+          count: undefined,
+          content: getEmptyContent(),
+          items: drawingWithNoCategory as ItemFull[],
+        });
+    }
+  }
+
+  return JSON.parse(JSON.stringify(categoryWithItems));
+}
+
+// Categories with also no Items inside
+export async function getAdminDrawingCategories(): Promise<CategoryFull[]> {
+  let updatedCategories: CategoryFull[] = [];
+
+  const categories = await prisma.drawingCategory.findMany({
+    include: {
+      content: true,
+      drawings: true,
+    },
+  });
+
+  if (categories.length > 0) {
+    updatedCategories = categories.map((categorie) => {
+      const { drawings, ...rest } = categorie;
+      return {
+        count: drawings.length,
+        items: drawings,
+        ...rest,
+      } as CategoryFull;
+    });
+
+    const drawingWithNoCategory = await prisma.drawing.findMany({
       where: {
         category: null,
       },
     });
 
-    const drawingWithoutCategory_count = drawingWithoutCategory.length;
-    if (drawingWithoutCategory_count > 0) {
+    const count = drawingWithNoCategory.length;
+    if (count > 0) {
       updatedCategories.push({
-        count: drawingWithoutCategory_count,
+        id: 0,
         key: "no-category",
         value: "Sans catégorie",
-        id: 0,
+        count,
         content: getEmptyContent(),
+        items: drawingWithNoCategory as ItemFull[],
       });
     }
   }
+
   return JSON.parse(JSON.stringify(updatedCategories));
 }

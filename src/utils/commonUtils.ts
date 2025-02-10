@@ -175,7 +175,6 @@ export const getEmptyPost = (): PostFull => {
 
 export const getEmptyImage = (): Image => {
   return {
-    id: 0,
     filename: "",
     width: 0,
     height: 0,
