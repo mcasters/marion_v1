@@ -48,7 +48,7 @@ export async function getFilledDrawingCategories(): Promise<CategoryFull[]> {
         const { drawings, ...rest } = categorie;
         categoryWithItems.push({
           items: drawings,
-          count: undefined,
+          count: 0,
           ...rest,
         } as CategoryFull);
       }
@@ -66,7 +66,7 @@ export async function getFilledDrawingCategories(): Promise<CategoryFull[]> {
           id: 0,
           key: "no-category",
           value: "Sans catégorie",
-          count: undefined,
+          count: 0,
           content: getEmptyContent(),
           items: drawingWithNoCategory as ItemFull[],
         });

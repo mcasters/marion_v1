@@ -51,7 +51,7 @@ export async function getFilledSculptureCategories(): Promise<CategoryFull[]> {
         const { sculptures, ...rest } = categorie;
         updatedCategories.push({
           items: sculptures,
-          count: undefined,
+          count: 0,
           ...rest,
         } as CategoryFull);
       }
@@ -70,7 +70,7 @@ export async function getFilledSculptureCategories(): Promise<CategoryFull[]> {
           id: 0,
           key: "no-category",
           value: "Sans catégorie",
-          count: undefined,
+          count: 0,
           content: getEmptyContent(),
           items: sculptureWithNoCategory as ItemFull[],
         });
