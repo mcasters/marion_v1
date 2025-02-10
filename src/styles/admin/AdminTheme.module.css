@@ -1,5 +1,5 @@
 .themeContainer {
-  padding: 4rem 0 2rem;
+  padding: 4em 2em 2em;
 }
 
 .noteContainer {
@@ -32,16 +32,16 @@
 .flex {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
-  padding: 2rem;
+  gap: 2em;
+  padding: 2em;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   flex-wrap: wrap;
-  gap: 3rem;
-  padding: 2rem 2rem;
+  gap: 3em;
+  padding: 2em 2em;
 }
 
 .themeContainer section {

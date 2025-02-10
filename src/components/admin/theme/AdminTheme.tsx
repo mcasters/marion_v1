@@ -51,7 +51,7 @@ export default function AdminTheme({ themes, presetColors }: Props) {
 
   return (
     <>
-      <h1>Gestion du thème</h1>
+      <h1 className={s.pageTitle}>Gestion du thème</h1>
       <div className={themeStyle.themeContainer}>
         <h2>Thèmes :</h2>
         <select

@@ -70,12 +70,6 @@ export enum Type {
   DRAWING = "dessin",
 }
 
-export type Category = {
-  id: number;
-  key: string;
-  value: string;
-};
-
 export type CategoryFull = {
   id: number;
   key: string;

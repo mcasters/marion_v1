@@ -21,7 +21,7 @@
    * Layout
    * ======================================================================== */
 
-  --admin-nav-height: 120px;
+  --admin-nav-height: 90px;
   /*
   WARNING before to change : These are also in constants JS (Layout)
    */
