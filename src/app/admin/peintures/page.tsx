@@ -7,24 +7,18 @@ import { getEmptyItem } from "@/utils/commonUtils";
 import ItemForm from "@/components/admin/form/ItemForm";
 import {
   getAdminPaintingCategories,
-  getPaintingsFull,
   getYearsForPainting,
 } from "@/app/actions/paintings";
 import { createPainting } from "@/app/actions/paintings/admin";
 
 export default async function Peintures() {
-  const paintings = await getPaintingsFull();
   const categories = await getAdminPaintingCategories();
   const years = await getYearsForPainting();
 
   return (
     <>
       <h1 className={s.pageTitle}>Contenus des pages Peintures</h1>
-      <ItemListComponent
-        items={paintings}
-        categories={categories}
-        years={years}
-      />
+      <ItemListComponent categories={categories} years={years} />
       <ItemForm
         categories={categories}
         item={getEmptyItem(Type.PAINTING)}

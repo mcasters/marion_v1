@@ -7,24 +7,18 @@ import ItemForm from "@/components/admin/form/ItemForm";
 import { getEmptyItem } from "@/utils/commonUtils";
 import {
   getAdminDrawingCategories,
-  getDrawingsFull,
   getYearsForDrawing,
 } from "@/app/actions/drawings";
 import { createDrawing } from "@/app/actions/drawings/admin";
 
 export default async function Dessins() {
-  const drawings = await getDrawingsFull();
   const categories = await getAdminDrawingCategories();
   const years = await getYearsForDrawing();
 
   return (
     <>
       <h1 className={s.pageTitle}>Contenus des pages Dessins</h1>
-      <ItemListComponent
-        items={drawings}
-        categories={categories}
-        years={years}
-      />
+      <ItemListComponent categories={categories} years={years} />
       <ItemForm
         categories={categories}
         item={getEmptyItem(Type.DRAWING)}

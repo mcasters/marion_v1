@@ -5,37 +5,34 @@ import React, { useEffect, useMemo, useState } from "react";
 import s from "@/styles/admin/AdminList.module.css";
 import style from "@/styles/admin/Admin.module.css";
 import { CategoryFull, ItemFull } from "@/lib/type";
+import { getItemsFromCategories } from "@/utils/commonUtils";
 
 interface Props {
-  items: ItemFull[];
   categories: CategoryFull[];
   years: number[];
 }
-export default function ItemListComponent({ items, categories, years }: Props) {
+export default function ItemListComponent({ categories, years }: Props) {
+  const items = useMemo(() => {
+    return getItemsFromCategories(categories);
+  }, [categories]);
   const itemName = items[0]?.type ? items[0].type : "item";
   const title = `Liste des ${itemName}s`;
+
   const [categoryFilter, setCategoryFilter] = useState<number>(-1);
   const [yearFilter, setYearFilter] = useState<number>(-1);
   const [filteredItems, setFilteredItems] = useState<ItemFull[]>(items);
-  const categoryFilterMemo = useMemo(() => {
-    return categoryFilter;
-  }, [categoryFilter]);
-  const yearFilterMemo = useMemo(() => {
-    return yearFilter;
-  }, [yearFilter]);
 
   const filterByCategory = (_items: ItemFull[]): ItemFull[] => {
-    if (categoryFilterMemo === -1) return _items;
-    else if (categoryFilterMemo === 0)
-      return _items.filter((i) => !i.categoryId);
-    else return _items.filter((i) => i.categoryId === categoryFilterMemo);
+    if (categoryFilter === -1) return _items;
+    else if (categoryFilter === 0) return _items.filter((i) => !i.categoryId);
+    else return _items.filter((i) => i.categoryId === categoryFilter);
   };
 
   const filterByYear = (_items: ItemFull[]): ItemFull[] => {
-    if (yearFilterMemo === -1) return _items;
+    if (yearFilter === -1) return _items;
     else
       return _items.filter(
-        (i) => new Date(i.date).getFullYear() === yearFilterMemo,
+        (i) => new Date(i.date).getFullYear() === yearFilter,
       );
   };
 
