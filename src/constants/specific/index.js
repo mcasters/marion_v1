@@ -4,6 +4,7 @@ export const TEXTS = {
   TITLE: "Marion Casters",
   FOOTER:
     "Images and site content copyright © 2025 Marion Casters. All rights reserved",
+  NOTES: { Date: "" },
 };
 export const BASE_THEME = {
   name: THEME.BASE_THEME,
@@ -45,5 +46,3 @@ export const BASE_PRESET_COLOR = {
   name: "Red",
   color: "#be2d01",
 };
-
-export const NOTES = {};

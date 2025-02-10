@@ -13,7 +13,7 @@ import s from "@/styles/admin/Admin.module.css";
 import { activateTheme, deleteTheme } from "@/app/actions/theme/admin";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import PresetColorDashboard from "@/components/admin/theme/presetColor/PresetColorDashboard";
-import { NOTES, TEXTS } from "@/constants/specific";
+import { TEXTS } from "@/constants/specific";
 
 type Props = {
   themes: Theme[];
@@ -119,9 +119,9 @@ export default function AdminTheme({ themes, presetColors }: Props) {
       {TEXTS.TITLE === "Thierry Casters" && (
         <section className={themeStyle.noteContainer}>
           <h2>Notes</h2>
-          <p>Mise à jour : {NOTES.Date}</p>
+          <p>Mise à jour : {TEXTS.NOTES.Date}</p>
           <div className={themeStyle.grid}>
-            {Object.entries(NOTES).map(([key, value]) => {
+            {Object.entries(TEXTS.NOTES).map(([key, value]) => {
               if (key !== "Date")
                 return (
                   <div key={key}>

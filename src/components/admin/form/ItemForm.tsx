@@ -89,7 +89,7 @@ export default function ItemForm({
           Catégorie (facultatif)
           <select
             name="categoryId"
-            value={workItem.categoryId}
+            value={workItem.categoryId?.toString()}
             onChange={(e) => {
               setWorkItem(
                 Object.assign({}, workItem, {
