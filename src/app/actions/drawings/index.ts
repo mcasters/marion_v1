@@ -6,7 +6,6 @@ import { getEmptyContent } from "@/utils/commonUtils";
 export async function getDrawingsFull(): Promise<ItemFull[]> {
   const res = await prisma.drawing.findMany({
     orderBy: { date: "asc" },
-    include: { category: true },
   });
   return JSON.parse(JSON.stringify(res));
 }

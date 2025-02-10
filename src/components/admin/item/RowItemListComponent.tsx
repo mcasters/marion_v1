@@ -9,6 +9,7 @@ import { CategoryFull, ItemFull, Type } from "@/lib/type";
 import { deletePainting } from "@/app/actions/paintings/admin";
 import { deleteSculpture } from "@/app/actions/sculptures/admin";
 import { deleteDrawing } from "@/app/actions/drawings/admin";
+import { useMemo } from "react";
 
 interface Props {
   item: ItemFull;
@@ -17,13 +18,17 @@ interface Props {
 
 export default function RowItemListComponent({ item, categories }: Props) {
   const filename = item.images[0]?.filename;
+  const itemCategory = useMemo(() => {
+    return categories.find((category) => category.id === item.categoryId);
+  }, [categories, item]);
+
   return (
     <ul className={s.item}>
       <li className={s.itemTitle}>
         <span className={s.name}>{item.title}</span>
       </li>
       <li className={s.itemCategory}>
-        <span className={s.name}>{item.category?.value}</span>
+        <span className={s.name}>{itemCategory?.value}</span>
       </li>
       <li className={s.itemYear}>
         <span className={s.name}>{new Date(item.date).getFullYear()}</span>

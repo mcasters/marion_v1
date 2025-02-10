@@ -26,8 +26,9 @@ export default function ItemListComponent({ items, categories, years }: Props) {
 
   const filterByCategory = (_items: ItemFull[]): ItemFull[] => {
     if (categoryFilterMemo === -1) return _items;
-    else if (categoryFilterMemo === 0) return _items.filter((i) => !i.category);
-    else return _items.filter((i) => i.category?.id === categoryFilterMemo);
+    else if (categoryFilterMemo === 0)
+      return _items.filter((i) => !i.categoryId);
+    else return _items.filter((i) => i.categoryId === categoryFilterMemo);
   };
 
   const filterByYear = (_items: ItemFull[]): ItemFull[] => {
