@@ -17,8 +17,8 @@ interface Props {
 export default function NavItem({ itemTag, navLayout }: Props) {
   const theme = useTheme();
   const item = MENU_1_ITEMS[itemTag];
-  const basePath = usePathname().split("/")[1];
-  const isActive = basePath === item.BASE_PATH;
+  const path = usePathname();
+  const isActive = path === item.ROUTE;
 
   const themeLink = useMemo(() => {
     return navLayout === LAYOUT.ITEM_NAV
@@ -44,7 +44,7 @@ export default function NavItem({ itemTag, navLayout }: Props) {
 
   return (
     <>
-      <Link href={`/${item.BASE_PATH}`} legacyBehavior>
+      <Link href={item.ROUTE} legacyBehavior>
         <a
           className={
             isActive ? `${s.link} ${s.active} link active` : `${s.link} link`

@@ -4,22 +4,22 @@ import LAYOUT from "@/constants/layout";
 import Nav_1 from "@/components/layout/header/menu1/Nav_1";
 import Nav_2 from "@/components/layout/header/Nav_2";
 import s from "../../../styles/Header.module.css";
-import { BASE_PATH } from "@/constants/specific/routes";
+import { ROUTES } from "@/constants/specific/routes";
 import { useTheme } from "@/app/context/themeProvider";
 import React, { useState } from "react";
 import HomeSection from "@/components/layout/header/HomeSection";
 
 interface Props {
-  basePath: string | null;
+  path: string | null;
   introduction?: string;
 }
 
-export default function Header({ basePath, introduction }: Props) {
+export default function Header({ path, introduction }: Props) {
   const theme = useTheme();
-  const isHome = basePath == BASE_PATH.HOME;
-  const isPainting = basePath === BASE_PATH.PAINTING;
-  const isSculpture = basePath === BASE_PATH.SCULPTURE;
-  const isDrawing = basePath === BASE_PATH.DRAWING;
+  const isHome = path == ROUTES.HOME;
+  const isPainting = path === ROUTES.PAINTING;
+  const isSculpture = path === ROUTES.SCULPTURE;
+  const isDrawing = path === ROUTES.DRAWING;
   const [titleIsGone, setTitleIsGone] = useState<boolean>(false);
   const [introIsGone, setIntroIsGone] = useState<boolean>(false);
 

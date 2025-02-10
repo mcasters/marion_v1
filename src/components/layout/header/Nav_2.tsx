@@ -23,7 +23,7 @@ export default function Nav_2({ navLayout }: Props) {
             if (menuItem.TAG === "Home")
               return (
                 <li key={menuItem.TAG} className={s.liHome}>
-                  <Link href={menuItem.PATH} key={menuItem.TAG}>
+                  <Link href={menuItem.ROUTE} key={menuItem.TAG}>
                     <Image
                       loader={({ src }) => {
                         return `/${src}`;
@@ -43,7 +43,7 @@ export default function Nav_2({ navLayout }: Props) {
               );
             return (
               <li key={menuItem.TAG}>
-                <Link href={menuItem.PATH} key={menuItem.TAG} legacyBehavior>
+                <Link href={menuItem.ROUTE} key={menuItem.TAG} legacyBehavior>
                   <a className={`${s.link} link`}>{menuItem.TAG}</a>
                 </Link>
               </li>

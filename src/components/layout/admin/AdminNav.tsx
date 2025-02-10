@@ -13,12 +13,12 @@ export default function AdminNav() {
       <span>Administration</span>
       <ul className={s.navItems}>
         {ADMIN_MENU.map((item) => {
-          const isActive = pathname === item.PATH;
+          const isActive = pathname === item.ROUTE;
 
           return (
             <li key={item.TAG}>
               <Link
-                href={item.PATH}
+                href={item.ROUTE}
                 key={item.TAG}
                 className={isActive ? `${s.link} ${s.active}` : `${s.link}`}
                 legacyBehavior={false}

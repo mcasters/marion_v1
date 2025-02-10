@@ -11,7 +11,7 @@
 }
 
 .dark {
-    background-color: var(--color-blue-xdark);
+    background-color: var(--link-color-xdark);
 }
 
 .center {
@@ -35,22 +35,6 @@
 .footer a {
   display: inline-block;
 }
-
-
-/*
-.center::before {
-  background: radial-gradient(
-          rgba(var(--color-brown-rgb), 0.2),
-          rgba(var(--color-brown2-rgb), 0.5)
-  );
-  border-radius: 50%;
-  width: 300px;
-  height: 100px;
-  margin-left: -60vw;
-    margin-top: 180px;
-    z-index: -1;
-}
- */
 
 .center::before,
 .center::after {

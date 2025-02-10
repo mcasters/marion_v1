@@ -3,7 +3,7 @@
 import React, { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
-import { BASE_PATH } from "@/constants/specific/routes";
+import { ROUTES } from "@/constants/specific/routes";
 import Header from "./header/Header";
 import Main from "./Main";
 import Footer from "./Footer";
@@ -20,14 +20,14 @@ interface Props {
 
 export default function Layout({ introduction, children }: Props) {
   const theme = useTheme();
-  const basePath = usePathname().split("/")[1];
+  const path = usePathname();
   const session = useSession();
 
-  const isHome = basePath === BASE_PATH.HOME;
-  const isPainting = basePath === BASE_PATH.PAINTING;
-  const isSculpture = basePath === BASE_PATH.SCULPTURE;
-  const isDrawing = basePath === BASE_PATH.DRAWING;
-  const isAdmin = basePath === BASE_PATH.ADMIN;
+  const isHome = path === ROUTES.HOME;
+  const isPainting = path === ROUTES.PAINTING;
+  const isSculpture = path === ROUTES.SCULPTURE;
+  const isDrawing = path === ROUTES.DRAWING;
+  const isAdmin = path === ROUTES.ADMIN;
 
   const gradientRgbObject = hexToRgb(theme.menu1HomeColor);
   const gradientRgb = `${gradientRgbObject?.r},${gradientRgbObject?.g},${gradientRgbObject?.b}`;
@@ -51,7 +51,7 @@ export default function Layout({ introduction, children }: Props) {
       )}
       {!isAdmin && (
         <>
-          <Header basePath={basePath} introduction={introduction} />
+          <Header path={path} introduction={introduction} />
           <Main isHome={isHome}>{children}</Main>
           <Footer />
         </>
