@@ -9,14 +9,15 @@ import {
 import { TEXTS } from "@/constants/specific";
 import { IMAGE } from "@/constants/image";
 import { getSliders } from "@/utils/commonUtils";
+import { Label } from "@prisma/client";
 
-const getPhotosFromImages = (
+export const getPhotosFromImages = (
   images: Image[],
   folder: string,
   splitMain: boolean,
-  title: string,
-  date: Date = new Date(),
   alt: string = `Œuvre de ${TEXTS.TITLE}`,
+  title: string = "",
+  date: Date = new Date(),
 ): {
   mainPhotos: PhotoTab;
   photos: PhotoTab;
@@ -71,15 +72,29 @@ const getPhotosFromImages = (
   }
   return { mainPhotos, photos };
 };
-export const getSliderPhotoTab = (
-  contents: ContentFull[],
+
+export const getContentPhotoTab = (
+  content: ContentFull | null,
 ): {
   mainPhotos: PhotoTab;
   photos: PhotoTab;
 } => {
-  const images: Image[] = getSliders(contents);
-  return getPhotosFromImages(images, "miscellaneous", true, "");
+  if (content) {
+    return getPhotosFromImages(
+      content.images,
+      "miscellaneous",
+      content.label === Label.SLIDER,
+      content.label === Label.PRESENTATION
+        ? "Photo de Thierry Casters"
+        : undefined,
+    );
+  }
+  return {
+    mainPhotos: [] as PhotoTab,
+    photos: [] as PhotoTab,
+  };
 };
+
 export const getPhotoTab = (
   item: PostFull | ItemFull,
 ): {
@@ -102,11 +117,12 @@ export const getPhotoTab = (
     item.images,
     folder,
     isPost,
+    alt,
     item.title,
     item.date,
-    alt,
   );
 };
+
 export const getSliderLandscapeImages = (contents: ContentFull[]): Image[] => {
   const images: Image[] = getSliders(contents);
   const tab: Image[] = [];
@@ -115,6 +131,7 @@ export const getSliderLandscapeImages = (contents: ContentFull[]): Image[] => {
   });
   return tab;
 };
+
 export const getSliderPortraitImages = (contents: ContentFull[]): Image[] => {
   const images: Image[] = getSliders(contents);
   const tab: Image[] = [];

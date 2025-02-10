@@ -1,11 +1,12 @@
 "use client";
 
 import s from "./PresentationComponent.module.css";
-import React from "react";
+import React, { useMemo } from "react";
 import Image from "next/image";
 import { DEVICE } from "@/constants/image";
 import { ContentFull } from "@/lib/type";
-import { GENERAL } from "@/constants/specific/metaHtml";
+import useWindowSize from "@/components/hooks/useWindowSize";
+import { getContentPhotoTab } from "@/utils/imageUtils";
 
 interface Props {
   presentationContent: ContentFull | null;
@@ -17,30 +18,30 @@ export default function PresentationComponent({
   demarcheText,
   inspirationText,
 }: Props) {
+  const window = useWindowSize();
   const isSmall = window.innerWidth < DEVICE.SMALL;
-  const image = presentationContent?.images[0];
+  const photo = useMemo(() => {
+    return isSmall
+      ? getContentPhotoTab(presentationContent).photos.sm[0]
+      : getContentPhotoTab(presentationContent).photos.md[0];
+  }, [presentationContent, isSmall]);
 
   return (
     <>
       <section className={s.contentWrapper}>
-        {image && (
-          <div
-            className={s.imageWrap}
+        {photo && (
+          <Image
+            src={photo.src}
+            width={photo.width}
+            height={photo.height}
+            alt={photo.alt}
+            className={s.photo}
             style={{
-              aspectRatio: image.width / image.height,
+              objectFit: "contain",
             }}
-          >
-            <Image
-              src={`/images/miscellaneous/${isSmall ? "sm" : "md"}/${image.filename}`}
-              fill
-              alt={GENERAL.ALT_PHOTO_PRESENTATION}
-              style={{
-                objectFit: "contain",
-              }}
-              priority
-              unoptimized
-            />
-          </div>
+            priority
+            unoptimized
+          />
         )}
 
         <p className={s.presentationText}>{presentationContent?.text}</p>

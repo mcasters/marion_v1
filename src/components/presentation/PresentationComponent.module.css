@@ -1,6 +1,16 @@
 .contentWrapper {
     padding: 2rem 1rem;
-    text-align: left;
+    text-align: center;
+}
+
+.photo {
+  padding: 2rem;
+  height: 35vh;
+  width: auto;
+}
+
+.presentationText {
+  padding-top: 3rem;
 }
 
 /* desktop */
@@ -9,23 +19,8 @@
         max-width: 42vw;
         margin: auto;
     }
-}
 
-.imageWrap {
-    position: relative;
-    display: inline-block;
-    padding: 2rem;
-    height: 30vh;
-    width: 100%;
-}
-
-.presentationText {
-    padding-top: 3rem;
-}
-
-/* desktop */
-@media (min-width: 769px) {
-    .imageWrap {
-        height: 40vh;
-    }
+  .photo {
+    height: 40vh;
+  }
 }
