@@ -25,9 +25,9 @@ export default function ItemPageComponent({
   const isSmall = window.innerWidth < DEVICE.SMALL;
   const noCategory = categories.length === 0;
   const [title, setTitle] = useState<string>("");
-  const [selectedCategory, setSelectedCategory] = useState<
-    CategoryFull | undefined
-  >(undefined);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryFull | null>(
+    null,
+  );
   const allItems = useMemo(() => {
     return categories.length > 0
       ? getItemsFromCategories(categories)

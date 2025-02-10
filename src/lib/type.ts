@@ -74,7 +74,7 @@ export type CategoryFull = {
   id: number;
   key: string;
   value: string;
-  count: number | undefined;
+  count: number;
   content: {
     title: string;
     text: string;

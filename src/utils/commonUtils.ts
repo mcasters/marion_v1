@@ -158,7 +158,7 @@ export const getEmptyItem = (
     price: undefined,
     sold: false,
     images: [],
-    category: undefined,
+    categoryId: null,
   };
 };
 
