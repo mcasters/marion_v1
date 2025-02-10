@@ -33,6 +33,12 @@ export const getPresentationContent = (
   return contents?.filter((c) => c.label === Label.PRESENTATION)[0] || null;
 };
 
+export const getSliderContent = (
+  contents: ContentFull[],
+): ContentFull | null => {
+  return contents?.filter((c) => c.label === Label.SLIDER)[0] || null;
+};
+
 export const getPresentationText = (contents: ContentFull[]): string => {
   return contents?.filter((c) => c.label === Label.PRESENTATION)[0]?.text || "";
 };

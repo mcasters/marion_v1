@@ -8,10 +8,14 @@ import {
 } from "@/lib/type";
 import { TEXTS } from "@/constants/specific";
 import { IMAGE } from "@/constants/image";
-import { getSliders } from "@/utils/commonUtils";
 import { Label } from "@prisma/client";
+import { getSliders } from "@/utils/commonUtils";
 
-export const getPhotosFromImages = (
+const getEmptyPhotoTab = (): PhotoTab => {
+  return { sm: [], md: [], lg: [] };
+};
+
+const getPhotosFromImages = (
   images: Image[],
   folder: string,
   splitMain: boolean,
@@ -22,8 +26,8 @@ export const getPhotosFromImages = (
   mainPhotos: PhotoTab;
   photos: PhotoTab;
 } => {
-  const mainPhotos: PhotoTab = { sm: [], md: [], lg: [] };
-  const photos: PhotoTab = { sm: [], md: [], lg: [] };
+  const mainPhotos = getEmptyPhotoTab();
+  const photos = getEmptyPhotoTab();
 
   for (const image of images) {
     const isUnderSM = image.width < IMAGE.SM_PX;
@@ -89,10 +93,7 @@ export const getContentPhotoTab = (
         : undefined,
     );
   }
-  return {
-    mainPhotos: [] as PhotoTab,
-    photos: [] as PhotoTab,
-  };
+  return { mainPhotos: getEmptyPhotoTab(), photos: getEmptyPhotoTab() };
 };
 
 export const getPhotoTab = (

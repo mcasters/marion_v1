@@ -18,6 +18,10 @@ export default function HomePage({ portraitPhotos, landscapePhotos }: Props) {
   const photos = needPortrait ? portraitPhotos : landscapePhotos;
 
   return (
-    <Slideshow photos={isSmall ? photos.md : photos.lg} autoPlay isSmall />
+    <Slideshow
+      photos={isSmall ? photos.md : photos.lg}
+      autoPlay={true}
+      isSmall={isSmall}
+    />
   );
 }
