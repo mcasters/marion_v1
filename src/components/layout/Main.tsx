@@ -9,5 +9,5 @@ export type Props = {
 };
 
 export default function Main({ isHome, children }: Props) {
-  return <main className={`${isHome ? s.mainHome : ""}`}>{children}</main>;
+  return <main className={`${isHome ? "" : s.main}`}>{children}</main>;
 }
