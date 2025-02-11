@@ -48,7 +48,9 @@ export default function SelectComponent({
           </button>
         </li>
         {categories.map((category) => {
-          const noCategory = category.key === "no-category";
+          const noCategory =
+            category.key === "no-category" ||
+            category.content.image.filename === "";
           return (
             <li key={category.key}>
               <button

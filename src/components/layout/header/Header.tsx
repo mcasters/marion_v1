@@ -23,60 +23,60 @@ export default function Header({ path, introduction }: Props) {
   const [titleIsGone, setTitleIsGone] = useState<boolean>(false);
   const [introIsGone, setIntroIsGone] = useState<boolean>(false);
 
-  return (
-    <header className={s.header}>
-      {isHome && (
+  if (isHome)
+    return (
+      <header className={s.header}>
         <HomeSection
           handleDisappear={setTitleIsGone}
           yLimit={LAYOUT.LINE_HEIGHT}
         />
-      )}
-      <Nav_1
-        navLayout={
-          isSculpture || isPainting || isDrawing
-            ? LAYOUT.ITEM_NAV
-            : isHome && !titleIsGone
-              ? LAYOUT.HOME_NAV
-              : isHome && titleIsGone
-                ? LAYOUT.HOME_NAV_FIX
-                : LAYOUT.NAV
-        }
-      />
-      <div
-        style={{
-          display: titleIsGone ? "block" : "none",
-          height: LAYOUT.NAV_1_HEIGHT,
-        }}
-      />
-      {isHome && (
+        <Nav_1
+          navLayout={titleIsGone ? LAYOUT.HOME_NAV_FIX : LAYOUT.HOME_NAV}
+        />
+        <div
+          style={{
+            display: titleIsGone ? "block" : "none",
+            height: LAYOUT.NAV_1_HEIGHT,
+          }}
+        />
         <HomeSection
           handleDisappear={setIntroIsGone}
           yLimit={LAYOUT.NAV_1_HEIGHT + LAYOUT.LINE_HEIGHT}
           text={introduction}
         />
-      )}
-      <Nav_2
-        navLayout={
-          isSculpture || isPainting || isDrawing
-            ? LAYOUT.ITEM_NAV
-            : isHome && !introIsGone
-              ? LAYOUT.HOME_NAV
-              : isHome && introIsGone
-                ? LAYOUT.HOME_NAV_FIX
-                : LAYOUT.NAV
-        }
-      />
-      <div
-        style={{
-          display: introIsGone ? "block" : "none",
-          height: LAYOUT.NAV_2_HEIGHT,
-        }}
-      />
-      <style jsx>{`
-        .title {
-          color: ${theme.titleColor};
-        }
-      `}</style>
-    </header>
-  );
+        <Nav_2
+          navLayout={introIsGone ? LAYOUT.HOME_NAV_FIX : LAYOUT.HOME_NAV}
+        />
+        <div
+          style={{
+            display: introIsGone ? "block" : "none",
+            height: LAYOUT.NAV_2_HEIGHT,
+          }}
+        />
+        <style jsx>{`
+          .title {
+            color: ${theme.titleColor};
+          }
+        `}</style>
+      </header>
+    );
+  else
+    return (
+      <header className={s.header}>
+        <Nav_1
+          navLayout={
+            isSculpture || isPainting || isDrawing
+              ? LAYOUT.ITEM_NAV
+              : LAYOUT.NAV
+          }
+        />
+        <Nav_2
+          navLayout={
+            isSculpture || isPainting || isDrawing
+              ? LAYOUT.ITEM_NAV
+              : LAYOUT.NAV
+          }
+        />
+      </header>
+    );
 }

@@ -24,7 +24,7 @@ export default function ItemPageComponent({
   const window = useWindowSize();
   const isSmall = window.innerWidth < DEVICE.SMALL;
   const noCategory = categories.length === 0;
-  const [title, setTitle] = useState<string>("");
+  const [title, setTitle] = useState<string>("Toutes les catégories");
   const [selectedCategory, setSelectedCategory] = useState<CategoryFull | null>(
     null,
   );

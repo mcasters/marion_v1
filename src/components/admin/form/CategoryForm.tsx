@@ -52,9 +52,9 @@ export default function CategoryForm({
 
   return (
     <div className={isUpdate ? s.wrapperModal : s.formContainer}>
-      <h2>
+      <h3>
         {isUpdate ? "Modification d'une catégorie" : "Ajout d'une catégorie"}
-      </h2>
+      </h3>
       <form action={action}>
         {isUpdate && <input type="hidden" name="id" value={category.id} />}
         <input type="hidden" name="filename" value={image.filename} />
@@ -74,21 +74,15 @@ export default function CategoryForm({
         </label>
         {!isUpdate && (
           <p className={s.catInfo}>
-            La partie descriptive d'une catégorie est facultative. Lorsqu'une
-            peinture, par exemple, comporte des catégories, mais qu'au lieu de
-            cliquer sur l'une des catégories dans le sous-menu de 'peinture", on
-            clique plutôt sur le menu 'peinture', alors on arrive sur une page
-            où figurent toutes les catégories, avec la photo représentative de
-            la catégorie. Cela permet de voir un peu à quel genre s'attendre
-            dans les diverses catégories.
-            <br />
-            Le titre et le texte, eux aussi facultatifs, seront affichés en
-            introduction en haut de la page des œuvres de la catégorie.
-            <br />À noter que l'image de la catégorie ne peut être ajoutée
-            qu'une fois que la catégorie a été créée et que des items sont
-            classés dedans. Il faudra alors aller sur la modification de la
-            catégorie, où tu pourras choisir parmi les photos des items qui y
-            sont classés.
+            Parmi les renseignements facultatif d'une catégorie, la photo d'une
+            œuvre peut être assignée à cette catégorie, afin que l'utilisateur
+            ait une idée du genre d'œuvre qui s'y trouve (cette photo s'affiche
+            sur le bouton sur lequel on clique pour sélectionner la catégorie).
+            Mais ce n'est pas ici dans l'ajout de la catégorie qu'on peut le
+            faire. En effet, cette photo ne peut être ajoutée qu'une fois que
+            des œuvres y seront classées, puisque le choix de la photo
+            s'effectue parmi ces œuvres. C'est donc ensuite, en mettant à jour
+            cette catégorie que tu pourras le faire.
           </p>
         )}
         <label className={s.formLabel}>

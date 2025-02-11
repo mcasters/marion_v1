@@ -15,7 +15,7 @@ export default function CategoryListComponent({ itemType, categories }: Props) {
 
   return (
     <div className={s.listContainer}>
-      <h4>{title}</h4>
+      <h3>{title}</h3>
       <div className={`${s.list} ${s.categoryList}`}>
         {categories.map((category) => {
           return (
