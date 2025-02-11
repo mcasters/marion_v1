@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.image{
+  width: auto;
+  height: 30vh;
+}
+
+.image:hover {
+  cursor: pointer;
+}

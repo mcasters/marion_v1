@@ -2,7 +2,7 @@
 
 import Lightbox from "@/components/image/lightbox/Lightbox";
 import s from "./PostComponent.module.css";
-import Gallery from "@/components/image/Gallery";
+import Gallery from "@/components/image/gallery/Gallery";
 import { useMemo } from "react";
 import { PostFull } from "@/lib/type";
 import { getPhotoTab } from "@/utils/imageUtils";
