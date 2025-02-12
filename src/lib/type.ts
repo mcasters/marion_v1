@@ -1,10 +1,34 @@
 import { User } from ".prisma/client";
+import { Prisma } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 type StringKeys<T> = {
   [k in keyof T]: T[k] extends string ? k : never;
 }[keyof T];
 
 export type OnlyString<T> = { [k in StringKeys<T>]: boolean };
+
+export type PaintingsFull = Prisma.Result<
+  (typeof prisma.painting)[],
+  "findMany"
+>;
+export type DrawingsFull = Prisma.Result<(typeof prisma.drawing)[], "findMany">;
+export type SculpturesFull = Prisma.Result<
+  (typeof prisma.sculpture)[],
+  "findMany"
+>;
+export type PaintingCategoriesFull = Prisma.Result<
+  (typeof prisma.paintingCategory)[],
+  "findMany"
+>;
+export type DrawingCategoriesFull = Prisma.Result<
+  (typeof prisma.drawingCategory)[],
+  "findMany"
+>;
+export type SculptureCategoriesFull = Prisma.Result<
+  (typeof prisma.sculptureCategory)[],
+  "findMany"
+>;
 
 export type ItemFull = {
   id: number;
