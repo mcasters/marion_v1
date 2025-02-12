@@ -45,17 +45,35 @@ export async function getFilledSculptureCategories(): Promise<CategoryFull[]> {
 
   if (categories.length > 0) {
     let itemsInCategory = false;
-    categories.forEach((categorie) => {
-      if (categorie.sculptures.length > 0) {
+    for await (const category of categories) {
+      if (!category.content) {
+        const id = category.id;
+        await prisma.sculptureCategory.update({
+          where: { id },
+          data: {
+            content: {
+              create: {
+                title: "",
+                text: "",
+                imageFilename: "",
+                imageWidth: 0,
+                imageHeight: 0,
+              },
+            },
+          },
+        });
+      }
+
+      if (category.sculptures.length > 0) {
         itemsInCategory = true;
-        const { sculptures, ...rest } = categorie;
+        const { sculptures, ...rest } = category;
         updatedCategories.push({
           items: sculptures,
           count: 0,
           ...rest,
         } as CategoryFull);
       }
-    });
+    }
 
     if (itemsInCategory) {
       const sculptureWithNoCategory = await prisma.sculpture.findMany({

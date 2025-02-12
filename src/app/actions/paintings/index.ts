@@ -42,17 +42,35 @@ export async function getFilledPaintingCategories(): Promise<CategoryFull[]> {
 
   if (categories.length > 0) {
     let itemsInCategory = false;
-    categories.forEach((categorie) => {
-      if (categorie.paintings.length > 0) {
+    for await (const category of categories) {
+      if (!category.content) {
+        const id = category.id;
+        await prisma.paintingCategory.update({
+          where: { id },
+          data: {
+            content: {
+              create: {
+                title: "",
+                text: "",
+                imageFilename: "",
+                imageWidth: 0,
+                imageHeight: 0,
+              },
+            },
+          },
+        });
+      }
+
+      if (category.paintings.length > 0) {
         itemsInCategory = true;
-        const { paintings, ...rest } = categorie;
+        const { paintings, ...rest } = category;
         updatedCategories.push({
           items: paintings,
           count: 0,
           ...rest,
         } as CategoryFull);
       }
-    });
+    }
 
     if (itemsInCategory) {
       const paintingWithNoCategory = await prisma.painting.findMany({

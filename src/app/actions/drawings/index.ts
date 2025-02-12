@@ -42,17 +42,35 @@ export async function getFilledDrawingCategories(): Promise<CategoryFull[]> {
 
   if (categories.length > 0) {
     let itemsInCategory = false;
-    categories.forEach((categorie) => {
-      if (categorie.drawings.length > 0) {
+    for await (const category of categories) {
+      if (!category.content) {
+        const id = category.id;
+        await prisma.drawingCategory.update({
+          where: { id },
+          data: {
+            content: {
+              create: {
+                title: "",
+                text: "",
+                imageFilename: "",
+                imageWidth: 0,
+                imageHeight: 0,
+              },
+            },
+          },
+        });
+      }
+
+      if (category.drawings.length > 0) {
         itemsInCategory = true;
-        const { drawings, ...rest } = categorie;
+        const { drawings, ...rest } = category;
         categoryWithItems.push({
           items: drawings,
           count: 0,
           ...rest,
         } as CategoryFull);
       }
-    });
+    }
 
     if (itemsInCategory) {
       const drawingWithNoCategory = await prisma.drawing.findMany({
