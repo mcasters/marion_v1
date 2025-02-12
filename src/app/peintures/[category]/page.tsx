@@ -1,6 +1,6 @@
 import ItemComponent from "@/components/item/ItemComponent";
 import s from "@/styles/ItemPage.module.css";
-import { getCategoryWithItemsByKey } from "@/app/actions/drawings";
+import { getPaintingCategoryByKey } from "@/app/actions/paintings";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -8,7 +8,7 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const categoryKey = (await params).category;
-  const category = await getCategoryWithItemsByKey(categoryKey);
+  const category = await getPaintingCategoryByKey(categoryKey);
 
   return (
     <div className={s.paintingContent}>
@@ -19,8 +19,8 @@ export default async function Page({ params }: Props) {
           <p>{category.content.text}</p>
         </div>
       </div>
-      {category.items.map((drawing) => (
-        <ItemComponent key={drawing.id} item={drawing} />
+      {category.items.map((item) => (
+        <ItemComponent key={item.id} item={item} />
       ))}
     </div>
   );

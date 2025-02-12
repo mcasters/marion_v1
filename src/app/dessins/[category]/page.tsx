@@ -1,23 +1,27 @@
-import { ItemFull, Type } from "@/lib/type";
-import {
-  getDrawingsFull,
-  getFilledDrawingCategories,
-  getYearsForDrawing,
-} from "@/app/actions/drawings";
-import ItemPageComponent from "@/components/item/ItemPageComponent";
+import ItemComponent from "@/components/item/ItemComponent";
+import s from "@/styles/ItemPage.module.css";
+import { getDrawingCategoryByKey } from "@/app/actions/drawings";
 
-export default async function Page() {
-  const categories = await getFilledDrawingCategories();
-  let items: ItemFull[] = [];
-  if (categories.length === 0) items = await getDrawingsFull();
-  const years = await getYearsForDrawing();
+type Props = {
+  params: Promise<{ category: string }>;
+};
+
+export default async function Page({ params }: Props) {
+  const categoryKey = (await params).category;
+  const category = await getDrawingCategoryByKey(categoryKey);
 
   return (
-    <ItemPageComponent
-      type={Type.DRAWING}
-      categories={categories}
-      itemsWhenNoCategory={items}
-      years={years}
-    />
+    <div className={s.paintingContent}>
+      <div className={s.infoCategory}>
+        <h2 className={`${s.categoryValue}`}>{category.value}</h2>
+        <div className={s.categoryContent}>
+          <h4>{category.content.title}</h4>
+          <p>{category.content.text}</p>
+        </div>
+      </div>
+      {category.items.map((item) => (
+        <ItemComponent key={item.id} item={item} />
+      ))}
+    </div>
   );
 }
