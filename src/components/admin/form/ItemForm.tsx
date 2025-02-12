@@ -93,7 +93,7 @@ export default function ItemForm({
             onChange={(e) => {
               setWorkItem(
                 Object.assign({}, workItem, {
-                  category: { id: e.target.value },
+                  categoryId: e.target.value,
                 }),
               );
             }}

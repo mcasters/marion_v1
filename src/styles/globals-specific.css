@@ -13,7 +13,6 @@
   --font-size-title: 1.3rem;
   --font-size-nav: 1.2rem;
   --font-size-nav-minus: 1.1rem;
-  --font-size-plus: 1rem;
   --font-size: 1rem;
   --font-size-min: 0.8rem;
 
@@ -38,12 +37,12 @@
   --color-dark: #818181;
   --color-xdark: #333;
 
-
   --link-color-xdark: #8a2101;
   --link-color-dark: #be2d01;
   --link-color-light: #e57c52;
   --link-color-xlight: #e0bb89;
 
+  --overlayer: hsla(5, 15%, 5%, 0.3);
   /*
   common home and other pages
    */
@@ -53,7 +52,7 @@
   --color-border-menu1: var(--color-medium);
   --color-border-menu2: var(--color-medium);
   --color-border-menu1-dark: var(--color-medium);
-
+  --color-background-item: none;
 }
 
 * {
@@ -112,7 +111,8 @@ button {
   cursor: pointer;
 }
 
-a, .buttonLink {
+a,
+.buttonLink {
   text-decoration: none;
   transition: color 0.4s ease;
 }
@@ -121,16 +121,20 @@ a, .buttonLink {
   transition: fill 0.4s ease;
 }
 
-a:hover, a:focus, .buttonLink:hover,
+a:hover,
+a:focus,
+.buttonLink:hover,
 .buttonLink:focus {
   transition: color 0.4s ease;
 }
 
-.icon:hover, .icon:focus {
+.icon:hover,
+.icon:focus {
   transition: fill 0.4s ease;
 }
 
-.iconButton:disabled, .icon:disabled {
+.iconButton:disabled,
+.icon:disabled {
   opacity: 0.3;
   cursor: unset;
 }
@@ -193,7 +197,6 @@ select {
   padding: 0.5rem;
   width: 100%;
   line-height: 2.3;
-
 }
 
 select {
