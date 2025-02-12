@@ -52,23 +52,23 @@ export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
 
   return (
     photos.length > 0 && (
-      <>
+      <div style={{ position: "relative" }}>
         {photos.map((p, i) => (
-          <div key={i} className={`${s.slide} ${i === active ? s.active : ""}`}>
-            <Image
-              alt={p.alt}
-              src={p.src}
-              width={p.width}
-              height={p.height}
-              loading="eager"
-              draggable={false}
-              style={{
-                objectFit: "contain",
-              }}
-              unoptimized
-              priority
-            />
-          </div>
+          <Image
+            key={i}
+            alt={p.alt}
+            src={p.src}
+            width={p.width}
+            height={p.height}
+            className={`${s.slide} ${i === active ? s.active : ""}`}
+            loading="eager"
+            draggable={false}
+            style={{
+              objectFit: "contain",
+            }}
+            unoptimized
+            priority
+          />
         ))}
         {!isSmall && (
           <>
@@ -80,7 +80,7 @@ export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
             </button>
           </>
         )}
-      </>
+      </div>
     )
   );
 }

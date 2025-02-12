@@ -1,50 +1,51 @@
 .slide {
-    display: none;
-    background-color: unset;
-    border: none;
-    width: 100%;
-    height: auto;
+  display: none;
+  background-color: unset;
+  border: none;
+  width: 100vw;
+  height: auto;
 }
 
 @keyframes fade {
-    from {
-        opacity: 0.4;
-    }
-    to {
-        opacity: 1;
-    }
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .slide.active {
-    display: block;
-    animation-name: fade;
-    animation-duration: 1.5s;
+  display: block;
+  animation-name: fade;
+  animation-duration: 1.5s;
 }
 
 /* desktop */
 @media (min-width: 769px) {
-    .next, .prev {
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        font-size: 2.5em;
-        font-weight: bold;
-        padding: 3rem;
-        transform: translateY(-100%);
-        display: block;
-    }
+  .next,
+  .prev {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    font-size: 2.5em;
+    font-weight: bold;
+    padding: 3rem;
+    transform: translateY(-100%);
+    display: block;
+  }
 
-    .next {
-        right: 10px;
-    }
+  .next {
+    right: 10px;
+  }
 
-    .prev {
-        left: 10px;
-    }
+  .prev {
+    left: 10px;
+  }
 
-    .prev svg, .next svg {
-        width: 45px;
-        height: 45px;
-    }
+  .prev svg,
+  .next svg {
+    width: 45px;
+    height: 45px;
+  }
 }
-
