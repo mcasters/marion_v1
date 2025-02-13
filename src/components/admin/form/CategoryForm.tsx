@@ -75,14 +75,14 @@ export default function CategoryForm({
         {!isUpdate && (
           <p className={s.catInfo}>
             Parmi les renseignements facultatif d'une catégorie, la photo d'une
-            œuvre peut être assignée à cette catégorie, afin que l'utilisateur
-            ait une idée du genre d'œuvre qui s'y trouve (cette photo s'affiche
-            sur le bouton sur lequel on clique pour sélectionner la catégorie).
-            Mais ce n'est pas ici dans l'ajout de la catégorie qu'on peut le
-            faire. En effet, cette photo ne peut être ajoutée qu'une fois que
-            des œuvres y seront classées, puisque le choix de la photo
-            s'effectue parmi ces œuvres. C'est donc ensuite, en mettant à jour
-            cette catégorie que tu pourras le faire.
+            œuvre peut être assignée à cette catégorie, cela permet à
+            l'utilisateur d'avoir une idée du genre d'œuvre qui s'y trouve
+            (cette photo s'affiche sur le bouton sur lequel on clique pour
+            sélectionner la catégorie). Mais ce n'est pas ici dans l'ajout de la
+            catégorie qu'on peut assigner la photo. En effet, cette photo ne
+            peut être ajoutée qu'une fois que des œuvres y seront classées,
+            puisque le choix de la photo s'effectue parmi ces œuvres. C'est donc
+            ensuite, en mettant à jour cette catégorie que tu pourras le faire.
           </p>
         )}
         <label className={s.formLabel}>
