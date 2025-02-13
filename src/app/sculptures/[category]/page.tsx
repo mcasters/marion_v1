@@ -12,7 +12,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className={s.sculptureContent}>
-      <ItemTagComponent tag={category.value} category={category} />;
+      <ItemTagComponent tag={category.value} category={category} />
     </div>
   );
 }
