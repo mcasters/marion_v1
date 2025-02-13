@@ -8,7 +8,7 @@ import {
 } from "@/lib/type";
 import { getEmptyContent } from "@/utils/commonUtils";
 
-export async function getYearsForSculpture(): Promise<number[]> {
+export async function getYearsForSculpt(): Promise<number[]> {
   const res = await prisma.sculpture.findMany({
     distinct: ["date"],
     select: {
@@ -43,7 +43,7 @@ export async function getSculpturesByYear(year: string): Promise<ItemFull[]> {
   return JSON.parse(JSON.stringify(res));
 }
 
-export async function getSculptureCategories(): Promise<CategoryFull[]> {
+export async function getSculptCategories(): Promise<CategoryFull[]> {
   const categories: SculptureCategoriesFull =
     await prisma.sculptureCategory.findMany({
       where: {
@@ -53,7 +53,6 @@ export async function getSculptureCategories(): Promise<CategoryFull[]> {
       },
       include: {
         content: true,
-        sculptures: true,
       },
     });
 
@@ -79,7 +78,7 @@ export async function getSculptureCategories(): Promise<CategoryFull[]> {
   return JSON.parse(JSON.stringify(categories));
 }
 
-export async function getSculptureCategoryByKey(
+export async function getSculptCategoryByKey(
   categoryKey: string,
 ): Promise<CategoryFull> {
   let category;
@@ -90,6 +89,7 @@ export async function getSculptureCategoryByKey(
         where: {
           category: null,
         },
+        include: { images: true },
         orderBy: { date: "asc" },
       });
 
@@ -143,47 +143,38 @@ export async function getSculptureCategoryByKey(
 }
 
 // Categories with also no Items inside
-export async function getAdminSculptureCategories(): Promise<CategoryFull[]> {
-  let updatedCategories: CategoryFull[] = [];
-
-  const categories = await prisma.sculptureCategory.findMany({
-    include: {
-      content: true,
-      sculptures: {
-        include: { images: true },
+export async function getSculptCategoriesAdmin(): Promise<CategoryFull[]> {
+  const categories: SculptureCategoriesFull =
+    await prisma.sculptureCategory.findMany({
+      include: {
+        content: true,
+        sculptures: {
+          include: { images: true },
+        },
       },
-    },
-  });
+    });
 
   if (categories.length > 0) {
-    updatedCategories = categories.map((categorie) => {
-      const { sculptures, ...rest } = categorie;
-      return {
-        count: sculptures.length,
-        items: sculptures,
-        ...rest,
-      } as CategoryFull;
-    });
-
-    const sculptureWithNoCategory = await prisma.sculpture.findMany({
-      where: {
-        category: null,
-      },
-      include: { images: true },
-    });
+    const sculptureWithNoCategory: SculpturesFull =
+      await prisma.sculpture.findMany({
+        where: {
+          category: null,
+        },
+        include: { images: true },
+      });
 
     const count = sculptureWithNoCategory.length;
     if (count > 0) {
-      updatedCategories.push({
+      categories.push({
         id: 0,
         key: "no-category",
         value: "Sans catégorie",
         count,
         content: getEmptyContent(),
-        items: sculptureWithNoCategory as ItemFull[],
+        items: sculptureWithNoCategory,
       });
     }
   }
 
-  return JSON.parse(JSON.stringify(updatedCategories));
+  return JSON.parse(JSON.stringify(categories));
 }

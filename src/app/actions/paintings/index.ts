@@ -8,7 +8,7 @@ import {
 } from "@/lib/type";
 import { getEmptyContent } from "@/utils/commonUtils";
 
-export async function getYearsForPainting(): Promise<number[]> {
+export async function getYearsForPaint(): Promise<number[]> {
   const res = await prisma.painting.findMany({
     distinct: ["date"],
     select: {
@@ -42,7 +42,7 @@ export async function getPaintingsByYear(year: string): Promise<ItemFull[]> {
   return JSON.parse(JSON.stringify(res));
 }
 
-export async function getPaintingCategories(): Promise<CategoryFull[]> {
+export async function getPaintCategories(): Promise<CategoryFull[]> {
   const categories: PaintingCategoriesFull =
     await prisma.paintingCategory.findMany({
       where: {
@@ -52,7 +52,6 @@ export async function getPaintingCategories(): Promise<CategoryFull[]> {
       },
       include: {
         content: true,
-        paintings: true,
       },
     });
 
@@ -77,7 +76,7 @@ export async function getPaintingCategories(): Promise<CategoryFull[]> {
   return JSON.parse(JSON.stringify(categories));
 }
 
-export async function getPaintingCategoryByKey(
+export async function getPaintCategoryByKey(
   categoryKey: string,
 ): Promise<CategoryFull> {
   let category;
@@ -139,43 +138,34 @@ export async function getPaintingCategoryByKey(
 }
 
 // Categories with also no Items inside
-export async function getAdminPaintingCategories(): Promise<CategoryFull[]> {
-  let updatedCategories: CategoryFull[] = [];
-
-  const categories = await prisma.paintingCategory.findMany({
-    include: {
-      content: true,
-      paintings: true,
-    },
-  });
-
-  if (categories.length > 0) {
-    updatedCategories = categories.map((categorie) => {
-      const { paintings, ...rest } = categorie;
-      return {
-        count: paintings.length,
-        items: paintings,
-        ...rest,
-      } as CategoryFull;
-    });
-
-    const paintingWithNoCategory = await prisma.painting.findMany({
-      where: {
-        category: null,
+export async function getPaintCategoriesAdmin(): Promise<CategoryFull[]> {
+  const categories: PaintingCategoriesFull =
+    await prisma.paintingCategory.findMany({
+      include: {
+        content: true,
+        paintings: true,
       },
     });
 
+  if (categories.length > 0) {
+    const paintingWithNoCategory: PaintingsFull =
+      await prisma.painting.findMany({
+        where: {
+          category: null,
+        },
+      });
+
     const count = paintingWithNoCategory.length;
     if (count > 0) {
-      updatedCategories.push({
+      categories.push({
         id: 0,
         key: "no-category",
         value: "Sans catégorie",
         count,
         content: getEmptyContent(),
-        items: paintingWithNoCategory as ItemFull[],
+        items: paintingWithNoCategory,
       });
     }
   }
-  return JSON.parse(JSON.stringify(updatedCategories));
+  return JSON.parse(JSON.stringify(categories));
 }

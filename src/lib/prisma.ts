@@ -80,12 +80,14 @@ const prismaClientSingleton = () => {
       },
       paintingCategory: {
         items: {
+          // @ts-ignore
           needs: { paintings: true },
           compute(paintingCategory) {
             return paintingCategory.paintings;
           },
         },
         count: {
+          // @ts-ignore
           needs: { paintings: true },
           compute(paintingCategory) {
             return paintingCategory.paintings.length;
@@ -94,12 +96,14 @@ const prismaClientSingleton = () => {
       },
       sculptureCategory: {
         items: {
+          // @ts-ignore
           needs: { sculptures: true },
           compute(sculptureCategory) {
             return sculptureCategory.sculptures;
           },
         },
         count: {
+          // @ts-ignore
           needs: { sculptures: true },
           compute(sculptureCategory) {
             return sculptureCategory.sculptures.length;
@@ -108,12 +112,14 @@ const prismaClientSingleton = () => {
       },
       drawingCategory: {
         items: {
+          // @ts-ignore
           needs: { drawings: true },
           compute(drawingCategory) {
             return drawingCategory.drawings;
           },
         },
         count: {
+          // @ts-ignore
           needs: { drawings: true },
           compute(drawingCategory) {
             return drawingCategory.drawings.length;

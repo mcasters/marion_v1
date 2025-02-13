@@ -8,7 +8,7 @@ import {
 import prisma from "@/lib/prisma";
 import { getEmptyContent } from "@/utils/commonUtils";
 
-export async function getYearsForDrawing(): Promise<number[]> {
+export async function getYearsForDraw(): Promise<number[]> {
   const res = await prisma.drawing.findMany({
     distinct: ["date"],
     select: {
@@ -42,7 +42,7 @@ export async function getDrawingsByYear(year: string): Promise<ItemFull[]> {
   return JSON.parse(JSON.stringify(res));
 }
 
-export async function getDrawingCategories(): Promise<CategoryFull[]> {
+export async function getDrawCategories(): Promise<CategoryFull[]> {
   const categories: DrawingCategoriesFull =
     await prisma.drawingCategory.findMany({
       where: {
@@ -52,7 +52,6 @@ export async function getDrawingCategories(): Promise<CategoryFull[]> {
       },
       include: {
         content: true,
-        drawings: true,
       },
     });
 
@@ -77,7 +76,7 @@ export async function getDrawingCategories(): Promise<CategoryFull[]> {
   return JSON.parse(JSON.stringify(categories));
 }
 
-export async function getDrawingCategoryByKey(
+export async function getDrawCategoryByKey(
   categoryKey: string,
 ): Promise<CategoryFull> {
   let category;
@@ -138,7 +137,7 @@ export async function getDrawingCategoryByKey(
 }
 
 // Categories with also no Items inside
-export async function getAdminDrawingCategories(): Promise<CategoryFull[]> {
+export async function getDrawCategoriesAdmin(): Promise<CategoryFull[]> {
   const categories: DrawingCategoriesFull =
     await prisma.drawingCategory.findMany({
       include: {

@@ -1,6 +1,6 @@
 import ItemComponent from "@/components/item/ItemComponent";
 import s from "@/styles/ItemPage.module.css";
-import { getSculptureCategoryByKey } from "@/app/actions/sculptures";
+import { getSculptCategoryByKey } from "@/app/actions/sculptures";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -8,7 +8,7 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const categoryKey = (await params).category;
-  const category = await getSculptureCategoryByKey(categoryKey);
+  const category = await getSculptCategoryByKey(categoryKey);
 
   return (
     <div className={s.sculptureContent}>

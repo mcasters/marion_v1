@@ -1,6 +1,6 @@
 import ItemComponent from "@/components/item/ItemComponent";
 import s from "@/styles/ItemPage.module.css";
-import { getDrawingCategoryByKey } from "@/app/actions/drawings";
+import { getDrawCategoryByKey } from "@/app/actions/drawings";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -8,7 +8,7 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const categoryKey = (await params).category;
-  const category = await getDrawingCategoryByKey(categoryKey);
+  const category = await getDrawCategoryByKey(categoryKey);
 
   return (
     <div className={s.paintingContent}>

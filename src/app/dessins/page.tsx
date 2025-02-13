@@ -1,13 +1,10 @@
 import { Type } from "@/lib/type";
-import {
-  getDrawingCategories,
-  getYearsForDrawing,
-} from "@/app/actions/drawings";
+import { getDrawCategories, getYearsForDraw } from "@/app/actions/drawings";
 import ItemHomeComponent from "@/components/item/ItemHomeComponent";
 
 export default async function Page() {
-  const categories = await getDrawingCategories();
-  const years = await getYearsForDrawing();
+  const categories = await getDrawCategories();
+  const years = await getYearsForDraw();
 
   return (
     <ItemHomeComponent

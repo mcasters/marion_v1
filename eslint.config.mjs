@@ -9,6 +9,7 @@ const eslintConfig = [
     extends: ['next/core-web-vitals', 'next/typescript', 'prettier'],
     rules: {
       '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-expressions': 'warn',
     //  'react/no-unescaped-entities': 'off',
     //  '@next/next/no-page-custom-font': 'off',
     },
