@@ -51,9 +51,7 @@ export async function getSculptCategories(): Promise<CategoryFull[]> {
           some: {},
         },
       },
-      include: {
-        content: true,
-      },
+      include: { content: true },
     });
 
   const sculptureWithNoCategory: SculpturesFull =
@@ -112,31 +110,6 @@ export async function getSculptCategoryByKey(
         },
       },
     });
-
-    if (category && !category.content) {
-      const id = category.id;
-      category = await prisma.sculptureCategory.update({
-        where: { id },
-        data: {
-          content: {
-            create: {
-              title: "",
-              text: "",
-              imageFilename: "",
-              imageWidth: 0,
-              imageHeight: 0,
-            },
-          },
-        },
-        include: {
-          content: true,
-          sculptures: {
-            include: { images: true },
-            orderBy: { date: "asc" },
-          },
-        },
-      });
-    }
   }
 
   return JSON.parse(JSON.stringify(category));

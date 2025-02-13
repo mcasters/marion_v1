@@ -1,4 +1,5 @@
 "use server";
+
 import {
   CategoryFull,
   DrawingCategoriesFull,
@@ -50,9 +51,7 @@ export async function getDrawCategories(): Promise<CategoryFull[]> {
           some: {},
         },
       },
-      include: {
-        content: true,
-      },
+      include: { content: true },
     });
 
   const drawingWithNoCategory: DrawingsFull = await prisma.drawing.findMany({
@@ -107,30 +106,6 @@ export async function getDrawCategoryByKey(
         },
       },
     });
-
-    if (category && !category.content) {
-      const id = category.id;
-      category = await prisma.drawingCategory.update({
-        where: { id },
-        data: {
-          content: {
-            create: {
-              title: "",
-              text: "",
-              imageFilename: "",
-              imageWidth: 0,
-              imageHeight: 0,
-            },
-          },
-        },
-        include: {
-          content: true,
-          drawings: {
-            orderBy: { date: "asc" },
-          },
-        },
-      });
-    }
   }
 
   return JSON.parse(JSON.stringify(category));

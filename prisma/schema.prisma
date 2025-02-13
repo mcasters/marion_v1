@@ -171,7 +171,7 @@ model DrawingCategory {
 
 model CategoryContent {
   id             Int                @id @default(autoincrement())
-  title          String?
+  title          String             @default("")
   text           String             @db.LongText
   imageFilename  String             @default("")
   imageWidth     Int                @default(0)

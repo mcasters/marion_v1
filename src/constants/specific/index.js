@@ -19,7 +19,7 @@ export const BASE_THEME = {
   linkColor: "#be2d01",
   linkHoverColor: "#333",
   linkItemColor: "#be2d01",
-  linkHoverItemColor: "#333",
+  linkHoverItemColor: "#be2d01",
 
   menu1Color: "#e7e7e7",
   menu1HomeColor: "#e7e7e7",
