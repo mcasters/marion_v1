@@ -2,7 +2,7 @@
 
 import { CategoryFull, Type } from "@/lib/type";
 import React from "react";
-import s from "@/components/item/ItemComponent.module.css";
+import s from "@/components/item/ItemHomeComponent.module.css";
 import Image from "next/image";
 import Link from "next/link";
 

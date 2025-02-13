@@ -1,6 +1,6 @@
-import ItemComponent from "@/components/item/ItemComponent";
-import s from "@/styles/ItemPage.module.css";
 import { getSculptCategoryByKey } from "@/app/actions/sculptures";
+import ItemTagComponent from "@/components/item/ItemTagComponent";
+import s from "@/styles/itemPage.module.css";
 
 type Props = {
   params: Promise<{ category: string }>;
@@ -12,16 +12,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className={s.sculptureContent}>
-      <div className={s.infoCategory}>
-        <h2 className={`${s.categoryValue}`}>{category.value}</h2>
-        <div className={s.categoryContent}>
-          <h4>{category.content.title}</h4>
-          <p>{category.content.text}</p>
-        </div>
-      </div>
-      {category.items.map((item) => (
-        <ItemComponent key={item.id} item={item} />
-      ))}
+      <ItemTagComponent tag={category.value} category={category} />;
     </div>
   );
 }

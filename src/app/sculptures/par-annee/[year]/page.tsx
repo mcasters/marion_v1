@@ -1,6 +1,6 @@
-import ItemComponent from "@/components/item/ItemComponent";
-import s from "@/styles/ItemPage.module.css";
 import { getSculpturesByYear } from "@/app/actions/sculptures";
+import ItemTagComponent from "@/components/item/ItemTagComponent";
+import s from "@/styles/ItemPage.module.css";
 
 type Props = {
   params: Promise<{ year: string }>;
@@ -12,12 +12,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className={s.sculptureContent}>
-      <div className={s.infoCategory}>
-        <h2 className={`${s.yearTitle}`}>{year}</h2>
-      </div>
-      {items.map((item) => (
-        <ItemComponent key={item.id} item={item} />
-      ))}
+      <ItemTagComponent tag={year} items={items} />
     </div>
   );
 }

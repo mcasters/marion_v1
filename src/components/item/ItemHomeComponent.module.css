@@ -1,0 +1,111 @@
+.sectionTitle {
+  font-size: var(--font-size-nav);
+  padding: 1em;
+}
+
+.ulCategory,
+.ulYear {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 2em;
+}
+
+.link {
+  display: block;
+  position: relative;
+  border: var(--link-color-dark) solid 1px;
+  background: none;
+  margin: 1em;
+  width: 150px;
+  height: 150px;
+  transition: all 250ms ease-out;
+}
+
+.image,
+.noImageLink {
+  width: 150px;
+  height: 150px;
+}
+
+.noImageOverLayer,
+.imageOverLayer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.imageOverLayer {
+  color: var(--color-light);
+  font-weight: bold;
+}
+
+.yearLink {
+  border: var(--link-color-dark) solid 1px;
+  margin: 1em;
+  width: 80px;
+  height: 50px;
+  padding: 1em;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .sectionTitle {
+    text-align: left;
+    padding: 2em 0 0 6em;
+  }
+
+  .ul {
+    padding: 2em 5em;
+  }
+
+  .link {
+    width: 250px;
+    height: 250px;
+    font-size: var(--font-size-nav-minus);
+    overflow: hidden;
+  }
+
+  .image {
+    width: 250px;
+    height: 250px;
+    transition: transform 250ms ease-out;
+  }
+
+  .link:hover .image {
+    transform: scale(1.05);
+    transform-origin: center;
+  }
+
+  .imageOverLayer {
+    background-color: transparent;
+    transition: all 250ms ease-out;
+    font-weight: unset;
+  }
+
+  .link:hover .imageOverLayer {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+  }
+
+  .yearLink {
+    width: 100px;
+    height: 50px;
+    box-shadow: none;
+    transition: all 250ms ease-out;
+    color: var(--link-color-dark);
+  }
+
+  .link:hover .noImageOverLayer,
+  .yearLink:hover {
+    box-shadow: inset 0 0 0 2px var(--link-color-dark);
+    color: var(--link-color-dark);
+    transition: all 250ms ease-out;
+  }
+}
