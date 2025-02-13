@@ -5,9 +5,9 @@ import s from "@/styles/Nav_1.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import NavItem from "@/components/layout/header/menu1/NavItem";
 
-interface Props {
+type Props = {
   navLayout: string;
-}
+};
 
 export default function Nav_1({ navLayout }: Props) {
   const theme = useTheme();

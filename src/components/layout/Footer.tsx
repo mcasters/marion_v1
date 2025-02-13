@@ -1,15 +1,17 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import s from "@/styles/Footer.module.css";
 import { ROUTES } from "@/constants/specific/routes";
 import { TEXTS } from "@/constants/specific";
 import { useSession } from "@/app/context/sessionProvider";
 import Link from "next/link";
 
-export default function Footer() {
+type Props = {
+  path: string | null;
+};
+
+export default function Footer({ path }: Props) {
   const session = useSession();
-  const path = usePathname();
   const isPainting = path === ROUTES.PAINTING;
   const isSculpture = path === ROUTES.SCULPTURE;
   const isDrawing =

@@ -20,7 +20,7 @@ interface Props {
 
 export default function Layout({ introduction, children }: Props) {
   const theme = useTheme();
-  const path = usePathname();
+  const path = `/${usePathname().split("/")[1]}`;
   const session = useSession();
 
   const isHome = path === ROUTES.HOME;
@@ -46,14 +46,14 @@ export default function Layout({ introduction, children }: Props) {
       {isAdmin && (
         <>
           {children}
-          <Footer />
+          <Footer path={path} />
         </>
       )}
       {!isAdmin && (
         <>
           <Header path={path} introduction={introduction} />
           <Main isHome={isHome}>{children}</Main>
-          <Footer />
+          <Footer path={path} />
         </>
       )}
       <style jsx global>{`

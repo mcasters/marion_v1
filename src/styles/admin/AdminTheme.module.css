@@ -1,5 +1,5 @@
 .themeContainer {
-  padding: 4em 2em 2em;
+  padding: 4em 2em 1em;
 }
 
 .noteContainer {
@@ -32,8 +32,6 @@
 .flex {
   display: flex;
   flex-wrap: wrap;
-  gap: 2em;
-  padding: 2em;
 }
 
 .grid {
@@ -45,13 +43,12 @@
 }
 
 .themeContainer section {
-  max-width: 300px;
+  width: 290px;
 }
 
 .colorContainer {
   display: flex;
   text-align: left;
-  min-width: 250px;
 }
 
 .label {

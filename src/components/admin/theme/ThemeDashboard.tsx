@@ -22,35 +22,35 @@ export default function ThemeDashboard({
       <section>
         <h3 className={s.sectionTitle}>{PAGE_TYPE.GENERAL}</h3>
         <ColorPicker
-          label="Couleur de la ligne au top"
+          label="Ligne au top"
           colorLabel="lineColor"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur de fond"
+          label="Fond"
           colorLabel="backgroundColor"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte"
+          label="Texte"
           colorLabel="color"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur des liens"
+          label="Liens"
           colorLabel="linkColor"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur des liens pointé*"
+          label="Liens pointé*"
           colorLabel="linkHoverColor"
           pageTypeName={PAGE_TYPE.GENERAL}
           presetColors={presetColors}
@@ -60,49 +60,49 @@ export default function ThemeDashboard({
       <section>
         <h3 className={s.sectionTitle}>{PAGE_TYPE.HOME}</h3>
         <ColorPicker
-          label="Couleur du titre"
+          label="Titre"
           colorLabel="titleColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur de fond du menu 1"
+          label="Fond - menu 1"
           colorLabel="menu1HomeColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 1"
+          label="Texte - menu 1"
           colorLabel="menu1LinkHomeColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 1 pointé*"
+          label="Texte pointé* - menu 1"
           colorLabel="menu1LinkHomeHoverColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur de fond du menu 2"
+          label="Fond - menu 2"
           colorLabel="menu2HomeColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 2"
+          label="Texte - menu 2"
           colorLabel="menu2LinkHomeColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 2 pointé*"
+          label="Texte pointé* : menu 2"
           colorLabel="menu2LinkHomeHoverColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}
@@ -112,42 +112,42 @@ export default function ThemeDashboard({
       <section>
         <h3 className={s.sectionTitle}>{PAGE_TYPE.OTHERS}</h3>
         <ColorPicker
-          label="Couleur de fond du menu 1"
+          label="Fond - menu 1"
           colorLabel="menu1Color"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 1"
+          label="Texte - menu 1"
           colorLabel="menu1LinkColor"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 1 pointé*"
+          label="Texte pointé* - menu 1"
           colorLabel="menu1LinkHoverColor"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur de fond du menu 2"
+          label="Fond - menu 2"
           colorLabel="menu2Color"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 2"
+          label="Texte - menu 2"
           colorLabel="menu2LinkColor"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 2 pointé*"
+          label="Texte pointé* - menu 2"
           colorLabel="menu2LinkHoverColor"
           pageTypeName={PAGE_TYPE.OTHERS}
           presetColors={presetColors}
@@ -157,70 +157,70 @@ export default function ThemeDashboard({
       <section>
         <h3 className={s.sectionTitle}>{PAGE_TYPE.ITEM}</h3>
         <ColorPicker
-          label="Couleur de fond"
+          label="Fond"
           colorLabel="backgroundColorItem"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte"
+          label="Texte"
           colorLabel="colorItem"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur des liens"
+          label="Liens"
           colorLabel="linkItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur des liens hover"
+          label="Liens hover"
           colorLabel="linkHoverItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur de fond du menu 1"
+          label="Fond - menu 1"
           colorLabel="menu1ItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 1"
+          label="Texte - menu 1"
           colorLabel="menu1LinkItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 1 pointé*"
+          label="Texte pointé* - menu 1"
           colorLabel="menu1LinkHoverItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur de fond du menu 2"
+          label="Fond - menu 2"
           colorLabel="menu2ItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 2"
+          label="Texte - menu 2"
           colorLabel="menu2LinkItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Couleur du texte du menu 2 pointé*"
+          label="Texte pointé* - menu 2"
           colorLabel="menu2LinkHoverItemColor"
           pageTypeName={PAGE_TYPE.ITEM}
           presetColors={presetColors}

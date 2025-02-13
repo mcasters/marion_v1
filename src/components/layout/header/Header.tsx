@@ -9,10 +9,10 @@ import { useTheme } from "@/app/context/themeProvider";
 import React, { useState } from "react";
 import HomeSection from "@/components/layout/header/HomeSection";
 
-interface Props {
-  path: string | null;
+type Props = {
+  path: string;
   introduction?: string;
-}
+};
 
 export default function Header({ path, introduction }: Props) {
   const theme = useTheme();

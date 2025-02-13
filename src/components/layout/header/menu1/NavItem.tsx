@@ -6,19 +6,19 @@ import s from "./NavItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import React, { useMemo } from "react";
 import LAYOUT from "@/constants/layout";
-import { usePathname } from "next/navigation";
 import { TEXTS } from "@/constants/specific";
+import { usePathname } from "next/navigation";
 
-interface Props {
+type Props = {
   itemTag: string;
   navLayout: string;
-}
+};
 
 export default function NavItem({ itemTag, navLayout }: Props) {
   const theme = useTheme();
   const item = MENU_1_ITEMS[itemTag];
-  const path = usePathname().split("/")[1];
-  const isActive = item.ROUTE === `/${path}`;
+  const path = `/${usePathname().split("/")[1]}`;
+  const isActive = item.ROUTE === path;
 
   const themeLink = useMemo(() => {
     return navLayout === LAYOUT.ITEM_NAV

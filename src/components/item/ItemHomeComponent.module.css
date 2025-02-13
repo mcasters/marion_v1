@@ -6,8 +6,8 @@
 .ul {
   list-style-type: none;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1em;
   padding-bottom: 2em;
 }
@@ -24,6 +24,7 @@
   width: 150px;
   height: 150px;
   transition: all 250ms ease-out;
+  overflow: hidden;
 }
 
 .yearLink {
@@ -50,8 +51,8 @@
 }
 
 .imageOverLayer {
-  color: var(--color-light);
   font-weight: bold;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* desktop */
@@ -91,8 +92,7 @@
   }
 
   .categoryLink:hover .imageOverLayer {
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
   }
 
   .yearLink {

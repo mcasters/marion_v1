@@ -1,6 +1,6 @@
 import { getSculptCategoryByKey } from "@/app/actions/sculptures";
 import ItemTagComponent from "@/components/item/ItemTagComponent";
-import s from "@/styles/itemPage.module.css";
+import s from "@/styles/ItemPage.module.css";
 
 type Props = {
   params: Promise<{ category: string }>;
