@@ -12,13 +12,17 @@ export default function Footer() {
   const path = usePathname();
   const isPainting = path === ROUTES.PAINTING;
   const isSculpture = path === ROUTES.SCULPTURE;
+  const isDrawing =
+    TEXTS.TITLE === "Marion Casters" ? path === ROUTES.DRAWING : false;
   const text = TEXTS.FOOTER;
 
   return (
     <>
       <footer
         className={
-          isPainting || isSculpture ? `${s.footer} ${s.dark}` : s.footer
+          isPainting || isSculpture || isDrawing
+            ? `${s.footer} ${s.dark}`
+            : s.footer
         }
       >
         <div className={s.center}>

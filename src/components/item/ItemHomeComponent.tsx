@@ -15,7 +15,7 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
   return (
     <>
       <p className={s.sectionTitle}>Catégories :</p>
-      <ul className={s.ulCategory}>
+      <ul className={s.ul}>
         {categories.map((category) => {
           const content = category.content;
           const noImage =
@@ -24,7 +24,7 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
             <li key={category.key}>
               <Link
                 href={`${type}s/${category.key}`}
-                className={`${s.link} ${noImage ? s.noImageLink : ""}`}
+                className={`${s.link} ${s.categoryLink}`}
               >
                 {!noImage && (
                   <Image
@@ -51,12 +51,15 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
         })}
       </ul>
       <p className={s.sectionTitle}>Années :</p>
-      <ul className={s.ulYear}>
+      <ul className={s.ul}>
         {years.map((year) => {
           return (
             <li key={year}>
-              <Link href={`${type}s/par-annee/${year}`} className={s.yearLink}>
-                {year}
+              <Link
+                href={`${type}s/par-annee/${year}`}
+                className={`${s.link} ${s.yearLink}`}
+              >
+                <div className={s.noImageOverLayer}>{year}</div>
               </Link>
             </li>
           );
