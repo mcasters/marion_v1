@@ -2,13 +2,13 @@
 
 import s from "./ItemComponent.module.css";
 import Lightbox from "@/components/image/lightbox/Lightbox";
-import {ItemFull, Type} from "@/lib/type";
-import {useMemo} from "react";
-import {getPhotoTab} from "@/utils/imageUtils";
+import { ItemFull, Type } from "@/lib/type";
+import { useMemo } from "react";
+import { getPhotoTab } from "@/utils/imageUtils";
 
 interface Props {
   item: ItemFull;
-  priority: boolean
+  priority: boolean;
 }
 export default function ItemComponent({ item, priority }: Props) {
   const { photos } = useMemo(() => getPhotoTab(item), [item]);

@@ -1,6 +1,6 @@
 "use client";
 
-import {CategoryFull, Type} from "@/lib/type";
+import { CategoryFull, Type } from "@/lib/type";
 import React from "react";
 import s from "@/components/item/ItemHomeComponent.module.css";
 import Image from "next/image";

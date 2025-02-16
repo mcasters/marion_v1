@@ -1,17 +1,17 @@
 "use client";
 
-import React, {useState} from "react";
-import {DEVICE} from "@/constants/image";
+import React, { useState } from "react";
+import { DEVICE } from "@/constants/image";
 import s from "@/components/image/lightbox/Lightbox.module.css";
-import {PhotoTab} from "@/lib/type";
+import { PhotoTab } from "@/lib/type";
 import Image from "next/image";
 import useWindowSize from "@/components/hooks/useWindowSize";
-import {createPortal} from "react-dom";
+import { createPortal } from "react-dom";
 import LightboxContent from "@/components/image/lightbox/LightboxContent";
 
 type Props = {
   photos: PhotoTab;
-  priority: boolean
+  priority: boolean;
 };
 
 export default function Lightbox({ photos, priority = false }: Props) {

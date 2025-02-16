@@ -17,7 +17,7 @@ export default function Footer({ path }: Props) {
   const isDrawing =
     TEXTS.TITLE === "Marion Casters" ? path === ROUTES.DRAWING : false;
   const text = TEXTS.FOOTER;
-  const isDark = isPainting || isSculpture || isDrawing;
+  const isDark = isPainting || isSculpture ||   isDrawing;
 
   return (
     <>
