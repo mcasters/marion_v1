@@ -3,6 +3,7 @@
 .landscape,
 .portrait {
   margin-bottom: 0.5em;
+  cursor: pointer;
 }
 
 .landscape {

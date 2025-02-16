@@ -3,9 +3,9 @@
 import Lightbox from "@/components/image/lightbox/Lightbox";
 import s from "./PostComponent.module.css";
 import Gallery from "@/components/image/gallery/Gallery";
-import { useMemo } from "react";
-import { PostFull } from "@/lib/type";
-import { getPhotoTab } from "@/utils/imageUtils";
+import {useMemo} from "react";
+import {PostFull} from "@/lib/type";
+import {getPhotoTab} from "@/utils/imageUtils";
 
 interface Props {
   post: PostFull;
@@ -17,7 +17,7 @@ export default function PostComponent({ post }: Props) {
     <>
       <article className={s.postContainer}>
         {mainPhotos.sm.length > 0 && (
-          <Lightbox photos={mainPhotos} isCentered={true} />
+          <Lightbox photos={mainPhotos} priority={true} />
         )}
         <div className={s.info}>
           <h2>{post.title}</h2>

@@ -1,7 +1,7 @@
 "use client";
 
-import { Photo } from "@/lib/type";
-import { useEffect, useState } from "react";
+import {Photo} from "@/lib/type";
+import {useEffect, useState} from "react";
 import s from "@/components/image/slideshow/Slider.module.css";
 import Image from "next/image";
 import ArrowPrev from "@/components/icons/ArrowPrev";
@@ -66,16 +66,15 @@ export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
             style={{
               objectFit: "contain",
             }}
-            unoptimized
-            priority
+            priority={i < 0}
           />
         ))}
         {!isSmall && (
           <>
-            <button className={`${s.prev} iconButton`} onClick={onPrev}>
+            <button className={`${s.prev} iconButton`} onClick={onPrev} aria-label="Image précédente" title="Image précédente">
               <ArrowPrev />
             </button>
-            <button className={`${s.next} iconButton`} onClick={onNext}>
+            <button className={`${s.next} iconButton`} onClick={onNext} aria-label="Image suivante" title="Image suivante">
               <ArrowNext />
             </button>
           </>

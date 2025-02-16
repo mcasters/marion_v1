@@ -12,12 +12,21 @@
 
 .dark {
     background-color: var(--link-color-xdark);
+  color: var(--color-medium);
 }
 
 .center {
     width: 95%;
     display: inline-block;
     padding-top: 2rem;
+}
+
+.link {
+  text-decoration: underline;
+}
+
+.dark .link {
+  color: var(--color-medium);
 }
 
 /* desktop */

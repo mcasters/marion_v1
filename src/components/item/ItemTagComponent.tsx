@@ -1,7 +1,7 @@
 "use client";
 
-import { CategoryFull, ItemFull } from "@/lib/type";
-import React, { useMemo } from "react";
+import {CategoryFull, ItemFull} from "@/lib/type";
+import React, {useMemo} from "react";
 import s from "@/components/item/ItemTagComponent.module.css";
 import ItemComponent from "@/components/item/ItemComponent";
 
@@ -28,7 +28,7 @@ export default function ItemTagComponent({ tag, category, items }: Props) {
           )}
       </div>
       {_items &&
-        _items.map((item) => <ItemComponent key={item.id} item={item} />)}
+        _items.map((item, index) => <ItemComponent key={item.id} item={item} priority={index < 1} />)}
     </>
   );
 }

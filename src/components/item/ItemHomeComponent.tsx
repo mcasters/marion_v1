@@ -1,6 +1,6 @@
 "use client";
 
-import { CategoryFull, Type } from "@/lib/type";
+import {CategoryFull, Type} from "@/lib/type";
 import React from "react";
 import s from "@/components/item/ItemHomeComponent.module.css";
 import Image from "next/image";
@@ -25,6 +25,7 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
               <Link
                 href={`${type}s/${category.key}`}
                 className={`${s.link} ${s.categoryLink}`}
+                title={`Catégorie ${category.value}`}
               >
                 {!noImage && (
                   <Image
@@ -58,6 +59,7 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
               <Link
                 href={`${type}s/par-annee/${year}`}
                 className={`${s.link} ${s.yearLink}`}
+                title={`Année ${year}`}
               >
                 <div className={s.noImageOverLayer}>{year}</div>
               </Link>
