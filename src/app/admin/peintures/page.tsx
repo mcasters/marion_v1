@@ -5,15 +5,12 @@ import React from "react";
 import { Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import ItemForm from "@/components/admin/form/ItemForm";
-import {
-  getPaintCategoriesAdmin,
-  getYearsForPaint,
-} from "@/app/actions/paintings";
 import { createPainting } from "@/app/actions/paintings/admin";
+import { getAllCategories, getYears } from "@/app/actions";
 
 export default async function Peintures() {
-  const categories = await getPaintCategoriesAdmin();
-  const years = await getYearsForPaint();
+  const categories = await getAllCategories(Type.PAINTING);
+  const years = await getYears(Type.PAINTING, true);
 
   return (
     <>

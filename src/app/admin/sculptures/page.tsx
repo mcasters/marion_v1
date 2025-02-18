@@ -5,15 +5,12 @@ import React from "react";
 import { Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import ItemForm from "@/components/admin/form/ItemForm";
-import {
-  getSculptCategoriesAdmin,
-  getYearsForSculpt,
-} from "@/app/actions/sculptures";
 import { createSculpture } from "@/app/actions/sculptures/admin";
+import { getAllCategories, getYears } from "@/app/actions";
 
 export default async function Sculptures() {
-  const categories = await getSculptCategoriesAdmin();
-  const years = await getYearsForSculpt();
+  const categories = await getAllCategories(Type.SCULPTURE);
+  const years = await getYears(Type.SCULPTURE, true);
 
   return (
     <>

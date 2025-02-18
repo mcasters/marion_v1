@@ -1,6 +1,8 @@
-import { getSculpturesByYear } from "@/app/actions/sculptures";
 import ItemTagComponent from "@/components/item/ItemTagComponent";
 import s from "@/styles/ItemPage.module.css";
+import { getSession } from "@/app/lib/auth";
+import { getItemsByYear } from "@/app/actions";
+import { Type } from "@/lib/type";
 
 type Props = {
   params: Promise<{ year: string }>;
@@ -8,7 +10,8 @@ type Props = {
 
 export default async function Page({ params }: Props) {
   const year = (await params).year;
-  const items = await getSculpturesByYear(year);
+  const session = await getSession();
+  const items = await getItemsByYear(year, Type.SCULPTURE, !session);
 
   return (
     <div className={s.sculptureContent}>

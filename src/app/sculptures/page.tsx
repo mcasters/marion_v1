@@ -1,13 +1,12 @@
 import { Type } from "@/lib/type";
-import {
-  getSculptCategories,
-  getYearsForSculpt,
-} from "@/app/actions/sculptures";
 import ItemHomeComponent from "@/components/item/ItemHomeComponent";
+import { getSession } from "@/app/lib/auth";
+import { getCategories, getYears } from "@/app/actions";
 
 export default async function Page() {
-  const categories = await getSculptCategories();
-  const years = await getYearsForSculpt();
+  const session = await getSession();
+  const categories = await getCategories(Type.SCULPTURE, !session);
+  const years = await getYears(Type.SCULPTURE, !session);
 
   return (
     <ItemHomeComponent
