@@ -87,7 +87,8 @@ export default function Layout({ introduction, children }: Props) {
         }
         .wrapper a,
         .wrapper .buttonLink,
-        .iconButton {
+        .iconButton,
+        .linkColor {
           color: ${theme.linkColor};
         }
         .wrapper .icon {

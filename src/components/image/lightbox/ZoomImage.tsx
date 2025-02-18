@@ -252,7 +252,7 @@ export default function ZoomImage({
       ref={containerRef}
       className={`${s.canvasContainer} ${isActive ? s.active : ""}`}
     >
-      <div className={s.info}>
+      <div className={`${s.info} linkColor`}>
         {photo.title} - {new Date(photo.date).getFullYear()}
       </div>
       {isSmall && (
