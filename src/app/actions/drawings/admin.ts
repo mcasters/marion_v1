@@ -1,11 +1,6 @@
 "use server";
 
-import {
-  deleteFile,
-  getDrawingDir,
-  getItemDir,
-  resizeAndSaveImage,
-} from "@/utils/serverUtils";
+import { deleteFile, getDrawingDir } from "@/utils/serverUtils";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { transformValueToKey } from "@/utils/commonUtils";
@@ -16,45 +11,13 @@ export async function createItem(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  const rawFormData = Object.fromEntries(formData);
-  const type = rawFormData.type as string;
-  const title = rawFormData.title as string;
-  const dir = getItemDir(type);
+  const type = formData.get("type") as string;
 
   try {
-    if (type === Type.PAINTING || type === Type.DRAWING) {
-      const file = rawFormData.file as File;
-      const fileInfo = await resizeAndSaveImage(file, title, dir);
-
-      if (fileInfo) {
-        if (type === Type.PAINTING)
-          await prisma.painting.create({
-            data: getItemData(type, rawFormData, fileInfo),
-          });
-        if (type === Type.DRAWING)
-          await prisma.drawing.create({
-            data: getItemData(type, rawFormData, fileInfo),
-          });
-      }
-    } else if (type === Type.SCULPTURE) {
-      const files = formData.getAll("files") as File[];
-      const images = [];
-      for (const file of files) {
-        if (file.size > 0) {
-          const fileInfo = await resizeAndSaveImage(file, title, dir);
-          if (fileInfo)
-            images.push({
-              filename: fileInfo.filename,
-              width: fileInfo.width,
-              height: fileInfo.height,
-            });
-        }
-      }
-      if (images.length > 0)
-        await prisma.sculpture.create({
-          data: getItemData(type, rawFormData, images),
-        });
-    }
+    const data = await getItemData(type, formData, null);
+    if (type === Type.PAINTING) await prisma.painting.create({ data });
+    if (type === Type.DRAWING) await prisma.drawing.create({ data });
+    if (type === Type.SCULPTURE) await prisma.sculpture.create({ data });
 
     revalidatePath(`/admin/${type}s`);
     return { message: `Item ajouté`, isError: false };
@@ -67,61 +30,47 @@ export async function updateItem(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  const dir = getDrawingDir();
-  const rawFormData = Object.fromEntries(formData);
-  const type = rawFormData.type as string;
-  const id = Number(rawFormData.id);
+  const id = Number(formData.get("id"));
+  const type = formData.get("type") as string;
   try {
-    const oldDraw = await prisma.drawing.findUnique({
-      where: { id },
-    });
+    const oldItem =
+      type === Type.PAINTING
+        ? await prisma.painting.findUnique({
+            where: { id },
+          })
+        : type === Type.SCULPTURE
+          ? await prisma.sculpture.findUnique({
+              where: { id },
+            })
+          : type === Type.DRAWING
+            ? await prisma.drawing.findUnique({
+                where: { id },
+              })
+            : null;
 
-    if (oldDraw) {
-      let fileInfo = null;
-      const newFile = rawFormData.file as File;
-      const title = rawFormData.title as string;
-      if (newFile.size !== 0) {
-        deleteFile(dir, oldDraw.imageFilename);
-        fileInfo = await resizeAndSaveImage(newFile, title, dir);
+    if (oldItem) {
+      const data = await getItemData(type, formData, oldItem);
+      if (type === Type.PAINTING)
+        await prisma.painting.update({
+          where: { id: id },
+          data,
+        });
+      if (type === Type.SCULPTURE) {
+        await prisma.sculpture.update({
+          where: { id: id },
+          data,
+        });
       }
-
-      const category =
-        rawFormData.categoryId !== ""
-          ? {
-              connect: {
-                id: Number(rawFormData.categoryId),
-              },
-            }
-          : oldDraw.categoryId
-            ? {
-                disconnect: {
-                  id: oldDraw.categoryId,
-                },
-              }
-            : {};
-
-      await prisma.drawing.update({
-        where: { id: id },
-        data: {
-          title,
-          date: new Date(Number(rawFormData.date), 1),
-          technique: rawFormData.technique as string,
-          description: rawFormData.description as string,
-          height: Number(rawFormData.height),
-          width: Number(rawFormData.width),
-          isToSell: rawFormData.isToSell === "true",
-          price: Number(rawFormData.price),
-          imageFilename: fileInfo ? fileInfo.filename : undefined,
-          imageWidth: fileInfo ? fileInfo.width : undefined,
-          imageHeight: fileInfo ? fileInfo.height : undefined,
-          category,
-        },
-      });
+      if (type === Type.DRAWING)
+        await prisma.drawing.update({
+          where: { id: id },
+          data,
+        });
     }
-    revalidatePath("/admin/dessins");
-    return { message: "Dessin modifié", isError: false };
+    revalidatePath(`/admin/${type}s`);
+    return { message: "Item modifié", isError: false };
   } catch (e) {
-    return { message: "Erreur à l'enregistrement", isError: true };
+    return { message: `Erreur à l'enregistrement : ${e}`, isError: true };
   }
 }
 

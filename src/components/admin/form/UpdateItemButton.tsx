@@ -7,9 +7,7 @@ import PostForm from "@/components/admin/form/PostForm";
 import UpdateIcon from "@/components/icons/UpdateIcon";
 import ItemForm from "@/components/admin/form/ItemForm";
 import React from "react";
-import { updateSculpture } from "@/app/actions/sculptures/admin";
 import { updateItem } from "@/app/actions/drawings/admin";
-import { updatePainting } from "@/app/actions/paintings/admin";
 
 type Props = {
   item: ItemFull | PostFull;
@@ -17,12 +15,7 @@ type Props = {
 };
 export default function UpdateItemButton({ item, categories }: Props) {
   const { isOpen, toggle } = useModal();
-  const action =
-    item.type === Type.SCULPTURE
-      ? updateSculpture
-      : item.type === Type.DRAWING
-        ? updateItem
-        : updatePainting;
+  const action = updateItem;
 
   return (
     <>
