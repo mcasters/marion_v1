@@ -4,9 +4,15 @@ import { join } from "path";
 import { transformValueToKey } from "@/utils/commonUtils";
 import { TEXTS } from "@/constants/specific";
 import { IMAGE } from "@/constants/image";
+import { Type } from "@/lib/type";
 
 const serverLibraryPath = process.env.PHOTOS_PATH;
 
+export const getItemDir = (type) => {
+  if (type === Type.PAINTING) return join(`${serverLibraryPath}`, "peinture");
+  if (type === Type.SCULPTURE) return join(`${serverLibraryPath}`, "sculpture");
+  else return join(`${serverLibraryPath}`, "dessin");
+};
 export const getPaintingDir = () => {
   return join(`${serverLibraryPath}`, "peinture");
 };
@@ -15,16 +21,16 @@ export const getSculptureDir = () => {
   return join(`${serverLibraryPath}`, "sculpture");
 };
 
+export const getDrawingDir = () => {
+  return join(`${serverLibraryPath}`, "dessin");
+};
+
 export const getMiscellaneousDir = () => {
   return join(`${serverLibraryPath}`, "miscellaneous");
 };
 
 export const getPostDir = () => {
   return join(`${serverLibraryPath}`, "post");
-};
-
-export const getDrawingDir = () => {
-  return join(`${serverLibraryPath}`, "dessin");
 };
 
 export const createDirIfNecessary = (dir) => {

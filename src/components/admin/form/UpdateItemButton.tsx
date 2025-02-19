@@ -8,7 +8,7 @@ import UpdateIcon from "@/components/icons/UpdateIcon";
 import ItemForm from "@/components/admin/form/ItemForm";
 import React from "react";
 import { updateSculpture } from "@/app/actions/sculptures/admin";
-import { updateDrawing } from "@/app/actions/drawings/admin";
+import { updateItem } from "@/app/actions/drawings/admin";
 import { updatePainting } from "@/app/actions/paintings/admin";
 
 type Props = {
@@ -21,7 +21,7 @@ export default function UpdateItemButton({ item, categories }: Props) {
     item.type === Type.SCULPTURE
       ? updateSculpture
       : item.type === Type.DRAWING
-        ? updateDrawing
+        ? updateItem
         : updatePainting;
 
   return (

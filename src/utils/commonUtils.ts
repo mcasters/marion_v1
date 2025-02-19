@@ -11,6 +11,10 @@ import {
 
 import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
 
+export const capitalize = (string: string): string => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 export const transformValueToKey = (value: string): string => {
   return value
     .toLowerCase()

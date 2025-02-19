@@ -6,7 +6,7 @@ import React from "react";
 import ItemForm from "@/components/admin/form/ItemForm";
 import { getEmptyItem } from "@/utils/commonUtils";
 import { getAllCategories, getYears } from "@/app/actions";
-import { createDrawing } from "@/app/actions/drawings/admin";
+import { createItem } from "@/app/actions/drawings/admin";
 
 export default async function Dessins() {
   const categories = await getAllCategories(Type.DRAWING);
@@ -19,7 +19,7 @@ export default async function Dessins() {
       <ItemForm
         categories={categories}
         item={getEmptyItem(Type.DRAWING)}
-        itemAction={createDrawing}
+        itemAction={createItem}
       />
       <CategoryComponent itemType={Type.DRAWING} categories={categories} />
     </>

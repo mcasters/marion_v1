@@ -5,8 +5,8 @@ import React from "react";
 import { Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import ItemForm from "@/components/admin/form/ItemForm";
-import { createSculpture } from "@/app/actions/sculptures/admin";
 import { getAllCategories, getYears } from "@/app/actions";
+import { createItem } from "@/app/actions/drawings/admin";
 
 export default async function Sculptures() {
   const categories = await getAllCategories(Type.SCULPTURE);
@@ -19,7 +19,7 @@ export default async function Sculptures() {
       <ItemForm
         categories={categories}
         item={getEmptyItem(Type.SCULPTURE)}
-        itemAction={createSculpture}
+        itemAction={createItem}
       />
       <CategoryComponent itemType={Type.SCULPTURE} categories={categories} />
     </>

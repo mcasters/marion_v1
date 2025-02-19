@@ -63,6 +63,7 @@ export default function ItemForm({
         {`${isUpdate ? "Modifier" : "Ajouter"} ${item.type === Type.DRAWING ? "un" : "une"} ${item.type}`}
       </h2>
       <form action={action}>
+        <input type="hidden" name="type" value={item.type} />
         {isUpdate && <input type="hidden" name="id" value={item.id} />}
         {isUpdate && (
           <input
