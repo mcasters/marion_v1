@@ -81,14 +81,12 @@ const handleSculptImages = async (
 ) => {
   if (filenamesToDelete !== "") {
     for await (const filename of filenamesToDelete.split(",")) {
-      if (deleteFile(dir, filename)) {
-        await prisma.sculptureImage.delete({
-          where: { filename },
-        });
-      }
+      deleteFile(dir, filename);
+      await prisma.sculptureImage.delete({
+        where: { filename },
+      });
     }
   }
-
   let images = [];
   for (const file of files) {
     if (file.size > 0) {

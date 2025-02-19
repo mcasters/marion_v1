@@ -17,7 +17,7 @@ interface Props {
 export function AlertProvider({ children }: Props) {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
-  const [time, setTime] = useState(2500);
+  const [time, setTime] = useState(2000);
   const [isOpen, setIsOpen] = useState(false);
 
   const alert = (message: string, isError: boolean, time?: number) => {

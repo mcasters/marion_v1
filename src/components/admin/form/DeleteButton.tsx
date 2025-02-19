@@ -5,17 +5,15 @@ import DeleteIcon from "@/components/icons/DeleteIcon";
 import { useAlert } from "@/app/context/AlertProvider";
 
 type Props = {
-  deleteAction: (id: number) => Promise<{
+  deleteAction: () => Promise<{
     message: string;
     isError: boolean;
   }>;
-  id: number;
   disabled?: boolean;
 };
-export default function DeleteButton({ deleteAction, id, disabled }: Props) {
+export default function DeleteButton({ deleteAction, disabled }: Props) {
   const alert = useAlert();
-  const idDeleteAction = deleteAction.bind(null, id);
-  const [state, action] = useActionState(idDeleteAction, {
+  const [state, action] = useActionState(deleteAction, {
     message: "",
     isError: false,
   });

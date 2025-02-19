@@ -158,13 +158,7 @@ export const resizeAndSaveImage = async (file, title = "", dir) => {
 };
 
 export const deleteFile = (dir, filename) => {
-  try {
-    unlinkSync(`${dir}/sm/${filename}`);
-    unlinkSync(`${dir}/md/${filename}`);
-    unlinkSync(`${dir}/${filename}`);
-    return true;
-  } catch (e) {
-    console.log(e);
-    return false;
-  }
+  unlinkSync(`${dir}/sm/${filename}`);
+  unlinkSync(`${dir}/md/${filename}`);
+  unlinkSync(`${dir}/${filename}`);
 };

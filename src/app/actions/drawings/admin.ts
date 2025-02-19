@@ -1,6 +1,6 @@
 "use server";
 
-import { deleteFile, getDrawingDir } from "@/utils/serverUtils";
+import { deleteFile, getItemDir } from "@/utils/serverUtils";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { transformValueToKey } from "@/utils/commonUtils";
@@ -74,22 +74,67 @@ export async function updateItem(
   }
 }
 
-export async function deleteDrawing(id: number) {
-  const dir = getDrawingDir();
+export async function deleteItem(
+  id: number,
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
+) {
   try {
-    const drawing = await prisma.drawing.findUnique({
-      where: { id },
-    });
-    if (drawing) {
-      deleteFile(dir, drawing.imageFilename);
-      await prisma.drawing.delete({
-        where: {
-          id,
-        },
-      });
+    const item =
+      type === Type.PAINTING
+        ? await prisma.painting.findUnique({
+            where: { id },
+          })
+        : type === Type.SCULPTURE
+          ? await prisma.sculpture.findUnique({
+              where: { id },
+              include: {
+                images: {
+                  select: {
+                    filename: true,
+                  },
+                },
+              },
+            })
+          : type === Type.DRAWING
+            ? await prisma.drawing.findUnique({
+                where: { id },
+              })
+            : null;
+
+    if (item) {
+      const dir = getItemDir(type);
+      if (type === Type.PAINTING || type === Type.DRAWING) {
+        deleteFile(dir, item.images[0].filename);
+        type === Type.PAINTING
+          ? await prisma.painting.delete({
+              where: {
+                id,
+              },
+            })
+          : await prisma.drawing.delete({
+              where: {
+                id,
+              },
+            });
+      }
+      if (type === Type.SCULPTURE) {
+        for (const image of item.images) {
+          deleteFile(dir, image.filename);
+          await prisma.sculptureImage.delete({
+            where: {
+              filename: image.filename,
+            },
+          });
+        }
+        await prisma.sculpture.delete({
+          where: {
+            id,
+          },
+        });
+      }
     }
-    revalidatePath("/admin/dessins");
-    return { message: "Dessin supprimé", isError: false };
+    revalidatePath(`/admin/${type}s`);
+    return { message: `Item supprimé`, isError: false };
   } catch (e) {
     return { message: "Erreur à la suppression", isError: true };
   }

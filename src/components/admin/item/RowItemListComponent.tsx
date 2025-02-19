@@ -5,10 +5,8 @@ import Image from "next/image";
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import UpdateItemButton from "@/components/admin/form/UpdateItemButton";
 import s from "../../../styles/admin/AdminList.module.css";
-import { CategoryFull, ItemFull, Type } from "@/lib/type";
-import { deletePainting } from "@/app/actions/paintings/admin";
-import { deleteSculpture } from "@/app/actions/sculptures/admin";
-import { deleteDrawing } from "@/app/actions/drawings/admin";
+import { CategoryFull, ItemFull } from "@/lib/type";
+import { deleteItem } from "@/app/actions/drawings/admin";
 import { useMemo } from "react";
 
 interface Props {
@@ -53,16 +51,7 @@ export default function RowItemListComponent({ item, categories }: Props) {
         <UpdateItemButton item={item} categories={categories} />
       </li>
       <li className={s.itemIcon}>
-        <DeleteButton
-          deleteAction={
-            item.type === Type.PAINTING
-              ? deletePainting
-              : item.type === Type.SCULPTURE
-                ? deleteSculpture
-                : deleteDrawing
-          }
-          id={item.id}
-        />
+        <DeleteButton deleteAction={() => deleteItem(item.id, item.type)} />
       </li>
     </ul>
   );
