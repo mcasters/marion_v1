@@ -15,6 +15,16 @@ export const capitalize = (string: string): string => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+export const getItemType = (
+  typeString: string,
+): Type.PAINTING | Type.SCULPTURE | Type.DRAWING => {
+  return typeString === Type.PAINTING
+    ? Type.PAINTING
+    : typeString === Type.SCULPTURE
+      ? Type.SCULPTURE
+      : Type.DRAWING;
+};
+
 export const transformValueToKey = (value: string): string => {
   return value
     .toLowerCase()
