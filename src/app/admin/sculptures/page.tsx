@@ -5,23 +5,28 @@ import React from "react";
 import { Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import ItemForm from "@/components/admin/form/ItemForm";
-import { getAllCategories, getYears } from "@/app/actions/items";
+import { getAllCategories, getAllItems, getYears } from "@/app/actions/items";
 import { createItem } from "@/app/actions/items/admin";
 
 export default async function Sculptures() {
   const categories = await getAllCategories(Type.SCULPTURE);
   const years = await getYears(Type.SCULPTURE, true);
+  const items = await getAllItems(Type.SCULPTURE);
 
   return (
     <>
       <h1 className={s.pageTitle}>Contenus des pages Sculptures</h1>
-      <ItemListComponent categories={categories} years={years} />
+      <ItemListComponent categories={categories} years={years} items={items} />
       <ItemForm
         categories={categories}
         item={getEmptyItem(Type.SCULPTURE)}
         itemAction={createItem}
       />
-      <CategoryComponent type={Type.SCULPTURE} categories={categories} />
+      <CategoryComponent
+        type={Type.SCULPTURE}
+        categories={categories}
+        items={items}
+      />
     </>
   );
 }

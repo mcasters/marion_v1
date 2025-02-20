@@ -12,11 +12,10 @@ export default async function Page() {
   const session = await getSession();
   const themes = await getThemesFull();
   const presetColors = await getPresetColors();
-  const isAdmin = session?.user?.isAdmin;
   let activeTheme = themes.filter((t) => t.isActive)[0];
   if (!activeTheme) activeTheme = await getActiveTheme();
 
-  if (isAdmin) {
+  if (session) {
     return (
       <AdminWorkThemeProvider defaultWorkTheme={activeTheme}>
         <AdminTheme themes={themes} presetColors={presetColors} />

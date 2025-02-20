@@ -1,7 +1,7 @@
 import ItemTagComponent from "@/components/item/ItemTagComponent";
 import s from "@/styles/ItemPage.module.css";
 import { getSession } from "@/app/lib/auth";
-import { getCategoryByKey } from "@/app/actions/items";
+import { getCategoryByKey, getItemsByCategory } from "@/app/actions/items";
 import { Type } from "@/lib/type";
 
 type Props = {
@@ -12,14 +12,21 @@ export default async function Page({ params }: Props) {
   const categoryKey = (await params).category;
   const session = await getSession();
   const category = await getCategoryByKey(
+    categoryKey,
     Type.SCULPTURE,
     !session,
-    categoryKey,
   );
+  const items = await getItemsByCategory(categoryKey, Type.SCULPTURE, !session);
 
   return (
     <div className={s.sculptureContent}>
-      <ItemTagComponent tag={category.value} category={category} />
+      {category && (
+        <ItemTagComponent
+          tag={category.value}
+          category={category}
+          items={items}
+        />
+      )}
     </div>
   );
 }

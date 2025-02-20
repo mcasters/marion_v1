@@ -5,23 +5,28 @@ import React from "react";
 import { Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import ItemForm from "@/components/admin/form/ItemForm";
-import { getAllCategories, getYears } from "@/app/actions/items";
+import { getAllCategories, getAllItems, getYears } from "@/app/actions/items";
 import { createItem } from "@/app/actions/items/admin";
 
 export default async function Peintures() {
   const categories = await getAllCategories(Type.PAINTING);
   const years = await getYears(Type.PAINTING, true);
+  const items = await getAllItems(Type.PAINTING);
 
   return (
     <>
       <h1 className={s.pageTitle}>Contenus des pages Peintures</h1>
-      <ItemListComponent categories={categories} years={years} />
+      <ItemListComponent categories={categories} years={years} items={items} />
       <ItemForm
         categories={categories}
         item={getEmptyItem(Type.PAINTING)}
         itemAction={createItem}
       />
-      <CategoryComponent type={Type.PAINTING} categories={categories} />
+      <CategoryComponent
+        type={Type.PAINTING}
+        categories={categories}
+        items={items}
+      />
     </>
   );
 }
