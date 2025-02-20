@@ -1,7 +1,7 @@
 import { unstable_cache } from "next/cache";
-import { CategoryFull, ItemFull, Type } from "@/lib/type";
+import { Category, ItemFull, Type } from "@/lib/type";
 import prisma from "@/lib/prisma";
-import { getEmptyContent } from "@/utils/commonUtils";
+import { getNoCategory } from "@/utils/commonUtils";
 
 export async function cache<S>(
   fn: () => Promise<S>,
@@ -21,6 +21,7 @@ export const KEYS = {
   [Type.PAINTING]: {
     items: "paintings",
     itemsByYear: "paintingsByYear",
+    itemsByCategory: "paintingsByYear",
     noCategory: "paintingsWithNoCategory",
     categories: "paintingCategories",
     category: "paintingCategory",
@@ -29,6 +30,7 @@ export const KEYS = {
   [Type.SCULPTURE]: {
     items: "sculptures",
     itemsByYear: "sculpturesByYear",
+    itemsByCategory: "sculturessByYear",
     noCategory: "sculpturesWithNoCategory",
     categories: "sculptureCategories",
     category: "sculptureCategory",
@@ -37,6 +39,7 @@ export const KEYS = {
   [Type.DRAWING]: {
     items: "drawings",
     itemsByYear: "drawingsByYear",
+    itemsByCategory: "drawingsByYear",
     noCategory: "drawingsWithNoCategory",
     categories: "drawingCategories",
     category: "drawingCategory",
@@ -120,9 +123,37 @@ export const queryItemsByYear = async (
     });
 };
 
+export const queryItemsByCategory = async (
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
+  categoryKey: string,
+): Promise<ItemFull[]> => {
+  if (type === Type.PAINTING)
+    return await prisma.painting.findMany({
+      where: {
+        category: { key: categoryKey },
+      },
+      orderBy: { date: "asc" },
+    });
+  else if (type === Type.SCULPTURE)
+    return await prisma.sculpture.findMany({
+      where: {
+        category: { key: categoryKey },
+      },
+      include: { images: true },
+      orderBy: { date: "asc" },
+    });
+  else
+    return await prisma.drawing.findMany({
+      where: {
+        category: { key: categoryKey },
+      },
+      orderBy: { date: "asc" },
+    });
+};
+
 export const queryNoCategory = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): Promise<CategoryFull | null> => {
+): Promise<Category | null> => {
   let items;
   if (type === Type.PAINTING)
     items = await prisma.painting.findMany({
@@ -136,7 +167,6 @@ export const queryNoCategory = async (
       where: {
         category: null,
       },
-      include: { images: true },
       orderBy: { date: "asc" },
     });
   else
@@ -147,31 +177,18 @@ export const queryNoCategory = async (
       orderBy: { date: "asc" },
     });
 
-  const count = items.length;
-  return count > 0
-    ? {
-        id: 0,
-        key: "no-category",
-        value: "Sans catégorie",
-        count,
-        content: getEmptyContent(),
-        items,
-      }
-    : null;
+  return items.length > 0 ? getNoCategory() : null;
 };
 
 export const queryCategory = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   categoryKey: string,
-): Promise<CategoryFull> => {
+): Promise<Category | null> => {
   if (type === Type.PAINTING)
     return await prisma.paintingCategory.findUnique({
       where: { key: categoryKey },
       include: {
         content: true,
-        paintings: {
-          orderBy: { date: "asc" },
-        },
       },
     });
   else if (type === Type.SCULPTURE)
@@ -179,10 +196,6 @@ export const queryCategory = async (
       where: { key: categoryKey },
       include: {
         content: true,
-        sculptures: {
-          include: { images: true },
-          orderBy: { date: "asc" },
-        },
       },
     });
   else
@@ -190,16 +203,13 @@ export const queryCategory = async (
       where: { key: categoryKey },
       include: {
         content: true,
-        drawings: {
-          orderBy: { date: "asc" },
-        },
       },
     });
 };
 
 export const queryCategories = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): Promise<CategoryFull[]> => {
+): Promise<Category[]> => {
   if (type === Type.PAINTING)
     return prisma.paintingCategory.findMany({
       where: {
@@ -231,28 +241,41 @@ export const queryCategories = async (
 
 export const queryAllCategories = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): Promise<CategoryFull[]> => {
+): Promise<Category[]> => {
   if (type === Type.PAINTING)
     return prisma.paintingCategory.findMany({
       include: {
         content: true,
-        paintings: true,
       },
     });
   else if (type === Type.SCULPTURE)
     return prisma.sculptureCategory.findMany({
       include: {
         content: true,
-        sculptures: {
-          include: { images: true },
-        },
       },
     });
   else
     return prisma.drawingCategory.findMany({
       include: {
         content: true,
-        drawings: true,
       },
+    });
+};
+
+export const queryAllItems = async (
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
+): Promise<ItemFull[]> => {
+  if (type === Type.PAINTING)
+    return await prisma.painting.findMany({
+      orderBy: { date: "asc" },
+    });
+  else if (type === Type.SCULPTURE)
+    return await prisma.sculpture.findMany({
+      include: { images: true },
+      orderBy: { date: "asc" },
+    });
+  else
+    return await prisma.drawing.findMany({
+      orderBy: { date: "asc" },
     });
 };

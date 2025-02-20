@@ -1,12 +1,14 @@
 "use server";
 
-import { CategoryFull, ItemFull, Type } from "@/lib/type";
+import { Category, ItemFull, Type } from "@/lib/type";
 import {
   cache,
   KEYS,
   queryAllCategories,
+  queryAllItems,
   queryCategories,
   queryCategory,
+  queryItemsByCategory,
   queryItemsByYear,
   queryNoCategory,
   queryYears,
@@ -39,10 +41,24 @@ export async function getItemsByYear(
   return JSON.parse(JSON.stringify(items));
 }
 
+export async function getItemsByCategory(
+  categoryKey: string,
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
+  isAdmin: boolean,
+): Promise<ItemFull[]> {
+  const items = await cache(
+    () => queryItemsByCategory(type, categoryKey),
+    isAdmin,
+    `${KEYS[type].itemsByCategory}-${categoryKey}`,
+  );
+
+  return JSON.parse(JSON.stringify(items));
+}
+
 export async function getCategories(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   isAdmin: boolean,
-): Promise<CategoryFull[]> {
+): Promise<Category[]> {
   const categories = await cache(
     () => queryCategories(type),
     isAdmin,
@@ -60,10 +76,10 @@ export async function getCategories(
 }
 
 export async function getCategoryByKey(
+  categoryKey: string,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   isAdmin: boolean,
-  categoryKey: string,
-): Promise<CategoryFull> {
+): Promise<Category | null> {
   let category;
 
   if (categoryKey === "no-category") {
@@ -83,14 +99,23 @@ export async function getCategoryByKey(
   return JSON.parse(JSON.stringify(category));
 }
 
-// Categories with also no Items inside
+// FOR ADMIN : Categories with also no Items inside
 export async function getAllCategories(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): Promise<CategoryFull[]> {
+): Promise<Category[]> {
   let res = await queryAllCategories(type);
   const noCategory = await queryNoCategory(type);
 
   if (noCategory) res.push(noCategory);
 
   return JSON.parse(JSON.stringify(res));
+}
+
+// FOR ADMIN : Categories with also no Items inside
+export async function getAllItems(
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
+): Promise<ItemFull[]> {
+  const items = await queryAllItems(type);
+
+  return JSON.parse(JSON.stringify(items));
 }

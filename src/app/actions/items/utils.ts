@@ -1,4 +1,4 @@
-import { CategoryFull, ItemFull, Type } from "@/lib/type";
+import { Category, ItemFull, Type } from "@/lib/type";
 import {
   deleteFile,
   getItemDir,
@@ -129,7 +129,7 @@ export const handleCategory = (
 
 export const getCategoryData = (
   formData: FormData,
-  oldCategory: CategoryFull | null,
+  oldCategory: Category | null,
 ) => {
   const rawFormData = Object.fromEntries(formData);
   const value = rawFormData.value as string;

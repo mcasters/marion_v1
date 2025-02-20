@@ -9,7 +9,7 @@ import {
   getPaintOrDrawData,
   getSculptData,
 } from "@/app/actions/items/utils";
-import { CategoryFull, ItemFull, Type } from "@/lib/type";
+import { ItemFull, Type } from "@/lib/type";
 
 export async function createItem(
   prevState: { message: string; isError: boolean } | null,
@@ -176,7 +176,7 @@ export async function updateCategory(
   const id = Number(formData.get("id"));
 
   try {
-    const oldCat: CategoryFull =
+    const oldCat =
       type === Type.PAINTING
         ? await prisma.paintingCategory.findUnique({
             where: { id },
@@ -226,7 +226,7 @@ export async function deleteCategory(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
 ) {
   try {
-    const category: CategoryFull =
+    const category =
       type === Type.PAINTING
         ? await prisma.paintingCategory.findUnique({
             where: { id },
