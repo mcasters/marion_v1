@@ -4,33 +4,20 @@ import CategoryListComponent from "@/components/admin/item/category/CategoryList
 import CategoryForm from "@/components/admin/form/CategoryForm";
 import s from "../../../../styles/admin/AdminList.module.css";
 import { CategoryFull, Type } from "@/lib/type";
-import { createCategorySculpture } from "@/app/actions/sculptures/admin";
-import { createCategoryDrawing } from "@/app/actions/drawings/admin";
-import { createCategoryPainting } from "@/app/actions/paintings/admin";
 import { getEmptyCategory } from "@/utils/commonUtils";
 
 interface Props {
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
   categories: CategoryFull[];
-  itemType: Type;
 }
-export default function CategoryComponent({ categories, itemType }: Props) {
+export default function CategoryComponent({ categories, type }: Props) {
   const title = "Gestion des catégories";
-  const action =
-    itemType === Type.SCULPTURE
-      ? createCategorySculpture
-      : itemType === Type.DRAWING
-        ? createCategoryDrawing
-        : createCategoryPainting;
 
   return (
     <div className={s.listContainer}>
       <h2>{title}</h2>
-      <CategoryListComponent itemType={itemType} categories={categories} />
-      <CategoryForm
-        category={getEmptyCategory()}
-        type={itemType}
-        categoryAction={action}
-      />
+      <CategoryListComponent type={type} categories={categories} />
+      <CategoryForm category={getEmptyCategory()} type={type} />
     </div>
   );
 }

@@ -7,7 +7,7 @@ import PostForm from "@/components/admin/form/PostForm";
 import UpdateIcon from "@/components/icons/UpdateIcon";
 import ItemForm from "@/components/admin/form/ItemForm";
 import React from "react";
-import { updateItem } from "@/app/actions/drawings/admin";
+import { updateItem } from "@/app/actions/items/admin";
 
 type Props = {
   item: ItemFull | PostFull;

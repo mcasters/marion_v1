@@ -9,25 +9,21 @@ import { CategoryFull, Image, Type } from "@/lib/type";
 import { useAlert } from "@/app/context/AlertProvider";
 import { getEmptyCategory } from "@/utils/commonUtils";
 import SelectImageForm from "@/components/admin/form/imageForm/SelectImageForm";
+import { createCategory, updateCategory } from "@/app/actions/items/admin";
 
 interface Props {
   category: CategoryFull;
-  type: Type;
-  categoryAction: (
-    prevState: { message: string; isError: boolean } | null,
-    formData: FormData,
-  ) => Promise<{ isError: boolean; message: string }>;
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
   toggleModal?: () => void;
 }
-export default function CategoryForm({
-  category,
-  categoryAction,
-  toggleModal,
-}: Props) {
+export default function CategoryForm({ category, type, toggleModal }: Props) {
   const isUpdate = category.id !== 0;
   const [workCategory, setWorkCategory] = useState<CategoryFull>(category);
   const [image, setImage] = useState<Image>(category.content.image);
-  const [state, action] = useActionState(categoryAction, null);
+  const [state, action] = useActionState(
+    isUpdate ? updateCategory : createCategory,
+    null,
+  );
   const resetImageRef = useRef<number>(0);
   const alert = useAlert();
 
@@ -57,6 +53,7 @@ export default function CategoryForm({
       </h3>
       <form action={action}>
         {isUpdate && <input type="hidden" name="id" value={category.id} />}
+        <input type="hidden" name="type" value={type} />
         <input type="hidden" name="filename" value={image.filename} />
         <input type="hidden" name="width" value={image.width} />
         <input type="hidden" name="height" value={image.height} />
