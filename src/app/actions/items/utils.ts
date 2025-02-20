@@ -1,4 +1,4 @@
-import { ItemFull, Type } from "@/lib/type";
+import { CategoryFull, ItemFull, Type } from "@/lib/type";
 import {
   deleteFile,
   getItemDir,
@@ -6,27 +6,18 @@ import {
   resizeAndSaveImage,
 } from "@/utils/serverUtils";
 import prisma from "@/lib/prisma";
+import { transformValueToKey } from "@/utils/commonUtils";
 
-export const getItemData = (
-  type: string,
-  formData: FormData,
-  oldItem: ItemFull | null,
-) => {
-  if (type === Type.PAINTING || type === Type.DRAWING)
-    return getPaintOrDrawData(type, formData, oldItem);
-  if (type === Type.SCULPTURE) return getSculptData(formData, oldItem);
-};
-
-const getPaintOrDrawData = async (
-  type: string,
+export const getPaintOrDrawData = async (
+  type: Type.PAINTING | Type.DRAWING,
   formData: FormData,
   oldItem: ItemFull | null,
 ) => {
   const rawFormData = Object.fromEntries(formData);
   const file = rawFormData.file as File;
   const title = rawFormData.title as string;
-  const category = getCategoryData(rawFormData.categoryId as string, oldItem);
-  const fileInfo = await resizeAndSaveImage(file, title, getItemDir(type));
+  const category = handleCategory(rawFormData.categoryId as string, oldItem);
+  const fileInfo = await handlePaintOrDrawImages(type, file, title, oldItem);
 
   return {
     title,
@@ -37,22 +28,24 @@ const getPaintOrDrawData = async (
     width: Number(rawFormData.width),
     isToSell: rawFormData.isToSell === "true",
     price: Number(rawFormData.price),
-    imageFilename: fileInfo ? fileInfo.filename : undefined,
-    imageWidth: fileInfo ? fileInfo.width : undefined,
-    imageHeight: fileInfo ? fileInfo.height : undefined,
+    imageFilename: fileInfo ? fileInfo.filename : "",
+    imageWidth: fileInfo ? fileInfo.width : 0,
+    imageHeight: fileInfo ? fileInfo.height : 0,
     category,
   };
 };
 
-const getSculptData = async (formData: FormData, oldItem: ItemFull | null) => {
+export const getSculptData = async (
+  formData: FormData,
+  oldItem: ItemFull | null,
+) => {
   const rawFormData = Object.fromEntries(formData);
   const files = formData.getAll("files") as File[];
   const title = rawFormData.title as string;
-  const category = getCategoryData(rawFormData.categoryId as string, oldItem);
+  const category = handleCategory(rawFormData.categoryId as string, oldItem);
   const images = await handleSculptImages(
     files,
     title,
-    getSculptureDir(),
     rawFormData.filenamesToDelete as string,
   );
 
@@ -73,12 +66,25 @@ const getSculptData = async (formData: FormData, oldItem: ItemFull | null) => {
   };
 };
 
+const handlePaintOrDrawImages = async (
+  type: Type.PAINTING | Type.DRAWING,
+  file: File,
+  title: string,
+  oldItem: ItemFull | null,
+) => {
+  const dir = getItemDir(type);
+  if (file.size > 0) {
+    if (oldItem) deleteFile(getItemDir(type), oldItem.images[0].filename);
+    return await resizeAndSaveImage(file, title, dir);
+  } else return null;
+};
+
 const handleSculptImages = async (
   files: File[],
   title: string,
-  dir: string,
   filenamesToDelete: string,
 ) => {
+  const dir = getSculptureDir();
   if (filenamesToDelete !== "") {
     for await (const filename of filenamesToDelete.split(",")) {
       deleteFile(dir, filename);
@@ -102,7 +108,7 @@ const handleSculptImages = async (
   return images;
 };
 
-export const getCategoryData = (
+export const handleCategory = (
   categoryId: string,
   oldItem: ItemFull | null,
 ) => {
@@ -119,4 +125,34 @@ export const getCategoryData = (
           },
         }
       : {};
+};
+
+export const getCategoryData = (
+  formData: FormData,
+  oldCategory: CategoryFull | null,
+) => {
+  const rawFormData = Object.fromEntries(formData);
+  const value = rawFormData.value as string;
+  const contentData = {
+    title: rawFormData.title as string,
+    text: rawFormData.text as string,
+    imageFilename: rawFormData.filename as string,
+    imageWidth: Number(rawFormData.width),
+    imageHeight: Number(rawFormData.height),
+  };
+
+  const content =
+    !oldCategory || !oldCategory.content
+      ? {
+          create: contentData,
+        }
+      : {
+          update: contentData,
+        };
+
+  return {
+    key: transformValueToKey(value),
+    value,
+    content,
+  };
 };

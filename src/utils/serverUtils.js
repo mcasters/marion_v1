@@ -46,7 +46,6 @@ export const createDirIfNecessary = (dir) => {
 };
 
 export const resizeAndSaveImage = async (file, title = "", dir) => {
-  if (file.size === 0) return null;
   const titleString = transformValueToKey(title);
   const newFilename = `${titleString}-${Date.now()}.jpeg`;
   const maxSize = 140000;

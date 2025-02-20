@@ -5,8 +5,8 @@ import React from "react";
 import { Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import ItemForm from "@/components/admin/form/ItemForm";
-import { getAllCategories, getYears } from "@/app/actions";
-import { createItem } from "@/app/actions/drawings/admin";
+import { getAllCategories, getYears } from "@/app/actions/items";
+import { createItem } from "@/app/actions/items/admin";
 
 export default async function Peintures() {
   const categories = await getAllCategories(Type.PAINTING);
@@ -21,7 +21,7 @@ export default async function Peintures() {
         item={getEmptyItem(Type.PAINTING)}
         itemAction={createItem}
       />
-      <CategoryComponent itemType={Type.PAINTING} categories={categories} />
+      <CategoryComponent type={Type.PAINTING} categories={categories} />
     </>
   );
 }

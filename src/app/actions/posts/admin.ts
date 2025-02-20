@@ -1,7 +1,6 @@
 "use server";
 
 import {
-  createDirIfNecessary,
   deleteFile,
   getPostDir,
   resizeAndSaveImage,
@@ -14,8 +13,6 @@ export async function createPost(
   formData: FormData,
 ) {
   const dir = getPostDir();
-  createDirIfNecessary(dir);
-
   const rawFormData = Object.fromEntries(formData);
   const mainFile = rawFormData.file as File;
   const files = formData.getAll("files") as File[];
@@ -86,20 +83,18 @@ export async function updatePost(
     if (oldPost) {
       const mainFilenameToDelete = rawFormData.mainFilenameToDelete as string;
       if (mainFilenameToDelete) {
-        if (deleteFile(dir, mainFilenameToDelete)) {
-          await prisma.postImage.delete({
-            where: { filename: mainFilenameToDelete },
-          });
-        }
+        deleteFile(dir, mainFilenameToDelete);
+        await prisma.postImage.delete({
+          where: { filename: mainFilenameToDelete },
+        });
       }
       const filenamesToDelete = rawFormData.filenamesToDelete as string;
       if (filenamesToDelete) {
         for await (const filename of filenamesToDelete.split(",")) {
-          if (deleteFile(dir, filename)) {
-            await prisma.postImage.delete({
-              where: { filename },
-            });
-          }
+          deleteFile(dir, filename);
+          await prisma.postImage.delete({
+            where: { filename },
+          });
         }
       }
 

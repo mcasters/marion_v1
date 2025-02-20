@@ -199,7 +199,7 @@ export const queryCategory = async (
 
 export const queryCategories = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): Promise<CategoryFull> => {
+): Promise<CategoryFull[]> => {
   if (type === Type.PAINTING)
     return prisma.paintingCategory.findMany({
       where: {
@@ -231,7 +231,7 @@ export const queryCategories = async (
 
 export const queryAllCategories = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): Promise<CategoryFull> => {
+): Promise<CategoryFull[]> => {
   if (type === Type.PAINTING)
     return prisma.paintingCategory.findMany({
       include: {

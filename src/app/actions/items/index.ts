@@ -10,7 +10,7 @@ import {
   queryItemsByYear,
   queryNoCategory,
   queryYears,
-} from "@/app/actions/queries";
+} from "@/app/actions/items/queries";
 
 export async function getYears(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
