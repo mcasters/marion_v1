@@ -1,7 +1,7 @@
 import { Type } from "@/lib/type";
 import ItemHomeComponent from "@/components/item/ItemHomeComponent";
 import { getSession } from "@/app/lib/auth";
-import { getCategories, getYears } from "@/app/actions";
+import { getCategories, getYears } from "@/app/actions/items";
 
 export default async function Page() {
   const session = await getSession();

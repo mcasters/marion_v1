@@ -1,5 +1,5 @@
 import s from "@/styles/ItemPage.module.css";
-import { getCategoryByKey } from "@/app/actions";
+import { getCategoryByKey } from "@/app/actions/items";
 import ItemTagComponent from "@/components/item/ItemTagComponent";
 import { Type } from "@/lib/type";
 import { getSession } from "@/app/lib/auth";

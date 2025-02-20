@@ -1,5 +1,5 @@
 import { Type } from "@/lib/type";
-import { getCategories, getYears } from "@/app/actions";
+import { getCategories, getYears } from "@/app/actions/items";
 import ItemHomeComponent from "@/components/item/ItemHomeComponent";
 import { getSession } from "@/app/lib/auth";
 

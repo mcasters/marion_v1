@@ -1,4 +1,4 @@
-import { getItemsByYear } from "@/app/actions";
+import { getItemsByYear } from "@/app/actions/items";
 import s from "@/styles/ItemPage.module.css";
 import ItemTagComponent from "@/components/item/ItemTagComponent";
 import { Type } from "@/lib/type";

@@ -1,7 +1,7 @@
 import s from "@/styles/ItemPage.module.css";
 import ItemTagComponent from "@/components/item/ItemTagComponent";
 import { getSession } from "@/app/lib/auth";
-import { getItemsByYear } from "@/app/actions";
+import { getItemsByYear } from "@/app/actions/items";
 import { Type } from "@/lib/type";
 
 type Props = {
