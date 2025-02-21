@@ -1,6 +1,6 @@
 import { Label, PresetColor, Theme } from "@prisma/client";
 import {
-  CategoryFull,
+  Category,
   ContentFull,
   Image,
   ItemFull,
@@ -195,6 +195,7 @@ export const getEmptyPost = (): PostFull => {
 
 export const getEmptyImage = (): Image => {
   return {
+    id: 0,
     filename: "",
     width: 0,
     height: 0,
@@ -204,29 +205,27 @@ export const getEmptyImage = (): Image => {
 
 export const getEmptyContent = () => {
   return {
+    id: 0,
     title: "",
     text: "",
     image: getEmptyImage(),
   };
 };
 
-export const getEmptyCategory = (): CategoryFull => {
+export const getEmptyCategory = (): Category => {
   return {
     id: 0,
     key: "",
     value: "",
-    count: 0,
     content: getEmptyContent(),
-    items: [],
   };
 };
 
-export const getItemsFromCategories = (
-  categories: CategoryFull[],
-): ItemFull[] => {
-  let items: ItemFull[] = [];
-  categories.forEach((category) => {
-    items = items.concat(category.items);
-  });
-  return items;
+export const getNoCategory = (): Category => {
+  return {
+    id: 0,
+    key: "no-category",
+    value: "Sans catégorie",
+    content: getEmptyContent(),
+  };
 };

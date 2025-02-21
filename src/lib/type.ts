@@ -11,29 +11,30 @@ export type OnlyString<T> = { [k in StringKeys<T>]: boolean };
 export type PaintingFull = Prisma.Result<typeof prisma.painting, {}, any>;
 export type SculptureFull = Prisma.Result<typeof prisma.sculpture, {}, any>;
 export type DrawingFull = Prisma.Result<typeof prisma.drawing, {}, any>;
+export type CategoryContent = Prisma.Result<
+  typeof prisma.categoryContent,
+  {},
+  any
+>;
 
-export type PaintingCategoryFull = Prisma.Result<
-  typeof prisma.paintingCategory,
-  {},
-  any
->;
-export type DrawingCategoryFull = Prisma.Result<
-  typeof prisma.drawingCategory,
-  {},
-  any
->;
-export type SculptureCategoryFull = Prisma.Result<
-  typeof prisma.sculptureCategory,
-  {},
-  any
->;
+export type PaintingCategoryFull = Prisma.PaintingCategoryGetPayload<{
+  include: { content: true };
+}>;
+export type SculptureCategoryFull = Prisma.SculptureCategoryGetPayload<{
+  include: { content: true };
+}>;
+export type DrawingCategoryFull = Prisma.DrawingCategoryGetPayload<{
+  include: { content: true };
+}>;
 
 export type ItemFull = PaintingFull | SculptureFull | DrawingFull;
 
-export type CategoryFull =
-  | PaintingCategoryFull
-  | SculptureCategoryFull
-  | DrawingCategoryFull;
+export type Category = {
+  id: number;
+  key: string;
+  value: string;
+  content: CategoryContent;
+};
 
 export enum Type {
   PAINTING = "peinture",
@@ -60,6 +61,7 @@ export type ContentFull = {
 };
 
 export type Image = {
+  id: number;
   filename: string;
   width: number;
   height: number;
