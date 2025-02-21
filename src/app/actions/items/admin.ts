@@ -66,17 +66,17 @@ export async function updateItem(
       if (type === Type.PAINTING)
         await prisma.painting.update({
           where: { id },
-          data: await getPaintOrDrawData(type, formData, null),
+          data: await getPaintOrDrawData(type, formData, oldItem),
         });
       if (type === Type.SCULPTURE)
         await prisma.sculpture.update({
           where: { id },
-          data: await getSculptData(formData, null),
+          data: await getSculptData(formData, oldItem),
         });
       if (type === Type.DRAWING)
         await prisma.drawing.update({
           where: { id },
-          data: await getPaintOrDrawData(type, formData, null),
+          data: await getPaintOrDrawData(type, formData, oldItem),
         });
     }
     revalidatePath(`/admin/${type}s`);

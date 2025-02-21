@@ -28,9 +28,9 @@ export const getPaintOrDrawData = async (
     width: Number(rawFormData.width),
     isToSell: rawFormData.isToSell === "true",
     price: Number(rawFormData.price),
-    imageFilename: fileInfo ? fileInfo.filename : "",
-    imageWidth: fileInfo ? fileInfo.width : 0,
-    imageHeight: fileInfo ? fileInfo.height : 0,
+    imageFilename: fileInfo ? fileInfo.filename : undefined,
+    imageWidth: fileInfo ? fileInfo.width : undefined,
+    imageHeight: fileInfo ? fileInfo.height : undefined,
     category,
   };
 };
@@ -85,7 +85,7 @@ const handleSculptImages = async (
   filenamesToDelete: string,
 ) => {
   const dir = getSculptureDir();
-  if (filenamesToDelete !== "") {
+  if (filenamesToDelete) {
     for await (const filename of filenamesToDelete.split(",")) {
       deleteFile(dir, filename);
       await prisma.sculptureImage.delete({
@@ -112,7 +112,7 @@ export const handleCategory = (
   categoryId: string,
   oldItem: ItemFull | null,
 ) => {
-  return categoryId !== ""
+  return categoryId !== "0"
     ? {
         connect: {
           id: Number(categoryId),
@@ -121,7 +121,7 @@ export const handleCategory = (
     : oldItem && oldItem.categoryId
       ? {
           disconnect: {
-            id: oldItem.categoryId,
+            id: Number(oldItem.categoryId),
           },
         }
       : {};
