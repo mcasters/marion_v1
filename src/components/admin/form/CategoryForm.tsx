@@ -8,7 +8,7 @@ import CancelButton from "@/components/admin/form/CancelButton";
 import { Category, Image, ItemFull, Type } from "@/lib/type";
 import { useAlert } from "@/app/context/AlertProvider";
 import { getEmptyCategory } from "@/utils/commonUtils";
-import SelectImageForm from "@/components/admin/form/imageForm/SelectImageForm";
+import SelectImageList from "@/components/admin/form/imageForm/SelectImageList";
 import { createCategory, updateCategory } from "@/app/actions/items/admin";
 
 interface Props {
@@ -117,7 +117,7 @@ export default function CategoryForm({
           />
         </label>
         {isUpdate && (
-          <SelectImageForm
+          <SelectImageList
             items={items}
             value={workCategory.content.image}
             onChange={(image) => setImage(image)}

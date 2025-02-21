@@ -92,9 +92,7 @@ h2.formLabel,
 }
 
 .buttonSection {
-  margin: 4em auto 1em;
-  padding: 2em;
-  border-top: solid 1px var(--color-dark);
+  margin: 1em;
 }
 
 /* Image */
@@ -133,10 +131,6 @@ h2.formLabel,
   text-align: center;
 }
 
-.imageFormContainer {
-  margin: 1rem auto 1rem;
-}
-
 /* End image */
 
 h2.homepage {
@@ -160,8 +154,10 @@ h2.homepage {
 /* Select Image */
 
 .selectList {
-  height: 200px;
-  line-height: 80px;
+  height: 400px;
+  width: 300px;
+  margin: auto;
+  line-height: 122px;
   vertical-align: middle;
   position: relative;
   background: white;
@@ -170,16 +166,12 @@ h2.homepage {
   overflow-y: scroll;
 }
 
-.imageSelected {
-  background-color: rgba(0, 0, 0, 0.3);
+.option {
+  height: 122px;
 }
 
 .option:hover {
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-.option {
-  height: 80px;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 /* End Select Image */

@@ -5,27 +5,12 @@ import prisma from "@/lib/prisma";
 type StringKeys<T> = {
   [k in keyof T]: T[k] extends string ? k : never;
 }[keyof T];
-
 export type OnlyString<T> = { [k in StringKeys<T>]: boolean };
 
-export type PaintingFull = Prisma.Result<typeof prisma.painting, {}, any>;
-export type SculptureFull = Prisma.Result<typeof prisma.sculpture, {}, any>;
-export type DrawingFull = Prisma.Result<typeof prisma.drawing, {}, any>;
-export type CategoryContent = Prisma.Result<
-  typeof prisma.categoryContent,
-  {},
-  any
->;
-
-export type PaintingCategoryFull = Prisma.PaintingCategoryGetPayload<{
-  include: { content: true };
-}>;
-export type SculptureCategoryFull = Prisma.SculptureCategoryGetPayload<{
-  include: { content: true };
-}>;
-export type DrawingCategoryFull = Prisma.DrawingCategoryGetPayload<{
-  include: { content: true };
-}>;
+type PaintingFull = Prisma.Result<typeof prisma.painting, {}, any>;
+type SculptureFull = Prisma.Result<typeof prisma.sculpture, {}, any>;
+type DrawingFull = Prisma.Result<typeof prisma.drawing, {}, any>;
+type CategoryContent = Prisma.Result<typeof prisma.categoryContent, {}, any>;
 
 export type ItemFull = PaintingFull | SculptureFull | DrawingFull;
 
