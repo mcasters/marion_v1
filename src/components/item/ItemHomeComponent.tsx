@@ -1,6 +1,6 @@
 "use client";
 
-import { CategoryFull, Type } from "@/lib/type";
+import { Category, Type } from "@/lib/type";
 import React from "react";
 import s from "@/components/item/ItemHomeComponent.module.css";
 import Image from "next/image";
@@ -8,7 +8,7 @@ import Link from "next/link";
 
 interface Props {
   type: Type;
-  categories: CategoryFull[];
+  categories: Category[];
   years: number[];
 }
 export default function ItemHomeComponent({ categories, type, years }: Props) {

@@ -1,20 +1,16 @@
 "use client";
 
-import { CategoryFull, ItemFull } from "@/lib/type";
-import React, { useMemo } from "react";
+import { Category, ItemFull } from "@/lib/type";
+import React from "react";
 import s from "@/components/item/ItemTagComponent.module.css";
 import ItemComponent from "@/components/item/ItemComponent";
 
 interface Props {
   tag: string;
-  category?: CategoryFull;
-  items?: ItemFull[];
+  category?: Category;
+  items: ItemFull[];
 }
 export default function ItemTagComponent({ tag, category, items }: Props) {
-  const _items: ItemFull[] | undefined = useMemo(() => {
-    return items ? items : category?.items;
-  }, [items, category]);
-
   return (
     <>
       <div className={s.info}>
@@ -27,10 +23,9 @@ export default function ItemTagComponent({ tag, category, items }: Props) {
             </div>
           )}
       </div>
-      {_items &&
-        _items.map((item, index) => (
-          <ItemComponent key={item.id} item={item} priority={index < 1} />
-        ))}
+      {items.map((item, index) => (
+        <ItemComponent key={item.id} item={item} priority={index < 1} />
+      ))}
     </>
   );
 }
