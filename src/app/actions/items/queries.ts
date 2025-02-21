@@ -127,14 +127,29 @@ export const queryItemsByCategory = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   categoryKey: string,
 ): Promise<ItemFull[]> => {
-  if (type === Type.PAINTING)
+  if (type === Type.PAINTING) {
+    if (categoryKey === "no-category")
+      return await prisma.painting.findMany({
+        where: {
+          category: null,
+        },
+        orderBy: { date: "asc" },
+      });
     return await prisma.painting.findMany({
       where: {
         category: { key: categoryKey },
       },
       orderBy: { date: "asc" },
     });
-  else if (type === Type.SCULPTURE)
+  } else if (type === Type.SCULPTURE) {
+    if (categoryKey === "no-category")
+      return await prisma.sculpture.findMany({
+        where: {
+          category: null,
+        },
+        include: { images: true },
+        orderBy: { date: "asc" },
+      });
     return await prisma.sculpture.findMany({
       where: {
         category: { key: categoryKey },
@@ -142,13 +157,21 @@ export const queryItemsByCategory = async (
       include: { images: true },
       orderBy: { date: "asc" },
     });
-  else
+  } else {
+    if (categoryKey === "no-category")
+      return await prisma.drawing.findMany({
+        where: {
+          category: null,
+        },
+        orderBy: { date: "asc" },
+      });
     return await prisma.drawing.findMany({
       where: {
         category: { key: categoryKey },
       },
       orderBy: { date: "asc" },
     });
+  }
 };
 
 export const queryNoCategory = async (
@@ -160,21 +183,18 @@ export const queryNoCategory = async (
       where: {
         category: null,
       },
-      orderBy: { date: "asc" },
     });
   else if (type === Type.SCULPTURE)
     items = await prisma.sculpture.findMany({
       where: {
         category: null,
       },
-      orderBy: { date: "asc" },
     });
   else
     items = await prisma.drawing.findMany({
       where: {
         category: null,
       },
-      orderBy: { date: "asc" },
     });
 
   return items.length > 0 ? getNoCategory() : null;

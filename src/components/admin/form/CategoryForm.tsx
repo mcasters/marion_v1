@@ -5,20 +5,26 @@ import React, { useActionState, useEffect, useRef, useState } from "react";
 import s from "@/styles/admin/Admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
-import { CategoryFull, Image, Type } from "@/lib/type";
+import { Category, Image, ItemFull, Type } from "@/lib/type";
 import { useAlert } from "@/app/context/AlertProvider";
 import { getEmptyCategory } from "@/utils/commonUtils";
 import SelectImageForm from "@/components/admin/form/imageForm/SelectImageForm";
 import { createCategory, updateCategory } from "@/app/actions/items/admin";
 
 interface Props {
-  category: CategoryFull;
+  category: Category;
+  items: ItemFull[];
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
   toggleModal?: () => void;
 }
-export default function CategoryForm({ category, type, toggleModal }: Props) {
+export default function CategoryForm({
+  category,
+  items,
+  type,
+  toggleModal,
+}: Props) {
   const isUpdate = category.id !== 0;
-  const [workCategory, setWorkCategory] = useState<CategoryFull>(category);
+  const [workCategory, setWorkCategory] = useState<Category>(category);
   const [image, setImage] = useState<Image>(category.content.image);
   const [state, action] = useActionState(
     isUpdate ? updateCategory : createCategory,
@@ -112,7 +118,7 @@ export default function CategoryForm({ category, type, toggleModal }: Props) {
         </label>
         {isUpdate && (
           <SelectImageForm
-            items={category.items}
+            items={items}
             value={workCategory.content.image}
             onChange={(image) => setImage(image)}
           />

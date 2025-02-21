@@ -2,7 +2,7 @@
 
 import React, { useActionState, useEffect, useRef, useState } from "react";
 import s from "@/styles/admin/Admin.module.css";
-import { CategoryFull, ItemFull, Type } from "@/lib/type";
+import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import { useAlert } from "@/app/context/AlertProvider";
 import Preview from "@/components/admin/form/imageForm/Preview";
@@ -17,7 +17,7 @@ interface Props {
     formData: FormData,
   ) => Promise<{ isError: boolean; message: string }>;
   toggleModal?: () => void;
-  categories?: CategoryFull[];
+  categories?: Category[];
 }
 
 export default function ItemForm({

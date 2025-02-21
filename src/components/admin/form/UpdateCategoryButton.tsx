@@ -3,16 +3,18 @@
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/Modal";
 import CategoryForm from "@/components/admin/form/CategoryForm";
-import { CategoryFull, Type } from "@/lib/type";
+import { Category, ItemFull, Type } from "@/lib/type";
 import UpdateIcon from "@/components/icons/UpdateIcon";
 
 type Props = {
-  category: CategoryFull;
+  category: Category;
+  items: ItemFull[];
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
   disabled?: boolean;
 };
 export default function UpdateCategoryButton({
   category,
+  items,
   type,
   disabled,
 }: Props) {
@@ -29,7 +31,12 @@ export default function UpdateCategoryButton({
         <UpdateIcon />
       </button>
       <Modal isOpen={isOpen} toggle={toggle}>
-        <CategoryForm category={category} type={type} toggleModal={toggle} />
+        <CategoryForm
+          category={category}
+          items={items}
+          type={type}
+          toggleModal={toggle}
+        />
       </Modal>
     </>
   );

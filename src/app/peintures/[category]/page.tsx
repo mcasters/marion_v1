@@ -1,7 +1,7 @@
 import s from "@/styles/ItemPage.module.css";
 import ItemTagComponent from "@/components/item/ItemTagComponent";
 import { getSession } from "@/app/lib/auth";
-import { getCategoryByKey, getItemsByCategory } from "@/app/actions/items";
+import { getCategory, getItemsByCategory } from "@/app/actions/items";
 import { Type } from "@/lib/type";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 export default async function Page({ params }: Props) {
   const categoryKey = (await params).category;
   const session = await getSession();
-  const category = await getCategoryByKey(categoryKey, Type.PAINTING, !session);
+  const category = await getCategory(categoryKey, Type.PAINTING, !session);
   const items = await getItemsByCategory(categoryKey, Type.PAINTING, !session);
 
   return (

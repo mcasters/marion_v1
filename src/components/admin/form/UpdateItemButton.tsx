@@ -2,7 +2,7 @@
 
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/Modal";
-import { CategoryFull, ItemFull, PostFull, Type } from "@/lib/type";
+import { Category, ItemFull, PostFull, Type } from "@/lib/type";
 import PostForm from "@/components/admin/form/PostForm";
 import UpdateIcon from "@/components/icons/UpdateIcon";
 import ItemForm from "@/components/admin/form/ItemForm";
@@ -11,7 +11,7 @@ import { updateItem } from "@/app/actions/items/admin";
 
 type Props = {
   item: ItemFull | PostFull;
-  categories?: CategoryFull[];
+  categories?: Category[];
 };
 export default function UpdateItemButton({ item, categories }: Props) {
   const { isOpen, toggle } = useModal();
