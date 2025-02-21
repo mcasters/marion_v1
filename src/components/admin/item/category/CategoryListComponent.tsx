@@ -3,13 +3,18 @@
 import RowCategoryListComponent from "./RowCategoryListComponent";
 import React from "react";
 import s from "../../../../styles/admin/AdminList.module.css";
-import { CategoryFull, Type } from "@/lib/type";
+import { Category, ItemFull, Type } from "@/lib/type";
 
 interface Props {
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
-  categories: CategoryFull[];
+  categories: Category[];
+  items: ItemFull[];
 }
-export default function CategoryListComponent({ type, categories }: Props) {
+export default function CategoryListComponent({
+  type,
+  categories,
+  items,
+}: Props) {
   const title = "Liste des catégories";
   const message = `Une catégorie ne peut être supprimée que lorsqu'il n'y a pas ou plus de ${type} qui y est classée.`;
 
@@ -18,10 +23,14 @@ export default function CategoryListComponent({ type, categories }: Props) {
       <h3>{title}</h3>
       <div className={`${s.list} ${s.categoryList}`}>
         {categories.map((category) => {
+          const itemsTab = items.filter(
+            (item) => item.categoryId === category.id,
+          );
           return (
             <RowCategoryListComponent
               key={category.id}
               category={category}
+              items={itemsTab}
               type={type}
             />
           );

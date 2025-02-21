@@ -1,20 +1,17 @@
 "use client";
 
 import RowItemListComponent from "./RowItemListComponent";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import s from "@/styles/admin/AdminList.module.css";
 import style from "@/styles/admin/Admin.module.css";
-import { CategoryFull, ItemFull } from "@/lib/type";
-import { getItemsFromCategories } from "@/utils/commonUtils";
+import { Category, ItemFull } from "@/lib/type";
 
 interface Props {
-  categories: CategoryFull[];
+  categories: Category[];
   years: number[];
+  items: ItemFull[];
 }
-export default function ItemListComponent({ categories, years }: Props) {
-  const items = useMemo(() => {
-    return getItemsFromCategories(categories);
-  }, [categories]);
+export default function ItemListComponent({ categories, years, items }: Props) {
   const itemName = items[0]?.type ? items[0].type : "item";
   const title = `Liste des ${itemName}s`;
 

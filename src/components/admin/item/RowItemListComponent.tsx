@@ -5,12 +5,12 @@ import Image from "next/image";
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import UpdateItemButton from "@/components/admin/form/UpdateItemButton";
 import s from "../../../styles/admin/AdminList.module.css";
-import { CategoryFull, ItemFull } from "@/lib/type";
+import { Category, ItemFull } from "@/lib/type";
 import { useMemo } from "react";
 
 interface Props {
   item: ItemFull;
-  categories: CategoryFull[];
+  categories: Category[];
 }
 
 export default function RowItemListComponent({ item, categories }: Props) {
