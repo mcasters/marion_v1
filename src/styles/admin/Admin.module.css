@@ -75,11 +75,6 @@ h2.formLabel,
   border: var(--color-medium) solid 1px;
 }
 
-.checkLabel {
-  display: inline;
-  margin-top: 1rem;
-}
-
 .checkInput {
   display: inline;
   margin-left: 30px;
@@ -97,18 +92,12 @@ h2.formLabel,
 
 /* Image */
 
-.fileUploaderContainer {
-  width: 100%;
-  text-align: left;
-  padding: 1em 0 1em;
+.imagesContainer {
+  margin-top: 1em;
 }
 
-.imageTitle {
-  font-variant-caps: small-caps;
-  letter-spacing: 3px;
-  padding-bottom: 1em;
-  color: var(--color-dark);
-  font-size: var(--font-size);
+.imageInputContainer {
+  display: flex;
 }
 
 .inputButton {
@@ -116,17 +105,19 @@ h2.formLabel,
 }
 
 .radioInput {
-  display: inline;
-  margin-left: 30px;
   width: 20px;
 }
 
 .radioLabel {
-  display: inline;
+  padding: 15px 0;
+  margin: 0;
+  line-height: 2.3;
+  font-variant-caps: initial;
+  letter-spacing: initial;
 }
 
 .imageWrapper {
-  padding: 1rem 0.8rem;
+  padding: 0.8rem;
   display: inline-block;
   text-align: center;
 }

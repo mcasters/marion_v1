@@ -6,8 +6,13 @@ import CancelButton from "@/components/admin/form/CancelButton";
 import Images from "@/components/admin/form/imageForm/Images";
 import { useAlert } from "@/app/context/AlertProvider";
 import { updateContent } from "@/app/actions/contents/admin";
+import { Label } from "@prisma/client";
+import PreviewForm from "@/components/admin/form/imageForm/PreviewForm";
+import { Image } from "@/lib/type";
+import s from "@/styles/admin/Admin.module.css";
 
 type Props = {
+  images: Image[];
   isMultiple: boolean;
   label: string;
   smallImage: boolean;
@@ -16,6 +21,7 @@ type Props = {
 };
 
 export default function ImagesForm({
+  images,
   isMultiple,
   label,
   smallImage,
@@ -34,19 +40,22 @@ export default function ImagesForm({
   }, [state]);
 
   return (
-    <form action={action}>
-      <input type="hidden" name="label" value={label} />
-      <input type="hidden" name="isMain" value={isMain?.toString()} />
-      <Images
-        isMultiple={isMultiple}
-        title={title}
-        smallImage={smallImage}
-        reset={resetImageRef.current}
-      />
-      <>
-        <SubmitButton />
-        <CancelButton />
-      </>
-    </form>
+    <>
+      {title && <label className={s.formLabel}>{title}</label>}
+      <PreviewForm images={images} contentLabel={Label.SLIDER} />
+      <form action={action}>
+        <input type="hidden" name="label" value={label} />
+        <input type="hidden" name="isMain" value={isMain?.toString()} />
+        <Images
+          isMultiple={isMultiple}
+          smallImage={smallImage}
+          reset={resetImageRef.current}
+        />
+        <>
+          <SubmitButton />
+          <CancelButton />
+        </>
+      </form>
+    </>
   );
 }

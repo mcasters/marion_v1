@@ -5,7 +5,6 @@ import s from "@/styles/admin/Admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import { useAlert } from "@/app/context/AlertProvider";
-import Preview from "@/components/admin/form/imageForm/Preview";
 import Images from "@/components/admin/form/imageForm/Images";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
@@ -63,15 +62,13 @@ export default function ItemForm({
         {`${isUpdate ? "Modifier" : "Ajouter"} ${item.type === Type.DRAWING ? "un" : "une"} ${item.type}`}
       </h2>
       <form action={action}>
-        <input type="hidden" name="type" value={item.type} />
         {isUpdate && <input type="hidden" name="id" value={item.id} />}
-        {isUpdate && (
-          <input
-            type="hidden"
-            name="filenamesToDelete"
-            value={filenamesToDelete}
-          />
-        )}
+        <input type="hidden" name="type" value={item.type} />
+        <input
+          type="hidden"
+          name="filenamesToDelete"
+          value={filenamesToDelete}
+        />
         <input type="hidden" name="isToSell" value={String(item.isToSell)} />
         <label className={s.formLabel}>
           Titre
@@ -100,7 +97,7 @@ export default function ItemForm({
             }}
             className={s.select}
           >
-            <option value="">-- Aucune catégorie --</option>
+            <option value={0}>-- Aucune catégorie --</option>
             {categories &&
               categories.map((cat) => {
                 if (cat.value !== "Sans catégorie")
@@ -187,20 +184,18 @@ export default function ItemForm({
             />
           </label>
         )}
-        <div className={s.formLabel}>
-          <label className={` ${s.checkLabel}`}>
-            À vendre :
-            <input
-              onChange={(e) =>
-                setWorkItem({ ...workItem, isToSell: e.target.checked })
-              }
-              name="isToSell"
-              type="checkbox"
-              defaultChecked={workItem.isToSell}
-              className={s.checkInput}
-            />
-          </label>
-        </div>
+        <label className={s.formLabel}>
+          À vendre :
+          <input
+            onChange={(e) =>
+              setWorkItem({ ...workItem, isToSell: e.target.checked })
+            }
+            name="isToSell"
+            type="checkbox"
+            defaultChecked={workItem.isToSell}
+            className={s.checkInput}
+          />
+        </label>
         {workItem.isToSell && (
           <label className={s.formLabel}>
             Prix
@@ -218,22 +213,17 @@ export default function ItemForm({
             />
           </label>
         )}
-        <div className={s.imageFormContainer}>
-          {isUpdate && (
-            <Preview
-              images={item.images}
-              pathImage={`/images/${item.type}`}
-              onDelete={(filename) => {
-                setFilenamesToDelete([...filenamesToDelete, filename]);
-              }}
-            />
-          )}
+        <div className={s.imagesContainer}>
           <Images
-            isMultiple={isSculpture}
-            title={isSculpture ? "Une photo minimum" : "Une seule photo"}
             reset={resetImageRef.current}
-            onNewImages={setNewImages}
+            isMultiple={isSculpture}
             smallImage={true}
+            onNewImages={setNewImages}
+            onDelete={(filename) => {
+              setFilenamesToDelete([...filenamesToDelete, filename]);
+            }}
+            item={item}
+            title={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
           />
         </div>
         <div className={s.buttonSection}>

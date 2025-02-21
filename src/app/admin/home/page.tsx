@@ -23,11 +23,8 @@ export default async function Home() {
       <div className={s.formContainer}>
         <h2 className={s.homepage}>Images affichées sur écran mobile</h2>
         <p>(le format portrait est plus adapté)</p>
-        <PreviewForm
-          images={getSliderPortraitImages(contents)}
-          contentLabel={Label.SLIDER}
-        />
         <ImagesForm
+          images={getSliderPortraitImages(contents)}
           isMultiple={true}
           label={Label.SLIDER}
           isMain
@@ -42,7 +39,12 @@ export default async function Home() {
           images={getSliderLandscapeImages(contents)}
           contentLabel={Label.SLIDER}
         />
-        <ImagesForm isMultiple={true} label={Label.SLIDER} smallImage={false} />
+        <ImagesForm
+          images={getSliderPortraitImages(contents)}
+          isMultiple={true}
+          label={Label.SLIDER}
+          smallImage={false}
+        />
       </div>
     </div>
   );

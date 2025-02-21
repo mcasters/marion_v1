@@ -4,20 +4,26 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import s from "@/styles/admin/Admin.module.css";
 import { useAlert } from "@/app/context/AlertProvider";
+import Preview from "@/components/admin/form/imageForm/Preview";
+import { ItemFull } from "@/lib/type";
 
 interface Props {
-  onNewImages?: (arg0: string[]) => void;
   reset: number;
   isMultiple: boolean;
   smallImage: boolean;
+  onNewImages?: (arg0: string[]) => void;
+  onDelete?: (filename: string) => void;
+  item?: ItemFull;
   title?: string;
 }
 
 export default function Images({
-  onNewImages,
   reset,
   isMultiple,
   smallImage,
+  onNewImages,
+  onDelete,
+  item,
   title,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -34,6 +40,7 @@ export default function Images({
 
   const handleFiles = async () => {
     if (
+      !onNewImages ||
       !inputRef.current ||
       !inputRef.current.files ||
       inputRef.current.files.length === 0
@@ -75,22 +82,37 @@ export default function Images({
 
       if (!error && newFiles.length > 0) {
         setNewImages(newFiles);
-        if (onNewImages !== undefined) onNewImages(newFiles);
+        onNewImages(newFiles);
       } else {
         setNewImages([]);
         setAcceptSmallImage(false);
         inputRef.current.value = "";
-        if (onNewImages !== undefined) onNewImages([]);
+        onNewImages([]);
       }
     }
   };
 
   return (
-    <div className={s.fileUploaderContainer}>
-      {title && <p className={s.imageTitle}>{title}</p>}
-      <div>
+    <>
+      {title && <label className={s.formLabel}>{title}</label>}
+      {item && onDelete && (
+        <Preview
+          images={item.images}
+          pathImage={`/images/${item.type}`}
+          onDelete={onDelete}
+        />
+      )}
+      <div className={s.imageInputContainer}>
+        <input
+          type="file"
+          name={isMultiple ? "files" : "file"}
+          onChange={handleFiles}
+          ref={inputRef}
+          multiple={isMultiple}
+          className={s.inputButton}
+        />
         {smallImage && (
-          <div>
+          <label htmlFor="small-image" className={s.radioLabel}>
             <input
               type={"radio"}
               id="small-image"
@@ -100,19 +122,9 @@ export default function Images({
               onChange={handleFiles}
               className={s.radioInput}
             />
-            <label htmlFor="small-image" className={s.radioLabel}>
-              Accepter des images en dessous de 2000 px de large
-            </label>
-          </div>
+            Accepter les images sous 2000 px de large
+          </label>
         )}
-        <input
-          type="file"
-          name={isMultiple ? "files" : "file"}
-          onChange={handleFiles}
-          ref={inputRef}
-          multiple={isMultiple}
-          className={s.inputButton}
-        />
       </div>
       <div>
         {newImages.length > 0 &&
@@ -131,6 +143,6 @@ export default function Images({
             </div>
           ))}
       </div>
-    </div>
+    </>
   );
 }

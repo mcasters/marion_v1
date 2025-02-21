@@ -11,7 +11,6 @@ interface Props {
   priority: boolean;
 }
 export default function ItemComponent({ item, priority }: Props) {
-  console.log(item);
   const { photos } = useMemo(() => getPhotoTab(item), [item]);
 
   return (
