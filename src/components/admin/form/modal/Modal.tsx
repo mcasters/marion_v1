@@ -8,13 +8,22 @@ interface Props {
   children?: ReactNode;
   isOpen: boolean;
   toggle: () => void;
+  closeOnClickOutside?: boolean;
 }
 
-export default function Modal({ children, isOpen, toggle }: Props) {
+export default function Modal({
+  children,
+  isOpen,
+  toggle,
+  closeOnClickOutside = false,
+}: Props) {
   return (
     <>
       {isOpen && (
-        <div className={s.modalOverlay} onClick={toggle}>
+        <div
+          className={s.modalOverlay}
+          onClick={closeOnClickOutside ? toggle : () => {}}
+        >
           <div className={s.modalBox} onClick={(e) => e.stopPropagation()}>
             {children}
           </div>

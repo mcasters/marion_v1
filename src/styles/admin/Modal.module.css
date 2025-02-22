@@ -1,5 +1,5 @@
 .modalOverlay {
-  z-index: 4;
+  z-index: 5;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -14,14 +14,15 @@
 .modalBox {
   display: block;
   background: var(--color-light);
+  width: 90vw;
   max-height: 90%;
   border-radius: 0.2rem;
   overflow: scroll;
 }
 
-/* Mobile */
-@media (max-width: 700px) {
+/* desktop */
+@media (min-width: 769px) {
   .modalBox {
-    width: 90vw;
+    max-width: 50vw;
   }
 }
