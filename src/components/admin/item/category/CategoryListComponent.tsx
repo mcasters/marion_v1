@@ -23,14 +23,16 @@ export default function CategoryListComponent({
       <h3>{title}</h3>
       <div className={`${s.list} ${s.categoryList}`}>
         {categories.map((category) => {
-          const itemsTab = items.filter(
-            (item) => item.categoryId === category.id,
-          );
+          let itemTab;
+          if (category.key === "no-category")
+            itemTab = items.filter((item) => item.categoryId === null);
+          else
+            itemTab = items.filter((item) => item.categoryId === category.id);
           return (
             <RowCategoryListComponent
               key={category.id}
               category={category}
-              items={itemsTab}
+              items={itemTab}
               type={type}
             />
           );

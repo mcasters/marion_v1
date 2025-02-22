@@ -47,8 +47,8 @@ export default function SelectImageList({ items, value, onChange }: Props) {
           -- Aucune image --
         </div>
         {items.length > 0 &&
-          items.map((item) => {
-            return item.images.map((image) => {
+          items.map((item: ItemFull) => {
+            return item.images.map((image: IImage) => {
               const isSelected = image.filename === filenameSelected;
               return (
                 <div
