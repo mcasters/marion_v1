@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { createPortal } from "react-dom";
 import s from "./AlertModal.module.css";
-import CloseIcon from "@/components/icons/CloseIcon";
 import CheckIcon from "@/components/icons/CheckIcon";
 import ErrorIcon from "@/components/icons/ErrorIcon";
 
@@ -29,21 +27,17 @@ export default function AlertModal({ message, isError, time, onClose }: Props) {
     }, time);
   });
 
-  return createPortal(
-    <div className={s.modal}>
-      <div className={s.content} style={isError ? errorStyles : validStyles}>
+  return (
+    <div className={s.alertOverlay} onClick={onClose}>
+      <div className={s.alertBox} style={isError ? errorStyles : validStyles}>
         <div
           className={s.icon}
-          style={isError ? { color: "#f8e3e4" } : { color: "#def5dd" }}
+          style={isError ? { color: "#f8e3e4" } : { color: "#eafcea" }}
         >
           {isError ? <ErrorIcon /> : <CheckIcon />}
         </div>
         <p className={s.message}>{message}</p>
-        <button className={`${s.closeButton} iconButton`} onClick={onClose}>
-          <CloseIcon />
-        </button>
       </div>
-    </div>,
-    document.body,
+    </div>
   );
 }

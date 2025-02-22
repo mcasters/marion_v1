@@ -26,6 +26,7 @@ export function AlertProvider({ children }: Props) {
     if (time) setTime(time);
     setIsOpen(true);
   };
+
   return (
     <AlertContext.Provider value={alert}>
       {isOpen && (
