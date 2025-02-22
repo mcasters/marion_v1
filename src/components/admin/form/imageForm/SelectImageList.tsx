@@ -52,7 +52,7 @@ export default function SelectImageList({ items, value, onChange }: Props) {
               const isSelected = image.filename === filenameSelected;
               return (
                 <div
-                  key={image.id}
+                  key={`${item.id}-${image.id}`}
                   className={s.option}
                   onClick={() => onSelectImage(image)}
                   onMouseEnter={() =>
@@ -77,8 +77,8 @@ export default function SelectImageList({ items, value, onChange }: Props) {
             });
           })}
       </div>
-      Les images sont ici tronquées au carré, comme elles le sont dans la
-      pastille de la catégorie qu'elle représente.
+      Les images sont ici tronquées au carré, comme elles sont affichées dans la
+      pastille de la catégorie.
       <style jsx>{`
         .line {
           background-color: ${theme.lineColor};

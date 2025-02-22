@@ -21,7 +21,7 @@ export default function CategoryListComponent({
   return (
     <div className={s.listContainer}>
       <h3>{title}</h3>
-      <div className={`${s.list} ${s.categoryList}`}>
+      <div className={s.list}>
         {categories.map((category) => {
           let itemTab;
           if (category.key === "no-category")

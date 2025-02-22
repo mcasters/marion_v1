@@ -36,11 +36,8 @@
   border-top: 2px solid var(--color-light);
 }
 
+.itemList,
 .categoryList {
-  height: 300px;
-}
-
-.item {
   border-bottom: 1px dotted var(--color-light);
   padding-left: 1em;
   display: flex;
@@ -48,27 +45,35 @@
   align-items: center;
 }
 
-.item li {
+.itemList li,
+.categoryList li {
   display: block;
+  height: 50px;
+  line-height: 50px;
 }
 
-.itemTitle {
+.itemTitle,
+.categoryTitle {
   text-align: left;
-  flex: 35%;
-}
-
-.itemYear {
-  flex: 8%;
+  flex: 30%;
 }
 
 .itemCategory {
   flex: 10%;
 }
+.itemYear {
+  flex: 8%;
+}
 
 .itemImage,
-.itemInfo,
-.itemIcon {
-  flex: auto;
+.categoryImage,
+.categoryInfo {
+flex: 10%;
+}
+
+.itemIcon,
+.categoryIcon {
+  flex: 5%;
 }
 
 .title,

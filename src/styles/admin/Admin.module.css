@@ -152,9 +152,10 @@ h2.homepage {
   vertical-align: middle;
   position: relative;
   background: white;
-  border: 1px solid #ccc;
-  overflow: hidden;
-  overflow-y: scroll;
+  overflow: scroll;
+  border-collapse: collapse;
+  border-bottom: 2px solid var(--color-dark);
+  border-top: 2px solid var(--color-dark);
 }
 
 .option {

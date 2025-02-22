@@ -20,7 +20,7 @@ export default function RowItemListComponent({ item, categories }: Props) {
   }, [categories, item]);
 
   return (
-    <ul className={s.item}>
+    <ul className={s.itemList}>
       <li className={s.itemTitle}>
         <span className={s.name}>{item.title}</span>
       </li>
@@ -33,16 +33,14 @@ export default function RowItemListComponent({ item, categories }: Props) {
       <li className={s.itemImage}>
         {filename && (
           <Image
-            loader={({ src }) => {
-              return `/images/${item.type}/sm/${src}`;
-            }}
-            src={filename}
+            src={`/images/${item.type}/sm/${filename}`}
             alt="Image principale de l'item"
             height={50}
             width={50}
             style={{
               objectFit: "contain",
             }}
+            unoptimized
           />
         )}
       </li>
