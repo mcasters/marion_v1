@@ -3,10 +3,8 @@ import React from "react";
 export default function CheckIcon() {
   return (
     <svg
-      version="1.1"
-      id="Capa_1"
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 17.837 17.837"
+      viewBox="0 0 16 16"
       className="icon"
     >
       <g fill="currentColor">

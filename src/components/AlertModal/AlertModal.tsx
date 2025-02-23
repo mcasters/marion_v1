@@ -30,13 +30,10 @@ export default function AlertModal({ message, isError, time, onClose }: Props) {
   return (
     <div className={s.alertOverlay} onClick={onClose}>
       <div className={s.alertBox} style={isError ? errorStyles : validStyles}>
-        <div
-          className={s.icon}
-          style={isError ? { color: "#f8e3e4" } : { color: "#eafcea" }}
-        >
+        <div style={isError ? { color: "#fceaeb" } : { color: "#eafcea" }}>
           {isError ? <ErrorIcon /> : <CheckIcon />}
         </div>
-        <p className={s.message}>{message}</p>
+        <div className={s.message}>{message}</div>
       </div>
     </div>
   );
