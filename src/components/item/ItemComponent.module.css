@@ -14,17 +14,3 @@
   padding-bottom: 5em;
   font-size: var(--font-size-min);
 }
-
-@media (min-width: 769px) {
-  .withAside .itemsContainer,
-  .withAside .sculptureContainer {
-    margin-left: 15%;
-  }
-
-  .noAside .itemsContainer,
-  .withAside .itemsContainer {
-    display: grid;
-    grid-template-columns: 50% 50%;
-    gap: 5px;
-  }
-}

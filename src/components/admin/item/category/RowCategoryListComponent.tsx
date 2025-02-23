@@ -22,11 +22,9 @@ export default function RowCategoryListComponent({
   return (
     <ul className={s.categoryList}>
       <li className={s.categoryTitle}>
-        <span className={s.name}>
-          {category.value === "Sans catégorie"
-            ? "SANS CATÉGORIE"
-            : category.value}
-        </span>
+        {category.value === "Sans catégorie"
+          ? "SANS CATÉGORIE"
+          : category.value}
       </li>
       <li className={s.categoryImage}>
         {items.length > 0 && category.content.image.filename !== "" && (
@@ -42,12 +40,10 @@ export default function RowCategoryListComponent({
           />
         )}
       </li>
-      <li className={s.categoryInfo}>
-        <span>
-          {countItems} {type}(s)
-        </span>
+      <li className={s.categoryCount}>
+        {countItems} {type}(s)
       </li>
-      <li className={s.categoryIcon}>
+      <li className={s.icon}>
         <UpdateCategoryButton
           category={category}
           items={items}
@@ -55,7 +51,7 @@ export default function RowCategoryListComponent({
           disabled={category.value === "Sans catégorie"}
         />
       </li>
-      <li className={s.categoryIcon}>
+      <li className={s.icon}>
         <DeleteButton
           id={category.id}
           type={type}

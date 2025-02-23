@@ -21,15 +21,9 @@ export default function RowItemListComponent({ item, categories }: Props) {
 
   return (
     <ul className={s.itemList}>
-      <li className={s.itemTitle}>
-        <span className={s.name}>{item.title}</span>
-      </li>
-      <li className={s.itemCategory}>
-        <span className={s.name}>{itemCategory?.value}</span>
-      </li>
-      <li className={s.itemYear}>
-        <span className={s.name}>{new Date(item.date).getFullYear()}</span>
-      </li>
+      <li className={s.itemTitle}>{item.title}</li>
+      <li className={s.itemCategory}>{itemCategory?.value}</li>
+      <li className={s.itemYear}>{new Date(item.date).getFullYear()}</li>
       <li className={s.itemImage}>
         {filename && (
           <Image
@@ -44,10 +38,10 @@ export default function RowItemListComponent({ item, categories }: Props) {
           />
         )}
       </li>
-      <li className={s.itemIcon}>
+      <li className={s.icon}>
         <UpdateItemButton item={item} categories={categories} />
       </li>
-      <li className={s.itemIcon}>
+      <li className={s.icon}>
         <DeleteButton id={item.id} type={item.type} isCategory={false} />
       </li>
     </ul>

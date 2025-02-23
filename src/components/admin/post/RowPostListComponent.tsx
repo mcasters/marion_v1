@@ -20,11 +20,9 @@ export default function RowPostListComponent({ post }: Props) {
       : null;
 
   return (
-    <ul className={s.item}>
-      <li className={s.itemTitle}>
-        <span className={s.name}>{post.title}</span>
-      </li>
-      <li className={s.itemImage}>
+    <ul className={s.postList}>
+      <li className={s.postTitle}>{post.title}</li>
+      <li className={s.postImage}>
         {src !== null && (
           <Image
             src={src}
@@ -37,10 +35,10 @@ export default function RowPostListComponent({ post }: Props) {
           />
         )}
       </li>
-      <li className={s.itemIcon}>
+      <li className={s.icon}>
         <UpdateItemButton item={post} />
       </li>
-      <li className={s.itemIcon}>
+      <li className={s.icon}>
         <DeletePostButton id={post.id} />
       </li>
     </ul>
