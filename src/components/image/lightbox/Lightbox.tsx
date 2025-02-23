@@ -39,7 +39,7 @@ export default function Lightbox({ photos, priority = false }: Props) {
                 style={{ objectFit: "contain" }}
                 alt={p.alt}
                 unoptimized
-                className={`${ratio >= 1 ? s.landscape : s.portrait}`}
+                className={`${ratio > 1.05 ? s.landscape : s.portrait}`}
                 onClick={() => {
                   setIndex(index);
                 }}
