@@ -5,31 +5,32 @@ import Image from "next/image";
 import s from "@/styles/admin/Admin.module.css";
 import { useAlert } from "@/app/context/AlertProvider";
 import Preview from "@/components/admin/form/imageForm/Preview";
-import { ItemFull } from "@/lib/type";
+import { Image as IImage, Type } from "@/lib/type";
 
 interface Props {
+  type: Type | null;
   reset: number;
   isMultiple: boolean;
   smallImage: boolean;
   onNewImages?: (arg0: string[]) => void;
   onDelete?: (filename: string) => void;
-  item?: ItemFull;
+  images?: IImage[];
   title?: string;
 }
 
 export default function Images({
+  type,
   reset,
   isMultiple,
   smallImage,
   onNewImages,
   onDelete,
-  item,
+  images,
   title,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [newImages, setNewImages] = useState<string[]>([]);
   const [acceptSmallImage, setAcceptSmallImage] = useState<boolean>(false);
-
   const alert = useAlert();
 
   useEffect(() => {
@@ -40,7 +41,6 @@ export default function Images({
 
   const handleFiles = async () => {
     if (
-      !onNewImages ||
       !inputRef.current ||
       !inputRef.current.files ||
       inputRef.current.files.length === 0
@@ -55,10 +55,10 @@ export default function Images({
 
       for await (const file of files) {
         weight += file.size;
-        if (weight > 20000000) {
+        if (weight > 30000000) {
           error = true;
           alert(
-            "La taille totale des fichiers excède la limite de sécurité (20 MB).\nAjouter moins de fichier à la fois",
+            "La taille totale des fichiers excède la limite de sécurité (30 MB).\nAjouter moins de fichier à la fois.",
             true,
             5000,
           );
@@ -72,6 +72,7 @@ export default function Images({
           alert(
             `La dimension de l'image ${file.name} est trop petite. Largeur minimum : 2000 pixels`,
             true,
+            5000,
           );
           bmp.close();
           break;
@@ -82,12 +83,12 @@ export default function Images({
 
       if (!error && newFiles.length > 0) {
         setNewImages(newFiles);
-        onNewImages(newFiles);
+        if (onNewImages) onNewImages(newFiles);
       } else {
         setNewImages([]);
         setAcceptSmallImage(false);
         inputRef.current.value = "";
-        onNewImages([]);
+        if (onNewImages) onNewImages([]);
       }
     }
   };
@@ -95,10 +96,10 @@ export default function Images({
   return (
     <>
       {title && <label className={s.formLabel}>{title}</label>}
-      {item && onDelete && (
+      {images && onDelete && type && (
         <Preview
-          images={item.images}
-          pathImage={`/images/${item.type}`}
+          images={images}
+          pathImage={`/images/${type}`}
           onDelete={onDelete}
         />
       )}

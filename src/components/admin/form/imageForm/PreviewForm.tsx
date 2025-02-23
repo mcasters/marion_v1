@@ -32,16 +32,14 @@ export default function PreviewForm({ images, contentLabel }: Props) {
           <input type="hidden" name="filename" value={image.filename} />
           <div>
             <Image
-              loader={({ src }) => {
-                return `/images/miscellaneous/sm/${src}`;
-              }}
-              src={`${image.filename}`}
+              src={`/images/miscellaneous/sm/${image.filename}`}
               width={150}
               height={150}
               alt="Image de l'item"
               style={{
                 objectFit: "contain",
               }}
+              unoptimized
             />
           </div>
           <button type="submit" className="iconButton" aria-label="Supprimer">

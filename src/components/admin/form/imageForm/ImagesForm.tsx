@@ -47,9 +47,10 @@ export default function ImagesForm({
         <input type="hidden" name="label" value={label} />
         <input type="hidden" name="isMain" value={isMain?.toString()} />
         <Images
+          type={null}
+          reset={resetImageRef.current}
           isMultiple={isMultiple}
           smallImage={smallImage}
-          reset={resetImageRef.current}
         />
         <>
           <SubmitButton />

@@ -3,10 +3,9 @@
 import React, { useActionState, useEffect, useRef, useState } from "react";
 
 import Images from "@/components/admin/form/imageForm/Images";
-import { PostFull } from "@/lib/type";
+import { PostFull, Type } from "@/lib/type";
 import s from "@/styles/admin/Admin.module.css";
 import { getEmptyPost, getMainImage } from "@/utils/commonUtils";
-import Preview from "@/components/admin/form/imageForm/Preview";
 import CancelButton from "@/components/admin/form/CancelButton";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import { useAlert } from "@/app/context/AlertProvider";
@@ -74,7 +73,6 @@ export default function PostForm({ post, toggleModal }: Props) {
         <label className={s.formLabel}>
           Titre
           <input
-            autoFocus
             onChange={(e) =>
               setWorkPost({ ...workPost, title: e.target.value })
             }
@@ -107,36 +105,28 @@ export default function PostForm({ post, toggleModal }: Props) {
             value={workPost.text}
           />
         </label>
-        <div className={s.imageFormContainer}>
-          <h3>Image principale (facultative)</h3>
-          {isUpdate && (
-            <Preview
-              images={post.images.filter((i) => i.isMain) || []}
-              pathImage="/images/post"
-              onDelete={(filename) => setMainFilenameToDelete(filename)}
-            />
-          )}
-        </div>
-        <Images
-          isMultiple={false}
-          reset={resetMainImageRef.current}
-          smallImage={true}
-        />
-        <div className={s.imageFormContainer}>
-          <h3>Album d&apos;images (facultatif)</h3>
-          {isUpdate && (
-            <Preview
-              images={post.images.filter((i) => !i.isMain) || []}
-              pathImage="/images/post"
-              onDelete={(filename) =>
-                setFilenamesToDelete([...filenamesToDelete, filename])
-              }
-            />
-          )}
+        <div className={s.imagesContainer}>
           <Images
-            isMultiple={true}
+            type={Type.POST}
+            reset={resetMainImageRef.current}
+            smallImage={true}
+            isMultiple={false}
+            images={post.images.filter((i) => i.isMain) || []}
+            onDelete={(filename) => setMainFilenameToDelete(filename)}
+            title="Image principale (facultative)"
+          />
+        </div>
+        <div className={s.imagesContainer}>
+          <Images
+            type={Type.POST}
             reset={resetImagesRef.current}
             smallImage={true}
+            isMultiple={true}
+            images={post.images.filter((i) => !i.isMain) || []}
+            onDelete={(filename) =>
+              setFilenamesToDelete([...filenamesToDelete, filename])
+            }
+            title="Album d'images (facultatif)"
           />
         </div>
         <div className={s.buttonSection}>

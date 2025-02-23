@@ -81,11 +81,12 @@ export default function CategoryForm({
             œuvre peut être assignée à cette catégorie, cela permet à
             l'utilisateur d'avoir une idée du genre d'œuvre qui s'y trouve
             (cette photo s'affiche dans la pastille sur laquelle on clique pour
-            sélectionner la catégorie). Mais ce n'est pas ici dans l'ajout de la
-            catégorie qu'on peut assigner la photo. En effet, cette photo ne
+            sélectionner la catégorie). Mais ce n'est pas ici, dans l'ajout de
+            la catégorie, qu'on peut assigner la photo. En effet, cette photo ne
             peut être ajoutée qu'une fois que des œuvres y sont classées,
-            puisque le choix de la photo s'effectue parmi ces œuvres. C'est donc
-            ensuite, en mettant à jour la catégorie que tu peux le faire.
+            puisque le choix de la photo s'effectue parmi ces œuvres. Donc après
+            avoir créé la catégorie, et après y avoir classé des œuvres, tu
+            pourras alors choisir la photo en mettant à jour la catégorie.
           </p>
         )}
         <label className={s.formLabel}>

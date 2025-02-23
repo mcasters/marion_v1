@@ -23,16 +23,14 @@ export default function Preview({ images, pathImage, onDelete }: Props) {
         <div key={filename} className={s.imageWrapper}>
           <div>
             <Image
-              loader={({ src }) => {
-                return `${pathImage}/sm/${src}`;
-              }}
-              src={`${filename}`}
+              src={`${pathImage}/sm/${filename}`}
               width={150}
               height={150}
               alt="Image de l'item"
               style={{
                 objectFit: "contain",
               }}
+              unoptimized
             />
           </div>
           <button
