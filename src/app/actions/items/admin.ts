@@ -82,7 +82,7 @@ export async function updateItem(
     revalidatePath(`/admin/${type}s`);
     return { message: "Item modifié", isError: false };
   } catch (e) {
-    return { message: `Erreur à l'enregistrement : ${e}`, isError: true };
+    return { message: `Erreur à l'enregistrement`, isError: true };
   }
 }
 

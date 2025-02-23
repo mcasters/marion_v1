@@ -74,7 +74,8 @@ const handlePaintOrDrawImages = async (
 ) => {
   const dir = getItemDir(type);
   if (file.size > 0) {
-    if (oldItem) deleteFile(getItemDir(type), oldItem.images[0].filename);
+    if (oldItem && oldItem.images[0].filename !== "")
+      deleteFile(getItemDir(type), oldItem.images[0].filename);
     return await resizeAndSaveImage(file, title, dir);
   } else return null;
 };
