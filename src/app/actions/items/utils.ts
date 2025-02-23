@@ -94,7 +94,7 @@ const handleSculptImages = async (
       });
     }
   }
-  let images = [];
+  const images = [];
   for (const file of files) {
     if (file.size > 0) {
       const fileInfo = await resizeAndSaveImage(file, title, dir);

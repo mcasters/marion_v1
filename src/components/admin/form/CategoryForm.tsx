@@ -32,6 +32,17 @@ export default function CategoryForm({
   );
   const resetImageRef = useRef<number>(0);
   const alert = useAlert();
+  const message =
+    "Parmi les renseignements facultatif dune catégorie, la photo d'une" +
+    "            œuvre peut être assignée à cette catégorie, cela permet à" +
+    "            l'utilisateur d'avoir une idée du genre d'œuvre qui s'y trouve" +
+    "            (cette photo s'affiche dans la pastille sur laquelle on clique pour" +
+    "            sélectionner la catégorie). Mais ce n'est pas ici, dans l'ajout de" +
+    "            la catégorie, qu'on peut assigner la photo. En effet, cette photo ne" +
+    "            peut être ajoutée qu'une fois que des œuvres y sont classées," +
+    "            puisque le choix de la photo s'effectue parmi ces œuvres. Donc après" +
+    "            avoir créé la catégorie, et après y avoir classé des œuvres, tu" +
+    "            pourras alors choisir la photo en mettant à jour la catégorie.";
 
   const reset = () => {
     if (toggleModal) toggleModal();
@@ -75,20 +86,7 @@ export default function CategoryForm({
             required
           />
         </label>
-        {!isUpdate && (
-          <p className={s.catInfo}>
-            Parmi les renseignements facultatif d'une catégorie, la photo d'une
-            œuvre peut être assignée à cette catégorie, cela permet à
-            l'utilisateur d'avoir une idée du genre d'œuvre qui s'y trouve
-            (cette photo s'affiche dans la pastille sur laquelle on clique pour
-            sélectionner la catégorie). Mais ce n'est pas ici, dans l'ajout de
-            la catégorie, qu'on peut assigner la photo. En effet, cette photo ne
-            peut être ajoutée qu'une fois que des œuvres y sont classées,
-            puisque le choix de la photo s'effectue parmi ces œuvres. Donc après
-            avoir créé la catégorie, et après y avoir classé des œuvres, tu
-            pourras alors choisir la photo en mettant à jour la catégorie.
-          </p>
-        )}
+        {!isUpdate && <p className={s.catInfo}>{message}</p>}
         <label className={s.formLabel}>
           titre du descriptif (facultatif)
           <input

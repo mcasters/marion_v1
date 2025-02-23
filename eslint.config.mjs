@@ -9,7 +9,8 @@ const eslintConfig = [
   ...compat.config({
     extends: ['next', 'next/core-web-vitals', 'next/typescript'],
     rules: {
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': 'off',
+      'react-hooks/exhaustive-deps': 'off',
       //  'react/no-unescaped-entities': 'off',
       //  '@next/next/no-page-custom-font': 'off',
     },

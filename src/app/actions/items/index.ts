@@ -99,7 +99,7 @@ export async function getItemsByCategory(
 export async function getAllCategories(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
 ): Promise<Category[]> {
-  let res = await queryAllCategories(type);
+  const res = await queryAllCategories(type);
   const noCategory = await queryNoCategory(type);
 
   if (noCategory) res.push(noCategory);

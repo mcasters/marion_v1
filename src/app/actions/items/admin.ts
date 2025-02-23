@@ -117,13 +117,14 @@ export async function deleteItem(
       const dir = getItemDir(type);
       if (type === Type.PAINTING || type === Type.DRAWING) {
         deleteFile(dir, item.images[0].filename);
-        type === Type.PAINTING
-          ? await prisma.painting.delete({
-              where: { id },
-            })
-          : await prisma.drawing.delete({
-              where: { id },
-            });
+        if (type === Type.PAINTING)
+          await prisma.painting.delete({
+            where: { id },
+          });
+        else
+          await prisma.drawing.delete({
+            where: { id },
+          });
       }
       if (type === Type.SCULPTURE) {
         for (const image of item.images) {
