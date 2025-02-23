@@ -3,8 +3,8 @@
 }
 
 .filter {
-  width: 40%;
-  padding: 1rem;
+  width: 50%;
+  padding: 0 0.5em 2em;
 }
 
 /* desktop */
@@ -37,7 +37,8 @@
 }
 
 .itemList,
-.categoryList {
+.categoryList,
+.postList {
   border-bottom: 1px dotted var(--color-light);
   padding-left: 1em;
   display: flex;
@@ -46,39 +47,39 @@
 }
 
 .itemList li,
-.categoryList li {
+.categoryList li,
+.postList li {
   display: block;
   height: 50px;
   line-height: 50px;
+  overflow: hidden;
 }
 
 .itemTitle,
-.categoryTitle {
+.categoryTitle,
+.postTitle {
+  font-weight: bold;
   text-align: left;
   flex: 30%;
 }
 
 .itemCategory {
-  flex: 10%;
+  flex: 30%;
 }
-.itemYear {
-  flex: 8%;
+
+.categoryCount {
+  flex: 20%;
+}
+
+.itemYear,
+.categoryImage,
+.postImage {
+  flex: 10%;
 }
 
 .itemImage,
-.categoryImage,
-.categoryInfo {
-flex: 10%;
-}
-
-.itemIcon,
-.categoryIcon {
-  flex: 5%;
-}
-
-.title,
-.name {
-  font-weight: bold;
+.icon {
+flex: 6%;
 }
 
 .listContainer p {

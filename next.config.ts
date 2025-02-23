@@ -1,11 +1,12 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   images: {
     deviceSizes: [768, 1200],
   },
   experimental: {
     serverActions: {
-      bodySizeLimit: "20mb",
+      bodySizeLimit: "30mb",
     },
   },
 };
