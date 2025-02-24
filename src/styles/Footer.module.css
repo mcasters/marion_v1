@@ -12,7 +12,6 @@
 
 .dark {
   background-color: var(--link-color-xdark);
-  color: var(--color-medium);
 }
 
 .center {
@@ -23,10 +22,6 @@
 
 .link {
   text-decoration: underline;
-}
-
-.dark .link {
-  color: var(--color-medium);
 }
 
 /* desktop */
