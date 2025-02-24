@@ -18,7 +18,7 @@ export default function ItemTagComponent({ tag, category, items }: Props) {
         {category &&
           (category.content.title !== "" || category.content.text !== "") && (
             <div className={s.categoryContent}>
-              <h4>{category.content.title}</h4>
+              <h3>{category.content.title}</h3>
               <p>{category.content.text}</p>
             </div>
           )}
