@@ -10,6 +10,9 @@ const prismaClientSingleton = () => {
         imageWidth: true,
         imageHeight: true,
       },
+      user: {
+        password: true,
+      },
     },
   }).$extends({
     result: {

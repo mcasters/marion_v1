@@ -24,6 +24,13 @@ export type Category = {
   content: CategoryContent;
 };
 
+export type Message = {
+  id: number;
+  date: Date;
+  text: string;
+  author: User;
+};
+
 export enum Type {
   PAINTING = "peinture",
   SCULPTURE = "sculpture",
