@@ -11,10 +11,19 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
+  id       Int       @id @default(autoincrement())
+  email    String    @unique
   password String
-  isAdmin  Boolean @default(true)
+  isAdmin  Boolean   @default(true)
+  messages Message[]
+}
+
+model Message {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  text   String   @db.LongText
+  author User     @relation(fields: [userId], references: [id])
+  userId Int
 }
 
 model Post {
