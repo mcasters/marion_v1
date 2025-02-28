@@ -47,13 +47,13 @@ export default function PresentationComponent({
         <p className={s.presentationText}>{presentationContent?.text}</p>
       </section>
 
-      {demarcheText && (
+      {demarcheText !== "" && (
         <section className={s.contentWrapper}>
           <h2>Démarche artistique</h2>
           <p>{demarcheText}</p>
         </section>
       )}
-      {inspirationText && (
+      {inspirationText !== "" && (
         <section className={s.contentWrapper}>
           <h2>Inspirations</h2>
           <p>{inspirationText}</p>
