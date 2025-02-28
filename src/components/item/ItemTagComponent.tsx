@@ -13,7 +13,7 @@ interface Props {
 export default function ItemTagComponent({ tag, category, items }: Props) {
   return (
     <>
-      <div className={s.info}>
+      <div className={s.infoCategory}>
         <h2 className={`${s.tagTitle}`}>{tag}</h2>
         {category &&
           (category.content.title !== "" || category.content.text !== "") && (

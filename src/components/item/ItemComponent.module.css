@@ -1,5 +1,5 @@
-.article {
-  padding: 0;
+.article, .sculptureArticle {
+  padding: 0 0 3em;
 }
 
 .infoContainer h2 {
@@ -11,6 +11,12 @@
 }
 
 .info {
-  padding-bottom: 5em;
   font-size: var(--font-size-min);
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .article {
+    padding: 0;
+  }
 }

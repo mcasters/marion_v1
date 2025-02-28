@@ -14,7 +14,10 @@ export default function ItemComponent({ item, priority }: Props) {
   const { photos } = useMemo(() => getPhotoTab(item), [item]);
 
   return (
-    <article id={`${item.id}`} className={s.article}>
+    <article
+      id={`${item.id}`}
+      className={item.type === Type.SCULPTURE ? s.sculptureArticle : s.article}
+    >
       <figure>
         <Lightbox photos={photos} priority={priority} />
       </figure>
