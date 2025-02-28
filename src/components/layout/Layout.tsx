@@ -27,7 +27,7 @@ export default function Layout({ introduction, children }: Props) {
   const isPainting = path === ROUTES.PAINTING;
   const isSculpture = path === ROUTES.SCULPTURE;
   const isDrawing = path === ROUTES.DRAWING;
-  const isAdmin = path === ROUTES.ADMIN;
+  const isAdminPage = path === ROUTES.ADMIN;
 
   const gradientRgbObject = hexToRgb(theme.menu1HomeColor);
   const gradientRgb = `${gradientRgbObject?.r},${gradientRgbObject?.g},${gradientRgbObject?.b}`;
@@ -43,13 +43,13 @@ export default function Layout({ introduction, children }: Props) {
       <div className={`${s.line} line`}></div>
       {session?.user && <AuthStatus email={session.user.email} />}
       {isHome && <div className={`${s.gradient} gradient`}></div>}
-      {isAdmin && (
+      {isAdminPage && (
         <>
           {children}
           <Footer path={path} />
         </>
       )}
-      {!isAdmin && (
+      {!isAdminPage && (
         <>
           <Header path={path} introduction={introduction} />
           <Main isHome={isHome}>{children}</Main>

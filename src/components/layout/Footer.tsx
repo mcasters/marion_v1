@@ -16,8 +16,8 @@ export default function Footer({ path }: Props) {
   const theme = useTheme();
   const isPainting = path === ROUTES.PAINTING;
   const isSculpture = path === ROUTES.SCULPTURE;
-  const isMarionSite = TEXTS.TITLE === "Marion Casters";
-  const isDrawing = isMarionSite ? path === ROUTES.DRAWING : false;
+  const isDrawing =
+    TEXTS.TITLE === "Marion Casters" ? path === ROUTES.DRAWING : false;
   const text = TEXTS.FOOTER;
   const isDark = isPainting || isSculpture || isDrawing;
 
@@ -25,30 +25,12 @@ export default function Footer({ path }: Props) {
     <>
       <footer
         className={isDark ? `${s.footer} ${s.dark}` : s.footer}
-        style={
-          isDark
-            ? isMarionSite
-              ? { color: theme.linkHoverColor }
-              : { color: theme.colorItem }
-            : { color: theme.color }
-        }
+        style={isDark ? { color: theme.colorItem } : { color: theme.color }}
       >
-        <div className={s.center}>
-          <p>{text}</p>
-          <br />
-          <br />
-          {!session?.user && (
-            <Link
-              href={ROUTES.LOGIN}
-              className={s.link}
-              style={
-                isDark && isMarionSite ? { color: theme.linkHoverColor } : {}
-              }
-            >
-              Admin
-            </Link>
-          )}
-        </div>
+        <p>{text}</p>
+        <br />
+        <br />
+        {!session?.user && <Link href={ROUTES.LOGIN}>Admin</Link>}
       </footer>
     </>
   );
