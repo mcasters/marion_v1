@@ -12,9 +12,8 @@ export async function loginAction(
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
   const user = await prisma.user.findUnique({
-    where: {
-      email,
-    },
+    where: { email },
+    omit: { password: false },
   });
   if (!user) return { message: "Erreur d'authentification" };
   const res = await bcrypt.compare(password, user.password);
