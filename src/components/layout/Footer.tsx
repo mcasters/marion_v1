@@ -18,17 +18,21 @@ export default function Footer({ path }: Props) {
   const theme = useTheme();
   const isPainting = path === ROUTES.PAINTING;
   const isSculpture = path === ROUTES.SCULPTURE;
-  const isDrawing =
-    metas[META.SITE_TITLE] === "Marion Casters"
-      ? path === ROUTES.DRAWING
-      : false;
+  const isM = metas[META.SITE_TITLE].startsWith("M");
+  const isDrawing = isM ? path === ROUTES.DRAWING : false;
   const isDark = isPainting || isSculpture || isDrawing;
 
   return (
     <>
       <footer
         className={isDark ? `${s.footer} ${s.dark}` : s.footer}
-        style={isDark ? { color: theme.colorItem } : { color: theme.color }}
+        style={
+          !isDark
+            ? { color: theme.color }
+            : isM
+              ? { color: theme.linkHoverColor }
+              : { color: theme.colorItem }
+        }
       >
         <p>{metas[META.FOOTER]}</p>
         <br />

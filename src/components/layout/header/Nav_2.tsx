@@ -6,6 +6,8 @@ import Image from "next/image";
 import { MENU_2 } from "@/constants/specific/routes";
 import s from "@/styles/Nav_2.module.css";
 import { useTheme } from "@/app/context/themeProvider";
+import { useMetas } from "@/app/context/metaProvider";
+import { META } from "@/constants/specific";
 
 interface Props {
   navLayout: string;
@@ -13,6 +15,7 @@ interface Props {
 
 export default function Nav_2({ navLayout }: Props) {
   const theme = useTheme();
+  const meta = useMetas();
   const colorWithOpacity = theme.menu2HomeColor + "aa";
 
   return (
@@ -29,7 +32,7 @@ export default function Nav_2({ navLayout }: Props) {
                         return `/${src}`;
                       }}
                       src="logo-100.png"
-                      alt="Signature de Thierry Casters"
+                      alt={`Signature de ${meta[META.SITE_TITLE]}`}
                       width={30}
                       height={30}
                       className={s.logo}

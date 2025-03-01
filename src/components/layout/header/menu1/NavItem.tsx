@@ -37,7 +37,7 @@ export default function NavItem({ itemTag, navLayout }: Props) {
         : theme.menu1LinkHoverColor;
   }, [theme, navLayout]);
   const themeBorderActive = useMemo(() => {
-    return metas[META.SITE_TITLE] === "Marion Casters"
+    return metas[META.SITE_TITLE].startsWith("M")
       ? theme.menu2LinkItemColor
       : navLayout === LAYOUT.ITEM_NAV
         ? theme.menu1LinkItemColor

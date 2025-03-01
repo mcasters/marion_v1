@@ -46,7 +46,7 @@ export default async function Contact() {
             {email}
           </Link>
         </p>
-        {siteTitle === process.env.TITLE && (
+        {siteTitle.startsWith("T") && (
           <>
             <br />
             <br />

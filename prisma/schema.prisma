@@ -11,20 +11,11 @@ datasource db {
 }
 
 model Meta {
-  id        Int    @id @default(autoincrement())
-  siteEmail String @unique
-  siteTitle String @unique
-  text      Text[]
-}
-
-model Text {
   id        Int      @id @default(autoincrement())
-  title     String   @unique
+  label     String   @unique
   text      String   @db.LongText
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  meta      Meta     @relation(fields: [metaId], references: [id])
-  metaId    Int
 }
 
 model User {

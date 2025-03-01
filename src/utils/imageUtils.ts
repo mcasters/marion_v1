@@ -96,7 +96,7 @@ export const getContentPhotoTab = (
 
 export const getPhotoTab = (
   item: PostFull | ItemFull,
-  alt,
+  alt: string,
 ): {
   mainPhotos: PhotoTab;
   photos: PhotoTab;

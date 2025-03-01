@@ -42,9 +42,7 @@ export default async function RootLayout({
       <body>
         <Providers session={session} theme={hexaTheme} metas={metas}>
           <StyledJsxRegistry>
-            <Layout introduction={getIntroText(contents)} metas={metas}>
-              {children}
-            </Layout>
+            <Layout introduction={getIntroText(contents)}>{children}</Layout>
           </StyledJsxRegistry>
         </Providers>
       </body>

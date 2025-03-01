@@ -14,6 +14,7 @@
   --font-size-nav: 1.2rem;
   --font-size-nav-minus: 1.1rem;
   --font-size: 1rem;
+  --font-size-admin: 0.95rem;
   --font-size-min: 0.8rem;
 
   /*
@@ -55,23 +56,17 @@
   --color-background-item: none;
 }
 
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-html,
-input,
-button,
-.button,
-.buttonLink,
-a,
-select,
-textarea {
+html {
   font-family: var(--font-family-serif);
   -webkit-font-smoothing: antialiased;
-  font-size: var(--font-size);
+  font-size: var(--font-size-admin);
 }
 
 body {
@@ -86,10 +81,19 @@ body {
   text-align: center;
 }
 
+input,
+button,
+.button,
+.buttonLink,
+select,
+textarea {
+  font-family: var(--font-family-serif);
+  -webkit-font-smoothing: antialiased;
+  font-size: var(--font-size-admin);
+}
+
 button {
   cursor: pointer;
-  font-family: var(--font-family-serif);
-  font-size: var(--font-size);
 }
 
 .iconButton {
@@ -100,7 +104,6 @@ button {
 }
 
 .buttonLink {
-  font-size: var(--font-size);
   display: inline;
   margin: 0;
   background: none;
@@ -113,6 +116,7 @@ button {
 
 a,
 .buttonLink {
+  font-size: var(--font-size);
   text-decoration: none;
   transition: color 0.4s ease;
 }
@@ -140,7 +144,7 @@ a:focus,
 }
 
 ::selection {
-  background: var(--link-color-dark);
+  background: var(--color-prussian-blue);
   text-shadow: none;
 }
 
@@ -181,10 +185,6 @@ figure {
   margin: 0 !important;
 }
 
-/*
- * Allow only vertical resizing of textareas.
- */
-
 textarea {
   padding: 0.5rem;
   resize: vertical;
@@ -200,10 +200,10 @@ select {
 }
 
 select {
-  border: var(--color-dark) solid 1px;
   height: 50px;
   border-radius: unset;
-  background-color: var(--color-medium);
+  background-color: white;
+  border: var(--color-medium) solid 1px;
 }
 
 label {
@@ -218,6 +218,10 @@ label {
   padding: 0.5rem;
   margin: 0.5rem;
   line-height: 2.3;
+  box-shadow: inset 0 0.8em 1em 0 #efefef;
+  border: solid 1px #aaaaaa;
+  outline: none;
+  background-color: #e2e2e2;
 }
 
 .hidden {
