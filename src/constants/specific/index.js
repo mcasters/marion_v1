@@ -1,11 +1,12 @@
 import { THEME } from "../admin";
 
-export const TEXTS = {
-  TITLE: "Marion Casters",
-  FOOTER:
-    "Images and site content copyright © 2025 Marion Casters. All rights reserved",
-  NOTES: { Date: "" },
+export const META = {
+  SITE_TITLE: "siteTitle",
+  SITE_EMAIL: "siteEmail",
+  FOOTER: "footerContent",
+  INSTAGRAM: "instagram",
 };
+
 export const BASE_THEME = {
   name: THEME.BASE_THEME,
   isActive: true,

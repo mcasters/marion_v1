@@ -10,10 +10,10 @@ import {
 } from "@/lib/type";
 
 import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
+import { Meta } from ".prisma/client";
 
-export const capitalize = (string: string): string => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
+export const capitalize = (string: string): string =>
+  string.charAt(0).toUpperCase() + string.slice(1);
 
 export const getItemType = (
   typeString: string,
@@ -25,8 +25,8 @@ export const getItemType = (
       : Type.DRAWING;
 };
 
-export const transformValueToKey = (value: string): string => {
-  return value
+export const transformValueToKey = (value: string): string =>
+  value
     .toLowerCase()
     .split(" ")
     .join("_")
@@ -39,60 +39,51 @@ export const transformValueToKey = (value: string): string => {
     .replace(/ç/gi, "c")
     .replace(/î/gi, "i")
     .replace(/ë/gi, "e");
-};
 
 export const getPresentationContent = (
   contents: ContentFull[],
-): ContentFull | null => {
-  return contents?.filter((c) => c.label === Label.PRESENTATION)[0] || null;
-};
+): ContentFull | null =>
+  contents?.filter((c) => c.label === Label.PRESENTATION)[0] || null;
 
-export const getSliderContent = (
-  contents: ContentFull[],
-): ContentFull | null => {
-  return contents?.filter((c) => c.label === Label.SLIDER)[0] || null;
-};
+export const getSliderContent = (contents: ContentFull[]): ContentFull | null =>
+  contents?.filter((c) => c.label === Label.SLIDER)[0] || null;
 
-export const getPresentationText = (contents: ContentFull[]): string => {
-  return contents?.filter((c) => c.label === Label.PRESENTATION)[0]?.text || "";
-};
+export const getPresentationText = (contents: ContentFull[]): string =>
+  contents?.filter((c) => c.label === Label.PRESENTATION)[0]?.text || "";
 
-export const getPresentationImage = (contents: ContentFull[]): Image[] => {
-  return (
-    contents?.filter((c) => c.label === Label.PRESENTATION)[0]?.images || []
-  );
-};
+export const getPresentationImage = (contents: ContentFull[]): Image[] =>
+  contents?.filter((c) => c.label === Label.PRESENTATION)[0]?.images || [];
 
-export const getDemarcheText = (contents: ContentFull[]): string => {
-  return contents?.filter((c) => c.label === Label.DEMARCHE)[0]?.text || "";
-};
+export const getDemarcheText = (contents: ContentFull[]): string =>
+  contents?.filter((c) => c.label === Label.DEMARCHE)[0]?.text || "";
 
-export const getInspirationText = (contents: ContentFull[]): string => {
-  return contents?.filter((c) => c.label === Label.INSPIRATION)[0]?.text || "";
-};
+export const getInspirationText = (contents: ContentFull[]): string =>
+  contents?.filter((c) => c.label === Label.INSPIRATION)[0]?.text || "";
 
-export const getIntroText = (contents: ContentFull[]): string => {
-  return contents?.filter((c) => c.label === Label.INTRO)[0]?.text || "";
-};
+export const getIntroText = (contents: ContentFull[]): string =>
+  contents?.filter((c) => c.label === Label.INTRO)[0]?.text || "";
 
-export const getSliders = (contents: ContentFull[]): Image[] | [] => {
-  return contents?.filter((c) => c.label === Label.SLIDER)[0]?.images || [];
-};
+export const getSliders = (contents: ContentFull[]): Image[] | [] =>
+  contents?.filter((c) => c.label === Label.SLIDER)[0]?.images || [];
 
-export const getAddressText = (contents: ContentFull[]): string => {
-  return contents?.filter((c) => c.label === Label.ADDRESS)[0]?.text || "";
-};
+export const getAddressText = (contents: ContentFull[]): string =>
+  contents?.filter((c) => c.label === Label.ADDRESS)[0]?.text || "";
 
-export const getPhoneText = (contents: ContentFull[]): string => {
-  return contents?.filter((c) => c.label === Label.PHONE)[0]?.text || "";
-};
+export const getPhoneText = (contents: ContentFull[]): string =>
+  contents?.filter((c) => c.label === Label.PHONE)[0]?.text || "";
 
-export const getEmailText = (contents: ContentFull[]): string => {
-  return contents?.filter((c) => c.label === Label.EMAIL)[0]?.text || "";
-};
+export const getEmailText = (contents: ContentFull[]): string =>
+  contents?.filter((c) => c.label === Label.EMAIL)[0]?.text || "";
 
-export const getContactText = (contents: ContentFull[]): string => {
-  return contents?.filter((c) => c.label === Label.TEXT_CONTACT)[0]?.text || "";
+export const getContactText = (contents: ContentFull[]): string =>
+  contents?.filter((c) => c.label === Label.TEXT_CONTACT)[0]?.text || "";
+
+export const getMetasMap = (metas: Meta[]) => {
+  const res = {};
+  metas.forEach((meta) => {
+    res[meta.label] = meta.text;
+  });
+  return res;
 };
 
 export const getMainImage = (post: PostFull) => {

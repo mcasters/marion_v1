@@ -2,11 +2,11 @@ import { mkdir, stat, unlinkSync } from "fs";
 import sharp from "sharp";
 import { join } from "path";
 import { transformValueToKey } from "@/utils/commonUtils";
-import { TEXTS } from "@/constants/specific";
 import { IMAGE } from "@/constants/image";
 import { Type } from "@/lib/type";
 
 const serverLibraryPath = process.env.PHOTOS_PATH;
+const copyright = process.env.TITLE;
 
 export const getItemDir = (type) => {
   if (type === Type.PAINTING) return join(`${serverLibraryPath}`, "peinture");
@@ -91,7 +91,7 @@ export const resizeAndSaveImage = async (file, title = "", dir) => {
       .withMetadata({
         exif: {
           IFD0: {
-            Copyright: TEXTS.TITLE,
+            Copyright: copyright,
           },
         },
       })
@@ -109,7 +109,7 @@ export const resizeAndSaveImage = async (file, title = "", dir) => {
       .withMetadata({
         exif: {
           IFD0: {
-            Copyright: TEXTS.TITLE,
+            Copyright: copyright,
           },
         },
       })
@@ -127,7 +127,7 @@ export const resizeAndSaveImage = async (file, title = "", dir) => {
       .withMetadata({
         exif: {
           IFD0: {
-            Copyright: TEXTS.TITLE,
+            Copyright: copyright,
           },
         },
       })

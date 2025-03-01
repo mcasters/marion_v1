@@ -1,24 +1,6 @@
-.themeContainer {
-  padding: 4em 2em 1em;
-}
-
-.noteContainer {
-  background-color: rgba(0, 0, 0, 0.2);
-  text-align: left;
-  white-space: pre-wrap;
-  margin-top: 2rem;
-  padding: 2rem;
-}
-
-.themeContainer h2,
-.noteContainer h2 {
-  font-size: var(--font-size-title);
-  text-align: left;
-  padding-bottom: 1em;
-}
-
-.noteContainer h2 {
-  text-align: center;
+.themeContainer,
+.actionContainer {
+  margin: 0 0 4em;
 }
 
 .sectionTitle {
@@ -34,16 +16,8 @@
   flex-wrap: wrap;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  flex-wrap: wrap;
-  gap: 3em;
-  padding: 2em 2em;
-}
-
 .themeContainer section {
-  width: 290px;
+  width: 270px;
 }
 
 .colorContainer {
@@ -159,21 +133,16 @@ ColorPicker
   display: flex;
   flex-wrap: wrap;
   text-align: center;
-  padding-bottom: 2em;
 }
 
 .actionPartContainer {
   flex: auto;
 }
 
-.actionPartContainer button,
-.actionPartContainer input {
-  width: 300px;
+.actionPartContainer button {
+  width: 270px;
 }
 
-.themeInput {
-  width: 25%;
-  padding: 0.5em;
-  margin: 0.5em;
-  line-height: 2.3;
+.actionPartContainer input {
+  width: 200px;
 }

@@ -11,6 +11,18 @@
     min-height: 100vh;
 }
 
+.adminWrapper {
+  padding: 6em 2em 1em;
+  font-size: var(--font-size-admin);
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .adminWrapper {
+    padding: 6em 4em 3em;
+  }
+}
+
 .gradient {
     content: '';
     position: absolute;

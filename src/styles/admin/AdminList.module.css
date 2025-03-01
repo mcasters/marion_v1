@@ -1,39 +1,21 @@
-.listContainer {
-  margin: 0 0 5em;
-}
-
 .filter {
   width: 50%;
   padding: 0 0.5em 2em;
 }
 
-/* desktop */
-@media (min-width: 769px) {
-  .listContainer {
-    max-width: 50vw;
-    margin: 0 auto 5em;
-  }
-}
-
-.listContainer h2 {
-  font-size: var(--font-size-title);
-  padding-bottom: 1em;
-}
-
-.listContainer h4 {
-  padding-bottom: 1em;
-}
-
-.list {
+.listWrapper,
+.categoryListWrapper {
   font-size: var(--font-size-min);
-  display: block;
-  width: 100%;
   height: 500px;
   overflow: scroll;
   border-collapse: collapse;
   background-color: white;
   border-bottom: 2px solid var(--color-light);
   border-top: 2px solid var(--color-light);
+}
+
+.categoryListWrapper {
+  height: 300px;
 }
 
 .itemList,

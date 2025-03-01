@@ -1,80 +1,60 @@
-.adminWrapper {
-  padding: 6em 2em 1em;
+.title1 {
+  font-size: 2rem;
+  padding-bottom: 2em;
 }
 
-/* desktop */
-@media (min-width: 769px) {
-  .adminWrapper {
-    padding: 6em 4em 3em;
-  }
+.title2 {
+  font-size: 1.6rem;
+  padding-bottom: 1.5em;
 }
 
-.button {
-  padding: 0 2em;
-  margin: 2em auto;
-  box-shadow: inset 0 0.8em 1em 0 #e2e2e2;
-  border: solid 1px #aaaaaa;
-  line-height: 2.7;
-  outline: none;
-  cursor: pointer;
+.title3 {
+  font-size: 1.3rem;
+  padding-bottom: 1.5em;
+  text-align: left;
 }
 
-.pageTitle {
-  padding: 1em 0 2em;
+.modalTitle {
+  font-size: 1.6rem;
+  padding: 0.5em 0;
 }
 
-.formContainer,
-.messageContainer {
+.container {
   max-width: unset;
-  margin: 2em 0 0;
+  margin: 0 0 2em;
 }
 
 /* desktop */
 @media (min-width: 769px) {
-  .formContainer,
-  .messagesContainer {
+  .container {
     max-width: 50vw;
-    margin: 0 auto 5em;
+    margin: 0 auto 6em;
   }
 }
 
-.wrapperModal {
+.modalContainer {
   max-width: 50vw;
   padding: 2em;
 }
 
-.formContainer h2 {
-  font-size: var(--font-size-title);
-  padding-bottom: 1em;
-}
-
-.formContainer h4 {
-  padding-bottom: 1em;
-}
-
-.formContainer textarea {
+.container textarea {
   border-color: #c5c5c5;
   height: 150px;
 }
 
-.formContainer .formLabel,
-h2.formLabel,
-.wrapperModal .formLabel {
+.container .formLabel,
+.modalContainer .formLabel {
   font-variant-caps: small-caps;
   letter-spacing: 3px;
   color: var(--color-dark);
   text-align: left;
   font-size: var(--font-size);
   margin-top: 1rem;
+  line-height: 1.375;
 }
 
 .catInfo {
   margin: 3rem 0 0;
-}
-
-.select {
-  background-color: white;
-  border: var(--color-medium) solid 1px;
 }
 
 .checkInput {
@@ -89,7 +69,7 @@ h2.formLabel,
 }
 
 .buttonSection {
-  margin: 1em;
+  margin: 2em 0;
 }
 
 /* Image */
@@ -114,8 +94,7 @@ h2.formLabel,
   padding: 15px 0;
   margin: 0;
   line-height: 2.3;
-  font-variant-caps: initial;
-  letter-spacing: initial;
+  font-size: var(--font-size-admin);
 }
 
 .imageWrapper {
@@ -125,10 +104,6 @@ h2.formLabel,
 }
 
 /* End image */
-
-h2.homepage {
-  padding: 2em 0 0;
-}
 
 .info {
   width: 350px;
@@ -170,11 +145,6 @@ h2.homepage {
 /* End Select Image */
 
 /* Messages */
-
-.messagesContainer {
-  margin-top: 3em;
-  z-index: 2;
-}
 
 .messagesHeader {
   position: relative;

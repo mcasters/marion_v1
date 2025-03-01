@@ -6,7 +6,6 @@ import {
   PostFull,
   Type,
 } from "@/lib/type";
-import { TEXTS } from "@/constants/specific";
 import { IMAGE } from "@/constants/image";
 import { Label } from "@prisma/client";
 import { getSliders } from "@/utils/commonUtils";
@@ -19,7 +18,7 @@ const getPhotosFromImages = (
   images: Image[],
   folder: string,
   splitMain: boolean,
-  alt: string = `Œuvre de ${TEXTS.TITLE}`,
+  alt: string,
   title: string = "",
   date: Date = new Date(),
 ): {
@@ -79,6 +78,7 @@ const getPhotosFromImages = (
 
 export const getContentPhotoTab = (
   content: ContentFull | null,
+  alt: string,
 ): {
   mainPhotos: PhotoTab;
   photos: PhotoTab;
@@ -88,9 +88,7 @@ export const getContentPhotoTab = (
       content.images,
       "miscellaneous",
       content.label === Label.SLIDER,
-      content.label === Label.PRESENTATION
-        ? "Photo de Thierry Casters"
-        : undefined,
+      alt,
     );
   }
   return { mainPhotos: getEmptyPhotoTab(), photos: getEmptyPhotoTab() };
@@ -98,6 +96,7 @@ export const getContentPhotoTab = (
 
 export const getPhotoTab = (
   item: PostFull | ItemFull,
+  alt,
 ): {
   mainPhotos: PhotoTab;
   photos: PhotoTab;
@@ -111,9 +110,6 @@ export const getPhotoTab = (
         : isPost
           ? "post"
           : "dessin";
-  const alt = isPost
-    ? `Photo du post "${item.title}" de ${TEXTS.TITLE}`
-    : `${item.title} - ${item.type} de ${TEXTS.TITLE}`;
   return getPhotosFromImages(
     item.images,
     folder,
