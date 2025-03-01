@@ -298,9 +298,3 @@ label {
     page-break-after: avoid;
   }
 }
-
-.separate {
-  width: 300px;
-  border-bottom: 1px solid var(--color-dark);
-  margin: 0 auto;
-}
