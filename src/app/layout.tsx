@@ -2,13 +2,14 @@ import { Metadata } from "next";
 import Layout from "@/components/layout/Layout";
 import Providers from "./context/providers";
 import "@/styles/globals-specific.css";
-import { getIntroText, themeToHexa } from "@/utils/commonUtils";
+import { getIntroText, getMetasMap, themeToHexa } from "@/utils/commonUtils";
 import React from "react";
 import StyledJsxRegistry from "./registry";
 import { DESCRIPTION, GENERAL, KEYWORDS } from "@/constants/specific/metaHtml";
 import { getSession } from "@/app/lib/auth";
 import { getContentsFull } from "@/app/actions/contents";
 import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
+import { getMetas } from "@/app/actions/meta";
 
 export const metadata: Metadata = {
   title: GENERAL.SITE_TITLE,
@@ -33,14 +34,17 @@ export default async function RootLayout({
   const contents = await getContentsFull();
   const theme = await getActiveTheme();
   const presetColors = await getPresetColors();
+  const metas = getMetasMap(await getMetas());
   const hexaTheme = themeToHexa(theme, presetColors);
 
   return (
     <html lang="fr">
       <body>
-        <Providers session={session} theme={hexaTheme}>
+        <Providers session={session} theme={hexaTheme} metas={metas}>
           <StyledJsxRegistry>
-            <Layout introduction={getIntroText(contents)}>{children}</Layout>
+            <Layout introduction={getIntroText(contents)} metas={metas}>
+              {children}
+            </Layout>
           </StyledJsxRegistry>
         </Providers>
       </body>
