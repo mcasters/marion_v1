@@ -16,29 +16,37 @@ export default async function Contact() {
 
   return (
     <>
-      <h1 className={s.pageTitle}>Contenus de la page contact</h1>
-      <TextAreaForm
-        textContent={getAddressText(contents)}
-        label={Label.ADDRESS}
-        textLabel="Adresse"
-      />
-      <InputForm
-        label={Label.PHONE}
-        textContent={getPhoneText(contents)}
-        textLabel="Téléphone"
-        isPhone
-      />
-      <InputForm
-        label={Label.EMAIL}
-        textContent={getEmailText(contents)}
-        textLabel="E-mail"
-        isEmail
-      />
-      <TextAreaForm
-        textContent={getContactText(contents)}
-        label={Label.TEXT_CONTACT}
-        textLabel="Texte d'accompagnement (facultatif)"
-      />
+      <h1 className={s.title1}>Contenus de la page contact</h1>
+      <div className={s.container}>
+        <TextAreaForm
+          textContent={getAddressText(contents)}
+          label={Label.ADDRESS}
+          textLabel="Adresse"
+        />
+      </div>
+      <div className={s.container}>
+        <InputForm
+          label={Label.PHONE}
+          textContent={getPhoneText(contents)}
+          textLabel="Téléphone"
+          isPhone
+        />
+      </div>
+      <div className={s.container}>
+        <InputForm
+          label={Label.EMAIL}
+          textContent={getEmailText(contents)}
+          textLabel="E-mail"
+          isEmail
+        />
+      </div>
+      <div className={s.container}>
+        <TextAreaForm
+          textContent={getContactText(contents)}
+          label={Label.TEXT_CONTACT}
+          textLabel="Texte d'accompagnement (facultatif)"
+        />
+      </div>
     </>
   );
 }

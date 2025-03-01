@@ -15,7 +15,7 @@ export default async function Peintures() {
 
   return (
     <>
-      <h1 className={s.pageTitle}>Contenus des pages Peintures</h1>
+      <h1 className={s.title1}>Contenus des pages Peintures</h1>
       <ItemListComponent categories={categories} years={years} items={items} />
       <ItemForm
         categories={categories}

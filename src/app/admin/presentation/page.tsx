@@ -16,8 +16,8 @@ export default async function Presentation() {
 
   return (
     <>
-      <h1 className={s.pageTitle}>Contenus de la page Présentation</h1>
-      <div className={s.formContainer}>
+      <h1 className={s.title1}>Contenus de la page Présentation</h1>
+      <div className={s.container}>
         <ImagesForm
           isMultiple={false}
           label={Label.PRESENTATION}
@@ -26,21 +26,27 @@ export default async function Presentation() {
           title="Image de présentation (facultatif)"
         />
       </div>
-      <TextAreaForm
-        textContent={getPresentationText(contents)}
-        label={Label.PRESENTATION}
-        textLabel="Présentation (facultatif)"
-      />
-      <TextAreaForm
-        textContent={getDemarcheText(contents)}
-        label={Label.DEMARCHE}
-        textLabel="Démarche artistique (facultatif)"
-      />
-      <TextAreaForm
-        textContent={getInspirationText(contents)}
-        label={Label.INSPIRATION}
-        textLabel="Inspiration (facultatif)"
-      />
+      <div className={s.container}>
+        <TextAreaForm
+          textContent={getPresentationText(contents)}
+          label={Label.PRESENTATION}
+          textLabel="Présentation (facultatif)"
+        />
+      </div>
+      <div className={s.container}>
+        <TextAreaForm
+          textContent={getDemarcheText(contents)}
+          label={Label.DEMARCHE}
+          textLabel="Démarche artistique (facultatif)"
+        />
+      </div>
+      <div className={s.container}>
+        <TextAreaForm
+          textContent={getInspirationText(contents)}
+          label={Label.INSPIRATION}
+          textLabel="Inspiration (facultatif)"
+        />
+      </div>
     </>
   );
 }

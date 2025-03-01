@@ -5,21 +5,34 @@ import {
   getAddressText,
   getContactText,
   getEmailText,
+  getMetasMap,
   getPhoneText,
 } from "@/utils/commonUtils";
 import { getContentsFull } from "@/app/actions/contents";
 import InstagramIcon from "@/components/icons/InstagramIcon";
-import { TEXTS } from "@/constants/specific";
+import { META } from "@/constants/specific";
+import { getMetas } from "@/app/actions/meta";
+import React from "react";
+import { Metadata } from "next";
+import { DESCRIPTION, DOCUMENT_TITLE } from "@/constants/specific/metaHtml";
+
+export const metadata: Metadata = {
+  title: DOCUMENT_TITLE.CONTACT,
+  description: DESCRIPTION.CONTACT,
+};
 
 export default async function Contact() {
   const contents = await getContentsFull();
+  const metas = getMetasMap(await getMetas());
   const email = getEmailText(contents);
   const contactText = getContactText(contents);
+  const siteTitle = metas[META.SITE_TITLE];
 
   return (
-    <>
+    <div className={s.container}>
+      <h1 className="hidden">Contacter {siteTitle}</h1>
       <address>
-        <p>{TEXTS.TITLE}</p>
+        <p>{siteTitle}</p>
         <p className={s.preLine}>{getAddressText(contents)}</p>
         <br />
         <p>
@@ -33,14 +46,14 @@ export default async function Contact() {
             {email}
           </Link>
         </p>
-        {TEXTS.TITLE === "Thierry Casters" && (
+        {siteTitle === process.env.TITLE && (
           <>
             <br />
             <br />
             <br />
             <br />
             <a
-              href="https://www.instagram.com/thierrycasters/"
+              href={metas[META.INSTAGRAM]}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -54,6 +67,6 @@ export default async function Contact() {
           <p className={s.preLine}>{getContactText(contents)}</p>
         </div>
       )}
-    </>
+    </div>
   );
 }
