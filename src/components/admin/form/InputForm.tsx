@@ -34,7 +34,7 @@ export default function InputForm({
   }, [state]);
 
   return (
-    <div className={s.formContainer}>
+    <div className={s.container}>
       <form action={action}>
         <input type="hidden" name="label" value={label} />
         <label className={s.formLabel}>

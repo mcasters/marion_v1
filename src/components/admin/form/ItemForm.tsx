@@ -57,8 +57,8 @@ export default function ItemForm({
   }, [state]);
 
   return (
-    <div className={isUpdate ? s.wrapperModal : s.formContainer}>
-      <h2>
+    <div className={isUpdate ? s.modalContainer : s.container}>
+      <h2 className={isUpdate ? s.modalTitle : s.title2}>
         {`${isUpdate ? "Modifier" : "Ajouter"} ${item.type === Type.DRAWING ? "un" : "une"} ${item.type}`}
       </h2>
       <form action={action}>
@@ -94,7 +94,6 @@ export default function ItemForm({
                 }),
               );
             }}
-            className={s.select}
           >
             <option value={0}>-- Aucune catégorie --</option>
             {categories &&
@@ -141,7 +140,7 @@ export default function ItemForm({
               setWorkItem({ ...workItem, description: e.target.value })
             }
             name="description"
-            rows={5}
+            rows={3}
             value={workItem.description}
           />
         </label>

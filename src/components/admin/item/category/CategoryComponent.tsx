@@ -2,7 +2,7 @@
 
 import CategoryListComponent from "@/components/admin/item/category/CategoryListComponent";
 import CategoryForm from "@/components/admin/form/CategoryForm";
-import s from "../../../../styles/admin/AdminList.module.css";
+import s from "../../../../styles/admin/Admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyCategory } from "@/utils/commonUtils";
 
@@ -15,8 +15,8 @@ export default function CategoryComponent({ categories, type, items }: Props) {
   const title = "Gestion des catégories";
 
   return (
-    <div className={s.listContainer}>
-      <h2>{title}</h2>
+    <div className={s.container}>
+      <h2 className={s.title2}>{title}</h2>
       <CategoryListComponent
         type={type}
         categories={categories}

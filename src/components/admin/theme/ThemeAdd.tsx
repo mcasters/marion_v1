@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useActionState, useEffect, useState } from "react";
-import s from "@/styles/admin/AdminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { useAlert } from "@/app/context/AlertProvider";
 import { createTheme } from "@/app/actions/theme/admin";
@@ -35,7 +34,6 @@ export default function ThemeAdd({ themes }: Props) {
     <form action={action}>
       <input
         required
-        className={s.themeInput}
         placeholder="Nom du nouveau thème"
         name="name"
         type="text"

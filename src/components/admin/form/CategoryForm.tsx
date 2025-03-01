@@ -64,8 +64,8 @@ export default function CategoryForm({
   }, [state]);
 
   return (
-    <div className={isUpdate ? s.wrapperModal : s.formContainer}>
-      <h3>
+    <div className={isUpdate ? s.modalContainer : s.container}>
+      <h3 className={s.title3}>
         {isUpdate ? "Modification d'une catégorie" : "Ajout d'une catégorie"}
       </h3>
       <form action={action}>

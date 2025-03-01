@@ -13,7 +13,6 @@ import s from "@/styles/admin/Admin.module.css";
 import { activateTheme, deleteTheme } from "@/app/actions/theme/admin";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import PresetColorDashboard from "@/components/admin/theme/presetColor/PresetColorDashboard";
-import { TEXTS } from "@/constants/specific";
 
 type Props = {
   themes: Theme[];
@@ -51,9 +50,9 @@ export default function AdminTheme({ themes, presetColors }: Props) {
 
   return (
     <>
-      <h1 className={s.pageTitle}>Gestion du thème</h1>
+      <h2 className={s.title2}>Gestion du thème</h2>
       <div className={themeStyle.themeContainer}>
-        <h2>Thèmes :</h2>
+        <h3 className={s.title3}>Thèmes :</h3>
         <select
           name="name"
           value={workTheme.id}
@@ -83,7 +82,7 @@ export default function AdminTheme({ themes, presetColors }: Props) {
         </button>
       </div>
       <div className={themeStyle.themeContainer}>
-        <h2>Détail du thème sélectionné :</h2>
+        <h3 className={s.title3}>Détail du thème sélectionné :</h3>
         <ThemeDashboard
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
@@ -110,29 +109,12 @@ export default function AdminTheme({ themes, presetColors }: Props) {
         </div>
       </div>
       <div className={themeStyle.themeContainer}>
-        <h2>Couleurs personnalisées</h2>
+        <h3 className={s.title3}>Couleurs personnalisées</h3>
         <PresetColorDashboard
           presetColors={presetColors}
           onDeletePresetColor={setDeletedPresetColor}
         />
       </div>
-      {TEXTS.TITLE === "Thierry Casters" && (
-        <section className={themeStyle.noteContainer}>
-          <h2>Notes</h2>
-          <p>Mise à jour : {TEXTS.NOTES.Date}</p>
-          <div className={themeStyle.grid}>
-            {Object.entries(TEXTS.NOTES).map(([key, value]) => {
-              if (key !== "Date")
-                return (
-                  <div key={key}>
-                    <h3 className={themeStyle.sectionTitle}>{key}</h3>
-                    <p>{value}</p>
-                  </div>
-                );
-            })}
-          </div>
-        </section>
-      )}
     </>
   );
 }

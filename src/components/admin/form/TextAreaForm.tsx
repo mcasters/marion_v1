@@ -27,23 +27,21 @@ export default function TextAreaForm({ label, textContent, textLabel }: Props) {
   }, [state]);
 
   return (
-    <div className={s.formContainer}>
-      <form action={action}>
-        <input type="hidden" name="label" value={label} />
-        <label className={s.formLabel}>
-          {textLabel}
-          <textarea
-            name="text"
-            value={text}
-            onChange={(e) => {
-              setText(e.target.value);
-              setIsChanged(true);
-            }}
-          />
-        </label>
-        <SubmitButton disabled={!isChanged} />
-        <CancelButton disabled={!isChanged} />
-      </form>
-    </div>
+    <form action={action}>
+      <input type="hidden" name="label" value={label} />
+      <label className={s.formLabel}>
+        {textLabel}
+        <textarea
+          name="text"
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+            setIsChanged(true);
+          }}
+        />
+      </label>
+      <SubmitButton disabled={!isChanged} />
+      <CancelButton disabled={!isChanged} />
+    </form>
   );
 }

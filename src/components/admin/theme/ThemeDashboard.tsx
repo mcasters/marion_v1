@@ -20,7 +20,7 @@ export default function ThemeDashboard({
   return (
     <div className={`${s.flex} ${isToUpdate ? s.toUpdate : ""}`}>
       <section>
-        <h3 className={s.sectionTitle}>{PAGE_TYPE.GENERAL}</h3>
+        <h4 className={s.sectionTitle}>{PAGE_TYPE.GENERAL}</h4>
         <ColorPicker
           label="Ligne au top"
           colorLabel="lineColor"
@@ -58,7 +58,7 @@ export default function ThemeDashboard({
         />
       </section>
       <section>
-        <h3 className={s.sectionTitle}>{PAGE_TYPE.HOME}</h3>
+        <h4 className={s.sectionTitle}>{PAGE_TYPE.HOME}</h4>
         <ColorPicker
           label="Titre"
           colorLabel="titleColor"
@@ -110,7 +110,7 @@ export default function ThemeDashboard({
         />
       </section>
       <section>
-        <h3 className={s.sectionTitle}>{PAGE_TYPE.OTHERS}</h3>
+        <h4 className={s.sectionTitle}>{PAGE_TYPE.OTHERS}</h4>
         <ColorPicker
           label="Fond - menu 1"
           colorLabel="menu1Color"
@@ -155,7 +155,7 @@ export default function ThemeDashboard({
         />
       </section>
       <section>
-        <h3 className={s.sectionTitle}>{PAGE_TYPE.ITEM}</h3>
+        <h4 className={s.sectionTitle}>{PAGE_TYPE.ITEM}</h4>
         <ColorPicker
           label="Fond"
           colorLabel="backgroundColorItem"

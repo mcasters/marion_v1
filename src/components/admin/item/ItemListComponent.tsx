@@ -50,8 +50,8 @@ export default function ItemListComponent({ categories, years, items }: Props) {
   }, [yearFilter, categoryFilter, items]);
 
   return (
-    <div className={s.listContainer}>
-      <h2>
+    <div className={style.container}>
+      <h2 className={style.title2}>
         {title} ( total : {items.length} )
       </h2>
       <label className={s.filter}>
@@ -60,7 +60,6 @@ export default function ItemListComponent({ categories, years, items }: Props) {
           name="categoryId"
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(Number(e.target.value))}
-          className={style.select}
         >
           <option value={-1}>-- Pas de filtre --</option>
           {categories &&
@@ -79,7 +78,6 @@ export default function ItemListComponent({ categories, years, items }: Props) {
           onChange={(e) => {
             setYearFilter(Number(e.target.value));
           }}
-          className={style.select}
         >
           <option value={-1}>-- Pas de filtre --</option>
           {years &&
@@ -93,7 +91,7 @@ export default function ItemListComponent({ categories, years, items }: Props) {
       <h5>
         ( {filteredItems.length} {itemName}s )
       </h5>
-      <div className={s.list}>
+      <div className={s.listWrapper}>
         {filteredItems &&
           filteredItems.map((item: ItemFull) => {
             return (

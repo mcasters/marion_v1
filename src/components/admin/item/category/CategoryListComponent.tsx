@@ -3,6 +3,7 @@
 import RowCategoryListComponent from "./RowCategoryListComponent";
 import React from "react";
 import s from "../../../../styles/admin/AdminList.module.css";
+import style from "../../../../styles/admin/Admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 
 interface Props {
@@ -19,9 +20,9 @@ export default function CategoryListComponent({
   const message = `Une catégorie ne peut être supprimée que lorsqu'il n'y a pas ou plus de ${type} qui y est classée.`;
 
   return (
-    <div className={s.listContainer}>
-      <h3>{title}</h3>
-      <div className={s.list}>
+    <div className={style.container}>
+      <h3 className={style.title3}>{title}</h3>
+      <div className={s.categoryListWrapper}>
         {categories.map((category) => {
           let itemTab;
           if (category.key === "no-category")
