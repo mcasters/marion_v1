@@ -6,8 +6,9 @@ import s from "./NavItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import React, { useMemo } from "react";
 import LAYOUT from "@/constants/layout";
-import { TEXTS } from "@/constants/specific";
+import { META } from "@/constants/specific";
 import { usePathname } from "next/navigation";
+import { useMetas } from "@/app/context/metaProvider";
 
 type Props = {
   itemTag: string;
@@ -16,6 +17,7 @@ type Props = {
 
 export default function NavItem({ itemTag, navLayout }: Props) {
   const theme = useTheme();
+  const metas = useMetas();
   const item = MENU_1_ITEMS[itemTag];
   const path = `/${usePathname().split("/")[1]}`;
   const isActive = item.ROUTE === path;
@@ -35,7 +37,7 @@ export default function NavItem({ itemTag, navLayout }: Props) {
         : theme.menu1LinkHoverColor;
   }, [theme, navLayout]);
   const themeBorderActive = useMemo(() => {
-    return TEXTS.TITLE === "Marion Casters"
+    return metas[META.SITE_TITLE] === "Marion Casters"
       ? theme.menu2LinkItemColor
       : navLayout === LAYOUT.ITEM_NAV
         ? theme.menu1LinkItemColor

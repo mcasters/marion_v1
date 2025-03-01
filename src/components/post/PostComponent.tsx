@@ -6,12 +6,22 @@ import Gallery from "@/components/image/gallery/Gallery";
 import { useMemo } from "react";
 import { PostFull } from "@/lib/type";
 import { getPhotoTab } from "@/utils/imageUtils";
+import { useMetas } from "@/app/context/metaProvider";
+import { META } from "@/constants/specific";
 
 interface Props {
   post: PostFull;
 }
 export default function PostComponent({ post }: Props) {
-  const { mainPhotos, photos } = useMemo(() => getPhotoTab(post), [post]);
+  const metas = useMetas();
+  const { mainPhotos, photos } = useMemo(
+    () =>
+      getPhotoTab(
+        post,
+        `Photo du post "${post.title}" de ${metas[META.SITE_TITLE]}`,
+      ),
+    [post],
+  );
 
   return (
     <>

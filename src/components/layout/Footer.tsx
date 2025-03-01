@@ -2,10 +2,11 @@
 
 import s from "@/styles/Footer.module.css";
 import { ROUTES } from "@/constants/specific/routes";
-import { TEXTS } from "@/constants/specific";
+import { META } from "@/constants/specific";
 import { useSession } from "@/app/context/sessionProvider";
 import Link from "next/link";
 import { useTheme } from "@/app/context/themeProvider";
+import { useMetas } from "@/app/context/metaProvider";
 
 type Props = {
   path: string | null;
@@ -13,12 +14,14 @@ type Props = {
 
 export default function Footer({ path }: Props) {
   const session = useSession();
+  const metas = useMetas();
   const theme = useTheme();
   const isPainting = path === ROUTES.PAINTING;
   const isSculpture = path === ROUTES.SCULPTURE;
   const isDrawing =
-    TEXTS.TITLE === "Marion Casters" ? path === ROUTES.DRAWING : false;
-  const text = TEXTS.FOOTER;
+    metas[META.SITE_TITLE] === "Marion Casters"
+      ? path === ROUTES.DRAWING
+      : false;
   const isDark = isPainting || isSculpture || isDrawing;
 
   return (
@@ -27,7 +30,7 @@ export default function Footer({ path }: Props) {
         className={isDark ? `${s.footer} ${s.dark}` : s.footer}
         style={isDark ? { color: theme.colorItem } : { color: theme.color }}
       >
-        <p>{text}</p>
+        <p>{metas[META.FOOTER]}</p>
         <br />
         <br />
         {!session?.user && <Link href={ROUTES.LOGIN}>Admin</Link>}

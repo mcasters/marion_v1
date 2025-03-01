@@ -7,6 +7,8 @@ import { DEVICE } from "@/constants/image";
 import { ContentFull } from "@/lib/type";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { getContentPhotoTab } from "@/utils/imageUtils";
+import { useMetas } from "@/app/context/metaProvider";
+import { META } from "@/constants/specific";
 
 interface Props {
   presentationContent: ContentFull | null;
@@ -20,10 +22,12 @@ export default function PresentationComponent({
 }: Props) {
   const window = useWindowSize();
   const isSmall = window.innerWidth < DEVICE.SMALL;
+  const metas = useMetas();
+  const alt = `Photo de ${metas[META.SITE_TITLE]}`;
   const photo = useMemo(() => {
     return isSmall
-      ? getContentPhotoTab(presentationContent).photos.sm[0]
-      : getContentPhotoTab(presentationContent).photos.md[0];
+      ? getContentPhotoTab(presentationContent, alt).photos.sm[0]
+      : getContentPhotoTab(presentationContent, alt).photos.md[0];
   }, [presentationContent, isSmall]);
 
   return (

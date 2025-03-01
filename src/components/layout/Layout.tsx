@@ -12,6 +12,7 @@ import { useTheme } from "@/app/context/themeProvider";
 import { hexToRgb } from "@/utils/commonUtils";
 import AuthStatus from "@/components/auth/AuthStatus";
 import { useSession } from "@/app/context/sessionProvider";
+import AdminNav from "@/components/layout/admin/AdminNav";
 
 interface Props {
   introduction: string;
@@ -45,7 +46,10 @@ export default function Layout({ introduction, children }: Props) {
       {isHome && <div className={`${s.gradient} gradient`}></div>}
       {isAdminPage && (
         <>
-          {children}
+          <AdminNav />
+          <Main isHome={false}>
+            <div className={s.adminWrapper}>{children}</div>
+          </Main>
           <Footer path={path} />
         </>
       )}
