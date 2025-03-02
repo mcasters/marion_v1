@@ -5,7 +5,6 @@ import React from "react";
 import ImagesForm from "@/components/admin/form/imageForm/ImagesForm";
 import TextAreaForm from "@/components/admin/form/TextAreaForm";
 import { getContentsFull } from "@/app/actions/contents";
-import PreviewForm from "@/components/admin/form/imageForm/PreviewForm";
 import {
   getSliderLandscapeImages,
   getSliderPortraitImages,
@@ -42,12 +41,8 @@ export default async function Home() {
           Images affichées sur écran ordinateur{" "}
           <small>(Format paysage ou carré mieux adapté)</small>
         </h3>
-        <PreviewForm
-          images={getSliderLandscapeImages(contents)}
-          contentLabel={Label.SLIDER}
-        />
         <ImagesForm
-          images={getSliderPortraitImages(contents)}
+          images={getSliderLandscapeImages(contents)}
           isMultiple={true}
           label={Label.SLIDER}
           smallImage={false}
