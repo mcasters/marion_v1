@@ -30,18 +30,17 @@ export default function PreviewForm({ images, contentLabel }: Props) {
         <form action={action} key={image.filename} className={s.imageWrapper}>
           <input type="hidden" name="label" value={contentLabel} />
           <input type="hidden" name="filename" value={image.filename} />
-          <div>
-            <Image
-              src={`/images/miscellaneous/sm/${image.filename}`}
-              width={150}
-              height={150}
-              alt="Image de l'item"
-              style={{
-                objectFit: "contain",
-              }}
-              unoptimized
-            />
-          </div>
+          <Image
+            src={`/images/miscellaneous/sm/${image.filename}`}
+            width={150}
+            height={150}
+            alt="Image de l'item"
+            style={{
+              objectFit: "contain",
+            }}
+            unoptimized
+            className={s.image}
+          />
           <button type="submit" className="iconButton" aria-label="Supprimer">
             <DeleteIcon />
           </button>

@@ -21,18 +21,17 @@ export default function Preview({ images, pathImage, onDelete }: Props) {
     <>
       {existantFilenames.map((filename) => (
         <div key={filename} className={s.imageWrapper}>
-          <div>
-            <Image
-              src={`${pathImage}/sm/${filename}`}
-              width={150}
-              height={150}
-              alt="Image de l'item"
-              style={{
-                objectFit: "contain",
-              }}
-              unoptimized
-            />
-          </div>
+          <Image
+            src={`${pathImage}/sm/${filename}`}
+            width={150}
+            height={150}
+            alt="Image de l'item"
+            style={{
+              objectFit: "contain",
+            }}
+            unoptimized
+            className={s.image}
+          />
           <button
             onClick={() => {
               const tab = existantFilenames.filter((f) => {
