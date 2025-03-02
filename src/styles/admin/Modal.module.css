@@ -13,7 +13,7 @@
 
 .modalBox {
   display: block;
-  background: var(--color-light);
+  background: #efefef;
   width: 90vw;
   max-height: 90%;
   border-radius: 0.2rem;

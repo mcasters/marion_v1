@@ -102,7 +102,7 @@ export default function PostForm({ post, toggleModal }: Props) {
           <textarea
             onChange={(e) => setWorkPost({ ...workPost, text: e.target.value })}
             name="text"
-            rows={5}
+            rows={7}
             value={workPost.text}
           />
         </label>

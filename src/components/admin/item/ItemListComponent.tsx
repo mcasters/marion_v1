@@ -91,7 +91,7 @@ export default function ItemListComponent({ categories, years, items }: Props) {
       <h5>
         ( {filteredItems.length} {itemName}s )
       </h5>
-      <div className={s.listWrapper}>
+      <div className={`${s.listWrapper} area`}>
         {filteredItems &&
           filteredItems.map((item: ItemFull) => {
             return (

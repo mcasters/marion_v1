@@ -8,10 +8,6 @@
   font-size: var(--font-size-min);
   height: 500px;
   overflow: scroll;
-  border-collapse: collapse;
-  background-color: white;
-  border-bottom: 2px solid var(--color-light);
-  border-top: 2px solid var(--color-light);
 }
 
 .categoryListWrapper {

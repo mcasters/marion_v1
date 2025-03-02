@@ -38,6 +38,7 @@ export default function TextAreaForm({ label, textContent, textLabel }: Props) {
             setText(e.target.value);
             setIsChanged(true);
           }}
+          rows={7}
         />
       </label>
       <SubmitButton disabled={!isChanged} />

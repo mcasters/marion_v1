@@ -185,43 +185,60 @@ figure {
   margin: 0 !important;
 }
 
-textarea {
-  padding: 0.5rem;
-  resize: vertical;
-  line-height: 2.3;
-  width: 100%;
-}
-
+.area,
+textarea,
 input,
 select {
-  padding: 0.5rem;
   width: 100%;
+  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: unset;
+}
+
+textarea,
+input,
+select {
   line-height: 2.3;
+  padding: 0.5rem;
+}
+
+textarea {
+  line-height: 1.6;
+  resize: vertical;
 }
 
 select {
-  height: 50px;
-  border-radius: unset;
-  background-color: white;
-  border: var(--color-medium) solid 1px;
+  height: 50px
+}
+
+input[type="file"] {
+  background-color: unset;
+  border: unset;
+  padding: 0;
 }
 
 label {
   display: inline-block;
   width: 100%;
   text-align: left;
-  margin-top: 1rem;
+  margin-top: 1em;
 }
 
-.adminButton {
+.adminButton,
+input::file-selector-button {
   width: 220px;
-  padding: 0.5rem;
-  margin: 0.5rem;
+  padding: 0.5em;
+  margin: 0.5em;
   line-height: 2.3;
   box-shadow: inset 0 0.8em 1em 0 #efefef;
-  border: solid 1px #aaaaaa;
+  border: 1px solid #bdbdbd;
   outline: none;
   background-color: #e2e2e2;
+}
+
+input::file-selector-button {
+  margin: 0.5em 0;
+  width: 150px;
 }
 
 .hidden {

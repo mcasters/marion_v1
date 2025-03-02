@@ -22,7 +22,7 @@ export default function CategoryListComponent({
   return (
     <div className={style.container}>
       <h3 className={style.title3}>{title}</h3>
-      <div className={s.categoryListWrapper}>
+      <div className={`${s.categoryListWrapper} area`}>
         {categories.map((category) => {
           let itemTab;
           if (category.key === "no-category")

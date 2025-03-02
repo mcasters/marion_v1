@@ -37,18 +37,12 @@
   padding: 2em;
 }
 
-.container textarea {
-  border-color: #c5c5c5;
-  height: 150px;
-}
-
 .container .formLabel,
 .modalContainer .formLabel {
   font-variant-caps: small-caps;
   letter-spacing: 3px;
   color: var(--color-dark);
   text-align: left;
-  font-size: var(--font-size);
   margin-top: 1rem;
   line-height: 1.375;
 }
@@ -61,11 +55,6 @@
   display: inline;
   margin-left: 30px;
   width: 10px;
-}
-
-.message {
-  font-size: small;
-  padding-bottom: 2em;
 }
 
 .buttonSection {
@@ -98,9 +87,13 @@
 }
 
 .imageWrapper {
-  padding: 0.8rem;
+  padding: 0 2px;
   display: inline-block;
   text-align: center;
+}
+
+.image {
+  display: block;
 }
 
 /* End image */
@@ -162,9 +155,7 @@
 }
 
 .messages {
-  background-color: white;
   padding: 1em;
-  border: 1px solid #d9d9d9;
   max-height: 450px;
   overflow: scroll;
 }
@@ -184,13 +175,16 @@
   margin: 0 5px;
 }
 
+.chatButton, .message, .moreButton {
+  color: #e3e3e3;
+}
+
 .message {
   position: relative;
   padding: 25px 10px 10px;
   border-radius: 10px;
   margin-bottom: 1em;
   text-align: left;
-  color: #d9d9d9;
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -198,7 +192,6 @@
 .moreButton {
   background: unset;
   border: unset;
-  color: #d9d9d9;
   position: absolute;
   top: 0;
   right: 8px;
@@ -230,14 +223,12 @@
 
 .textArea {
   width: 70%;
-  padding: 0 0.4em;
-  border: 1px solid #d9d9d9;
   line-height: unset;
-  border-radius: 5px;
 }
 
-.submitButton {
-  padding: 10px;
+.chatButton {
+  padding: 13px;
+  margin: 5px;
   border: unset;
-  border-radius: 5px;
+  border-radius: 2px;
 }
