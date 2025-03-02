@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import s from "../../styles/admin/Admin.module.css";
+import s from "../../../styles/admin/Admin.module.css";
 import { useSession } from "@/app/context/sessionProvider";
 import { useTheme } from "@/app/context/themeProvider";
 import { Message } from "@/lib/type";

@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useActionState, useEffect, useState } from "react";
-import s from "../../styles/admin/Admin.module.css";
+import s from "../../../styles/admin/Admin.module.css";
 import { addMessage, updateMessage } from "@/app/actions/messages";
 import { useSession } from "@/app/context/sessionProvider";
 import { useTheme } from "@/app/context/themeProvider";
 import { Message } from "@/lib/type";
-import ChatMessage from "@/components/admin/chatMessage";
+import ChatMessage from "@/components/admin/chatMessage/chatMessage";
 
 type Props = {
   dbMessages: Message[];
