@@ -18,6 +18,7 @@ export default function ChatMessages({ dbMessages }: Props) {
   const [messageToUpdate, setMessageToUpdate] = useState<Message | undefined>(
     undefined,
   );
+  const [menuOpenIndex, setMenuOpenIndex] = useState<number>(-1);
   const [state, action] = useActionState(
     messageToUpdate?.id !== undefined ? updateMessage : addMessage,
     null,
@@ -36,13 +37,18 @@ export default function ChatMessages({ dbMessages }: Props) {
         <div className={s.shadow} />
       </div>
 
-      <div className={s.messages}>
+      <div className={`${s.messages} area`}>
         {dbMessages &&
           dbMessages.map((msg, index) => (
             <ChatMessage
               key={index}
               message={msg}
               onUpdate={setMessageToUpdate}
+              onClickMenu={() => {
+                if (menuOpenIndex === index) setMenuOpenIndex(-1);
+                else setMenuOpenIndex(index);
+              }}
+              isMenuOpen={menuOpenIndex === index}
             />
           ))}
       </div>
@@ -50,7 +56,7 @@ export default function ChatMessages({ dbMessages }: Props) {
       <br />
       <form action={action}>
         <input type="hidden" name="userEmail" value={session?.user.email} />
-        {messageToUpdate && (
+        {messageToUpdate?.id && (
           <input type="hidden" name="id" value={messageToUpdate.id} />
         )}
         <textarea
@@ -68,10 +74,17 @@ export default function ChatMessages({ dbMessages }: Props) {
         <br />
         <button
           type="submit"
-          className={s.submitButton}
-          style={{ backgroundColor: theme.color, color: theme.backgroundColor }}
+          className={s.chatButton}
+          style={{ backgroundColor: theme.color }}
         >
-          {messageToUpdate?.id !== undefined ? "Mettre à jour" : "Envoyer"}
+          {messageToUpdate?.id ? "Mettre à jour" : "Envoyer"}
+        </button>
+        <button
+          onClick={() => setMessageToUpdate(undefined)}
+          className={s.chatButton}
+          style={{ backgroundColor: theme.color }}
+        >
+          Annuler
         </button>
       </form>
     </section>

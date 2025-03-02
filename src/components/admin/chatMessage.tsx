@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import s from "../../styles/admin/Admin.module.css";
 import { useSession } from "@/app/context/sessionProvider";
 import { useTheme } from "@/app/context/themeProvider";
@@ -11,15 +11,26 @@ import { deleteMessage } from "@/app/actions/messages";
 type Props = {
   message: Message;
   onUpdate: (message: Message) => void;
+  isMenuOpen: boolean;
+  onClickMenu: () => void;
 };
 
-export default function ChatMessage({ message, onUpdate }: Props) {
+export default function ChatMessage({
+  message,
+  onUpdate,
+  isMenuOpen,
+  onClickMenu,
+}: Props) {
   const session = useSession();
   const theme = useTheme();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [text, setText] = useState<string>("");
+  const menuRef = useRef(null);
   const email = message.author.email;
   const isMessageOwner = email === session?.user.email;
+
+  const handleUpdate = () => {
+    onUpdate(message);
+    onClickMenu();
+  };
 
   return (
     <div className={isMessageOwner ? s.textLeft : s.textRight}>
@@ -38,32 +49,24 @@ export default function ChatMessage({ message, onUpdate }: Props) {
         }}
       >
         {isMessageOwner && (
-          <button className={s.moreButton} onClick={() => setIsOpen(!isOpen)}>
+          <button className={s.moreButton} onClick={onClickMenu}>
             <MoreIcon />
           </button>
         )}
-        {isOpen && (
-          <div className={s.menu}>
-            <button
-              onClick={() => {
-                onUpdate(message);
-                setIsOpen(false);
-              }}
-              className={s.menuItemButton}
-            >
-              Modifier
-            </button>
-            <button
-              onClick={() => {
-                deleteMessage(message.id);
-                setIsOpen(false);
-              }}
-              className={s.menuItemButton}
-            >
-              Supprimer
-            </button>
-          </div>
-        )}
+        <div ref={menuRef} className={isMenuOpen ? s.menu : `${s.menu} hidden`}>
+          <button onClick={handleUpdate} className={s.menuItemButton}>
+            Modifier
+          </button>
+          <button
+            onClick={() => {
+              deleteMessage(message.id);
+              onClickMenu();
+            }}
+            className={s.menuItemButton}
+          >
+            Supprimer
+          </button>
+        </div>
         {message.text}
       </div>
     </div>
