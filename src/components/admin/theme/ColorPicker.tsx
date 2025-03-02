@@ -102,6 +102,7 @@ export default function ColorPicker({
               <HexColorPicker
                 color={colorNameToHex(color, presetColors)}
                 onChange={handleChange}
+                style={{ width: "250px" }}
               />
             </div>
             <p>Couleur sélectionnée (notation hexadécimale) :</p>

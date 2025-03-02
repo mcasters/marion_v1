@@ -61,7 +61,6 @@ export default function AdminTheme({ themes, presetColors }: Props) {
               themes.find((t) => t.id?.toString() === e.target.value) as Theme,
             );
           }}
-          className={s.select}
         >
           {themes &&
             themes.map((t: Theme) => (
@@ -87,25 +86,24 @@ export default function AdminTheme({ themes, presetColors }: Props) {
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
           isToUpdate={
-            workTheme.name != THEME.BASE_THEME &&
             savedWorkTheme !== undefined &&
             Object.entries(workTheme).sort().toString() !=
               Object.entries(savedWorkTheme).sort().toString()
           }
         />
-      </div>
-      <div className={themeStyle.actionContainer}>
-        <div className={themeStyle.actionPartContainer}>
-          <ThemeAdd themes={themes} />
-        </div>
-        <div className={themeStyle.actionPartContainer}>
-          <ThemeUpdate />
-        </div>
-        <div className={themeStyle.actionPartContainer}>
-          <CancelButton
-            onCancel={handleCancel}
-            text="Annuler les changements"
-          />
+        <div className={themeStyle.actionContainer}>
+          <div className={themeStyle.actionPartContainer}>
+            <ThemeAdd themes={themes} />
+          </div>
+          <div className={themeStyle.actionPartContainer}>
+            <ThemeUpdate />
+          </div>
+          <div className={themeStyle.actionPartContainer}>
+            <CancelButton
+              onCancel={handleCancel}
+              text="Annuler les changements"
+            />
+          </div>
         </div>
       </div>
       <div className={themeStyle.themeContainer}>

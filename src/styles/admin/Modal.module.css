@@ -14,15 +14,7 @@
 .modalBox {
   display: block;
   background: #efefef;
-  width: 90vw;
   max-height: 90%;
   border-radius: 0.2rem;
   overflow: scroll;
-}
-
-/* desktop */
-@media (min-width: 769px) {
-  .modalBox {
-    max-width: 50vw;
-  }
 }

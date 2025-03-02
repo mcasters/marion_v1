@@ -1,5 +1,4 @@
-.themeContainer,
-.actionContainer {
+.themeContainer {
   margin: 0 0 4em;
 }
 
@@ -12,6 +11,7 @@
 }
 
 .flex {
+  padding: 1em;
   display: flex;
   flex-wrap: wrap;
 }
@@ -34,14 +34,14 @@
 }
 
 .toUpdate {
-  border: red solid 3px;
+  border: #dc3908 solid 3px;
 }
 
 .toUpdate span {
   display: block;
   width: 100%;
   text-align: center;
-  color: red;
+  color: #dc3908;
 }
 
 /*
@@ -61,7 +61,7 @@ ColorPicker
 
 .picker {
   margin: 15px auto 15px;
-  width: 200px;
+  width: 250px;
 }
 
 .swatch {
@@ -70,7 +70,7 @@ ColorPicker
   border-radius: 1px;
   border: 1px solid #aaa;
   cursor: pointer;
-  margin: 3px;
+  margin: 4px;
 }
 
 .swatchFocus {
@@ -110,8 +110,7 @@ ColorPicker
 }
 
 .presetColorContainer {
-  width: 50px;
-  margin: 3px;
+  width: 45px;
 }
 
 .colorName {

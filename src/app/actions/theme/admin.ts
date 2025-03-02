@@ -12,10 +12,17 @@ export async function createTheme(
   formData: FormData,
 ) {
   try {
+    const newName = formData.get("name") as string;
+    const alreadyTheme = await prisma.theme.findUnique({
+      where: { name: newName },
+    });
+    if (alreadyTheme)
+      return { message: "Nom du thème déjà existant", isError: true };
+
     const { id, isActive, name, ...rest } = theme;
     await prisma.theme.create({
       data: {
-        name: formData.get("name") as string,
+        name: newName,
         isActive: false,
         ...rest,
       },
