@@ -54,7 +54,7 @@ export default function PresetColorPicker({ presetColor, onDelete }: Props) {
       <p className={s.label}>{presetColor.name}</p>
       <div className={s.colorPickerContainer}>
         <button
-          className={`${s.swatchFocus} ${s.presetColor}`}
+          className={`${s.swatch} ${s.focus} ${s.presetColor}`}
           style={{
             backgroundColor: color,
           }}
@@ -68,8 +68,8 @@ export default function PresetColorPicker({ presetColor, onDelete }: Props) {
           <div className={s.colorPicker}>
             <h3>Modification : {presetColor.name}</h3>
             <p>
-              (s&apos;appliquera à toutes les couleurs perso &quot;
-              {presetColor.name}&quot; du thème)
+              (s&apos;applique à toutes les utilisations de &quot;
+              {presetColor.name}&quot;)
             </p>
             <div className={s.picker}>
               <HexColorPicker color={color} onChange={setColor} />
@@ -89,10 +89,7 @@ export default function PresetColorPicker({ presetColor, onDelete }: Props) {
                 className={s.halfWidth}
               />
             </div>
-            <button
-              className={`adminButton ${s.halfWidth}`}
-              onClick={onUpdatePresetColor}
-            >
+            <button className={s.halfWidth} onClick={onUpdatePresetColor}>
               OK
             </button>
             <button
@@ -100,7 +97,7 @@ export default function PresetColorPicker({ presetColor, onDelete }: Props) {
                 setColor(presetColor.color);
                 toggle();
               }}
-              className={`adminButton ${s.halfWidth}`}
+              className={s.halfWidth}
             >
               Annuler
             </button>

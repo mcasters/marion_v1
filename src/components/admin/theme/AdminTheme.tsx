@@ -107,7 +107,7 @@ export default function AdminTheme({ themes, presetColors }: Props) {
         </div>
       </div>
       <div className={themeStyle.themeContainer}>
-        <h3 className={s.title3}>Couleurs personnalisées</h3>
+        <h3 className={s.title3}>Couleurs mémorisées</h3>
         <PresetColorDashboard
           presetColors={presetColors}
           onDeletePresetColor={setDeletedPresetColor}

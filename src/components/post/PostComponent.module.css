@@ -6,15 +6,15 @@
     padding: 0 0 7rem;
 }
 
-.info {
+.postInfo {
     padding-top: 2rem;
 }
 
-.info h2 {
+.postInfo h2 {
     font-size: var(--font-size-title);
 }
 
-.info p {
+.postInfo p {
     font-size: var(--font-size);
     white-space: pre-line;
 }

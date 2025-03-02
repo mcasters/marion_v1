@@ -80,9 +80,9 @@ export default function ColorPicker({
         <button
           className={
             isOpen
-              ? s.swatchOpen
+              ? `${s.swatch} ${s.open}`
               : color.charAt(0) !== "#"
-                ? s.swatchFocus
+                ? `${s.swatch} ${s.focus}`
                 : s.swatch
           }
           style={{
@@ -95,9 +95,8 @@ export default function ColorPicker({
         />
         <Modal isOpen={isOpen} toggle={toggle}>
           <div className={s.colorPicker}>
-            <h3>
-              {pageTypeName} : {label}
-            </h3>
+            <h2>{pageTypeName}</h2>
+            <p className={s.subtitle}>{label}</p>
             <div className={s.picker}>
               <HexColorPicker
                 color={colorNameToHex(color, presetColors)}
@@ -129,7 +128,7 @@ export default function ColorPicker({
               />
               <button
                 onClick={onAddPresetColor}
-                className={`${s.halfWidth} adminButton`}
+                className={`${s.halfWidth}`}
                 disabled={nameToSave === ""}
               >
                 Mémoriser la couleur
@@ -143,7 +142,7 @@ export default function ColorPicker({
                       p.name ===
                         workTheme[colorLabel as keyof OnlyString<Theme>] &&
                       p.color === colorNameToHex(color, presetColors)
-                        ? s.swatchFocus
+                        ? `${s.swatch} ${s.focus}`
                         : s.swatch
                     }
                     style={{
@@ -151,7 +150,7 @@ export default function ColorPicker({
                     }}
                     onClick={() => onSelectPresetColor(p.name)}
                   />
-                  <p className={s.colorName}>{p.name}</p>
+                  <p>{p.name}</p>
                 </div>
               ))}
             </div>

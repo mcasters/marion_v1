@@ -59,6 +59,10 @@ ColorPicker
   padding: 1.5em 1em 1em;
 }
 
+.subtitle {
+  font-size: 1.2em;
+}
+
 .picker {
   margin: 15px auto 15px;
   width: 250px;
@@ -73,26 +77,14 @@ ColorPicker
   margin: 4px;
 }
 
-.swatchFocus {
-  all: unset;
-  width: 28px;
-  height: 28px;
-  margin: 3px;
-  border-radius: 1px;
+.focus {
   outline: solid #1196c7 2px;
   outline-offset: 2px;
-  cursor: pointer;
 }
 
-.swatchOpen {
-  all: unset;
-  width: 28px;
-  height: 28px;
-  margin: 3px;
-  border-radius: 1px;
+.open {
   outline: solid #204c5d 3px;
   outline-offset: 2px;
-  cursor: pointer;
 }
 
 .presetColor {
@@ -111,18 +103,17 @@ ColorPicker
 
 .presetColorContainer {
   width: 45px;
-}
-
-.colorName {
+  padding: 0 1px;
+  font-family: var(--font-family-sans);
   font-size: 11px;
-  display: block;
+  word-break: break-word;
 }
 
 .halfWidth {
   display: inline-block;
   width: 45%;
   height: 36px;
-  line-height: 2.3;
+  line-height: 36px;
   vertical-align: top;
   margin: 0.3em;
   padding: 0 0.4em;

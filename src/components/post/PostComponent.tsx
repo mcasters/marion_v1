@@ -29,7 +29,7 @@ export default function PostComponent({ post }: Props) {
         {mainPhotos.sm.length > 0 && (
           <Lightbox photos={mainPhotos} priority={true} />
         )}
-        <div className={s.info}>
+        <div className={s.postInfo}>
           <h2>{post.title}</h2>
           <time>{new Date(post.date).getFullYear()}</time>
           <p>

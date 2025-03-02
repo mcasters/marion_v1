@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useActionState, useEffect, useState } from "react";
-import s from "../../../styles/admin/Admin.module.css";
+import style from "../../../styles/admin/Admin.module.css";
+import s from "./chatMessage.module.css";
 import { addMessage, updateMessage } from "@/app/actions/messages";
 import { useSession } from "@/app/context/sessionProvider";
 import { useTheme } from "@/app/context/themeProvider";
@@ -15,25 +16,27 @@ type Props = {
 export default function ChatMessages({ dbMessages }: Props) {
   const session = useSession();
   const theme = useTheme();
-  const [messageToUpdate, setMessageToUpdate] = useState<Message | undefined>(
-    undefined,
-  );
+  const [message, setMessage] = useState<Message | undefined>(undefined);
   const [menuOpenIndex, setMenuOpenIndex] = useState<number>(-1);
   const [state, action] = useActionState(
-    messageToUpdate?.id !== undefined ? updateMessage : addMessage,
+    message?.id !== undefined ? updateMessage : addMessage,
     null,
   );
 
   useEffect(() => {
     if (state) {
-      if (!state.isError) setMessageToUpdate(undefined);
+      if (!state.isError) setMessage(undefined);
     }
   }, [state]);
 
+  useEffect(() => {
+    if (menuOpenIndex !== -1) setMenuOpenIndex(-1);
+  }, [message]);
+
   return (
-    <section className={s.container}>
+    <section className={style.container}>
       <div className={s.messagesHeader}>
-        <h2 className={s.title2}>Messages</h2>
+        <h2 className={style.title2}>Messages</h2>
         <div className={s.shadow} />
       </div>
 
@@ -43,7 +46,7 @@ export default function ChatMessages({ dbMessages }: Props) {
             <ChatMessage
               key={index}
               message={msg}
-              onUpdate={setMessageToUpdate}
+              onUpdate={setMessage}
               onClickMenu={() => {
                 if (menuOpenIndex === index) setMenuOpenIndex(-1);
                 else setMenuOpenIndex(index);
@@ -53,20 +56,15 @@ export default function ChatMessages({ dbMessages }: Props) {
           ))}
       </div>
       <br />
-      <br />
       <form action={action}>
         <input type="hidden" name="userEmail" value={session?.user.email} />
-        {messageToUpdate?.id && (
-          <input type="hidden" name="id" value={messageToUpdate.id} />
-        )}
+        {message?.id && <input type="hidden" name="id" value={message.id} />}
         <textarea
           name="text"
           placeholder="Ton message"
-          value={messageToUpdate?.text}
+          value={message?.text}
           onChange={(e) =>
-            setMessageToUpdate(
-              Object.assign({}, messageToUpdate, { text: e.target.value }),
-            )
+            setMessage(Object.assign({}, message, { text: e.target.value }))
           }
           className={s.textArea}
           rows={5}
@@ -77,10 +75,10 @@ export default function ChatMessages({ dbMessages }: Props) {
           className={s.chatButton}
           style={{ backgroundColor: theme.color }}
         >
-          {messageToUpdate?.id ? "Mettre à jour" : "Envoyer"}
+          {message?.id ? "Mettre à jour" : "Envoyer"}
         </button>
         <button
-          onClick={() => setMessageToUpdate(undefined)}
+          onClick={() => setMessage(undefined)}
           className={s.chatButton}
           style={{ backgroundColor: theme.color }}
         >
