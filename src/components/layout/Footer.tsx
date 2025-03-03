@@ -18,7 +18,7 @@ export default function Footer({ path }: Props) {
   const theme = useTheme();
   const isPainting = path === ROUTES.PAINTING;
   const isSculpture = path === ROUTES.SCULPTURE;
-  const isM = metas[META.SITE_TITLE].startsWith("M");
+  const isM = metas.get(META.SITE_TITLE)?.startsWith("M");
   const isDrawing = isM ? path === ROUTES.DRAWING : false;
   const isDark = isPainting || isSculpture || isDrawing;
 
@@ -34,7 +34,7 @@ export default function Footer({ path }: Props) {
               : { color: theme.colorItem }
         }
       >
-        <p>{metas[META.FOOTER]}</p>
+        <p>{metas.get(META.FOOTER)}</p>
         <br />
         <br />
         {!session?.user && <Link href={ROUTES.LOGIN}>Admin</Link>}

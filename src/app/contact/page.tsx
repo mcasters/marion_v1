@@ -5,7 +5,7 @@ import {
   getAddressText,
   getContactText,
   getEmailText,
-  getMetasMap,
+  getMetaMap,
   getPhoneText,
 } from "@/utils/commonUtils";
 import { getContentsFull } from "@/app/actions/contents";
@@ -23,10 +23,10 @@ export const metadata: Metadata = {
 
 export default async function Contact() {
   const contents = await getContentsFull();
-  const metas = getMetasMap(await getMetas());
+  const metas = getMetaMap(await getMetas());
   const email = getEmailText(contents);
   const contactText = getContactText(contents);
-  const siteTitle = metas[META.SITE_TITLE];
+  const siteTitle = metas.get(META.SITE_TITLE);
 
   return (
     <div className={s.container}>
@@ -46,14 +46,14 @@ export default async function Contact() {
             {email}
           </Link>
         </p>
-        {siteTitle.startsWith("T") && (
+        {siteTitle?.startsWith("T") && (
           <>
             <br />
             <br />
             <br />
             <br />
             <a
-              href={metas[META.INSTAGRAM]}
+              href={metas.get(META.INSTAGRAM)}
               target="_blank"
               rel="noopener noreferrer"
             >

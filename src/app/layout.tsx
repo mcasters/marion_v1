@@ -40,8 +40,7 @@ export default async function RootLayout({
   const theme = await getActiveTheme();
   const presetColors = await getPresetColors();
   const hexaTheme = themeToHexa(theme, presetColors);
-  const metas = await getMetas();
-  const metaMap = getMetaMap(metas);
+  const metaMap = getMetaMap(await getMetas());
 
   return (
     <html lang="fr">

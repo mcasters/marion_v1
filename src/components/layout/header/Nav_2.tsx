@@ -15,7 +15,7 @@ interface Props {
 
 export default function Nav_2({ navLayout }: Props) {
   const theme = useTheme();
-  const meta = useMetas();
+  const metas = useMetas();
   const colorWithOpacity = theme.menu2HomeColor + "aa";
 
   return (
@@ -32,7 +32,7 @@ export default function Nav_2({ navLayout }: Props) {
                         return `/${src}`;
                       }}
                       src="logo-100.png"
-                      alt={`Signature de ${meta[META.SITE_TITLE]}`}
+                      alt={`Signature de ${metas.get(META.SITE_TITLE)}`}
                       width={30}
                       height={30}
                       className={s.logo}

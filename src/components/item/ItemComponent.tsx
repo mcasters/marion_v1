@@ -18,7 +18,7 @@ export default function ItemComponent({ item, priority }: Props) {
     () =>
       getPhotoTab(
         item,
-        `${item.title} - ${item.type} de ${metas[META.SITE_TITLE]}`,
+        `${item.title} - ${item.type} de ${metas.get(META.SITE_TITLE)}`,
       ),
     [item],
   );

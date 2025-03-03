@@ -23,7 +23,7 @@ export default function PresentationComponent({
   const window = useWindowSize();
   const isSmall = window.innerWidth < DEVICE.SMALL;
   const metas = useMetas();
-  const alt = `Photo de ${metas[META.SITE_TITLE]}`;
+  const alt = `Photo de ${metas.get(META.SITE_TITLE)}`;
   const photo = useMemo(() => {
     return isSmall
       ? getContentPhotoTab(presentationContent, alt).photos.sm[0]

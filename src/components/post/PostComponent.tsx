@@ -18,7 +18,7 @@ export default function PostComponent({ post }: Props) {
     () =>
       getPhotoTab(
         post,
-        `Photo du post "${post.title}" de ${metas[META.SITE_TITLE]}`,
+        `Photo du post "${post.title}" de ${metas.get(META.SITE_TITLE)}`,
       ),
     [post],
   );

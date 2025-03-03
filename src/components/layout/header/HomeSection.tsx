@@ -39,7 +39,7 @@ export default function HomeSection({
 
   return text === "" ? (
     <section ref={ref} className={s.siteTitle}>
-      <h1 className={`${s.title} title`}>{metas[META.SITE_TITLE]}</h1>
+      <h1 className={`${s.title} title`}>{metas.get(META.SITE_TITLE)}</h1>
     </section>
   ) : (
     <section ref={ref} className={s.intro}>
