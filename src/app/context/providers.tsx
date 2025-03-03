@@ -11,15 +11,20 @@ import { MetaProvider } from "@/app/context/metaProvider";
 interface Props {
   session: Session | null;
   theme: Theme;
-  metas: { [index: string]: string };
+  metaMap: Map<string, string>;
   children: ReactNode;
 }
 
-export default function Providers({ children, theme, session, metas }: Props) {
+export default function Providers({
+  children,
+  theme,
+  session,
+  metaMap,
+}: Props) {
   return (
     <SessionProvider session={session}>
       <ThemeProvider theme={theme}>
-        <MetaProvider metas={metas}>
+        <MetaProvider metaMap={metaMap}>
           <AlertProvider>{children}</AlertProvider>
         </MetaProvider>
       </ThemeProvider>

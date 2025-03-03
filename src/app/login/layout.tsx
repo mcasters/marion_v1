@@ -1,11 +1,10 @@
 import React, { ReactNode } from "react";
 import s from "@/styles/Auth.module.css";
 import { Metadata } from "next";
-import { DESCRIPTION, DOCUMENT_TITLE } from "@/constants/specific/metaHtml";
+import { DOCUMENT_TITLE } from "@/constants/specific/metaHtml";
 
 export const metadata: Metadata = {
-  title: DOCUMENT_TITLE.PRESENTATION,
-  description: DESCRIPTION.PRESENTATION,
+  title: DOCUMENT_TITLE.AUTHENTICATION,
 };
 
 export default async function layout({ children }: { children: ReactNode }) {

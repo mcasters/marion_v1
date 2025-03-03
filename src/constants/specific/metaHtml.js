@@ -18,8 +18,6 @@ export const DESCRIPTION = {
   PRESENTATION: "Description de Marion Casters et de sa démarche artistique",
   CONTACT:
     "Contacter Marion Casters pour obtenir des renseignements sur ses œuvres",
-  PRIVACY: "Détail de la politique de confidentialité du site",
-  ADMIN: "Administration du site",
 };
 
 export const DOCUMENT_TITLE = {
@@ -30,12 +28,10 @@ export const DOCUMENT_TITLE = {
   HOME: "Bienvenue sur le site de présentation des oeuvres de l'artiste peintre Marion Casters",
   PRESENTATION: "Présentation de Marion Casters",
   CONTACT: "Contacter Marion Casters",
-  PRIVACY: "Détail de la politique de confidentialité du site",
-  ADMIN: "Administration du site",
+  AUTHENTICATION: "Authentification",
 };
 
 export const GENERAL = {
-  SITE_TITLE: "Artiste | Marion Casters",
-  ALT_PHOTO_PRESENTATION: "Photographie de présentation de Marion Casters",
+  SITE_TITLE: "Artiste | Marion Casters, Bordeaux, France",
   URL: "https://marioncasters.fr",
 };

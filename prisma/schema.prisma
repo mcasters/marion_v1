@@ -11,11 +11,9 @@ datasource db {
 }
 
 model Meta {
-  id        Int      @id @default(autoincrement())
-  label     String   @unique
-  text      String   @db.LongText
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id    Int    @id @default(autoincrement())
+  label String @unique
+  text  String @db.LongText
 }
 
 model User {

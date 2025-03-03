@@ -10,10 +10,10 @@ type StringKeys<T> = {
 }[keyof T];
 export type OnlyString<T> = { [k in StringKeys<T>]: boolean };
 
-type PaintingFull = Prisma.Result<typeof prisma.painting, {}, any>;
+type PaintingFull = Prisma.Result<typeof prisma.painting, {}, any>; // With Image-like[] field
 type SculptureFull = Prisma.Result<typeof prisma.sculpture, {}, any>;
-type DrawingFull = Prisma.Result<typeof prisma.drawing, {}, any>;
-type CategoryContent = Prisma.Result<typeof prisma.categoryContent, {}, any>;
+type DrawingFull = Prisma.Result<typeof prisma.drawing, {}, any>; // With Image-like[] field
+type CategoryContent = Prisma.Result<typeof prisma.categoryContent, {}, any>; // With Image-like field
 
 export type ItemFull = PaintingFull | SculptureFull | DrawingFull;
 

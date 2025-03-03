@@ -2,10 +2,15 @@ import { Metadata } from "next";
 import Layout from "@/components/layout/Layout";
 import Providers from "./context/providers";
 import "@/styles/globals-specific.css";
-import { getIntroText, getMetasMap, themeToHexa } from "@/utils/commonUtils";
+import { getIntroText, getMetaMap, themeToHexa } from "@/utils/commonUtils";
 import React from "react";
 import StyledJsxRegistry from "./registry";
-import { DESCRIPTION, GENERAL, KEYWORDS } from "@/constants/specific/metaHtml";
+import {
+  DESCRIPTION,
+  DOCUMENT_TITLE,
+  GENERAL,
+  KEYWORDS,
+} from "@/constants/specific/metaHtml";
 import { getSession } from "@/app/lib/auth";
 import { getContentsFull } from "@/app/actions/contents";
 import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
@@ -16,7 +21,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION.HOME,
   keywords: KEYWORDS,
   openGraph: {
-    title: GENERAL.SITE_TITLE,
+    title: DOCUMENT_TITLE.HOME,
     description: DESCRIPTION.HOME,
     url: GENERAL.URL,
     siteName: GENERAL.SITE_TITLE,
@@ -34,13 +39,14 @@ export default async function RootLayout({
   const contents = await getContentsFull();
   const theme = await getActiveTheme();
   const presetColors = await getPresetColors();
-  const metas = getMetasMap(await getMetas());
   const hexaTheme = themeToHexa(theme, presetColors);
+  const metas = await getMetas();
+  const metaMap = getMetaMap(metas);
 
   return (
     <html lang="fr">
       <body>
-        <Providers session={session} theme={hexaTheme} metas={metas}>
+        <Providers session={session} theme={hexaTheme} metaMap={metaMap}>
           <StyledJsxRegistry>
             <Layout introduction={getIntroText(contents)}>{children}</Layout>
           </StyledJsxRegistry>

@@ -78,12 +78,12 @@ export const getEmailText = (contents: ContentFull[]): string =>
 export const getContactText = (contents: ContentFull[]): string =>
   contents?.filter((c) => c.label === Label.TEXT_CONTACT)[0]?.text || "";
 
-export const getMetasMap = (metas: Meta[]): { [index: string]: string } => {
-  const res: { [index: string]: string } = {};
+export const getMetaMap = (metas: Meta[]): Map<string, string> => {
+  const map = new Map();
   metas.forEach((meta) => {
-    res[meta.label] = meta.text;
+    map.set(meta.label, meta.text);
   });
-  return res;
+  return map;
 };
 
 export const getMainImage = (post: PostFull) => {
