@@ -5,26 +5,23 @@ import "@/styles/globals-specific.css";
 import { getIntroText, getMetaMap, themeToHexa } from "@/utils/commonUtils";
 import React from "react";
 import StyledJsxRegistry from "./registry";
-import {
-  DESCRIPTION,
-  DOCUMENT_TITLE,
-  GENERAL,
-  KEYWORDS,
-} from "@/constants/specific/metaHtml";
 import { getSession } from "@/app/lib/auth";
 import { getContentsFull } from "@/app/actions/contents";
 import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
+import { META } from "@/constants/specific";
+
+const metas = getMetaMap(await getMetas());
 
 export const metadata: Metadata = {
-  title: GENERAL.SITE_TITLE,
-  description: DESCRIPTION.HOME,
-  keywords: KEYWORDS,
+  title: metas.get(META.DOCUMENT_TITLE_HOME),
+  description: metas.get(META.DESCRIPTION_HOME),
+  keywords: metas.get(META.KEYWORDS),
   openGraph: {
-    title: DOCUMENT_TITLE.HOME,
-    description: DESCRIPTION.HOME,
-    url: GENERAL.URL,
-    siteName: GENERAL.SITE_TITLE,
+    title: metas.get(META.DOCUMENT_TITLE_HOME),
+    description: metas.get(META.DESCRIPTION_HOME),
+    url: metas.get(META.URL),
+    siteName: metas.get(META.SEO_SITE_TITLE),
     locale: "fr",
     type: "website",
   },

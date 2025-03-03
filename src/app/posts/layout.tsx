@@ -1,11 +1,23 @@
 import React, { ReactNode } from "react";
 import s from "@/styles/PostPage.module.css";
 import { Metadata } from "next";
-import { DESCRIPTION, DOCUMENT_TITLE } from "@/constants/specific/metaHtml";
+import { getMetaMap } from "@/utils/commonUtils";
+import { getMetas } from "@/app/actions/meta";
+import { META } from "@/constants/specific";
+
+const metas = getMetaMap(await getMetas());
 
 export const metadata: Metadata = {
-  title: DOCUMENT_TITLE.POST,
-  description: DESCRIPTION.POST,
+  title: metas.get(META.DOCUMENT_TITLE_POST),
+  description: metas.get(META.DESCRIPTION_POST),
+  openGraph: {
+    title: metas.get(META.DOCUMENT_TITLE_POST),
+    description: metas.get(META.DESCRIPTION_POST),
+    url: metas.get(META.URL),
+    siteName: metas.get(META.SEO_SITE_TITLE),
+    locale: "fr",
+    type: "website",
+  },
 };
 
 export default async function layout({ children }: { children: ReactNode }) {

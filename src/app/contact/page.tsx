@@ -12,14 +12,6 @@ import { getContentsFull } from "@/app/actions/contents";
 import InstagramIcon from "@/components/icons/InstagramIcon";
 import { META } from "@/constants/specific";
 import { getMetas } from "@/app/actions/meta";
-import React from "react";
-import { Metadata } from "next";
-import { DESCRIPTION, DOCUMENT_TITLE } from "@/constants/specific/metaHtml";
-
-export const metadata: Metadata = {
-  title: DOCUMENT_TITLE.CONTACT,
-  description: DESCRIPTION.CONTACT,
-};
 
 export default async function Contact() {
   const contents = await getContentsFull();
@@ -29,8 +21,7 @@ export default async function Contact() {
   const siteTitle = metas.get(META.SITE_TITLE);
 
   return (
-    <div className={s.container}>
-      <h1 className="hidden">Contacter {siteTitle}</h1>
+    <>
       <address>
         <p>{siteTitle}</p>
         <p className={s.preLine}>{getAddressText(contents)}</p>
@@ -67,6 +58,6 @@ export default async function Contact() {
           <p className={s.preLine}>{getContactText(contents)}</p>
         </div>
       )}
-    </div>
+    </>
   );
 }

@@ -8,14 +8,24 @@ import { META } from "@/constants/specific";
 const metas = getMetaMap(await getMetas());
 
 export const metadata: Metadata = {
-  title: metas.get(META.DOCUMENT_TITLE_AUTHENTICATION),
+  title: metas.get(META.DOCUMENT_TITLE_CONTACT),
+  description: metas.get(META.DESCRIPTION_CONTACT),
+  openGraph: {
+    title: metas.get(META.DOCUMENT_TITLE_CONTACT),
+    description: metas.get(META.DESCRIPTION_CONTACT),
+    url: metas.get(META.URL),
+    siteName: metas.get(META.SEO_SITE_TITLE),
+    locale: "fr",
+    type: "website",
+  },
 };
 
 export default async function layout({ children }: { children: ReactNode }) {
+  const siteTitle = metas.get(META.SITE_TITLE);
+
   return (
     <div className={s.container}>
-      <h1>Espace administration :</h1>
-      <h2>Authentification nécessaire</h2>
+      <h1 className="hidden">Contacter {siteTitle}</h1>
       {children}
     </div>
   );
