@@ -43,7 +43,7 @@ export default function PostComponent({ post }: Props) {
           </div>
         )}
       </article>
-      <div>***</div>
+      <span>***</span>
     </>
   );
 }

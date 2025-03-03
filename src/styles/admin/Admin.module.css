@@ -37,14 +37,28 @@
   padding: 2em;
 }
 
-.container .formLabel,
-.modalContainer .formLabel {
+.formLabel {
   font-variant-caps: small-caps;
   letter-spacing: 3px;
   color: var(--color-dark);
   text-align: left;
   margin-top: 1rem;
   line-height: 1.375;
+}
+
+.metaForm {
+  display: grid;
+  gap: 1em;
+  padding: 0 6em;
+  grid-template-columns: 5fr 1fr 1fr;
+  grid-auto-rows: min-content;
+}
+
+.metaForm button{
+  margin: 5px 0;
+  height: min-content;
+  width: auto;
+  align-self: end;
 }
 
 .catInfo {
