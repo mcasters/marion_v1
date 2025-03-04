@@ -14,7 +14,7 @@ export default function MetaComponent({ metas }: Props) {
     const separate =
       value.startsWith("Description") || value.startsWith("Mots clés");
     return (
-      <>
+      <div key={key}>
         <MetaForm
           textContent={metas.get(key) || ""}
           textLabel={value}
@@ -30,7 +30,7 @@ export default function MetaComponent({ metas }: Props) {
             ***
           </span>
         ) : undefined}
-      </>
+      </div>
     );
   });
 }

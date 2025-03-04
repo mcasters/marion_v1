@@ -9,11 +9,11 @@ export async function generateMetadata(): Promise<Metadata | undefined> {
   const metas = getMetaMap(await getMetas());
   if (metas) {
     return {
-      title: metas.get(META.DOCUMENT_TITLE_SCULPTURE),
-      description: metas.get(META.DESCRIPTION_SCULPTURE),
+      title: metas.get(META.DOCUMENT_TITLE_SCULPTURE_HOME),
+      description: metas.get(META.DESCRIPTION_SCULPTURE_HOME),
       openGraph: {
-        title: metas.get(META.DOCUMENT_TITLE_SCULPTURE),
-        description: metas.get(META.DESCRIPTION_SCULPTURE),
+        title: metas.get(META.DOCUMENT_TITLE_SCULPTURE_HOME),
+        description: metas.get(META.DESCRIPTION_SCULPTURE_HOME),
         url: metas.get(META.URL),
         siteName: metas.get(META.SEO_SITE_TITLE),
         locale: "fr",
