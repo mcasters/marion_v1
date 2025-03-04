@@ -1,35 +1,35 @@
 "use client";
 
 import React from "react";
-import { SEO } from "@/constants/specific";
+import { META, SEO } from "@/constants/specific";
 import MetaForm from "@/components/admin/form/metaForm";
 
 interface Props {
   metas: Map<string, string>;
 }
 export default function MetaComponent({ metas }: Props) {
+  const isM = metas.get(META.SITE_TITLE)?.startsWith("M");
+
   return Object.entries(SEO).map(([key, value]) => {
-    console.log("key : ", key);
-    console.log("value : ", value);
-    const separate =
-      value.startsWith("Description") || value.startsWith("Mots clés");
+    const separate = key.startsWith("description") || key === "keywords";
+
+    if (!isM && (key.endsWith("Drawing") || key.endsWith("DrawingHome")))
+      return;
     return (
       <div key={key}>
         <MetaForm
           textContent={metas.get(key) || ""}
           textLabel={value}
           label={key}
-          isTextArea={
-            key.startsWith("description") || key.startsWith("keywords")
-          }
+          isTextArea={key.startsWith("description") || key === "keywords"}
         />
-        {separate ? (
+        {separate && (
           <span>
             <br />
             <br />
             ***
           </span>
-        ) : undefined}
+        )}
       </div>
     );
   });
