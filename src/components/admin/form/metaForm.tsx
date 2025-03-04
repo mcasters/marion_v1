@@ -10,9 +10,15 @@ import { updateMeta } from "@/app/actions/meta/admin";
 interface Props {
   textContent: string;
   label: string;
-  textLabel?: string;
+  textLabel: string;
+  isTextArea: boolean;
 }
-export default function MetaForm({ textContent, label, textLabel }: Props) {
+export default function MetaForm({
+  textContent,
+  label,
+  textLabel,
+  isTextArea,
+}: Props) {
   const [text, setText] = useState<string>(textContent);
   const [isChanged, setIsChanged] = useState(false);
   const alert = useAlert();
@@ -26,22 +32,35 @@ export default function MetaForm({ textContent, label, textLabel }: Props) {
   }, [state]);
 
   return (
-    <form action={action} className={s.metaForm}>
-      <input type="hidden" name="label" value={label} />
-      <label className={s.formLabel}>
-        {textLabel}
-        <textarea
-          name="text"
-          value={text}
-          onChange={(e) => {
-            setText(e.target.value);
-            setIsChanged(true);
-          }}
-          rows={2}
-        />
-      </label>
-      <SubmitButton disabled={!isChanged} />
-      <CancelButton disabled={!isChanged} />
-    </form>
+    <>
+      <form action={action} className={s.metaForm}>
+        <input type="hidden" name="label" value={label} />
+        <label className={s.formLabel}>
+          {textLabel}
+          {isTextArea ? (
+            <textarea
+              name="text"
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value);
+                setIsChanged(true);
+              }}
+              rows={3}
+            />
+          ) : (
+            <input
+              name="text"
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value);
+                setIsChanged(true);
+              }}
+            />
+          )}
+        </label>
+        <SubmitButton disabled={!isChanged} />
+        <CancelButton disabled={!isChanged} />
+      </form>
+    </>
   );
 }

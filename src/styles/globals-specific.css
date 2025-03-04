@@ -145,6 +145,7 @@ a:focus,
 
 ::selection {
   background: var(--link-color-dark);
+  color: var(--link-color-xlight);
   text-shadow: none;
 }
 
