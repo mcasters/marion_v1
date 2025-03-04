@@ -1,12 +1,27 @@
 import { ReactNode } from "react";
 import s from "@/styles/ItemPage.module.css";
 import { Metadata } from "next";
-import { DESCRIPTION, DOCUMENT_TITLE } from "@/constants/specific/metaHtml";
+import { getMetaMap } from "@/utils/commonUtils";
+import { getMetas } from "@/app/actions/meta";
+import { META } from "@/constants/specific";
 
-export const metadata: Metadata = {
-  title: DOCUMENT_TITLE.DRAWING,
-  description: DESCRIPTION.DRAWING,
-};
+export async function generateMetadata(): Promise<Metadata | undefined> {
+  const metas = getMetaMap(await getMetas());
+  if (metas) {
+    return {
+      title: metas.get(META.DOCUMENT_TITLE_DRAWING),
+      description: metas.get(META.DESCRIPTION_DRAWING),
+      openGraph: {
+        title: metas.get(META.DOCUMENT_TITLE_DRAWING),
+        description: metas.get(META.DESCRIPTION_DRAWING),
+        url: metas.get(META.URL),
+        siteName: metas.get(META.SEO_SITE_TITLE),
+        locale: "fr",
+        type: "website",
+      },
+    };
+  }
+}
 
 export default async function layout({ children }: { children: ReactNode }) {
   return (

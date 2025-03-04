@@ -144,7 +144,7 @@ a:focus,
 }
 
 ::selection {
-  background: var(--color-prussian-blue);
+  background: var(--link-color-dark);
   text-shadow: none;
 }
 
@@ -154,6 +154,10 @@ img::selection,
 button:focus,
 img:focus {
   background: none;
+}
+
+textarea, input {
+  user-select: text;
 }
 
 /*

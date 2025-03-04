@@ -15,6 +15,7 @@ export const ROUTES = {
   A_POST: "/admin/posts",
   A_CONTACT: "/admin/contact",
   A_PRESENTATION: "/admin/presentation",
+  A_META: "/admin/meta",
 };
 
 export const TAGS = {
@@ -27,6 +28,7 @@ export const TAGS = {
   ADMIN: "Général",
   POST: "Posts",
   CONTACT: "Contact",
+  META: "Métadonnées",
 };
 
 export const MENU_1_ITEMS = {
@@ -87,5 +89,9 @@ export const ADMIN_MENU = [
   {
     ROUTE: ROUTES.A_CONTACT,
     TAG: TAGS.CONTACT,
+  },
+  {
+    ROUTE: ROUTES.A_META,
+    TAG: TAGS.META,
   },
 ];

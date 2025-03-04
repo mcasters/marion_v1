@@ -1,13 +1,5 @@
-export const KEYWORDS = [
-  "Marion Casters",
-  "Artiste",
-  "Peintre",
-  "Peinture",
-  "Sculpture",
-  "dessin",
-  "Bordeaux",
-  "France",
-];
+export const KEYWORDS =
+  "Marion Casters, Artiste, Peintre, Peinture, Sculpture, dessin, Bordeaux, France";
 
 export const DESCRIPTION = {
   PAINTING: "Photo et descriptif des peintures de Marion Casters",
