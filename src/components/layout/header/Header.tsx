@@ -5,7 +5,6 @@ import Nav_1 from "@/components/layout/header/menu1/Nav_1";
 import Nav_2 from "@/components/layout/header/Nav_2";
 import s from "../../../styles/Header.module.css";
 import { ROUTES } from "@/constants/specific/routes";
-import { useTheme } from "@/app/context/themeProvider";
 import React, { useState } from "react";
 import HomeSection from "@/components/layout/header/HomeSection";
 
@@ -15,7 +14,6 @@ type Props = {
 };
 
 export default function Header({ path, introduction }: Props) {
-  const theme = useTheme();
   const isHome = path == ROUTES.HOME;
   const isPainting = path === ROUTES.PAINTING;
   const isSculpture = path === ROUTES.SCULPTURE;
@@ -53,11 +51,6 @@ export default function Header({ path, introduction }: Props) {
             height: LAYOUT.NAV_2_HEIGHT,
           }}
         />
-        <style jsx>{`
-          .title {
-            color: ${theme.titleColor};
-          }
-        `}</style>
       </header>
     );
   else

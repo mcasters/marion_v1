@@ -4,6 +4,7 @@ import s from "../../../styles/Header.module.css";
 import React, { useEffect, useRef, useState } from "react";
 import { META } from "@/constants/specific";
 import { useMetas } from "@/app/context/metaProvider";
+import { useTheme } from "@/app/context/themeProvider";
 
 interface Props {
   handleDisappear: (arg0: boolean) => void;
@@ -16,6 +17,7 @@ export default function HomeSection({
   yLimit,
   text = "",
 }: Props) {
+  const theme = useTheme();
   const metas = useMetas();
   const [isGone, setIsGone] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -40,6 +42,11 @@ export default function HomeSection({
   return text === "" ? (
     <section ref={ref} className={s.siteTitle}>
       <h1 className={`${s.title} title`}>{metas.get(META.SITE_TITLE)}</h1>
+      <style jsx>{`
+        .title {
+          color: ${theme.titleColor};
+        }
+      `}</style>
     </section>
   ) : (
     <section ref={ref} className={s.intro}>

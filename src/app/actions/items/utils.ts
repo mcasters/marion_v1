@@ -19,8 +19,6 @@ export const getPaintOrDrawData = async (
   const category = handleCategory(rawFormData.categoryId as string, oldItem);
   const fileInfo = await handlePaintOrDrawImages(type, file, title, oldItem);
 
-  console.log("typeof", typeof rawFormData.isToSell);
-  console.log("value", rawFormData);
   return {
     title,
     date: new Date(Number(rawFormData.date), 1),
