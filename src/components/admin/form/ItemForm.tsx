@@ -204,7 +204,7 @@ export default function ItemForm({
               name="price"
               type="number"
               value={
-                workItem.price === undefined || workItem.price === 0
+                !workItem.price || workItem.price === 0
                   ? ""
                   : workItem.price.toString()
               }

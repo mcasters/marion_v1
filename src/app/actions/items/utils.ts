@@ -19,6 +19,8 @@ export const getPaintOrDrawData = async (
   const category = handleCategory(rawFormData.categoryId as string, oldItem);
   const fileInfo = await handlePaintOrDrawImages(type, file, title, oldItem);
 
+  console.log("typeof", typeof rawFormData.isToSell);
+  console.log("value", rawFormData);
   return {
     title,
     date: new Date(Number(rawFormData.date), 1),
@@ -26,7 +28,7 @@ export const getPaintOrDrawData = async (
     description: rawFormData.description as string,
     height: Number(rawFormData.height),
     width: Number(rawFormData.width),
-    isToSell: rawFormData.isToSell === "true",
+    isToSell: rawFormData.isToSell === "on",
     price: Number(rawFormData.price),
     imageFilename: fileInfo ? fileInfo.filename : undefined,
     imageWidth: fileInfo ? fileInfo.width : undefined,
@@ -57,7 +59,7 @@ export const getSculptData = async (
     height: Number(rawFormData.height),
     width: Number(rawFormData.width),
     length: Number(rawFormData.length),
-    isToSell: rawFormData.isToSell === "true",
+    isToSell: rawFormData.isToSell === "on",
     price: Number(rawFormData.price),
     category,
     images: {
