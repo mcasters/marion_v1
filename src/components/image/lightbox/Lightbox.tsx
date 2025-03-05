@@ -26,7 +26,7 @@ export default function Lightbox({ photos, priority = false }: Props) {
   return (
     <div className={isMultiple ? s.imageGridContainer : ""}>
       {photosForButton.map((p, index) => {
-        const ratio = p.width / p.height;
+        const ratio = Math.round((p.width / p.height) * 10000);
         const onLeft = isMultiple && index % 2 === 0;
         if (isMultiple)
           return (
@@ -39,7 +39,7 @@ export default function Lightbox({ photos, priority = false }: Props) {
                 style={{ objectFit: "contain" }}
                 alt={p.alt}
                 unoptimized
-                className={`${ratio > 1.05 ? s.landscape : s.portrait}`}
+                className={`${ratio >= 10300 ? s.landscape : s.portrait}`}
                 onClick={() => {
                   setIndex(index);
                 }}
@@ -58,7 +58,7 @@ export default function Lightbox({ photos, priority = false }: Props) {
               style={{ objectFit: "contain" }}
               alt={p.alt}
               unoptimized
-              className={`${ratio >= 1 ? s.landscape : s.portrait}`}
+              className={`${ratio >= 10300 ? s.landscape : s.portrait}`}
               onClick={() => {
                 setIndex(index);
               }}

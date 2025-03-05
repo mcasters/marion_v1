@@ -34,12 +34,12 @@
   }
 
   .landscape {
-    width: 30vw;
+    width: 40vw;
     height: auto;
   }
 
   .portrait {
-    height: 50vh;
+    height: 58vh;
     width: auto;
   }
 
@@ -48,6 +48,12 @@
   .left .landscape,
   .left .portrait {
     margin-bottom: 0;
+  }
+
+  .right .landscape,
+  .left .landscape {
+    width: 35vw;
+    height: auto;
   }
 }
 
