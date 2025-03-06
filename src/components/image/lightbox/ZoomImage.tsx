@@ -256,12 +256,19 @@ export default function ZoomImage({
         {photo.title} - {new Date(photo.date).getFullYear()}
       </div>
       {isSmall && (
-        <canvas
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          onTouchMove={handleTouchMove}
-          ref={canvasRef}
-        />
+        <>
+          <canvas
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchMove={handleTouchMove}
+            ref={canvasRef}
+          />
+          <div className={s.toolbar}>
+            <button className={`${s.icon} iconButton`} onClick={onClose}>
+              <CloseIcon />
+            </button>
+          </div>
+        </>
       )}
       {!isSmall && (
         <>

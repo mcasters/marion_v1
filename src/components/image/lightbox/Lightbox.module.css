@@ -93,7 +93,7 @@
   top: 10px;
   bottom: auto;
   background-color: rgba(0, 0, 0, 0.5);
-  font-size: var(--font-size-nav-minus);
+  font-size: var(--font-size-nav);
 }
 
 @keyframes fade {
@@ -150,14 +150,11 @@
   top: 0;
 }
 
-/* desktop */
-@media (min-width: 769px) {
-  .icon svg {
-    width: 35px;
-    height: 35px;
-  }
+.icon svg {
+  width: 35px;
+  height: 35px;
+}
 
-  .icon {
-    padding: 5px;
-  }
+.icon {
+  padding: 5px;
 }
