@@ -48,7 +48,7 @@ export default function Layout({ introduction, children }: Props) {
         <>
           <AdminNav />
           <Main isHome={false}>
-            <div className={s.adminWrapper}>{children}</div>
+            <div className={`${s.adminWrapper} adminWrapper`}>{children}</div>
           </Main>
           <Footer path={path} />
         </>
@@ -64,7 +64,8 @@ export default function Layout({ introduction, children }: Props) {
         .line {
           background-color: ${theme.lineColor};
         }
-        .wrapper {
+        .wrapper,
+        .adminWrapper {
           background-color: ${theme.backgroundColor};
           color: ${theme.color};
         }

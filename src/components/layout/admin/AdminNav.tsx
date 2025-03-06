@@ -11,24 +11,26 @@ export default function AdminNav() {
   return (
     <nav className={s.nav}>
       <span>Administration</span>
-      <ul className={s.navItems}>
-        {ADMIN_MENU.map((item) => {
-          const isActive = pathname === item.ROUTE;
+      <div className={s.itemContainer}>
+        <ul className={s.navItems}>
+          {ADMIN_MENU.map((item) => {
+            const isActive = pathname === item.ROUTE;
 
-          return (
-            <li key={item.TAG}>
-              <Link
-                href={item.ROUTE}
-                key={item.TAG}
-                className={isActive ? `${s.link} ${s.active}` : `${s.link}`}
-                legacyBehavior={false}
-              >
-                {item.TAG}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+            return (
+              <li key={item.TAG}>
+                <Link
+                  href={item.ROUTE}
+                  key={item.TAG}
+                  className={isActive ? `${s.link} ${s.active}` : `${s.link}`}
+                  legacyBehavior={false}
+                >
+                  {item.TAG}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </nav>
   );
 }
