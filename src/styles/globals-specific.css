@@ -3,20 +3,18 @@
    * Typography
    * ======================================================================== */
 
-  --font-family-serif: var(--font-serif-G); /* declared in rooLayout*/
-  --font-family-serif-caps: var(--font-serif-SSC); /* declared in rooLayout*/
+  --font-family-serif: var(--font-serif-cormorant); /* declared in rooLayout*/
+  --font-family-serif-caps: var(--font-serif-cormorant-caps); /* declared in rooLayout*/
   --font-family-sans: Tahoma;
 
   /*
   * Font size
   * ======================================================================== */
-  --font-size-xtitle: 1.5rem;
-  --font-size-title: 1.3rem;
-  --font-size-nav: 1.2rem;
-  --font-size-nav-minus: 1.1rem;
-  --font-size: 1rem;
-  --font-size-admin: 0.95rem;
-  --font-size-min: 0.8rem;
+  --font-size-title: 30px;
+  --font-size-nav1: 19px;
+  --font-size-nav2: 17px;
+  --font-size: 16px;
+  --font-size-min: 14px;
 
   /*
    * Layout
@@ -67,7 +65,15 @@
 html {
   font-family: var(--font-family-serif);
   -webkit-font-smoothing: antialiased;
+  font-weight: 400;
   font-size: var(--font-size);
+}
+
+.capsGray {
+  font-family: var( --font-family-serif-caps);
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #999999;
 }
 
 body {
@@ -90,7 +96,7 @@ select,
 textarea {
   font-family: var(--font-family-serif);
   -webkit-font-smoothing: antialiased;
-  font-size: var(--font-size-admin);
+  font-size: var(--font-size);
 }
 
 button {
@@ -232,6 +238,7 @@ label {
 
 .adminButton,
 input::file-selector-button {
+  font-family: var(--font-family-serif);
   width: 220px;
   padding: 0.5em;
   margin: 0.5em;
@@ -249,12 +256,6 @@ input::file-selector-button {
 
 .hidden {
   display: none;
-}
-
-.capsGray {
-  font-family: var(--font-family-serif-caps);
-  letter-spacing: 3px;
-  color: #999999;
 }
 
 /*

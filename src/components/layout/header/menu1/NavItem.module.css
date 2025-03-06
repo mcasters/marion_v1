@@ -1,10 +1,11 @@
 .link {
-    font-variant: small-caps;
-    font-size: var(--font-size-nav);
-    display: inline-block;
+  font-family: var(--font-family-serif-caps);
+  font-size: var(--font-size-nav1);
+  font-weight: 500;
+  display: inline-block;
 }
 
-.link.active  {
-    border-bottom-style: solid;
-    border-bottom-width: 2px;
+.link.active {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
 }

@@ -1,15 +1,12 @@
 .nav {
   position: fixed;
   top: var(--line-height);
-  height: var(--admin-nav-height);
   left: 0;
   width: 100%;
   background-color: var(--link-color-xdark);
   border-bottom: solid var(--color-xdark) 1px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
   text-align: center;
-  font-size: 1em;
-  margin: 0.8em;
   padding-top: 0.6em;
   z-index: 2;
 }
@@ -19,6 +16,13 @@
   letter-spacing: 6px;
   font-weight: bold;
   font-size: var(--font-size-title);
+}
+
+.itemContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 70px;
 }
 
 .navItems {

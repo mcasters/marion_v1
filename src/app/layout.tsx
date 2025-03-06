@@ -10,18 +10,18 @@ import { getContentsFull } from "@/app/actions/contents";
 import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
 import { META } from "@/constants/specific";
-import { EB_Garamond, Spectral_SC } from "next/font/google";
+import { Cormorant, Cormorant_SC } from "next/font/google";
 
-const spectralSC = Spectral_SC({
+const cormorant = Cormorant({
   subsets: ["latin"],
-  weight: "800",
-  variable: "--font-serif-SSC",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-serif-cormorant",
 });
 
-const garamond = EB_Garamond({
+const cormorantSC = Cormorant_SC({
   subsets: ["latin"],
-  weight: "400",
-  variable: "--font-serif-G",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-serif-cormorant-caps",
 });
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
@@ -56,7 +56,7 @@ export default async function RootLayout({
   const metaMap = getMetaMap(await getMetas());
 
   return (
-    <html lang="fr" className={`${garamond.variable} ${spectralSC.variable}`}>
+    <html lang="fr" className={`${cormorant.variable} ${cormorantSC.variable}`}>
       <body>
         <Providers session={session} theme={hexaTheme} metaMap={metaMap}>
           <StyledJsxRegistry>

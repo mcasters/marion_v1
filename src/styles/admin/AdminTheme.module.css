@@ -3,7 +3,7 @@
 }
 
 .sectionTitle {
-  font-variant-caps: small-caps;
+  font-family: var( --font-family-serif-caps);
   letter-spacing: 3px;
   padding-bottom: 1em;
   font-size: 1.1em;

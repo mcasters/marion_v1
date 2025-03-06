@@ -15,9 +15,9 @@
 }
 
 .title {
-  font-size: 34px;
-  font-variant: small-caps;
-  font-weight: lighter;
+  font-family: var(--font-family-serif-caps);
+  font-size: var(--font-size-title);
+  font-weight: 400;
   margin: 0;
 }
 
