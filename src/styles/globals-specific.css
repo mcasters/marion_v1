@@ -3,7 +3,8 @@
    * Typography
    * ======================================================================== */
 
-  --font-family-serif: Garamond;
+  --font-family-serif: var(--font-serif-G); /* declared in rooLayout*/
+  --font-family-serif-caps: var(--font-serif-SSC); /* declared in rooLayout*/
   --font-family-sans: Tahoma;
 
   /*
@@ -66,13 +67,13 @@
 html {
   font-family: var(--font-family-serif);
   -webkit-font-smoothing: antialiased;
-  font-size: var(--font-size-admin);
+  font-size: var(--font-size);
 }
 
 body {
   overflow: visible;
   min-height: 100%;
-  line-height: 1.375;
+  line-height: 1.7;
 }
 
 html,
@@ -248,6 +249,12 @@ input::file-selector-button {
 
 .hidden {
   display: none;
+}
+
+.capsGray {
+  font-family: var(--font-family-serif-caps);
+  letter-spacing: 3px;
+  color: #999999;
 }
 
 /*

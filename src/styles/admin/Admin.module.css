@@ -38,7 +38,7 @@
 }
 
 .formLabel {
-  font-variant-caps: small-caps;
+  font-variant: small-caps;
   letter-spacing: 3px;
   color: var(--color-dark);
   text-align: left;

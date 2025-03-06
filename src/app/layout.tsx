@@ -10,6 +10,19 @@ import { getContentsFull } from "@/app/actions/contents";
 import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
 import { META } from "@/constants/specific";
+import { EB_Garamond, Spectral_SC } from "next/font/google";
+
+const spectralSC = Spectral_SC({
+  subsets: ["latin"],
+  weight: "800",
+  variable: "--font-serif-SSC",
+});
+
+const garamond = EB_Garamond({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-serif-G",
+});
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
   const metas = getMetaMap(await getMetas());
@@ -43,7 +56,7 @@ export default async function RootLayout({
   const metaMap = getMetaMap(await getMetas());
 
   return (
-    <html lang="fr">
+    <html lang="fr" className={`${garamond.variable} ${spectralSC.variable}`}>
       <body>
         <Providers session={session} theme={hexaTheme} metaMap={metaMap}>
           <StyledJsxRegistry>

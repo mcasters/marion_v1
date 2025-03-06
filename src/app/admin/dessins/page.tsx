@@ -15,7 +15,7 @@ export default async function Dessins() {
 
   return (
     <>
-      <h1 className={s.pageTitle}>Contenus des pages Dessins</h1>
+      <h1 className={s.title1}>Contenus des pages Dessins</h1>
       <ItemListComponent categories={categories} years={years} items={items} />
       <ItemForm
         categories={categories}

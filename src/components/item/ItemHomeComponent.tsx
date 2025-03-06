@@ -14,7 +14,7 @@ interface Props {
 export default function ItemHomeComponent({ categories, type, years }: Props) {
   return (
     <>
-      <p className={s.tagTitle}>Catégories :</p>
+      <p className={`${s.tagTitle} capsGray`}>Catégories :</p>`
       <ul className={s.ul}>
         {categories.map((category) => {
           const content = category.content;
@@ -51,7 +51,7 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
           );
         })}
       </ul>
-      <p className={s.tagTitle}>Années :</p>
+      <p className={`${s.tagTitle} capsGray`}>Années :</p>
       <ul className={s.ul}>
         {years.map((year) => {
           return (
