@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import s from "./AuthStatus.module.css";
+import s from "./Auth.module.css";
 import { loginAction } from "@/app/actions/auth";
 
 const initialState = { message: "" };

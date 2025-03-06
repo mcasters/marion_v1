@@ -1,11 +1,10 @@
 .authStatusWrapper {
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 15px;
+  left: 15px;
   z-index: 15;
-  width: 200px;
+  width: 180px;
   background-color: var(--color-auth-status);
-  font-size: 1rem;
   padding: 2px;
   border: var(--color-border-auth-status) solid 1px;
   box-shadow: 0 0 7px #363636;
@@ -13,14 +12,9 @@
 
 .container {
   border: var(--color-border-auth-status) solid 1px;
-  font-size: 0.8em;
   text-align: center;
   padding: 5px;
-}
-
-.separator {
-    padding-left: 1rem;
-    padding-right: 0.8rem;
+line-height: 1.2;
 }
 
 .loginForm {

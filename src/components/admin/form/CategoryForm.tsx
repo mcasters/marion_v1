@@ -86,7 +86,11 @@ export default function CategoryForm({
             required
           />
         </label>
-        {!isUpdate && <p className={s.catInfo}>{message}</p>}
+        {!isUpdate && (
+          <p className={s.catInfo}>
+            <small>{message}</small>
+          </p>
+        )}
         <label className={s.formLabel}>
           titre du descriptif (facultatif)
           <input
