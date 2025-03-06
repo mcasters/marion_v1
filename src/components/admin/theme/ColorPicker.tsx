@@ -50,17 +50,13 @@ export default function ColorPicker({
       const res = await createPresetColor(nameToSave, color);
       alert(res.message, res.isError);
     });
-    const updatedWorkTheme = { ...workTheme } as Theme;
-    updatedWorkTheme[colorLabel as keyof OnlyString<Theme>] = nameToSave;
-    setWorkTheme(updatedWorkTheme);
+    setWorkTheme({ ...workTheme, [colorLabel]: nameToSave } as Theme);
     setColor(nameToSave);
     setNameToSave("");
   };
 
   const onSelectPresetColor = (colorName: string): void => {
-    const updatedWorkTheme = { ...workTheme } as Theme;
-    updatedWorkTheme[colorLabel as keyof OnlyString<Theme>] = colorName;
-    setWorkTheme(updatedWorkTheme);
+    setWorkTheme({ ...workTheme, [colorLabel]: colorName } as Theme);
   };
 
   const handleChange = (color: string): void => {
@@ -68,9 +64,7 @@ export default function ColorPicker({
   };
 
   const updateWorkTheme = () => {
-    const updatedWorkTheme = { ...workTheme } as Theme;
-    updatedWorkTheme[colorLabel as keyof OnlyString<Theme>] = color;
-    setWorkTheme(updatedWorkTheme);
+    setWorkTheme({ ...workTheme, [colorLabel]: color } as Theme);
     toggle();
   };
 

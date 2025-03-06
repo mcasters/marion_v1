@@ -106,7 +106,7 @@ export async function activateTheme(id: number) {
     await prisma.theme.updateMany({
       where: {
         isActive: true,
-        id: { not: id },
+        NOT: { id },
       },
       data: {
         isActive: false,

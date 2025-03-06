@@ -81,7 +81,7 @@ export default function ThemeDashboard({
           deletedPresetColor={deletedPresetColor}
         />
         <ColorPicker
-          label="Menu 1- texte pointé*"
+          label="Menu 1 - texte pointé*"
           colorLabel="menu1LinkHomeHoverColor"
           pageTypeName={PAGE_TYPE.HOME}
           presetColors={presetColors}

@@ -3,6 +3,7 @@ import { PresetColor, Theme } from "@prisma/client";
 import prisma from "@/lib/prisma";
 import { getBasePresetColorData, getBaseThemeData } from "@/utils/commonUtils";
 import { THEME } from "@/constants/admin";
+import { activateTheme } from "@/app/actions/theme/admin";
 
 export async function getThemesFull(): Promise<Theme[]> {
   const res = await prisma.theme.findMany();
@@ -18,27 +19,6 @@ export async function getThemesFull(): Promise<Theme[]> {
   return JSON.parse(JSON.stringify(res));
 }
 
-export const activate = async (themeId: number): Promise<void> => {
-  await prisma.theme.update({
-    where: {
-      id: themeId,
-    },
-    data: {
-      isActive: true,
-    },
-  });
-
-  await prisma.theme.updateMany({
-    where: {
-      isActive: true,
-      id: { not: themeId },
-    },
-    data: {
-      isActive: false,
-    },
-  });
-};
-
 const getActivatedBaseTheme = async (): Promise<Theme> => {
   let theme = await prisma.theme.findUnique({
     where: {
@@ -53,7 +33,7 @@ const getActivatedBaseTheme = async (): Promise<Theme> => {
     });
   }
   if (!theme.isActive) {
-    await activate(theme.id);
+    await activateTheme(theme.id);
   }
   return theme;
 };
