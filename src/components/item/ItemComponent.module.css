@@ -2,8 +2,13 @@
   padding: 0 0 3em;
 }
 
+.doubleArticle, .sculptureArticle {
+  line-height: 1;
+}
+
 .infoContainer h2 {
   font-size: var(--font-size);
+  padding-bottom: 0.3em;
 }
 
 .infoContainer {
@@ -16,16 +21,12 @@
 
 /* desktop */
 @media (min-width: 769px) {
-  .doubleArticle, .monoArticle, .multipleArticle {
+  .sculptureArticle, .doubleArticle {
+    padding: 0 0 5em;
+  }
+
+.monoArticle {
     padding: 0;
-  }
-
-  .info {
-    font-size: var(--font-size-min);
-  }
-
-  .doubleArticle {
-    line-height: 1;
   }
 
   .monoArticle .imageContainer {

@@ -1,7 +1,7 @@
 import ItemsComponent from "@/components/item/ItemsComponent";
 import { getSession } from "@/app/lib/auth";
 import { getCategory, getItemsByCategory } from "@/app/actions/items";
-import { Type } from "@/lib/type";
+import { ItemLayout, Type } from "@/lib/type";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
@@ -52,6 +52,7 @@ export default async function Page({ params }: Props) {
           tag={category.value}
           category={category}
           items={items}
+          layout={ItemLayout.SCULPTURE}
         />
       )}
     </>
