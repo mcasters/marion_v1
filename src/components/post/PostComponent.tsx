@@ -5,7 +5,7 @@ import s from "./PostComponent.module.css";
 import Gallery from "@/components/image/gallery/Gallery";
 import { useMemo } from "react";
 import { PostFull } from "@/lib/type";
-import { getPhotoTab } from "@/utils/imageUtils";
+import { getPostPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
 import { META } from "@/constants/specific";
 
@@ -16,7 +16,7 @@ export default function PostComponent({ post }: Props) {
   const metas = useMetas();
   const { mainPhotos, photos } = useMemo(
     () =>
-      getPhotoTab(
+      getPostPhotoTab(
         post,
         `Photo du post "${post.title}" de ${metas.get(META.SITE_TITLE)}`,
       ),

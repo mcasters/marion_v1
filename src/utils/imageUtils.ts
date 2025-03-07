@@ -3,28 +3,28 @@ import {
   Image,
   ItemFull,
   PhotoTab,
+  PhotoTabEnhanced,
   PostFull,
   Type,
 } from "@/lib/type";
 import { IMAGE } from "@/constants/image";
-import { Label } from "@prisma/client";
 import { getSliders } from "@/utils/commonUtils";
 
 const getEmptyPhotoTab = (): PhotoTab => {
   return { sm: [], md: [], lg: [] };
 };
 
-const getPhotosFromImages = (
+const getEmptyPhotoTabEnhanced = (): PhotoTabEnhanced => {
+  return { sm: [], md: [], lg: [] };
+};
+
+const getSplitMainPhotosFromImages = (
   images: Image[],
   folder: string,
-  splitMain: boolean,
   alt: string,
   title: string = "",
   date: Date = new Date(),
-): {
-  mainPhotos: PhotoTab;
-  photos: PhotoTab;
-} => {
+): { mainPhotos: PhotoTab; photos: PhotoTab } => {
   const mainPhotos = getEmptyPhotoTab();
   const photos = getEmptyPhotoTab();
 
@@ -63,7 +63,7 @@ const getPhotosFromImages = (
       alt,
     };
 
-    if (splitMain && image.isMain) {
+    if (image.isMain) {
       mainPhotos.sm.push(photosSM);
       mainPhotos.md.push(photosMD);
       mainPhotos.lg.push(photosLG);
@@ -76,48 +76,157 @@ const getPhotosFromImages = (
   return { mainPhotos, photos };
 };
 
-export const getContentPhotoTab = (
-  content: ContentFull | null,
+const getPhotosFromImages = (
+  images: Image[],
+  folder: string,
   alt: string,
-): {
-  mainPhotos: PhotoTab;
-  photos: PhotoTab;
-} => {
-  if (content) {
-    return getPhotosFromImages(
-      content.images,
-      "miscellaneous",
-      content.label === Label.SLIDER,
+  title: string = "",
+  date: Date = new Date(),
+): { photos: PhotoTab } => {
+  const photos = getEmptyPhotoTab();
+
+  for (const image of images) {
+    const isUnderSM = image.width < IMAGE.SM_PX;
+    const isUnderMD = image.width < IMAGE.MD_PX;
+    const photosSM = {
+      src: `/images/${folder}/sm/${image.filename}`,
+      width: isUnderSM ? image.width : IMAGE.SM_PX,
+      height: isUnderSM
+        ? image.height
+        : (image.height * IMAGE.SM_PX) / image.width,
+      isMain: image.isMain,
+      title,
+      date,
       alt,
-    );
+    };
+    const photosMD = {
+      src: `/images/${folder}/md/${image.filename}`,
+      width: isUnderMD ? image.width : IMAGE.MD_PX,
+      height: isUnderMD
+        ? image.height
+        : (image.height * IMAGE.MD_PX) / image.width,
+      isMain: image.isMain,
+      title,
+      date,
+      alt,
+    };
+    const photosLG = {
+      src: `/images/${folder}/${image.filename}`,
+      width: image.width,
+      height: image.height,
+      isMain: image.isMain,
+      title,
+      date,
+      alt,
+    };
+
+    photos.sm.push(photosSM);
+    photos.md.push(photosMD);
+    photos.lg.push(photosLG);
   }
-  return { mainPhotos: getEmptyPhotoTab(), photos: getEmptyPhotoTab() };
+  return { photos };
 };
 
-export const getPhotoTab = (
-  item: PostFull | ItemFull,
+const getPhotosEnhancedFromImages = (
+  item: ItemFull,
   alt: string,
-): {
-  mainPhotos: PhotoTab;
-  photos: PhotoTab;
-} => {
-  const isPost = item.type === Type.POST;
+  photos: PhotoTabEnhanced,
+): PhotoTabEnhanced => {
   const folder =
     item.type === Type.PAINTING
       ? "peinture"
       : item.type === Type.SCULPTURE
         ? "sculpture"
-        : isPost
-          ? "post"
-          : "dessin";
-  return getPhotosFromImages(
-    item.images,
+        : "dessin";
+
+  for (const image of item.images) {
+    const isUnderSM = image.width < IMAGE.SM_PX;
+    const isUnderMD = image.width < IMAGE.MD_PX;
+    photos.sm.push({
+      src: `/images/${folder}/sm/${image.filename}`,
+      width: isUnderSM ? image.width : IMAGE.SM_PX,
+      height: isUnderSM
+        ? image.height
+        : (image.height * IMAGE.SM_PX) / image.width,
+      alt,
+      item,
+    });
+    photos.md.push({
+      src: `/images/${folder}/md/${image.filename}`,
+      width: isUnderMD ? image.width : IMAGE.MD_PX,
+      height: isUnderMD
+        ? image.height
+        : (image.height * IMAGE.MD_PX) / image.width,
+      alt,
+      item,
+    });
+    photos.lg.push({
+      src: `/images/${folder}/${image.filename}`,
+      width: image.width,
+      height: image.height,
+      alt,
+      item,
+    });
+  }
+  return photos;
+};
+
+export const getSliderPhotoTab = (
+  content: ContentFull | null,
+  alt: string,
+): { mainPhotos: PhotoTab; photos: PhotoTab } => {
+  if (content) {
+    return getSplitMainPhotosFromImages(content.images, "miscellaneous", alt);
+  }
+  return { mainPhotos: getEmptyPhotoTab(), photos: getEmptyPhotoTab() };
+};
+
+export const getContentPhotoTab = (
+  content: ContentFull | null,
+  alt: string,
+): { photos: PhotoTab } => {
+  if (content) {
+    return getPhotosFromImages(content.images, "miscellaneous", alt);
+  }
+  return { photos: getEmptyPhotoTab() };
+};
+
+export const getPostPhotoTab = (
+  post: PostFull,
+  alt: string,
+): { mainPhotos: PhotoTab; photos: PhotoTab } => {
+  const folder = "post";
+  return getSplitMainPhotosFromImages(
+    post.images,
     folder,
-    isPost,
     alt,
-    item.title,
-    item.date,
+    post.title,
+    post.date,
   );
+};
+
+export const getItemPhotoTab = (
+  item: ItemFull,
+  alt: string,
+): { photos: PhotoTab } => {
+  const folder =
+    item.type === Type.PAINTING
+      ? "peinture"
+      : item.type === Type.SCULPTURE
+        ? "sculpture"
+        : "dessin";
+  return getPhotosFromImages(item.images, folder, alt, item.title, item.date);
+};
+
+export const getItemPhotoTabEnhanced = (
+  items: ItemFull[],
+  alt: string,
+): PhotoTabEnhanced => {
+  let photosEnhanced = getEmptyPhotoTabEnhanced();
+  items.forEach((item) => {
+    photosEnhanced = getPhotosEnhancedFromImages(item, alt, photosEnhanced);
+  });
+  return photosEnhanced;
 };
 
 export const getSliderLandscapeImages = (contents: ContentFull[]): Image[] => {

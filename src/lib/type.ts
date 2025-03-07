@@ -86,6 +86,20 @@ export type PhotoTab = {
   lg: Photo[];
 };
 
+export type PhotoEnhanced = {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  item: ItemFull;
+};
+
+export type PhotoTabEnhanced = {
+  sm: PhotoEnhanced[];
+  md: PhotoEnhanced[];
+  lg: PhotoEnhanced[];
+};
+
 export type Session = {
   user: User;
 };
