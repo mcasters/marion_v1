@@ -5,6 +5,7 @@ export const META = {
   SITE_EMAIL: "siteEmail",
   FOOTER: "footerContent",
   INSTAGRAM: "instagram",
+  ITEM_LAYOUT: "itemLayout",
   SEO_SITE_TITLE: "seoSiteTitle",
   URL: "url",
   KEYWORDS: "keywords",

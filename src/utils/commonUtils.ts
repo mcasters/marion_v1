@@ -4,6 +4,7 @@ import {
   ContentFull,
   Image,
   ItemFull,
+  ItemLayout,
   OnlyString,
   PostFull,
   Type,
@@ -219,4 +220,9 @@ export const getNoCategory = (): Category => {
     value: "Sans catégorie",
     content: getEmptyContent(),
   };
+};
+
+export const getItemLayout = (metaString: string | undefined): ItemLayout => {
+  if (metaString != undefined) return parseInt(metaString);
+  return ItemLayout.DOUBLE;
 };

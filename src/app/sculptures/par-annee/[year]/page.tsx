@@ -1,5 +1,4 @@
-import ItemTagComponent from "@/components/item/ItemTagComponent";
-import s from "@/styles/ItemPage.module.css";
+import ItemsComponent from "@/components/item/ItemsComponent";
 import { getSession } from "@/app/lib/auth";
 import { getItemsByYear } from "@/app/actions/items";
 import { Type } from "@/lib/type";
@@ -38,9 +37,5 @@ export default async function Page({ params }: Props) {
   const session = await getSession();
   const items = await getItemsByYear(year, Type.SCULPTURE, !session);
 
-  return (
-    <div className={s.sculptureContent}>
-      <ItemTagComponent tag={year} items={items} />
-    </div>
-  );
+  return <ItemsComponent tag={year} items={items} />;
 }

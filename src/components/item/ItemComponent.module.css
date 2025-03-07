@@ -1,4 +1,4 @@
-.article, .sculptureArticle {
+.doubleArticle, .monoArticle, .multipleArticle, .sculptureArticle {
   padding: 0 0 3em;
 }
 
@@ -16,7 +16,37 @@
 
 /* desktop */
 @media (min-width: 769px) {
-  .article {
+  .doubleArticle, .monoArticle, .multipleArticle {
     padding: 0;
+  }
+
+  .info {
+    font-size: var(--font-size-min);
+  }
+
+  .doubleArticle {
+    line-height: 1;
+  }
+
+  .monoArticle .imageContainer {
+    display: inline-block;
+    text-align: right;
+    width: 70%;
+  }
+
+  .monoArticle .infoContainer {
+    display: inline-block;
+    width: 29%;
+    vertical-align: top;
+    text-align: left;
+    padding-left: 1em;
+    line-height: 2;
+  }
+
+  .monoArticle h2 {
+    font-family: var( --font-family-serif-caps);
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #999999;
   }
 }

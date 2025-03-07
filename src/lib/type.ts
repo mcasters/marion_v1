@@ -38,6 +38,13 @@ export enum Type {
   DRAWING = "dessin",
 }
 
+export enum ItemLayout {
+  MONO,
+  DOUBLE,
+  MULTIPLE,
+  SCULPTURE,
+}
+
 export type PostFull = {
   id: number;
   type: Type.POST;

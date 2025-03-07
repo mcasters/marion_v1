@@ -2,26 +2,9 @@
   padding: 2.5em 0.6em 0;
 }
 
-.paintingContent,
-.sculptureContent {
-  padding: 1em 0;
-}
-
 /* desktop */
 @media (min-width: 769px) {
   .container {
     padding: 2em 5em;
-  }
-
-  .paintingContent,
-  .sculptureContent {
-    background: var(--color-background-item);
-    padding: 3em;
-  }
-
-  .paintingContent {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3em 0;
   }
 }

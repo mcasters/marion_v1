@@ -69,13 +69,6 @@ html {
   font-size: var(--font-size);
 }
 
-.capsGray {
-  font-family: var( --font-family-serif-caps);
-  font-weight: 700;
-  letter-spacing: 3px;
-  color: #999999;
-}
-
 body {
   overflow: visible;
   min-height: 100%;

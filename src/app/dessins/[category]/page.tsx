@@ -1,6 +1,5 @@
-import s from "@/styles/ItemPage.module.css";
 import { getCategory, getItemsByCategory } from "@/app/actions/items";
-import ItemTagComponent from "@/components/item/ItemTagComponent";
+import ItemsComponent from "@/components/item/ItemsComponent";
 import { Type } from "@/lib/type";
 import { getSession } from "@/app/lib/auth";
 import { Metadata } from "next";
@@ -47,14 +46,14 @@ export default async function Page({ params }: Props) {
   const items = await getItemsByCategory(categoryKey, Type.DRAWING, !session);
 
   return (
-    <div className={s.paintingContent}>
+    <>
       {category && (
-        <ItemTagComponent
+        <ItemsComponent
           tag={category.value}
           category={category}
           items={items}
         />
       )}
-    </div>
+    </>
   );
 }

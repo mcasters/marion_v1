@@ -1,21 +1,21 @@
-import s from "@/styles/ItemPage.module.css";
-import ItemTagComponent from "@/components/item/ItemTagComponent";
 import { getSession } from "@/app/lib/auth";
 import { getCategory, getItemsByCategory } from "@/app/actions/items";
 import { Type } from "@/lib/type";
 import { Metadata } from "next";
-import { getMetaMap } from "@/utils/commonUtils";
+import { getItemLayout, getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
 import { META } from "@/constants/specific";
+import ItemsComponent from "@/components/item/ItemsComponent";
 
 type Props = {
   params: Promise<{ category: string }>;
 };
 
+const metas = getMetaMap(await getMetas());
+
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | undefined> {
-  const metas = getMetaMap(await getMetas());
   const session = await getSession();
   const categoryKey = (await params).category;
   const category = await getCategory(categoryKey, Type.PAINTING, !session);
@@ -47,14 +47,15 @@ export default async function Page({ params }: Props) {
   const items = await getItemsByCategory(categoryKey, Type.PAINTING, !session);
 
   return (
-    <div className={s.paintingContent}>
+    <>
       {category && (
-        <ItemTagComponent
+        <ItemsComponent
           tag={category.value}
           category={category}
           items={items}
+          layout={getItemLayout(metas.get(META.ITEM_LAYOUT))}
         />
       )}
-    </div>
+    </>
   );
 }
