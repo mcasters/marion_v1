@@ -22,11 +22,11 @@ export default function Gallery({ photos }: Props) {
   return (
     <>
       <div className={s.container}>
-        {photoToDisplay.map((p, index) => {
+        {photoToDisplay.map((p, i) => {
           return (
             <Image
-              defaultValue={index}
-              key={index}
+              defaultValue={i}
+              key={i}
               src={p.src}
               alt={p.alt}
               width={p.width}
@@ -35,7 +35,7 @@ export default function Gallery({ photos }: Props) {
                 objectFit: "contain",
               }}
               className={`${s.image}`}
-              onClick={() => setIndex(index)}
+              onClick={() => setIndex(i)}
             />
           );
         })}

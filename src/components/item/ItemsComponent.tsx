@@ -4,6 +4,7 @@ import { Category, ItemFull, ItemLayout } from "@/lib/type";
 import React from "react";
 import s from "@/components/item/ItemsComponent.module.css";
 import ItemComponent from "@/components/item/ItemComponent";
+import ItemsGalleryComponent from "@/components/item/ItemsGalleryComponent";
 
 interface Props {
   tag: string;
@@ -39,14 +40,19 @@ export default function ItemsComponent({
             </div>
           )}
       </div>
-      {items.map((item, index) => (
-        <ItemComponent
-          key={item.id}
-          item={item}
-          priority={index < 2}
-          layout={layout}
-        />
-      ))}
+      {layout === ItemLayout.DOUBLE ||
+        (layout === ItemLayout.MONO &&
+          items.map((item, index) => (
+            <ItemComponent
+              key={item.id}
+              item={item}
+              priority={index < 2}
+              layout={layout}
+            />
+          )))}
+      {layout === ItemLayout.MULTIPLE && (
+        <ItemsGalleryComponent items={items} />
+      )}
     </div>
   );
 }
