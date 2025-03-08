@@ -1,6 +1,6 @@
 "use client";
 
-import Lightbox from "@/components/image/lightbox/Lightbox";
+import ImageWithLightbox from "@/components/image/lightbox/ImageWithLightbox";
 import s from "./PostComponent.module.css";
 import Gallery from "@/components/image/gallery/Gallery";
 import { useMemo } from "react";
@@ -27,7 +27,7 @@ export default function PostComponent({ post }: Props) {
     <>
       <article className={s.postContainer}>
         {mainPhotos.sm.length > 0 && (
-          <Lightbox photos={mainPhotos} priority={true} />
+          <ImageWithLightbox photos={mainPhotos} priority={true} />
         )}
         <div className={s.postInfo}>
           <h2>{post.title}</h2>

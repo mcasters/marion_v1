@@ -7,7 +7,7 @@ import s from "./Gallery.module.css";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import Image from "next/image";
 import { createPortal } from "react-dom";
-import LightboxContent from "@/components/image/lightbox/LightboxContent";
+import Lightbox from "@/components/image/lightbox/Lightbox";
 
 interface Props {
   photos: PhotoTab;
@@ -42,7 +42,7 @@ export default function Gallery({ photos }: Props) {
       </div>
       {index >= 0 &&
         createPortal(
-          <LightboxContent
+          <Lightbox
             photos={isSmall ? photos.md : photos.lg}
             index={index}
             onClose={() => setIndex(-1)}

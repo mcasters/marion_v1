@@ -5,7 +5,9 @@ import s from "@/components/image/lightbox/Lightbox.module.css";
 import ZoomInIcon from "@/components/icons/ZoomInIcon";
 import ZoomOutIcon from "@/components/icons/ZoomOutIcon";
 import CloseIcon from "@/components/icons/CloseIcon";
-import { Photo } from "@/lib/type";
+import { Photo, PhotoEnhanced } from "@/lib/type";
+import ImageInfos from "@/components/image/common/ImageInfos";
+import LimitedImageInfos from "@/components/image/common/LimitedImageInfos";
 
 const ZOOM_SENSITIVITY = 0.4;
 const ZOOM_SENSITIVITY_MOBILE = 0.6;
@@ -18,7 +20,7 @@ let latestTouchTap: { time: number; target: EventTarget | null } = {
 };
 
 type Props = {
-  photo: Photo;
+  photo: Photo | PhotoEnhanced;
   isActive: boolean;
   onClose: () => void;
   onPrev: () => void;
@@ -252,9 +254,15 @@ export default function ZoomImage({
       ref={containerRef}
       className={`${s.canvasContainer} ${isActive ? s.active : ""}`}
     >
-      <div className={`${s.info} linkColor`}>
-        {photo.title} - {new Date(photo.date).getFullYear()}
-      </div>
+      {"item" in photo ? (
+        <div className={`${s.info} linkColor`}>
+          <ImageInfos item={photo.item} isLightbox={true} />
+        </div>
+      ) : (
+        <div className={`${s.info} ${s.limitedInfo} linkColor`}>
+          <LimitedImageInfos photo={photo} />
+        </div>
+      )}
       {isSmall && (
         <>
           <canvas
