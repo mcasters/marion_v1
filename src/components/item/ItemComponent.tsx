@@ -1,12 +1,13 @@
 "use client";
 
 import s from "./ItemComponent.module.css";
-import Lightbox from "@/components/image/lightbox/Lightbox";
-import { ItemFull, ItemLayout, Type } from "@/lib/type";
-import { useMemo } from "react";
+import ImageWithLightbox from "@/components/image/lightbox/ImageWithLightbox";
+import { ItemFull, ItemLayout } from "@/lib/type";
+import React, { useMemo } from "react";
 import { getItemPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
 import { META } from "@/constants/specific";
+import ImageInfos from "@/components/image/common/ImageInfos";
 
 interface Props {
   item: ItemFull;
@@ -15,7 +16,7 @@ interface Props {
 }
 export default function ItemComponent({ item, priority, layout }: Props) {
   const metas = useMetas();
-  const { photos } = useMemo(
+  const photos = useMemo(
     () =>
       getItemPhotoTab(
         item,
@@ -37,37 +38,10 @@ export default function ItemComponent({ item, priority, layout }: Props) {
       }
     >
       <figure className={s.imageContainer}>
-        <Lightbox photos={photos} priority={priority} />
+        <ImageWithLightbox photos={photos} priority={priority} />
       </figure>
       <figcaption className={s.infoContainer}>
-        <h2>{item.title}</h2>
-        <div className={s.info}>
-          <p>
-            <time>{new Date(item.date).getFullYear()}</time>
-            {", "}
-            {item.technique}
-            {","}
-            <br />
-            {item.type === Type.SCULPTURE
-              ? `${item.height} x ${item.width} x ${item.length} cm`
-              : `${item.height} x ${item.width} cm`}
-          </p>
-          {item.description !== "" && (
-            <>
-              <br />
-              <p>{item.description}</p>
-            </>
-          )}
-          {item.isToSell && (
-            <>
-              <br />
-              <p>
-                {`prix : ${item.price} euros`}
-                {item.sold ? "vendu" : ""}
-              </p>
-            </>
-          )}
-        </div>
+        <ImageInfos item={item} isLightbox={false} />
       </figcaption>
     </article>
   );

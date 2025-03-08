@@ -9,6 +9,7 @@
   flex-wrap: wrap;
   justify-content: center;
   padding-bottom: 2em;
+  gap: 0.5em;
 }
 
 .link {
@@ -61,8 +62,8 @@
   }
 
   .ul {
-    padding: 2em 5em 3em;
     gap: 2em;
+    padding: 2em 5em 3em;
   }
 
   .categoryLink {

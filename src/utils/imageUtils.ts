@@ -18,6 +18,36 @@ const getEmptyPhotoTabEnhanced = (): PhotoTabEnhanced => {
   return { sm: [], md: [], lg: [] };
 };
 
+const getSMData = (folder: string, image: Image) => {
+  const isUnderSM = image.width < IMAGE.SM_PX;
+  return {
+    src: `/images/${folder}/sm/${image.filename}`,
+    width: isUnderSM ? image.width : IMAGE.SM_PX,
+    height: isUnderSM
+      ? image.height
+      : (image.height * IMAGE.SM_PX) / image.width,
+  };
+};
+
+const getMDData = (folder: string, image: Image) => {
+  const isUnderMD = image.width < IMAGE.MD_PX;
+  return {
+    src: `/images/${folder}/md/${image.filename}`,
+    width: isUnderMD ? image.width : IMAGE.MD_PX,
+    height: isUnderMD
+      ? image.height
+      : (image.height * IMAGE.MD_PX) / image.width,
+  };
+};
+
+const getLGData = (folder: string, image: Image) => {
+  return {
+    src: `/images/${folder}/${image.filename}`,
+    width: image.width,
+    height: image.height,
+  };
+};
+
 const getSplitMainPhotosFromImages = (
   images: Image[],
   folder: string,
@@ -29,38 +59,23 @@ const getSplitMainPhotosFromImages = (
   const photos = getEmptyPhotoTab();
 
   for (const image of images) {
-    const isUnderSM = image.width < IMAGE.SM_PX;
-    const isUnderMD = image.width < IMAGE.MD_PX;
-    const photosSM = {
-      src: `/images/${folder}/sm/${image.filename}`,
-      width: isUnderSM ? image.width : IMAGE.SM_PX,
-      height: isUnderSM
-        ? image.height
-        : (image.height * IMAGE.SM_PX) / image.width,
+    const rest = {
       isMain: image.isMain,
       title,
       date,
       alt,
+    };
+    const photosSM = {
+      ...getSMData(folder, image),
+      ...rest,
     };
     const photosMD = {
-      src: `/images/${folder}/md/${image.filename}`,
-      width: isUnderMD ? image.width : IMAGE.MD_PX,
-      height: isUnderMD
-        ? image.height
-        : (image.height * IMAGE.MD_PX) / image.width,
-      isMain: image.isMain,
-      title,
-      date,
-      alt,
+      ...getMDData(folder, image),
+      ...rest,
     };
     const photosLG = {
-      src: `/images/${folder}/${image.filename}`,
-      width: image.width,
-      height: image.height,
-      isMain: image.isMain,
-      title,
-      date,
-      alt,
+      ...getLGData(folder, image),
+      ...rest,
     };
 
     if (image.isMain) {
@@ -86,38 +101,23 @@ const getPhotosFromImages = (
   const photos = getEmptyPhotoTab();
 
   for (const image of images) {
-    const isUnderSM = image.width < IMAGE.SM_PX;
-    const isUnderMD = image.width < IMAGE.MD_PX;
-    photos.sm.push({
-      src: `/images/${folder}/sm/${image.filename}`,
-      width: isUnderSM ? image.width : IMAGE.SM_PX,
-      height: isUnderSM
-        ? image.height
-        : (image.height * IMAGE.SM_PX) / image.width,
+    const rest = {
       isMain: image.isMain,
       title,
       date,
       alt,
+    };
+    photos.sm.push({
+      ...getSMData(folder, image),
+      ...rest,
     });
     photos.md.push({
-      src: `/images/${folder}/md/${image.filename}`,
-      width: isUnderMD ? image.width : IMAGE.MD_PX,
-      height: isUnderMD
-        ? image.height
-        : (image.height * IMAGE.MD_PX) / image.width,
-      isMain: image.isMain,
-      title,
-      date,
-      alt,
+      ...getMDData(folder, image),
+      ...rest,
     });
     photos.lg.push({
-      src: `/images/${folder}/${image.filename}`,
-      width: image.width,
-      height: image.height,
-      isMain: image.isMain,
-      title,
-      date,
-      alt,
+      ...getLGData(folder, image),
+      ...rest,
     });
   }
   return photos;
@@ -136,32 +136,24 @@ const getPhotosEnhancedFromImages = (
         : "dessin";
 
   for (const image of item.images) {
-    const isUnderSM = image.width < IMAGE.SM_PX;
-    const isUnderMD = image.width < IMAGE.MD_PX;
-    photos.sm.push({
-      src: `/images/${folder}/sm/${image.filename}`,
-      width: isUnderSM ? image.width : IMAGE.SM_PX,
-      height: isUnderSM
-        ? image.height
-        : (image.height * IMAGE.SM_PX) / image.width,
+    const rest = {
+      isMain: true,
+      title: item.title,
+      date: item.date,
       alt,
       item,
+    };
+    photos.sm.push({
+      ...getSMData(folder, image),
+      ...rest,
     });
     photos.md.push({
-      src: `/images/${folder}/md/${image.filename}`,
-      width: isUnderMD ? image.width : IMAGE.MD_PX,
-      height: isUnderMD
-        ? image.height
-        : (image.height * IMAGE.MD_PX) / image.width,
-      alt,
-      item,
+      ...getMDData(folder, image),
+      ...rest,
     });
     photos.lg.push({
-      src: `/images/${folder}/${image.filename}`,
-      width: image.width,
-      height: image.height,
-      alt,
-      item,
+      ...getLGData(folder, image),
+      ...rest,
     });
   }
   return photos;

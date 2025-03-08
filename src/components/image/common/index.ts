@@ -2,7 +2,7 @@ import { Photo } from "@/lib/type";
 
 export const onPrev = (
   active: number,
-  setActive: (number) => void,
+  setActive: (arg0: number) => void,
   photos: Photo[],
 ): void => {
   if (active > 0) {
@@ -14,7 +14,7 @@ export const onPrev = (
 
 export const onNext = (
   active: number,
-  setActive: (number) => void,
+  setActive: (arg0: number) => void,
   photos: Photo[],
 ): void => {
   if (active < photos.length - 1) {

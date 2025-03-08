@@ -26,8 +26,8 @@ export default function PresentationComponent({
   const alt = `Photo de ${metas.get(META.SITE_TITLE)}`;
   const photo = useMemo(() => {
     return isSmall
-      ? getContentPhotoTab(presentationContent, alt).photos.sm[0]
-      : getContentPhotoTab(presentationContent, alt).photos.md[0];
+      ? getContentPhotoTab(presentationContent, alt).sm[0]
+      : getContentPhotoTab(presentationContent, alt).md[0];
   }, [presentationContent, isSmall]);
 
   return (
