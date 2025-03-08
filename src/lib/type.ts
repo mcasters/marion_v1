@@ -70,7 +70,7 @@ export type Image = {
   isMain: boolean;
 };
 
-export type Photo = {
+export interface Photo {
   src: string;
   width: number;
   height: number;
@@ -78,7 +78,7 @@ export type Photo = {
   title: string;
   date: Date;
   isMain: boolean;
-};
+}
 
 export type PhotoTab = {
   sm: Photo[];
@@ -86,13 +86,9 @@ export type PhotoTab = {
   lg: Photo[];
 };
 
-export type PhotoEnhanced = {
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
+export interface PhotoEnhanced extends Photo {
   item: ItemFull;
-};
+}
 
 export type PhotoTabEnhanced = {
   sm: PhotoEnhanced[];

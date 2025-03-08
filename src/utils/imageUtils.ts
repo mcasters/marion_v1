@@ -82,13 +82,13 @@ const getPhotosFromImages = (
   alt: string,
   title: string = "",
   date: Date = new Date(),
-): { photos: PhotoTab } => {
+): PhotoTab => {
   const photos = getEmptyPhotoTab();
 
   for (const image of images) {
     const isUnderSM = image.width < IMAGE.SM_PX;
     const isUnderMD = image.width < IMAGE.MD_PX;
-    const photosSM = {
+    photos.sm.push({
       src: `/images/${folder}/sm/${image.filename}`,
       width: isUnderSM ? image.width : IMAGE.SM_PX,
       height: isUnderSM
@@ -98,8 +98,8 @@ const getPhotosFromImages = (
       title,
       date,
       alt,
-    };
-    const photosMD = {
+    });
+    photos.md.push({
       src: `/images/${folder}/md/${image.filename}`,
       width: isUnderMD ? image.width : IMAGE.MD_PX,
       height: isUnderMD
@@ -109,8 +109,8 @@ const getPhotosFromImages = (
       title,
       date,
       alt,
-    };
-    const photosLG = {
+    });
+    photos.lg.push({
       src: `/images/${folder}/${image.filename}`,
       width: image.width,
       height: image.height,
@@ -118,13 +118,9 @@ const getPhotosFromImages = (
       title,
       date,
       alt,
-    };
-
-    photos.sm.push(photosSM);
-    photos.md.push(photosMD);
-    photos.lg.push(photosLG);
+    });
   }
-  return { photos };
+  return photos;
 };
 
 const getPhotosEnhancedFromImages = (
@@ -184,11 +180,11 @@ export const getSliderPhotoTab = (
 export const getContentPhotoTab = (
   content: ContentFull | null,
   alt: string,
-): { photos: PhotoTab } => {
+): PhotoTab => {
   if (content) {
     return getPhotosFromImages(content.images, "miscellaneous", alt);
   }
-  return { photos: getEmptyPhotoTab() };
+  return getEmptyPhotoTab();
 };
 
 export const getPostPhotoTab = (
@@ -205,10 +201,7 @@ export const getPostPhotoTab = (
   );
 };
 
-export const getItemPhotoTab = (
-  item: ItemFull,
-  alt: string,
-): { photos: PhotoTab } => {
+export const getItemPhotoTab = (item: ItemFull, alt: string): PhotoTab => {
   const folder =
     item.type === Type.PAINTING
       ? "peinture"
