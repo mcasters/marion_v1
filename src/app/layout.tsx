@@ -1,3 +1,4 @@
+import type { Viewport } from "next";
 import { Metadata } from "next";
 import Layout from "@/components/layout/Layout";
 import Providers from "./context/providers";
@@ -23,6 +24,13 @@ const cormorantSC = Cormorant_SC({
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-serif-cormorant-caps",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
   const metas = getMetaMap(await getMetas());
