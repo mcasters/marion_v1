@@ -6,6 +6,7 @@ import s from "@/components/image/slideshow/Slider.module.css";
 import Image from "next/image";
 import ArrowPrev from "@/components/icons/ArrowPrev";
 import ArrowNext from "@/components/icons/ArrowNext";
+import { onNext, onPrev } from "@/components/image/common";
 
 type Props = {
   photos: Photo[];
@@ -16,34 +17,10 @@ type Props = {
 export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
   const [active, setActive] = useState(0);
 
-  const onPrev = () => {
-    if (active > 0) {
-      setActive(active - 1);
-    } else {
-      setActive(photos.length - 1);
-    }
-  };
-
-  const onNext = () => {
-    if (active < photos.length - 1) {
-      setActive(active + 1);
-    } else {
-      setActive(0);
-    }
-  };
-
   useEffect(() => {
-    function onNext() {
-      if (active < photos.length - 1) {
-        setActive(active + 1);
-      } else {
-        setActive(0);
-      }
-    }
-
     if (autoPlay) {
       const interval = setInterval(() => {
-        onNext();
+        onNext(active, setActive, photos);
       }, 3000);
 
       return () => clearInterval(interval);
@@ -73,7 +50,7 @@ export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
           <>
             <button
               className={`${s.prev} iconButton`}
-              onClick={onPrev}
+              onClick={() => onPrev(active, setActive, photos)}
               aria-label="Image précédente"
               title="Image précédente"
             >
@@ -81,7 +58,7 @@ export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
             </button>
             <button
               className={`${s.next} iconButton`}
-              onClick={onNext}
+              onClick={() => onNext(active, setActive, photos)}
               aria-label="Image suivante"
               title="Image suivante"
             >
