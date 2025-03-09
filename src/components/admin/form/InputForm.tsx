@@ -51,7 +51,10 @@ export default function InputForm({
           />
         </label>
         <SubmitButton disabled={!isChanged} />
-        <CancelButton disabled={!isChanged} />
+        <CancelButton
+          disabled={!isChanged}
+          onCancel={() => setText(textContent)}
+        />
       </form>
     </div>
   );

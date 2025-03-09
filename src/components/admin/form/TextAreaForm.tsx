@@ -42,7 +42,10 @@ export default function TextAreaForm({ label, textContent, textLabel }: Props) {
         />
       </label>
       <SubmitButton disabled={!isChanged} />
-      <CancelButton disabled={!isChanged} />
+      <CancelButton
+        disabled={!isChanged}
+        onCancel={() => setText(textContent)}
+      />
     </form>
   );
 }

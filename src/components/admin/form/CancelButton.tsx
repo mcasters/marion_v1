@@ -15,16 +15,20 @@ export default function CancelButton({
   disabled,
   onCancel,
 }: Props) {
-  return (
+  return onCancel ? (
     <button
       onClick={(e) => {
         e.preventDefault();
-        if (onCancel) onCancel();
-        else
-          setTimeout(() => {
-            window.location.reload();
-          }, 0);
+        onCancel();
       }}
+      className={`${classname ? classname : ""} adminButton`}
+      disabled={disabled ? disabled : false}
+    >
+      {text ? text : "Annuler"}
+    </button>
+  ) : (
+    <button
+      type="reset"
       className={`${classname ? classname : ""} adminButton`}
       disabled={disabled ? disabled : false}
     >
