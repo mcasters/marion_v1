@@ -66,14 +66,30 @@
   margin: 3rem 0 0;
 }
 
-.checkInput {
-  display: inline;
-  margin-left: 30px;
-  width: 10px;
-}
-
 .buttonSection {
   margin: 2em 0;
+}
+
+.radioInput {
+  margin-right: 10px;
+  height: unset;
+}
+
+.radioLabel {
+  height: 50px;
+  line-height: 50px;
+  margin: 0;
+}
+
+.checkInput {
+  margin-left: 10px;
+  height: unset;
+}
+
+.checkLabel {
+  height: 50px;
+  line-height: 50px;
+  margin: 0;
 }
 
 /* Image */
@@ -86,18 +102,8 @@
   display: flex;
 }
 
-.inputButton {
-  padding: 15px 0;
-}
-
-.radioInput {
-  width: 20px;
-}
-
-.radioLabel {
-  padding: 15px 0;
-  margin: 0;
-  line-height: 2;
+.fileButton {
+  margin-right: 15px;
 }
 
 .imageWrapper {

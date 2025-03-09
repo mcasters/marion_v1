@@ -182,7 +182,7 @@ export default function ItemForm({
             />
           </label>
         )}
-        <label className={s.formLabel}>
+        <label className={`${s.formLabel} ${s.checkLabel}`}>
           À vendre :
           <input
             onChange={(e) =>

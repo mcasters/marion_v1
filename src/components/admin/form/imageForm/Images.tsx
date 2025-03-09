@@ -110,7 +110,7 @@ export default function Images({
           onChange={handleFiles}
           ref={inputRef}
           multiple={isMultiple}
-          className={s.inputButton}
+          className={s.fileButton}
         />
         {smallImage && (
           <label htmlFor="small-image" className={s.radioLabel}>

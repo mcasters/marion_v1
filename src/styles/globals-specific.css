@@ -192,7 +192,7 @@ figure {
 
 .area,
 textarea,
-input,
+input:not([type="radio"], [type="checkbox"]),
 select {
   width: 100%;
   background-color: white;
@@ -200,15 +200,16 @@ select {
   border-radius: unset;
 }
 
-textarea,
 input,
 select {
-  line-height: 2;
-  padding: 0.5rem;
+  height: 50px;
+  line-height: 50px;
+  padding: 10px;
 }
 
 textarea {
   line-height: 1.6;
+  padding: 10px;
   resize: vertical;
 }
 
@@ -233,9 +234,10 @@ label {
 input::file-selector-button {
   font-family: var(--font-family-serif);
   width: 220px;
-  padding: 0.5em;
+  padding: 0;
   margin: 0.5em;
-  line-height: 2;
+  height: 50px;
+  line-height: 50px;
   box-shadow: inset 0 0.8em 1em 0 #efefef;
   border: 1px solid #bdbdbd;
   outline: none;
@@ -243,8 +245,9 @@ input::file-selector-button {
 }
 
 input::file-selector-button {
-  margin: 0.5em 0;
   width: 150px;
+  padding: 0;
+  margin: 0;
 }
 
 .hidden {
