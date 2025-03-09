@@ -15,7 +15,7 @@ export default async function Sculptures() {
 
   return (
     <>
-      <h1 className={s.pageTitle}>Contenus des pages Sculptures</h1>
+      <h1 className={s.title1}>Les sculptures</h1>
       <ItemListComponent categories={categories} years={years} items={items} />
       <ItemForm
         categories={categories}

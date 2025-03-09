@@ -10,7 +10,7 @@ export default async function Sculptures() {
 
   return (
     <>
-      <h1 className={s.title1}>Contenus de la page Posts</h1>
+      <h1 className={s.title1}>Les posts</h1>
       <PostListComponent posts={posts} />
       <PostForm post={getEmptyPost()} />
     </>
