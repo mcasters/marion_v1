@@ -115,7 +115,7 @@ export default function Images({
         {smallImage && (
           <label htmlFor="small-image" className={s.radioLabel}>
             <input
-              type={"radio"}
+              type="radio"
               id="small-image"
               name="small-image"
               checked={acceptSmallImage}

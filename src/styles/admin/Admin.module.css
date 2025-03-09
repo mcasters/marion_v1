@@ -1,16 +1,16 @@
 .title1 {
-  font-size: 2rem;
-  padding-bottom: 2em;
+  font-size: 34px;
+  padding-bottom: 1.2em;
 }
 
 .title2 {
-  font-size: 1.6rem;
-  padding-bottom: 1.5em;
+  font-size: 26px;
+  padding-bottom: 1em;
 }
 
 .title3 {
-  font-size: 1.3rem;
-  padding-bottom: 1.5em;
+  font-size: 23px;
+  padding-bottom: 10px;
   text-align: left;
 }
 
@@ -39,6 +39,7 @@
 
 .formLabel {
   font-family: var( --font-family-serif-caps);
+  font-size: 14px;
   letter-spacing: 3px;
   color: var(--color-dark);
   text-align: left;
@@ -134,3 +135,14 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 /* End Select Image */
+
+/* Select Layout item */
+.layoutInputContainer {
+  text-align: left;
+  margin-bottom: 1em;
+}
+
+.layoutInputContainer label {
+  padding: 0;
+}
+/* End Select Layout item */
