@@ -53,7 +53,7 @@ export default async function Page({ params }: Props) {
           tag={category.value}
           category={category}
           items={items}
-          layout={getItemLayout(metas.get(META.ITEM_LAYOUT))}
+          layout={getItemLayout(metas.get(META.DRAWING_LAYOUT))}
         />
       )}
     </>

@@ -5,7 +5,10 @@ export const META = {
   SITE_EMAIL: "siteEmail",
   FOOTER: "footerContent",
   INSTAGRAM: "instagram",
-  ITEM_LAYOUT: "itemLayout",
+  PAINTING_LAYOUT: "paintingLayout",
+  SCULPTURE_LAYOUT: "sculptureLayout",
+  DRAWING_LAYOUT: "drawingLayout",
+
   SEO_SITE_TITLE: "seoSiteTitle",
   URL: "url",
   KEYWORDS: "keywords",

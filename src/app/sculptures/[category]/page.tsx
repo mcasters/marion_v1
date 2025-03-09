@@ -1,9 +1,9 @@
 import ItemsComponent from "@/components/item/ItemsComponent";
 import { getSession } from "@/app/lib/auth";
 import { getCategory, getItemsByCategory } from "@/app/actions/items";
-import { ItemLayout, Type } from "@/lib/type";
+import { Type } from "@/lib/type";
 import { Metadata } from "next";
-import { getMetaMap } from "@/utils/commonUtils";
+import { getItemLayout, getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
 import { META } from "@/constants/specific";
 
@@ -11,10 +11,11 @@ type Props = {
   params: Promise<{ category: string }>;
 };
 
+const metas = getMetaMap(await getMetas());
+
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | undefined> {
-  const metas = getMetaMap(await getMetas());
   const session = await getSession();
   const categoryKey = (await params).category;
   const category = await getCategory(categoryKey, Type.PAINTING, !session);
@@ -52,7 +53,7 @@ export default async function Page({ params }: Props) {
           tag={category.value}
           category={category}
           items={items}
-          layout={ItemLayout.SCULPTURE}
+          layout={getItemLayout(metas.get(META.SCULPTURE_LAYOUT))}
         />
       )}
     </>

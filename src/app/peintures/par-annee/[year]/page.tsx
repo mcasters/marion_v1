@@ -42,7 +42,7 @@ export default async function Page({ params }: Props) {
     <ItemsComponent
       tag={year}
       items={items}
-      layout={getItemLayout(metas.get(META.ITEM_LAYOUT))}
+      layout={getItemLayout(metas.get(META.PAINTING_LAYOUT))}
     />
   );
 }

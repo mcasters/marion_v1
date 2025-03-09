@@ -12,7 +12,7 @@ interface Props {
   items: ItemFull[];
 }
 export default function ItemListComponent({ categories, years, items }: Props) {
-  const itemName = items[0]?.type ? items[0].type : "item";
+  const itemName = items[0].type || "item";
   const title = `Liste des ${itemName}s`;
 
   const [categoryFilter, setCategoryFilter] = useState<number>(-1);
