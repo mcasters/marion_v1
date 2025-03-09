@@ -40,17 +40,19 @@ export default function ItemsComponent({
             </div>
           )}
       </div>
-      {layout === ItemLayout.DOUBLE ||
+      {(layout === ItemLayout.DOUBLE ||
         layout === ItemLayout.MONO ||
-        (layout === ItemLayout.SCULPTURE &&
-          items.map((item, index) => (
+        layout === ItemLayout.SCULPTURE) &&
+        items.map((item, index) => {
+          return (
             <ItemComponent
               key={item.id}
               item={item}
               priority={index < 2}
               layout={layout}
             />
-          )))}
+          );
+        })}
       {layout === ItemLayout.MULTIPLE && (
         <ImageGalleryComponent items={items} />
       )}

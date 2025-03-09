@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect, useState } from "react";
+import React, { ChangeEvent, useActionState, useEffect, useState } from "react";
 import s from "@/styles/admin/Admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
@@ -25,8 +25,8 @@ export default function ItemLayoutForm({ layout }: Props) {
     }
   }, [state]);
 
-  const handleChange = ({ currentTarget: { value } }) => {
-    setValue(value);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
     setIsChanged(true);
   };
 

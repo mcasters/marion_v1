@@ -95,8 +95,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  height: 70px;
   font-size: var(--font-size-nav1);
   font-weight: 600;
   line-height: 1.4;

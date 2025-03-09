@@ -38,12 +38,7 @@ export default function ImageGalleryComponent({ items }: Props) {
     <div className={s.container}>
       {photosToDisplay.map((p, i) => {
         return (
-          <article
-            key={i}
-            className={s.article}
-            style={{ color: theme.linkHoverColor }}
-            onClick={() => setIndex(i)}
-          >
+          <article key={i} className={s.article} onClick={() => setIndex(i)}>
             <figure>
               <Image
                 defaultValue={i}

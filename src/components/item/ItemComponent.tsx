@@ -12,7 +12,7 @@ import ImageInfos from "@/components/image/common/ImageInfos";
 interface Props {
   item: ItemFull;
   priority: boolean;
-  layout: ItemLayout;
+  layout: ItemLayout.DOUBLE | ItemLayout.MONO | ItemLayout.SCULPTURE;
 }
 export default function ItemComponent({ item, priority, layout }: Props) {
   const metas = useMetas();
@@ -32,9 +32,7 @@ export default function ItemComponent({ item, priority, layout }: Props) {
           ? s.doubleArticle
           : layout === ItemLayout.MONO
             ? s.monoArticle
-            : layout === ItemLayout.SCULPTURE
-              ? s.sculptureArticle
-              : s.multipleArticle
+            : s.sculptureArticle
       }
     >
       <figure className={s.imageContainer}>

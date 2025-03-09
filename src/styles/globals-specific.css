@@ -203,7 +203,7 @@ select {
 textarea,
 input,
 select {
-  line-height: 2.3;
+  line-height: 2;
   padding: 0.5rem;
 }
 
@@ -235,7 +235,7 @@ input::file-selector-button {
   width: 220px;
   padding: 0.5em;
   margin: 0.5em;
-  line-height: 2.3;
+  line-height: 2;
   box-shadow: inset 0 0.8em 1em 0 #efefef;
   border: 1px solid #bdbdbd;
   outline: none;
