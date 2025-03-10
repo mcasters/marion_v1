@@ -1,6 +1,6 @@
 "use client";
 
-import s from "./ItemComponent.module.css";
+import s from "./IndividualLayoutComponent.module.css";
 import ImageWithLightbox from "@/components/image/lightbox/ImageWithLightbox";
 import { ItemFull, ItemLayout } from "@/lib/type";
 import React, { useMemo } from "react";
@@ -14,7 +14,11 @@ interface Props {
   priority: boolean;
   layout: ItemLayout.DOUBLE | ItemLayout.MONO | ItemLayout.SCULPTURE;
 }
-export default function ItemComponent({ item, priority, layout }: Props) {
+export default function IndividualLayoutComponent({
+  item,
+  priority,
+  layout,
+}: Props) {
   const metas = useMetas();
   const photos = useMemo(
     () =>

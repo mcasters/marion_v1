@@ -1,6 +1,6 @@
 "use client";
 
-import s from "./ImageGalleryComponent.module.css";
+import s from "./GalleryLayoutComponent.module.css";
 import { ItemFull } from "@/lib/type";
 import React, { useMemo, useState } from "react";
 import { getItemPhotoTabEnhanced } from "@/utils/imageUtils";
@@ -17,7 +17,7 @@ import ImageInfos from "@/components/image/common/ImageInfos";
 interface Props {
   items: ItemFull[];
 }
-export default function ImageGalleryComponent({ items }: Props) {
+export default function GalleryLayoutComponent({ items }: Props) {
   const metas = useMetas();
   const theme = useTheme();
   const [index, setIndex] = useState(-1);

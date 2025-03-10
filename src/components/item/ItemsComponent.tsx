@@ -3,8 +3,8 @@
 import { Category, ItemFull, ItemLayout } from "@/lib/type";
 import React from "react";
 import s from "@/components/item/ItemsComponent.module.css";
-import ItemComponent from "@/components/item/ItemComponent";
-import ImageGalleryComponent from "@/components/image/itemGallery/ImageGalleryComponent";
+import IndividualLayoutComponent from "@/components/item/itemLayout/IndividualLayoutComponent";
+import GalleryLayoutComponent from "@/components/item/itemLayout/GalleryLayoutComponent";
 
 interface Props {
   tag: string;
@@ -45,7 +45,7 @@ export default function ItemsComponent({
         layout === ItemLayout.SCULPTURE) &&
         items.map((item, index) => {
           return (
-            <ItemComponent
+            <IndividualLayoutComponent
               key={item.id}
               item={item}
               priority={index < 2}
@@ -54,7 +54,7 @@ export default function ItemsComponent({
           );
         })}
       {layout === ItemLayout.MULTIPLE && (
-        <ImageGalleryComponent items={items} />
+        <GalleryLayoutComponent items={items} />
       )}
     </div>
   );
