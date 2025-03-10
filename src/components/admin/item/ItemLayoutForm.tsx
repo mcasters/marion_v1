@@ -27,7 +27,7 @@ export default function ItemLayoutForm({ layout, type }: Props) {
   return (
     <div className={s.container}>
       <h2 className={s.title2}>Mise en page</h2>
-      <form action={action} className={s.layoutInputForm}>
+      <form action={action}>
         <input
           type="hidden"
           name="label"
@@ -61,9 +61,9 @@ export default function ItemLayoutForm({ layout, type }: Props) {
                 />
               </button>
               <p>
-                <strong>Une seule image dans la largeur :</strong>
+                <strong>{`Une seule image dans la largeur :`}</strong>
                 <br />
-                Les œuvres se suivent, leur description est à côté.
+                {`Les œuvres se suivent, leur description est à côté.`}
               </p>
             </label>
             <label className={s.layoutLabel}>
@@ -85,10 +85,10 @@ export default function ItemLayoutForm({ layout, type }: Props) {
                 />
               </button>
               <p>
-                <strong>Deux images dans la largeur :</strong>
+                <strong>{`Deux images dans la largeur :`}</strong>
                 <br />
-                Les œuvres sont individualisées, leur description est en
-                dessous.
+                {`Les œuvres sont individualisées, leur description est en
+                dessous.`}
               </p>
             </label>
           </>
@@ -113,10 +113,10 @@ export default function ItemLayoutForm({ layout, type }: Props) {
               />
             </button>
             <p>
-              <strong>Images de la sculpture groupées :</strong>
+              <strong>{`Images de la sculpture groupées :`}</strong>
               <br />
-              Les sculptures sont individualisées, leur description est en
-              dessous.
+              {`Les sculptures sont individualisées, leur description est en
+              dessous.`}
             </p>
           </label>
         )}
@@ -139,10 +139,10 @@ export default function ItemLayoutForm({ layout, type }: Props) {
             />
           </button>
           <p>
-            <strong>Galerie : toutes les images s'imbriquent :</strong>
+            <strong>{`Galerie : toutes les images s'imbriquent :`}</strong>
             <br />
-            Vision d'ensemble, les œuvres se suivent, leur description apparait
-            lorsqu'on pointe la souris, et lorsqu'on ouvre l'image en grand.
+            {`Vision d'ensemble, les œuvres se suivent, leur description apparait
+            lorsqu'on pointe la souris, et lorsqu'on ouvre l'image en grand.`}
           </p>
         </label>
       </form>

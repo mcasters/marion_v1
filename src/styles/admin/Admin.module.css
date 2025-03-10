@@ -143,24 +143,15 @@
 /* End Select Image */
 
 /* Select Layout item */
-.layoutInputContainer {
-  text-align: left;
-  margin-bottom: 1em;
-}
-
 .buttonLayout {
   background: unset;
   border: unset;
-  border: solid 5px transparent;
+  border: solid 6px transparent;
   margin-right: 10px;
 }
 
 .buttonLayoutSelected {
   border-color: #be0f02;
-}
-
-.layoutInputContainer label {
-
 }
 
 .layoutLabel {
