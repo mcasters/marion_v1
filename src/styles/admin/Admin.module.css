@@ -16,7 +16,6 @@
 
 .modalTitle {
   font-size: 1.6rem;
-  padding: 0.5em 0;
 }
 
 .container {
@@ -62,12 +61,8 @@
   align-self: end;
 }
 
-.catInfo {
-  margin: 3rem 0 0;
-}
-
 .buttonSection {
-  margin: 2em 0;
+  margin: 1em 0;
 }
 
 .radioInput {
@@ -162,3 +157,7 @@
 }
 
 /* End Select Layout item */
+
+.addButton {
+  margin-top: 2em;
+}

@@ -57,8 +57,8 @@ export default function ItemForm({
   }, [state]);
 
   return (
-    <div className={isUpdate ? s.modalContainer : s.container}>
-      <h2 className={isUpdate ? s.modalTitle : s.title2}>
+    <div className={s.modalContainer}>
+      <h2 className={s.modalTitle}>
         {`${isUpdate ? "Modifier" : "Ajouter"} ${item.type === Type.DRAWING ? "un" : "une"} ${item.type}`}
       </h2>
       <form action={action}>

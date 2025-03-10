@@ -4,16 +4,23 @@ import RowItemListComponent from "./RowItemListComponent";
 import React, { useEffect, useState } from "react";
 import s from "@/styles/admin/AdminList.module.css";
 import style from "@/styles/admin/Admin.module.css";
-import { Category, ItemFull } from "@/lib/type";
+import { Category, ItemFull, Type } from "@/lib/type";
+import { getEmptyItem } from "@/utils/commonUtils";
+import AddItemButton from "@/components/admin/form/AddItemButton";
 
 interface Props {
   categories: Category[];
   years: number[];
   items: ItemFull[];
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 }
-export default function ItemListComponent({ categories, years, items }: Props) {
-  const itemName = items[0].type || "item";
-  const title = `Liste des ${itemName}s`;
+export default function ItemListComponent({
+  categories,
+  years,
+  items,
+  type,
+}: Props) {
+  const title = `Gestion des ${type}s`;
 
   const [categoryFilter, setCategoryFilter] = useState<number>(-1);
   const [yearFilter, setYearFilter] = useState<number>(-1);
@@ -51,9 +58,7 @@ export default function ItemListComponent({ categories, years, items }: Props) {
 
   return (
     <div className={style.container}>
-      <h2 className={style.title2}>
-        {title} ( total : {items.length} )
-      </h2>
+      <h2 className={style.title2}>{`${title} ( total : ${items.length} )`}</h2>
       <label className={s.filter}>
         Filtre par catégorie
         <select
@@ -88,9 +93,7 @@ export default function ItemListComponent({ categories, years, items }: Props) {
             ))}
         </select>
       </label>
-      <h5>
-        ( {filteredItems.length} {itemName}s )
-      </h5>
+      <h4>{`Filtre : ${filteredItems.length} ${type}s`}</h4>
       <div className={`${s.listWrapper} area`}>
         {filteredItems &&
           filteredItems.map((item: ItemFull) => {
@@ -103,6 +106,7 @@ export default function ItemListComponent({ categories, years, items }: Props) {
             );
           })}
       </div>
+      <AddItemButton item={getEmptyItem(type)} categories={categories} />
     </div>
   );
 }

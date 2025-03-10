@@ -70,7 +70,7 @@ export default function Images({
         if (!acceptSmallImage && width < 2000) {
           error = true;
           alert(
-            `La dimension de l'image ${file.name} est trop petite. Largeur minimum : 2000 pixels`,
+            `Dimension de l'image trop petite. Largeur minimum : 2000 pixels`,
             true,
             5000,
           );
