@@ -1,15 +1,13 @@
 import ItemListComponent from "@/components/admin/item/ItemListComponent";
-import CategoryComponent from "@/components/admin/item/category/CategoryComponent";
 import s from "@/styles/admin/Admin.module.css";
 import React from "react";
 import { Type } from "@/lib/type";
-import { getEmptyItem, getItemLayout, getMetaMap } from "@/utils/commonUtils";
-import ItemForm from "@/components/admin/form/ItemForm";
+import { getItemLayout, getMetaMap } from "@/utils/commonUtils";
 import { getAllCategories, getAllItems, getYears } from "@/app/actions/items";
-import { createItem } from "@/app/actions/items/admin";
 import { META } from "@/constants/specific";
 import ItemLayoutForm from "@/components/admin/item/ItemLayoutForm";
 import { getMetas } from "@/app/actions/meta";
+import CategoryListComponent from "@/components/admin/item/category/CategoryListComponent";
 
 export default async function Sculptures() {
   const categories = await getAllCategories(Type.SCULPTURE);
@@ -24,13 +22,13 @@ export default async function Sculptures() {
         layout={getItemLayout(metas.get(META.SCULPTURE_LAYOUT))}
         type={Type.SCULPTURE}
       />
-      <ItemListComponent categories={categories} years={years} items={items} />
-      <ItemForm
+      <ItemListComponent
         categories={categories}
-        item={getEmptyItem(Type.SCULPTURE)}
-        itemAction={createItem}
+        years={years}
+        items={items}
+        type={Type.SCULPTURE}
       />
-      <CategoryComponent
+      <CategoryListComponent
         type={Type.SCULPTURE}
         categories={categories}
         items={items}

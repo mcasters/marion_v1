@@ -15,9 +15,9 @@ export default async function Home() {
 
   return (
     <div className={s.container}>
-      <h1 className={s.title1}>Contenus de la page Home</h1>
+      <h1 className={s.title1}>{`Contenus de la page Home`}</h1>
       <div className={s.container}>
-        <h3 className={s.title3}>Texte accueil (facultatif)</h3>
+        <h3 className={s.title3}>{`Texte d'accueil (facultatif)`}</h3>
         <TextAreaForm
           textContent={getIntroText(contents)}
           label={Label.INTRO}
@@ -25,8 +25,7 @@ export default async function Home() {
       </div>
       <div className={s.container}>
         <h3 className={s.title3}>
-          Images affichées sur écran mobile{" "}
-          <small>(Format portrait mieux adapté)</small>
+          {`Images affichées sur écran mobile (Format portrait mieux adapté)`}
         </h3>
         <ImagesForm
           images={getSliderPortraitImages(contents)}
@@ -38,8 +37,7 @@ export default async function Home() {
       </div>
       <div className={s.container}>
         <h3 className={s.title3}>
-          Images affichées sur écran ordinateur{" "}
-          <small>(Format paysage ou carré mieux adapté)</small>
+          {`Images affichées sur écran ordinateur (Format paysage ou carré mieux adapté)`}
         </h3>
         <ImagesForm
           images={getSliderLandscapeImages(contents)}

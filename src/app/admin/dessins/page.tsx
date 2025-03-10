@@ -1,15 +1,13 @@
 import { Type } from "@/lib/type";
 import ItemListComponent from "@/components/admin/item/ItemListComponent";
-import CategoryComponent from "@/components/admin/item/category/CategoryComponent";
 import s from "@/styles/admin/Admin.module.css";
 import React from "react";
-import ItemForm from "@/components/admin/form/ItemForm";
-import { getEmptyItem, getItemLayout, getMetaMap } from "@/utils/commonUtils";
+import { getItemLayout, getMetaMap } from "@/utils/commonUtils";
 import { getAllCategories, getAllItems, getYears } from "@/app/actions/items";
-import { createItem } from "@/app/actions/items/admin";
 import { META } from "@/constants/specific";
 import ItemLayoutForm from "@/components/admin/item/ItemLayoutForm";
 import { getMetas } from "@/app/actions/meta";
+import CategoryListComponent from "@/components/admin/item/category/CategoryListComponent";
 
 export default async function Dessins() {
   const categories = await getAllCategories(Type.DRAWING);
@@ -24,13 +22,13 @@ export default async function Dessins() {
         layout={getItemLayout(metas.get(META.DRAWING_LAYOUT))}
         type={Type.DRAWING}
       />
-      <ItemListComponent categories={categories} years={years} items={items} />
-      <ItemForm
+      <ItemListComponent
         categories={categories}
-        item={getEmptyItem(Type.DRAWING)}
-        itemAction={createItem}
+        years={years}
+        items={items}
+        type={Type.DRAWING}
       />
-      <CategoryComponent
+      <CategoryListComponent
         type={Type.DRAWING}
         categories={categories}
         items={items}
