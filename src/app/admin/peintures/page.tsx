@@ -20,7 +20,10 @@ export default async function Peintures() {
   return (
     <>
       <h1 className={s.title1}>Les peintures</h1>
-      <ItemLayoutForm layout={getItemLayout(metas.get(META.PAINTING_LAYOUT))} />
+      <ItemLayoutForm
+        layout={getItemLayout(metas.get(META.PAINTING_LAYOUT))}
+        type={Type.PAINTING}
+      />
       <ItemListComponent categories={categories} years={years} items={items} />
       <ItemForm
         categories={categories}

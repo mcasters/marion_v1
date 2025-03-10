@@ -28,7 +28,7 @@ export async function updateMeta(
       });
     }
     revalidatePath("/admin/meta");
-    return { message: "Contenu modifié", isError: false };
+    return { message: "Modification enregistrée", isError: false };
   } catch (e) {
     return { message: "Erreur à l'enregistrement", isError: true };
   }

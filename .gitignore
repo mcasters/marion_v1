@@ -39,7 +39,6 @@ next-env.d.ts
 notes/
 .idea
 package-lock.json
-/public/assets
 /public/images
 .editorconfig
 

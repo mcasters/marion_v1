@@ -20,7 +20,10 @@ export default async function Dessins() {
   return (
     <>
       <h1 className={s.title1}>Les dessins</h1>
-      <ItemLayoutForm layout={getItemLayout(metas.get(META.DRAWING_LAYOUT))} />
+      <ItemLayoutForm
+        layout={getItemLayout(metas.get(META.DRAWING_LAYOUT))}
+        type={Type.DRAWING}
+      />
       <ItemListComponent categories={categories} years={years} items={items} />
       <ItemForm
         categories={categories}

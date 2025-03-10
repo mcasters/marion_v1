@@ -148,7 +148,26 @@
   margin-bottom: 1em;
 }
 
-.layoutInputContainer label {
-  padding: 0;
+.buttonLayout {
+  background: unset;
+  border: unset;
+  border: solid 5px transparent;
+  margin-right: 10px;
 }
+
+.buttonLayoutSelected {
+  border-color: #be0f02;
+}
+
+.layoutInputContainer label {
+
+}
+
+.layoutLabel {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
 /* End Select Layout item */

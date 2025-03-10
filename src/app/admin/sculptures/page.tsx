@@ -22,6 +22,7 @@ export default async function Sculptures() {
       <h1 className={s.title1}>Les sculptures</h1>
       <ItemLayoutForm
         layout={getItemLayout(metas.get(META.SCULPTURE_LAYOUT))}
+        type={Type.SCULPTURE}
       />
       <ItemListComponent categories={categories} years={years} items={items} />
       <ItemForm
