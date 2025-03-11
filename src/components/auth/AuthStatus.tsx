@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import s from "./Auth.module.css";
+import s from "./authentication.module.css";
 import { ROUTES } from "@/constants/specific/routes";
 import LogoutForm from "@/components/auth/LogoutForm";
 

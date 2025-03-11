@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import s from "./Auth.module.css";
+import s from "./authentication.module.css";
 import { logoutAction } from "@/app/actions/auth";
 
 export default function LogoutForm() {
-  const [state, formAction] = React.useActionState(logoutAction, null);
+  const [, formAction] = React.useActionState(logoutAction, null);
 
   return (
     <form className={s.logoutForm}>

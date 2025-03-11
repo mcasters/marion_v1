@@ -21,7 +21,7 @@ export async function loginAction(
 
   await setCookie(user);
   redirect("/admin");
-  return { message: "Authentification" };
+  return { message: "Authentifié" };
 }
 
 export async function logoutAction() {
