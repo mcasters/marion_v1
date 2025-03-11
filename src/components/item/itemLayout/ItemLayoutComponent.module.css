@@ -1,0 +1,23 @@
+.doubleContent,
+.sculptureContent,
+.monoContent,
+.multipleContent {
+  padding: 1em 0;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .doubleContent,
+  .sculptureContent,
+  .monoContent,
+  .multipleContent {
+    background: var(--color-background-item);
+    padding: 3em;
+  }
+
+  .doubleContent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3em 0;
+  }
+}

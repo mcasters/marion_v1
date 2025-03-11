@@ -1,0 +1,69 @@
+.article {
+  padding: 0 0 3em;
+}
+
+.infoContainer h2 {
+  font-size: var(--font-size);
+  padding-bottom: 0.3em;
+}
+
+.infoContainer {
+  white-space: pre-line;
+  line-height: 1;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .article {
+    padding: 0 0 5em;
+  }
+}
+
+.landscape,
+.portrait {
+  margin-bottom: 0.5em;
+  cursor: pointer;
+}
+
+.landscape {
+  width: 80vw;
+  height: auto;
+}
+
+.portrait {
+  height: 45vh;
+  width: auto;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .imageGridContainer {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .left {
+    text-align: right;
+  }
+
+  .right {
+    text-align: left;
+  }
+
+  .landscape,
+  .portrait {
+    margin-bottom: 0;
+  }
+
+  .landscape {
+    width: 30vw;
+    height: auto;
+  }
+
+  .portrait {
+    height: 50vh;
+    width: auto;
+  }
+}

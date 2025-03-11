@@ -1,6 +1,6 @@
 "use client";
 
-import s from "./GalleryLayoutComponent.module.css";
+import s from "./galleryLayout.module.css";
 import { ItemFull } from "@/lib/type";
 import React, { useMemo, useState } from "react";
 import { getItemPhotoTabEnhanced } from "@/utils/imageUtils";

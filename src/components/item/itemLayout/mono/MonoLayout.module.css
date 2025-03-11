@@ -1,12 +1,5 @@
-.doubleArticle,
-.monoArticle,
-.sculptureArticle {
+.article {
   padding: 0 0 3em;
-}
-
-.doubleArticle,
-.sculptureArticle {
-  line-height: 1;
 }
 
 .infoContainer h2 {
@@ -16,30 +9,21 @@
 
 .infoContainer {
   white-space: pre-line;
-}
-
-.info {
-  font-size: var(--font-size-min);
+  line-height: 1;
 }
 
 /* desktop */
 @media (min-width: 769px) {
-  .sculptureArticle,
-  .doubleArticle {
-    padding: 0 0 5em;
+  .article {
+    padding-bottom: 1em;
   }
-
-  .monoArticle {
-    padding: 0;
-  }
-
-  .monoArticle .imageContainer {
+  .imageContainer {
     display: inline-block;
     text-align: right;
     width: 70%;
   }
 
-  .monoArticle .infoContainer {
+  .infoContainer {
     display: inline-block;
     width: 29%;
     vertical-align: top;
@@ -48,10 +32,44 @@
     line-height: 2;
   }
 
-  .monoArticle h2 {
+  .article h2 {
     font-family: var(--font-family-serif-caps);
     font-weight: 700;
     letter-spacing: 3px;
     font-size: var(--font-size-nav2);
+  }
+}
+
+.landscape,
+.portrait {
+  margin-bottom: 0.5em;
+  cursor: pointer;
+}
+
+.landscape {
+  width: 80vw;
+  height: auto;
+}
+
+.portrait {
+  height: 45vh;
+  width: auto;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .landscape,
+  .portrait {
+    margin-bottom: 0;
+  }
+
+  .landscape {
+    width: 45vw;
+    height: auto;
+  }
+
+  .portrait {
+    height: 58vh;
+    width: auto;
   }
 }
