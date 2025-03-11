@@ -10,7 +10,7 @@ export async function cache<S>(
 ): Promise<S> {
   const query = isToCache
     ? unstable_cache(async () => fn(), [key], {
-        revalidate: 3600,
+        revalidate: 60,
         tags: [key],
       })
     : fn;
