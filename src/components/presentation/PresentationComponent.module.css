@@ -1,26 +1,28 @@
 .contentWrapper {
-    padding: 2rem 1rem;
-    text-align: center;
+  padding: 2em 1em;
+  text-align: center;
 }
 
 .photo {
-  padding: 2rem;
-  height: 35vh;
+  padding: 1em;
+  height: 40vh;
   width: auto;
 }
 
 .presentationText {
-  padding-top: 3rem;
+  padding-top: 3em;
 }
 
 /* desktop */
 @media (min-width: 769px) {
-    .contentWrapper {
-        max-width: 42vw;
-        margin: auto;
-    }
+  .contentWrapper {
+    max-width: 42vw;
+    margin: auto;
+  }
 
   .photo {
+    padding: 2em;
     height: 40vh;
+    width: auto;
   }
 }

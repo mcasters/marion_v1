@@ -1,64 +1,3 @@
-/* Image to click */
-
-.landscape,
-.portrait {
-  margin-bottom: 0.5em;
-  cursor: pointer;
-}
-
-.landscape {
-  width: 80vw;
-  height: auto;
-}
-
-.portrait {
-  height: 45vh;
-  width: auto;
-}
-
-/* desktop */
-@media (min-width: 769px) {
-  .imageGridContainer {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 0.5em;
-    margin-bottom: 0.5em;
-  }
-
-  .left {
-    text-align: right;
-  }
-
-  .right {
-    text-align: left;
-  }
-
-  .landscape {
-    width: 45vw;
-    height: auto;
-  }
-
-  .portrait {
-    height: 58vh;
-    width: auto;
-  }
-
-  .right .landscape,
-  .right .portrait,
-  .left .landscape,
-  .left .portrait {
-    margin-bottom: 0;
-  }
-
-  .right .landscape,
-  .left .landscape {
-    width: 35vw;
-    height: auto;
-  }
-}
-
-/* Lightbox */
-
 .container {
   position: fixed;
   top: 0;
@@ -67,7 +6,7 @@
   bottom: 0;
   background-color: rgba(1, 1, 1, 0.95);
   z-index: 9999;
-  padding: 1em 1em 70px;
+  padding: 0.6em 0.6em 70px;
 }
 
 .lightboxContent {

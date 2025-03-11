@@ -7,9 +7,17 @@
 
 .image{
   width: auto;
-  height: 30vh;
+  height: 18vh;
 }
 
 .image:hover {
   cursor: pointer;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .image{
+    width: auto;
+    height: 30vh;
+  }
 }

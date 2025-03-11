@@ -13,15 +13,20 @@
   display: none;
 }
 
-.image {
+.image{
   width: auto;
-  height: 30vh;
+  height: 18vh;
 }
 
 /* desktop */
 @media (min-width: 769px) {
   .article:hover {
     cursor: pointer;
+  }
+
+  .image {
+    width: auto;
+    height: 30vh;
   }
 
   .infoContainer {
@@ -35,6 +40,7 @@
     background-color: transparent;
     color: transparent;
     transition: all 250ms ease-out;
+    white-space: pre-line;
   }
 
   .article:hover .infoContainer {

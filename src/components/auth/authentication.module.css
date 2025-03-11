@@ -5,6 +5,7 @@
   z-index: 15;
   width: 180px;
   background-color: var(--background-color-auth-status);
+  color: var(--color-auth-status);
   padding: 2px;
   border: var(--color-border-auth-status) solid 1px;
   box-shadow: 0 0 7px #363636;
