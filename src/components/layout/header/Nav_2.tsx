@@ -19,41 +19,39 @@ export default function Nav_2({ navLayout }: Props) {
   const colorWithOpacity = theme.menu2HomeColor + "aa";
 
   return (
-    <>
-      <nav className={`${s[navLayout]} ${navLayout}`}>
-        <ul className={s.menu}>
-          {MENU_2.map((menuItem) => {
-            if (menuItem.TAG === "Home")
-              return (
-                <li key={menuItem.TAG} className={s.liHome}>
-                  <Link href={menuItem.ROUTE} key={menuItem.TAG}>
-                    <Image
-                      loader={({ src }) => {
-                        return `/${src}`;
-                      }}
-                      src="logo-100.png"
-                      alt={`Signature de ${metas.get(META.SITE_TITLE)}`}
-                      width={30}
-                      height={30}
-                      className={s.logo}
-                      style={{
-                        objectFit: "contain",
-                      }}
-                      priority
-                    />
-                  </Link>
-                </li>
-              );
+    <nav className={`${s[navLayout]} ${navLayout}`}>
+      <ul className={s.ul}>
+        {MENU_2.map((menuItem) => {
+          if (menuItem.TAG === "Home")
             return (
               <li key={menuItem.TAG}>
-                <Link href={menuItem.ROUTE} key={menuItem.TAG} legacyBehavior>
-                  <a className={`${s.link} link`}>{menuItem.TAG}</a>
+                <Link href={menuItem.ROUTE} key={menuItem.TAG}>
+                  <Image
+                    loader={({ src }) => {
+                      return `/${src}`;
+                    }}
+                    src="logo-100.png"
+                    alt={`Signature de ${metas.get(META.SITE_TITLE)}`}
+                    width={40}
+                    height={40}
+                    className={s.logo}
+                    style={{
+                      objectFit: "contain",
+                    }}
+                    priority
+                  />
                 </Link>
               </li>
             );
-          })}
-        </ul>
-      </nav>
+          return (
+            <li key={menuItem.TAG}>
+              <Link href={menuItem.ROUTE} key={menuItem.TAG} legacyBehavior>
+                <a className="link">{menuItem.TAG}</a>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
       <style jsx>{`
         .itemNav {
           background-color: ${theme.menu2ItemColor};
@@ -83,6 +81,6 @@ export default function Nav_2({ navLayout }: Props) {
           color: ${theme.menu2LinkHoverItemColor};
         }
       `}</style>
-    </>
+    </nav>
   );
 }

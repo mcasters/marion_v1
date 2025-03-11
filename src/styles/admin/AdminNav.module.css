@@ -9,6 +9,7 @@
   text-align: center;
   padding-top: 0.6em;
   z-index: 2;
+  user-select: none;
 }
 
 .nav span {
@@ -42,25 +43,9 @@
 }
 
 .nav .link:hover {
-  color: var(--link-color-light);
+  color: var(--link-color-xlight);
 }
 
 .nav .link.active {
   color: var(--link-color-xlight);
-}
-
-.authStatus p,
-.authStatus button,
-.authStatus a {
-  font-size: 1em;
-  display: block;
-  margin: 0 auto;
-}
-
-.authStatus p {
-  padding-bottom: 1em;
-}
-
-.authStatus span {
-  display: none;
 }
