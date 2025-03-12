@@ -21,8 +21,8 @@ interface Props {
 }
 
 export default function ColorPicker({
-  label, // title displayed
-  colorLabel, // key name in theme object
+  label, // what is displayed
+  colorLabel,
   pageTypeName,
   presetColors,
   deletedPresetColor,

@@ -25,7 +25,10 @@ export default function AdminTheme({ themes, presetColors }: Props) {
     useState<PresetColor | null>(null);
   const alert = useAlert();
   const [, startTransition] = useTransition();
-  const savedWorkTheme = themes.find((t) => t.id === workTheme.id);
+  const dbTheme = themes.find((t) => t.id === workTheme.id);
+
+  const removeProperty = (propKey: string, { [propKey]: propValue, ...rest }) =>
+    rest;
 
   const onDeleteTheme = () => {
     startTransition(async () => {
@@ -86,9 +89,13 @@ export default function AdminTheme({ themes, presetColors }: Props) {
           presetColors={presetColors}
           deletedPresetColor={deletedPresetColor}
           isToUpdate={
-            savedWorkTheme !== undefined &&
-            Object.entries(workTheme).sort().toString() !=
-              Object.entries(savedWorkTheme).sort().toString()
+            dbTheme !== undefined &&
+            Object.entries(removeProperty("isActive", workTheme))
+              .sort()
+              .toString() !=
+              Object.entries(removeProperty("isActive", dbTheme))
+                .sort()
+                .toString()
           }
         />
         <div className={themeStyle.actionContainer}>
