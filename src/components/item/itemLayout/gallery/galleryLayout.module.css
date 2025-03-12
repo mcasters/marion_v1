@@ -7,6 +7,7 @@
 
 .article {
   position: relative;
+  overflow: hidden;
 }
 
 .infoContainer {
@@ -27,6 +28,7 @@
   .image {
     width: auto;
     height: 30vh;
+    transition: transform 250ms ease-out;
   }
 
   .infoContainer {
@@ -48,5 +50,10 @@
     color: #eaeaea;
     font-weight: 700;
     transition: all 250ms ease-out;
+  }
+
+  .article:hover .image {
+    transform: scale(1.05);
+    transform-origin: center;
   }
 }

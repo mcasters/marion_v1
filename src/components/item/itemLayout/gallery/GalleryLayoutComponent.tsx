@@ -10,7 +10,6 @@ import Image from "next/image";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
 import { createPortal } from "react-dom";
-import { useTheme } from "@/app/context/themeProvider";
 import Lightbox from "@/components/image/lightbox/Lightbox";
 import ImageInfos from "@/components/image/common/ImageInfos";
 
@@ -19,7 +18,6 @@ interface Props {
 }
 export default function GalleryLayoutComponent({ items }: Props) {
   const metas = useMetas();
-  const theme = useTheme();
   const [index, setIndex] = useState(-1);
   const window = useWindowSize();
   const isSmall = window.innerWidth < DEVICE.SMALL;
