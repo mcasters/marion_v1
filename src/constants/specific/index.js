@@ -39,8 +39,6 @@ export const META = {
 
   DOCUMENT_TITLE_CONTACT: "documentTitleContact",
   DESCRIPTION_CONTACT: "descriptionContact",
-
-  DOCUMENT_TITLE_AUTHENTICATION: "documentTitleAuthentication",
 };
 
 export const SEO = {
@@ -79,8 +77,6 @@ export const SEO = {
 
   [META.DOCUMENT_TITLE_CONTACT]: "Titre de la page contact",
   [META.DESCRIPTION_CONTACT]: "Description de la page contact",
-
-  [META.DOCUMENT_TITLE_AUTHENTICATION]: "Titre de la page authentification",
 };
 
 export const BASE_THEME = {

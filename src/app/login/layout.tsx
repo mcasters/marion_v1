@@ -1,20 +1,15 @@
-import React, { ReactNode } from "react";
 import s from "@/styles/auth.module.css";
+import React, { ReactNode } from "react";
 import { Metadata } from "next";
-import { getMetaMap } from "@/utils/commonUtils";
-import { getMetas } from "@/app/actions/meta";
-import { META } from "@/constants/specific";
 
-export async function generateMetadata(): Promise<Metadata | undefined> {
-  const metas = getMetaMap(await getMetas());
-  if (metas) {
-    return {
-      title: metas.get(META.DOCUMENT_TITLE_AUTHENTICATION),
-    };
-  }
-}
+export const metadata: Metadata = {
+  title: "",
+  description: "",
+  keywords: "",
+  openGraph: {},
+};
 
-export default async function layout({ children }: { children: ReactNode }) {
+export default function Page({ children }: { children: ReactNode }) {
   return (
     <div className={s.container}>
       <h1>Espace administration :</h1>
