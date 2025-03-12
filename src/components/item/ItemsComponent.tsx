@@ -1,6 +1,6 @@
 "use client";
 
-import { Category, ItemFull, ItemLayout } from "@/lib/type";
+import { Category, ItemFull, Type } from "@/lib/type";
 import React from "react";
 import s from "@/components/item/ItemsComponent.module.css";
 import ItemLayoutComponent from "@/components/item/itemLayout/ItemLayoutComponent";
@@ -9,14 +9,9 @@ interface Props {
   tag: string;
   items: ItemFull[];
   category?: Category;
-  layout: ItemLayout;
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 }
-export default function ItemsComponent({
-  tag,
-  items,
-  category,
-  layout,
-}: Props) {
+export default function ItemsComponent({ tag, items, category, type }: Props) {
   return (
     <>
       <div className={s.infoCategory}>
@@ -29,7 +24,7 @@ export default function ItemsComponent({
             </div>
           )}
       </div>
-      <ItemLayoutComponent items={items} layout={layout} />
+      <ItemLayoutComponent items={items} type={type} />
     </>
   );
 }

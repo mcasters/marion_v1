@@ -1,22 +1,22 @@
 "use client";
 
 import s from "./ItemLayoutComponent.module.css";
-import { ItemFull, ItemLayout } from "@/lib/type";
+import { ItemFull, ItemLayout, Type } from "@/lib/type";
 import React from "react";
 import MonoLayoutComponent from "@/components/item/itemLayout/mono/MonoLayoutComponent";
 import GalleryLayoutComponent from "@/components/item/itemLayout/gallery/GalleryLayoutComponent";
 import SculptureLayoutComponent from "@/components/item/itemLayout/sculpture/SculptureLayoutComponent";
 import DoubleLayoutComponent from "@/components/item/itemLayout/double/DoubleLayoutComponent";
+import { useMetas } from "@/app/context/metaProvider";
+import { getItemLayout } from "@/utils/commonUtils";
 
 interface Props {
   items: ItemFull[];
-  layout:
-    | ItemLayout.DOUBLE
-    | ItemLayout.MONO
-    | ItemLayout.SCULPTURE
-    | ItemLayout.MULTIPLE;
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 }
-export default function ItemLayoutComponent({ items, layout }: Props) {
+export default function ItemLayoutComponent({ items, type }: Props) {
+  const metas = useMetas();
+  const layout = getItemLayout(metas, type);
   return (
     <>
       {(() => {

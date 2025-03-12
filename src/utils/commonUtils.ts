@@ -10,7 +10,7 @@ import {
   Type,
 } from "@/lib/type";
 
-import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
+import { BASE_PRESET_COLOR, BASE_THEME, META } from "@/constants/specific";
 import { Meta } from ".prisma/client";
 
 export const capitalize = (string: string): string =>
@@ -222,7 +222,16 @@ export const getNoCategory = (): Category => {
   };
 };
 
-export const getItemLayout = (metaString: string | undefined): ItemLayout => {
-  if (metaString != undefined) return parseInt(metaString);
-  return ItemLayout.DOUBLE;
+export const getItemLayout = (
+  metas: Map<string, string>,
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
+): ItemLayout => {
+  switch (type) {
+    case Type.PAINTING:
+      return parseInt(metas.get(META.PAINTING_LAYOUT) || "1");
+    case Type.SCULPTURE:
+      return parseInt(metas.get(META.SCULPTURE_LAYOUT) || "3");
+    case Type.DRAWING:
+      return parseInt(metas.get(META.DRAWING_LAYOUT) || "1");
+  }
 };
