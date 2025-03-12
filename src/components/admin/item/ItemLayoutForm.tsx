@@ -4,20 +4,23 @@ import React, { useActionState, useEffect, useState } from "react";
 import s from "@/styles/admin/Admin.module.css";
 import { useAlert } from "@/app/context/AlertProvider";
 import { updateMeta } from "@/app/actions/meta/admin";
-import { ItemLayout, Type } from "@/lib/type";
+import { Type } from "@/lib/type";
 import Image from "next/image";
+import { getItemLayout } from "@/utils/commonUtils";
+import { useMetas } from "@/app/context/metaProvider";
 
 type Props = {
-  layout: ItemLayout;
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 };
 
-export default function ItemLayoutForm({ layout, type }: Props) {
-  const [value, setValue] = useState<string>(layout.toString());
+export default function ItemLayoutForm({ type }: Props) {
+  const metas = useMetas();
+  const [value, setValue] = useState<string>(
+    getItemLayout(metas, type).toString(),
+  );
   const alert = useAlert();
   const [state, action] = useActionState(updateMeta, null);
 
-  console.log(type);
   useEffect(() => {
     if (state) {
       alert(state.message, state.isError);
