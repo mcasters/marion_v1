@@ -1,6 +1,9 @@
 .tagTitle {
   text-align: left;
   padding: 1em;
+  font-family: var(--font-family-serif-caps);
+  font-weight: 700;
+  letter-spacing: 2px;
 }
 
 .ul {
