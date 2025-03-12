@@ -95,10 +95,7 @@
 
 .imageInputContainer {
   display: flex;
-}
-
-.fileButton {
-  margin-right: 15px;
+  margin: 2em 0;
 }
 
 .imageWrapper {

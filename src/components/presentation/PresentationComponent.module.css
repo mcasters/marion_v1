@@ -1,6 +1,7 @@
 .contentWrapper {
   padding: 2em 1em;
   text-align: center;
+  white-space: pre-line;
 }
 
 .photo {
@@ -15,14 +16,14 @@
 
 /* desktop */
 @media (min-width: 769px) {
-  .contentWrapper {
+  .contentWrapper p {
     max-width: 42vw;
     margin: auto;
+    text-align: left;
   }
 
   .photo {
     padding: 2em;
-    height: 40vh;
-    width: auto;
+    height: 45vh;
   }
 }

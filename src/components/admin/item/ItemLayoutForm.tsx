@@ -141,8 +141,7 @@ export default function ItemLayoutForm({ layout, type }: Props) {
           <p>
             <strong>{`Galerie : toutes les images s'imbriquent :`}</strong>
             <br />
-            {`Vision d'ensemble, les œuvres se suivent, leur description apparait
-            lorsqu'on pointe la souris, et lorsqu'on ouvre l'image en grand.`}
+            {`Vision d'ensemble, toutes les œuvres sont ensemble, et leur description n'apparait que lorsqu'on pointe la souris, ou dans la "lightbox" (lorsqu'on ouvre l'image en grand).`}
           </p>
         </label>
       </form>
