@@ -17,16 +17,6 @@
   position: fixed;
   top: var(--line-height);
   transition: all ease-in-out 0.2s;
-}
-
-.nav,
-.homeNavFix {
-  border-bottom: 1px solid var(--color-border-menu1);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-}
-
-.itemNav {
-  border-bottom: 1px solid var(--color-border-menu1-dark);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -35,16 +25,11 @@
   height: var(--nav-1-height);
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid var(--color-border-menu1);
   list-style: none;
 }
 
 .ul li {
   flex: auto;
-}
-
-.itemNav .ul {
-  border-bottom: none;
 }
 
 /* desktop */

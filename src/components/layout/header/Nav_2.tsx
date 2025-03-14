@@ -8,6 +8,7 @@ import s from "@/styles/Nav_2.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { useMetas } from "@/app/context/metaProvider";
 import { META } from "@/constants/specific";
+import { getBorderColor } from "@/utils/commonUtils";
 
 interface Props {
   navLayout: string;
@@ -16,7 +17,6 @@ interface Props {
 export default function Nav_2({ navLayout }: Props) {
   const theme = useTheme();
   const metas = useMetas();
-  const colorWithOpacity = theme.menu2HomeColor + "aa";
 
   return (
     <nav className={`${s[navLayout]} ${navLayout}`}>
@@ -55,12 +55,15 @@ export default function Nav_2({ navLayout }: Props) {
       <style jsx>{`
         .itemNav {
           background-color: ${theme.menu2ItemColor};
+          border-bottom: 1px solid ${getBorderColor(theme.menu2ItemColor)};
         }
         .nav {
           background-color: ${theme.menu2Color};
+          border-bottom: 1px solid ${getBorderColor(theme.menu2Color)};
         }
-        .homeNavFix {
-          background-color: ${colorWithOpacity};
+        .homeNavFix,
+        .homeNav {
+          background-color: ${theme.menu2HomeColor + "aa"};
         }
         .homeNav .link {
           color: ${theme.menu2LinkHomeColor};

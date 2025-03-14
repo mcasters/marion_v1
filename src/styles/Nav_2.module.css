@@ -9,12 +9,6 @@
   user-select: none;
 }
 
-.homeNav {
-  background-color: unset;
-  border-bottom: 1px solid transparent;
-  transition: all ease-in-out 0.2s;
-}
-
 .nav,
 .itemNav,
 .homeNavFix {
@@ -22,11 +16,6 @@
   top: calc(var(--line-height) + var(--nav-1-height));
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
   transition: all ease-in-out 0.2s;
-}
-
-.homeNavFix,
-.nav {
-  border-bottom: 1px solid var(--color-border-menu2);
 }
 
 .ul {

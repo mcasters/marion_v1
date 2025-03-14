@@ -153,6 +153,17 @@ export function rgbToHex(r: number, g: number, b: number): string {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 } // rgbToHex(0, 51, 255); // #0033ff
 
+export function getBorderColor(colorHex: string): string | null {
+  const array = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(colorHex);
+  if (array) {
+    const r = parseInt(array[1], 16) - 30;
+    const g = parseInt(array[2], 16) - 30;
+    const b = parseInt(array[3], 16) - 30;
+    return rgbToHex(r <= 0 ? 0 : r, g <= 0 ? 0 : g, b <= 0 ? 0 : b);
+  }
+  return null;
+}
+
 export const getEmptyItem = (
   type: Type.SCULPTURE | Type.DRAWING | Type.PAINTING,
 ): ItemFull => {

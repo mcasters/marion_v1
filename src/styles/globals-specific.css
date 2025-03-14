@@ -50,9 +50,6 @@
   --background-color-auth-status: var(--color-light);
   --color-auth-status: var(--color-xdark);
   --color-border-auth-status: var(--color-xdark);
-  --color-border-menu1: var(--color-medium);
-  --color-border-menu2: var(--color-medium);
-  --color-border-menu1-dark: var(--color-medium);
   --color-background-item: none;
 }
 
