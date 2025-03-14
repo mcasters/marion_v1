@@ -5,7 +5,8 @@ import { Type } from "@/lib/type";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
 import { Metadata } from "next";
-import { META } from "@/constants/specific";
+
+import { META } from "@/constants/admin";
 
 type Props = {
   params: Promise<{ year: string }>;

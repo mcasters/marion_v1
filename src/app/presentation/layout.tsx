@@ -3,7 +3,8 @@ import s from "@/styles/ItemPage.module.css";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
-import { META } from "@/constants/specific";
+
+import { META } from "@/constants/admin";
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
   const metas = getMetaMap(await getMetas());

@@ -5,7 +5,8 @@ import { Type } from "@/lib/type";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
-import { META } from "@/constants/specific";
+
+import { META } from "@/constants/admin";
 
 type Props = {
   params: Promise<{ category: string }>;
