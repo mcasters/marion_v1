@@ -8,7 +8,8 @@ import { ContentFull } from "@/lib/type";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { getContentPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
-import { META } from "@/constants/specific";
+
+import { META } from "@/constants/admin";
 
 interface Props {
   presentationContent: ContentFull | null;

@@ -10,8 +10,8 @@ import { getSession } from "@/app/lib/auth";
 import { getContentsFull } from "@/app/actions/contents";
 import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
-import { META } from "@/constants/specific";
 import { Cormorant, Cormorant_SC } from "next/font/google";
+import { META } from "@/constants/admin";
 
 const cormorant = Cormorant({
   subsets: ["latin"],

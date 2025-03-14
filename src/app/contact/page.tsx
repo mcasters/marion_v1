@@ -10,8 +10,8 @@ import {
 } from "@/utils/commonUtils";
 import { getContentsFull } from "@/app/actions/contents";
 import InstagramIcon from "@/components/icons/InstagramIcon";
-import { META } from "@/constants/specific";
 import { getMetas } from "@/app/actions/meta";
+import { META } from "@/constants/admin";
 
 export default async function Contact() {
   const contents = await getContentsFull();

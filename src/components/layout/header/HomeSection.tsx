@@ -2,9 +2,9 @@
 
 import s from "../../../styles/Header.module.css";
 import React, { useEffect, useRef, useState } from "react";
-import { META } from "@/constants/specific";
 import { useMetas } from "@/app/context/metaProvider";
 import { useTheme } from "@/app/context/themeProvider";
+import { META } from "@/constants/admin";
 
 interface Props {
   handleDisappear: (arg0: boolean) => void;

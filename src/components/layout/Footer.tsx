@@ -2,11 +2,11 @@
 
 import s from "@/styles/Footer.module.css";
 import { ROUTES } from "@/constants/specific/routes";
-import { META } from "@/constants/specific";
 import { useSession } from "@/app/context/sessionProvider";
 import Link from "next/link";
 import { useTheme } from "@/app/context/themeProvider";
 import { useMetas } from "@/app/context/metaProvider";
+import { META } from "@/constants/admin";
 
 type Props = {
   path: string | null;

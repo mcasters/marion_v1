@@ -6,9 +6,9 @@ import s from "./NavItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import React, { useMemo } from "react";
 import LAYOUT from "@/constants/layout";
-import { META } from "@/constants/specific";
 import { usePathname } from "next/navigation";
 import { useMetas } from "@/app/context/metaProvider";
+import { META } from "@/constants/admin";
 
 type Props = {
   itemTag: string;
