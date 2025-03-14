@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "",
   description: "",
   keywords: "",
-  openGraph: {},
+  openGraph: null,
 };
 
 export default function Page({ children }: { children: ReactNode }) {
