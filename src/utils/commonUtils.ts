@@ -10,8 +10,9 @@ import {
   Type,
 } from "@/lib/type";
 
-import { BASE_PRESET_COLOR, BASE_THEME, META } from "@/constants/specific";
+import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
 import { Meta } from ".prisma/client";
+import { META } from "@/constants/admin";
 
 export const capitalize = (string: string): string =>
   string.charAt(0).toUpperCase() + string.slice(1);
