@@ -6,6 +6,14 @@ import {
 } from "@/app/actions/theme";
 import AdminHome from "@/components/admin/AdminHome";
 import { getMessages } from "@/app/actions/messages";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "",
+  description: "",
+  keywords: "",
+  openGraph: null,
+};
 
 export default async function Page() {
   const themes = await getThemesFull();
