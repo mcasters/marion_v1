@@ -5,13 +5,13 @@ import { ItemFull } from "@/lib/type";
 import React, { useMemo, useState } from "react";
 import { getItemPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
-import { META } from "@/constants/specific";
 import ImageInfos from "@/components/image/common/ImageInfos";
 import Image from "next/image";
 import { createPortal } from "react-dom";
 import Lightbox from "@/components/image/lightbox/Lightbox";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
+import { META } from "@/constants/admin";
 
 interface Props {
   item: ItemFull;
