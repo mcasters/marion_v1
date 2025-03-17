@@ -62,8 +62,7 @@ export default function Nav_2({ navLayout }: Props) {
           background-color: ${theme.menu2Color};
           border-bottom: 1px solid ${getBorderColor(theme.menu2Color)};
         }
-        .homeNavFix,
-        .homeNav {
+        .homeNavFix {
           background-color: ${theme.menu2HomeColor + "aa"};
         }
         .homeNav .link {
