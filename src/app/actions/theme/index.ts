@@ -38,12 +38,16 @@ const getActivatedBaseTheme = async (): Promise<Theme> => {
   return theme;
 };
 
-export async function getActiveTheme(themes: Theme[]): Promise<Theme> {
-  let activeTheme = themes.find((t) => t.isActive);
-  if (!activeTheme) {
-    activeTheme = await getActivatedBaseTheme();
+export async function getActiveTheme(): Promise<Theme> {
+  let theme = await prisma.theme.findFirst({
+    where: {
+      isActive: true,
+    },
+  });
+  if (!theme) {
+    theme = await getActivatedBaseTheme();
   }
-  return JSON.parse(JSON.stringify(activeTheme));
+  return JSON.parse(JSON.stringify(theme));
 }
 
 export async function getPresetColors(): Promise<PresetColor[]> {

@@ -18,7 +18,8 @@ export const metadata: Metadata = {
 export default async function Page() {
   const themes = await getThemesFull();
   const presetColors = await getPresetColors();
-  const activeTheme = await getActiveTheme(themes);
+  const activeTheme =
+    themes.find((t) => t.isActive) || (await getActiveTheme());
   const messages = await getMessages();
 
   return (
