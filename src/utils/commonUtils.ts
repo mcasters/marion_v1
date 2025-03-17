@@ -165,6 +165,11 @@ export function getBorderColor(colorHex: string): string | null {
   return null;
 }
 
+export const removeProperty = (
+  propKey: string,
+  { [propKey]: propValue, ...rest },
+) => rest;
+
 export const getEmptyItem = (
   type: Type.SCULPTURE | Type.DRAWING | Type.PAINTING,
 ): ItemFull => {

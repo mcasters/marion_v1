@@ -23,7 +23,6 @@ export default function ThemeDashboard({
         <h4 className={s.sectionTitle}>{PAGE_TYPE.GENERAL}</h4>
         {Object.entries(THEME_DATAS).map(
           ([colorLabel, { label, pageType }], i) => {
-            console.log(colorLabel);
             if (pageType === PAGE_TYPE.GENERAL)
               return (
                 <ColorPicker

@@ -13,6 +13,7 @@ import s from "@/styles/admin/Admin.module.css";
 import { activateTheme, deleteTheme } from "@/app/actions/theme/admin";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import PresetColorDashboard from "@/components/admin/theme/presetColor/PresetColorDashboard";
+import { removeProperty } from "@/utils/commonUtils";
 
 type Props = {
   themes: Theme[];
@@ -26,9 +27,6 @@ export default function AdminTheme({ themes, presetColors }: Props) {
   const alert = useAlert();
   const [, startTransition] = useTransition();
   const dbTheme = themes.find((t) => t.id === workTheme.id);
-
-  const removeProperty = (propKey: string, { [propKey]: propValue, ...rest }) =>
-    rest;
 
   const onDeleteTheme = () => {
     startTransition(async () => {
