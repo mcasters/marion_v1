@@ -44,6 +44,7 @@ export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
               objectFit: "contain",
             }}
             priority={i < 0}
+            unoptimized
           />
         ))}
         {!isSmall && (

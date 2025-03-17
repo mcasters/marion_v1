@@ -32,6 +32,7 @@ export default function RowPostListComponent({ post }: Props) {
             style={{
               objectFit: "contain",
             }}
+            unoptimized
           />
         )}
       </li>

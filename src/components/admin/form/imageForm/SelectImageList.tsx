@@ -71,6 +71,7 @@ export default function SelectImageList({ items, value, onChange }: Props) {
                     style={{
                       objectFit: "cover",
                     }}
+                    unoptimized
                   />
                 </div>
               );

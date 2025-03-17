@@ -39,6 +39,7 @@ export default function Nav_2({ navLayout }: Props) {
                       objectFit: "contain",
                     }}
                     priority
+                    unoptimized
                   />
                 </Link>
               </li>

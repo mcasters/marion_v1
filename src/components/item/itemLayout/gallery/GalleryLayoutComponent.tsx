@@ -49,6 +49,7 @@ export default function GalleryLayoutComponent({ items }: Props) {
                   objectFit: "contain",
                 }}
                 className={s.image}
+                unoptimized
               />
             </figure>
             <figcaption className={s.infoContainer}>
