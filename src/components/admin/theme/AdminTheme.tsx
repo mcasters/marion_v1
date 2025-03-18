@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useTransition } from "react";
+import React, { useState } from "react";
 import themeStyle from "../../../styles/admin/AdminTheme.module.css";
 import ThemeAdd from "@/components/admin/theme/ThemeAdd";
 import ThemeDashboard from "@/components/admin/theme/ThemeDashboard";
@@ -25,23 +25,18 @@ export default function AdminTheme({ themes, presetColors }: Props) {
   const [deletedPresetColor, setDeletedPresetColor] =
     useState<PresetColor | null>(null);
   const alert = useAlert();
-  const [, startTransition] = useTransition();
   const dbTheme = themes.find((t) => t.id === workTheme.id);
 
-  const onDeleteTheme = () => {
-    startTransition(async () => {
-      const res = await deleteTheme(workTheme.id);
-      const theme = themes.find((t) => t.isActive);
-      if (theme) setWorkTheme(theme);
-      alert(res.message, res.isError);
-    });
+  const onDeleteTheme = async () => {
+    const res = await deleteTheme(workTheme.id);
+    const theme = themes.find((t) => t.isActive);
+    if (theme) setWorkTheme(theme);
+    alert(res.message, res.isError);
   };
 
-  const onActivateTheme = () => {
-    startTransition(async () => {
-      const res = await activateTheme(workTheme.id);
-      alert(res.message, res.isError);
-    });
+  const onActivateTheme = async () => {
+    const res = await activateTheme(workTheme.id);
+    alert(res.message, res.isError);
   };
 
   const handleCancel = () => {

@@ -15,7 +15,6 @@ type Props = {
 };
 export default function UpdateItemButton({ item, categories }: Props) {
   const { isOpen, toggle } = useModal();
-  const action = updateItem;
 
   return (
     <>
@@ -37,7 +36,7 @@ export default function UpdateItemButton({ item, categories }: Props) {
             categories={categories}
             item={item}
             toggleModal={toggle}
-            itemAction={action}
+            itemAction={updateItem}
           />
         ) : item.type === Type.POST ? (
           <PostForm post={item} toggleModal={toggle} />

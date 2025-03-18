@@ -1,12 +1,7 @@
 "use client";
 
 import s from "@/styles/admin/AdminTheme.module.css";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useState,
-  useTransition,
-} from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import Modal from "@/components/admin/form/modal/Modal";
 import useModal from "@/components/admin/form/modal/useModal";
@@ -28,25 +23,20 @@ export default function PresetColorPicker({ presetColor, onDelete }: Props) {
   const { isOpen, toggle } = useModal();
   const alert = useAlert();
   const [color, setColor] = useState<string>(presetColor.color);
-  const [, startTransition] = useTransition();
 
-  const onDeletePresetColor = () => {
-    startTransition(async () => {
-      const res = await deletePresetColor(presetColor.id);
-      alert(res.message, res.isError);
-    });
+  const onDeletePresetColor = async () => {
+    const res = await deletePresetColor(presetColor.id);
+    alert(res.message, res.isError);
     onDelete(presetColor);
   };
 
-  const onUpdatePresetColor = () => {
-    startTransition(async () => {
-      const res = await updatePresetColor({
-        ...presetColor,
-        color,
-      } as PresetColor);
-      alert(res.message, res.isError);
-      if (!res.isError) toggle();
-    });
+  const onUpdatePresetColor = async () => {
+    const res = await updatePresetColor({
+      ...presetColor,
+      color,
+    } as PresetColor);
+    alert(res.message, res.isError);
+    if (!res.isError) toggle();
   };
 
   return (

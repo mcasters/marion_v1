@@ -3,7 +3,7 @@
 import { PresetColor, Theme } from "@prisma/client";
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/Modal";
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useEffect, useState } from "react";
 import s from "@/styles/admin/AdminTheme.module.css";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
@@ -30,7 +30,6 @@ export default function ColorPicker({
   const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
   const { isOpen, toggle } = useModal();
   const alert = useAlert();
-  const [, startTransition] = useTransition();
   const [color, setColor] = useState<string>(
     workTheme[colorLabel as keyof OnlyString<Theme>],
   );
@@ -45,11 +44,9 @@ export default function ColorPicker({
       setColor(deletedPresetColor.color);
   }, [deletedPresetColor, color]);
 
-  const onAddPresetColor = () => {
-    startTransition(async () => {
-      const res = await createPresetColor(nameToSave, color);
-      alert(res.message, res.isError);
-    });
+  const onAddPresetColor = async () => {
+    const res = await createPresetColor(nameToSave, color);
+    alert(res.message, res.isError);
     setWorkTheme({ ...workTheme, [colorLabel]: nameToSave } as Theme);
     setColor(nameToSave);
     setNameToSave("");
