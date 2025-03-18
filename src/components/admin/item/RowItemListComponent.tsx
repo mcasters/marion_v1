@@ -27,9 +27,6 @@ export default function RowItemListComponent({ item, categories }: Props) {
       <li className={s.itemImage}>
         {filename && (
           <Image
-            loader={({ src }) => {
-              return `${src}`;
-            }}
             src={`/images/${item.type}/sm/${filename}`}
             alt="Image principale de l'item"
             height={50}
