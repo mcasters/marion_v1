@@ -9,7 +9,7 @@ import { updateContent } from "@/app/actions/contents/admin";
 import { Label } from "@prisma/client";
 import PreviewForm from "@/components/admin/form/imageForm/PreviewForm";
 import { Image } from "@/lib/type";
-import s from "@/styles/admin/Admin.module.css";
+import s from "@/styles/admin/admin.module.css";
 
 type Props = {
   images: Image[];

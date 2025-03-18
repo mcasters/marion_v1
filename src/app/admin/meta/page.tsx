@@ -1,5 +1,5 @@
 import { getMetaMap } from "@/utils/commonUtils";
-import s from "@/styles/admin/Admin.module.css";
+import s from "@/styles/admin/admin.module.css";
 import React from "react";
 import { getMetas } from "@/app/actions/meta";
 import MetaComponent from "@/components/admin/meta/metaComponent";

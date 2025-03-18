@@ -4,7 +4,7 @@ import React, { useActionState, useEffect, useRef, useState } from "react";
 
 import Images from "@/components/admin/form/imageForm/Images";
 import { PostFull, Type } from "@/lib/type";
-import s from "@/styles/admin/Admin.module.css";
+import s from "@/styles/admin/admin.module.css";
 import { getEmptyPost } from "@/utils/commonUtils";
 import CancelButton from "@/components/admin/form/CancelButton";
 import SubmitButton from "@/components/admin/form/SubmitButton";

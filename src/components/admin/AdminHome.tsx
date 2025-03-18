@@ -5,7 +5,7 @@ import { PresetColor, Theme } from "@prisma/client";
 import ChatMessages from "@/components/admin/chatMessage/chatMessages";
 import AdminTheme from "@/components/admin/theme/AdminTheme";
 import { Message } from "@/lib/type";
-import s from "@/styles/admin/Admin.module.css";
+import s from "@/styles/admin/admin.module.css";
 
 type Props = {
   themes: Theme[];

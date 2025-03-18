@@ -1,6 +1,6 @@
 import { Type } from "@/lib/type";
 import ItemListComponent from "@/components/admin/item/ItemListComponent";
-import s from "@/styles/admin/Admin.module.css";
+import s from "@/styles/admin/admin.module.css";
 import React from "react";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getAllCategories, getAllItems, getYears } from "@/app/actions/items";

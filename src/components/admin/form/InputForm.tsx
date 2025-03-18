@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useActionState, useEffect, useState } from "react";
-import s from "@/styles/admin/Admin.module.css";
+import s from "@/styles/admin/admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { useAlert } from "@/app/context/AlertProvider";

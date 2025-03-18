@@ -3,7 +3,7 @@
 import RowItemListComponent from "./RowItemListComponent";
 import React, { useEffect, useState } from "react";
 import s from "@/styles/admin/AdminList.module.css";
-import style from "@/styles/admin/Admin.module.css";
+import style from "@/styles/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import AddItemButton from "@/components/admin/form/AddItemButton";

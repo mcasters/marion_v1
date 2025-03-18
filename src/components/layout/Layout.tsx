@@ -44,28 +44,18 @@ export default function Layout({ introduction, children }: Props) {
       <div className={`${s.line} line`}></div>
       {session?.user && <AuthStatus email={session.user.email} />}
       {isHome && <div className={`${s.gradient} gradient`}></div>}
-      {isAdminPage && (
-        <>
-          <AdminNav />
-          <Main isHome={false}>
-            <div className={`${s.adminWrapper} adminWrapper`}>{children}</div>
-          </Main>
-          <Footer path={path} />
-        </>
+      {isAdminPage ? (
+        <AdminNav />
+      ) : (
+        <Header path={path} introduction={introduction} />
       )}
-      {!isAdminPage && (
-        <>
-          <Header path={path} introduction={introduction} />
-          <Main isHome={isHome}>{children}</Main>
-          <Footer path={path} />
-        </>
-      )}
+      <Main isHome={isHome}>{children}</Main>
+      <Footer path={path} />
       <style jsx global>{`
         .line {
           background-color: ${theme.lineColor};
         }
-        .wrapper,
-        .adminWrapper {
+        .wrapper {
           background-color: ${theme.backgroundColor};
           color: ${theme.color};
         }

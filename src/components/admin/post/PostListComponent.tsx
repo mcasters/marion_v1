@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import style from "../../../styles/admin/Admin.module.css";
-import s from "../../../styles/admin/AdminList.module.css";
+import style from "@/styles/admin/admin.module.css";
+import s from "@/styles/admin/AdminList.module.css";
 import RowPostListComponent from "@/components/admin/post/RowPostListComponent";
 import { PostFull } from "@/lib/type";
 

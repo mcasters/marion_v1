@@ -1,5 +1,5 @@
 import ItemListComponent from "@/components/admin/item/ItemListComponent";
-import s from "@/styles/admin/Admin.module.css";
+import s from "@/styles/admin/admin.module.css";
 import React from "react";
 import { Type } from "@/lib/type";
 import { getMetaMap } from "@/utils/commonUtils";
