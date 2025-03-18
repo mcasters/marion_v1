@@ -35,6 +35,7 @@ export default function AdminTheme({ themes, presetColors }: Props) {
   };
 
   const onActivateTheme = async () => {
+    setWorkTheme({ ...workTheme, isActive: true } as Theme);
     const res = await activateTheme(workTheme.id);
     alert(res.message, res.isError);
   };
@@ -93,7 +94,7 @@ export default function AdminTheme({ themes, presetColors }: Props) {
         />
         <div className={themeStyle.actionContainer}>
           <div className={themeStyle.actionPartContainer}>
-            <ThemeAdd themes={themes} />
+            <ThemeAdd />
           </div>
           <div className={themeStyle.actionPartContainer}>
             <ThemeUpdate />

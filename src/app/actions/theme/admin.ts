@@ -6,21 +6,19 @@ import { PresetColor, Theme } from "@prisma/client";
 import { THEME } from "@/constants/admin";
 import { OnlyString } from "@/lib/type";
 
-export async function createTheme(
-  theme: Theme,
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
+export async function createTheme(theme: Theme, newName: string) {
   try {
-    const newName = formData.get("name") as string;
     const alreadyTheme = await prisma.theme.findUnique({
       where: { name: newName },
     });
     if (alreadyTheme)
-      return { message: "Nom du thème déjà existant", isError: true };
-
+      return {
+        message: "Nom du thème déjà existant",
+        isError: true,
+        theme: undefined,
+      };
     const { id, isActive, name, ...rest } = theme;
-    await prisma.theme.create({
+    const newTheme = await prisma.theme.create({
       data: {
         name: newName,
         isActive: false,
@@ -29,12 +27,12 @@ export async function createTheme(
     });
 
     revalidatePath("/admin");
-    return { message: "Thème ajouté", isError: false };
+    return { message: "Thème ajouté", isError: false, theme: newTheme };
   } catch (e) {
     return {
       message: `Erreur à l'enregistrement : ${e}`,
       isError: true,
-      themes: null,
+      theme: undefined,
     };
   }
 }
