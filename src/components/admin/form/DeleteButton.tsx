@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect } from "react";
+import React from "react";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import { useAlert } from "@/app/context/AlertProvider";
 import { Type } from "@/lib/type";
@@ -20,28 +20,18 @@ export default function DeleteButton({
 }: Props) {
   const alert = useAlert();
   const deleteAction = isCategory ? deleteCategory : deleteItem;
-  const idDeleteAction = deleteAction.bind(null, id, type);
-  const [state, action] = useActionState(idDeleteAction, {
-    message: "",
-    isError: false,
-  });
-
-  useEffect(() => {
-    if (state.message !== "") {
-      alert(state.message, state.isError);
-    }
-  }, [state]);
 
   return (
-    <form action={action}>
-      <button
-        type="submit"
-        className="iconButton"
-        aria-label="Supprimer"
-        disabled={disabled ? disabled : false}
-      >
-        <DeleteIcon />
-      </button>
-    </form>
+    <button
+      onClick={async () => {
+        const res = await deleteAction(id, type);
+        alert(res.message, res.isError);
+      }}
+      className="iconButton"
+      aria-label="Supprimer"
+      disabled={disabled ? disabled : false}
+    >
+      <DeleteIcon />
+    </button>
   );
 }
