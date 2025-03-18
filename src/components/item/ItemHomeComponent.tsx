@@ -5,6 +5,7 @@ import React from "react";
 import s from "@/components/item/ItemHomeComponent.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useTheme } from "@/app/context/themeProvider";
 
 interface Props {
   type: Type;
@@ -12,6 +13,7 @@ interface Props {
   years: number[];
 }
 export default function ItemHomeComponent({ categories, type, years }: Props) {
+  const theme = useTheme();
   return (
     <>
       <p className={`${s.tagTitle}`}>Catégories :</p>`
@@ -42,11 +44,20 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
                   />
                 )}
                 <div
-                  className={`${noImage ? s.noImageOverLayer : s.imageOverLayer}`}
+                  className={
+                    noImage
+                      ? s.noImageOverLayer
+                      : `${s.imageOverLayer} imageOverLayer`
+                  }
                 >
                   {category.value}
                 </div>
               </Link>
+              <style jsx>{`
+                .imageOverLayer {
+                  color: ${theme.linkHoverColor};
+                }
+              `}</style>
             </li>
           );
         })}

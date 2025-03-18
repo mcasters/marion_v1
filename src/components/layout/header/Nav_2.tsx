@@ -27,7 +27,7 @@ export default function Nav_2({ navLayout }: Props) {
               <li key={menuItem.TAG}>
                 <Link href={menuItem.ROUTE} key={menuItem.TAG}>
                   <Image
-                    src="/logo-100.png"
+                    src="/logo-mc-100.png"
                     alt={`Signature de ${metas.get(META.SITE_TITLE)}`}
                     width={40}
                     height={40}

@@ -12,12 +12,14 @@ import { createPortal } from "react-dom";
 import Lightbox from "@/components/image/lightbox/Lightbox";
 import ImageInfos from "@/components/image/common/ImageInfos";
 import { META } from "@/constants/admin";
+import { useTheme } from "@/app/context/themeProvider";
 
 interface Props {
   items: ItemFull[];
 }
 export default function GalleryLayoutComponent({ items }: Props) {
   const metas = useMetas();
+  const theme = useTheme();
   const [index, setIndex] = useState(-1);
   const window = useWindowSize();
   const isSmall = window.innerWidth < DEVICE.SMALL;
@@ -52,9 +54,14 @@ export default function GalleryLayoutComponent({ items }: Props) {
                 unoptimized
               />
             </figure>
-            <figcaption className={s.infoContainer}>
+            <figcaption className={`${s.infoContainer} infoContainer`}>
               <ImageInfos item={p.item} isLightbox={false} />
             </figcaption>
+            <style jsx>{`
+              .infoContainer:hover {
+                color: ${theme.linkHoverColor};
+              }
+            `}</style>
           </article>
         );
       })}
