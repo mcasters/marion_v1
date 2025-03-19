@@ -17,6 +17,7 @@ interface Props {
 export default function Nav_2({ navLayout }: Props) {
   const theme = useTheme();
   const metas = useMetas();
+  const owner = metas.get(META.SITE_TITLE);
 
   return (
     <nav className={`${s[navLayout]} ${navLayout}`}>
@@ -27,8 +28,12 @@ export default function Nav_2({ navLayout }: Props) {
               <li key={menuItem.TAG}>
                 <Link href={menuItem.ROUTE} key={menuItem.TAG}>
                   <Image
-                    src="/logo-mc-100.png"
-                    alt={`Signature de ${metas.get(META.SITE_TITLE)}`}
+                    src={
+                      owner?.startsWith("M")
+                        ? "/logo-mc-100.png"
+                        : "/logo-100.png"
+                    }
+                    alt={`Signature de ${owner}`}
                     width={40}
                     height={40}
                     className={s.logo}

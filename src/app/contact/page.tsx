@@ -18,12 +18,13 @@ export default async function Contact() {
   const metas = getMetaMap(await getMetas());
   const email = getEmailText(contents);
   const contactText = getContactText(contents);
-  const siteTitle = metas.get(META.SITE_TITLE);
+  const owner = metas.get(META.SITE_TITLE);
+  const instagram = metas.get(META.INSTAGRAM);
 
   return (
     <>
       <address>
-        <p>{siteTitle}</p>
+        <p>{owner}</p>
         <p className={s.preLine}>{getAddressText(contents)}</p>
         <br />
         <p>
@@ -37,17 +38,13 @@ export default async function Contact() {
             {email}
           </Link>
         </p>
-        {siteTitle?.startsWith("T") && (
+        {owner?.startsWith("T") && instagram && (
           <>
             <br />
             <br />
             <br />
             <br />
-            <a
-              href={metas.get(META.INSTAGRAM)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={instagram} target="_blank" rel="noopener noreferrer">
               <InstagramIcon />
             </a>
           </>

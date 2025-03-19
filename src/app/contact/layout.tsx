@@ -26,11 +26,11 @@ export async function generateMetadata(): Promise<Metadata | undefined> {
 
 export default async function layout({ children }: { children: ReactNode }) {
   const metas = getMetaMap(await getMetas());
-  const siteTitle = metas.get(META.SITE_TITLE);
+  const owner = metas.get(META.SITE_TITLE);
 
   return (
     <div className={s.container}>
-      <h1 className="hidden">Contacter {siteTitle}</h1>
+      <h1 className="hidden">Contacter {owner}</h1>
       {children}
     </div>
   );
