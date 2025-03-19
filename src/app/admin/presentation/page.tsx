@@ -4,7 +4,7 @@ import {
   getPresentationImage,
   getPresentationText,
 } from "@/utils/commonUtils";
-import s from "@/styles/admin/admin.module.css";
+import s from "@/components/admin/admin.module.css";
 import { Label } from "@prisma/client";
 import React from "react";
 import TextAreaForm from "@/components/admin/form/content/TextAreaForm";

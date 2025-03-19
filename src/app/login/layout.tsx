@@ -1,4 +1,4 @@
-import s from "@/styles/auth.module.css";
+import s from "@/styles/authPage.module.css";
 import React, { ReactNode } from "react";
 import { Metadata } from "next";
 

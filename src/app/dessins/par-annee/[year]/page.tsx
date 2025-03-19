@@ -1,5 +1,5 @@
 import { getItemsByYear } from "@/app/actions/items";
-import ItemsComponent from "@/components/item/ItemsComponent";
+import ItemsPageComponent from "@/components/item/ItemsPageComponent";
 import { Type } from "@/lib/type";
 import { getSession } from "@/app/lib/auth";
 import { Metadata } from "next";
@@ -38,5 +38,5 @@ export default async function Page({ params }: Props) {
   const session = await getSession();
   const items = await getItemsByYear(year, Type.DRAWING, !session);
 
-  return <ItemsComponent tag={year} items={items} type={Type.DRAWING} />;
+  return <ItemsPageComponent tag={year} items={items} type={Type.DRAWING} />;
 }

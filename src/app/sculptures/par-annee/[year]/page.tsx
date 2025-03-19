@@ -1,4 +1,4 @@
-import ItemsComponent from "@/components/item/ItemsComponent";
+import ItemsPageComponent from "@/components/item/ItemsPageComponent";
 import { getSession } from "@/app/lib/auth";
 import { getItemsByYear } from "@/app/actions/items";
 import { Type } from "@/lib/type";
@@ -38,5 +38,5 @@ export default async function Page({ params }: Props) {
   const session = await getSession();
   const items = await getItemsByYear(year, Type.SCULPTURE, !session);
 
-  return <ItemsComponent tag={year} items={items} type={Type.SCULPTURE} />;
+  return <ItemsPageComponent tag={year} items={items} type={Type.SCULPTURE} />;
 }

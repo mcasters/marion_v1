@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import s from "@/styles/contact.module.css";
+import s from "@/styles/contactPage.module.css";
 import {
   getAddressText,
   getContactText,

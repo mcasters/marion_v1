@@ -4,7 +4,7 @@ import {
   getEmailText,
   getPhoneText,
 } from "@/utils/commonUtils";
-import s from "@/styles/admin/admin.module.css";
+import s from "@/components/admin/admin.module.css";
 import { Label } from "@prisma/client";
 import TextAreaForm from "@/components/admin/form/content/TextAreaForm";
 import React from "react";

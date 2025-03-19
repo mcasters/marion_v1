@@ -4,7 +4,7 @@ import { Type } from "@/lib/type";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
-import ItemsComponent from "@/components/item/ItemsComponent";
+import ItemsPageComponent from "@/components/item/ItemsPageComponent";
 import { META } from "@/constants/admin";
 
 type Props = {
@@ -48,7 +48,7 @@ export default async function Page({ params }: Props) {
   return (
     <>
       {category && (
-        <ItemsComponent
+        <ItemsPageComponent
           tag={category.value}
           category={category}
           items={items}

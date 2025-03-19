@@ -1,6 +1,6 @@
 import PostForm from "@/components/admin/form/post/PostForm";
 import PostListComponent from "@/components/admin/post/PostListComponent";
-import s from "@/styles/admin/admin.module.css";
+import s from "@/components/admin/admin.module.css";
 import React from "react";
 import { getEmptyPost } from "@/utils/commonUtils";
 import { getPostsFull } from "@/app/actions/posts";

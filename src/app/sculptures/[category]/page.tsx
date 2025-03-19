@@ -1,4 +1,4 @@
-import ItemsComponent from "@/components/item/ItemsComponent";
+import ItemsPageComponent from "@/components/item/ItemsPageComponent";
 import { getSession } from "@/app/lib/auth";
 import { getCategory, getItemsByCategory } from "@/app/actions/items";
 import { Type } from "@/lib/type";
@@ -49,7 +49,7 @@ export default async function Page({ params }: Props) {
   return (
     <>
       {category && (
-        <ItemsComponent
+        <ItemsPageComponent
           tag={category.value}
           category={category}
           items={items}
