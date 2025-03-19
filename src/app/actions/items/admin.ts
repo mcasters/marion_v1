@@ -89,7 +89,10 @@ export async function updateItem(
 export async function deleteItem(
   id: number,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-) {
+): Promise<{
+  message: string;
+  isError: boolean;
+}> {
   try {
     const item: ItemFull =
       type === Type.PAINTING
