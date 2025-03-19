@@ -2,7 +2,7 @@
 
 import RowCategoryListComponent from "./RowCategoryListComponent";
 import React from "react";
-import s from "@/styles/admin/AdminList.module.css";
+import s from "@/styles/admin/adminList.module.css";
 import style from "@/styles/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import AddCategoryButton from "@/components/admin/form/AddCategoryButton";

@@ -1,7 +1,7 @@
 "use client";
 
 import useModal from "@/components/admin/form/modal/useModal";
-import Modal from "@/components/admin/form/modal/Modal";
+import Modal from "@/components/admin/form/modal/modal";
 import { Category, ItemFull, PostFull, Type } from "@/lib/type";
 import PostForm from "@/components/admin/form/PostForm";
 import UpdateIcon from "@/components/icons/UpdateIcon";

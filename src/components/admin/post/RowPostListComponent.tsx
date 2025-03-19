@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import UpdateItemButton from "@/components/admin/form/UpdateItemButton";
-import s from "../../../styles/admin/AdminList.module.css";
+import s from "../../../styles/admin/adminList.module.css";
 import { PostFull } from "@/lib/type";
 import { getMainImage } from "@/utils/commonUtils";
 import DeletePostButton from "@/components/admin/form/DeletePostButton";

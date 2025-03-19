@@ -2,7 +2,7 @@
 
 import ColorPicker from "@/components/admin/theme/ColorPicker";
 import React from "react";
-import s from "../../../styles/admin/AdminTheme.module.css";
+import s from "../../../styles/admin/adminTheme.module.css";
 import { PresetColor } from "@prisma/client";
 import { PAGE_TYPE, THEME_DATAS } from "@/constants/admin";
 

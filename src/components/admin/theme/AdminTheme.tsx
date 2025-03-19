@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import themeStyle from "../../../styles/admin/AdminTheme.module.css";
+import themeStyle from "../../../styles/admin/adminTheme.module.css";
 import ThemeAdd from "@/components/admin/theme/ThemeAdd";
 import ThemeDashboard from "@/components/admin/theme/ThemeDashboard";
 import ThemeUpdate from "@/components/admin/theme/ThemeUpdate";

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ADMIN_MENU } from "@/constants/specific/routes";
-import s from "@/styles/admin/AdminNav.module.css";
+import s from "@/styles/admin/adminNav.module.css";
 
 export default function AdminNav() {
   const pathname = usePathname();

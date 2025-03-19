@@ -1,6 +1,6 @@
 "use client";
 
-import s from "../../../styles/Header.module.css";
+import s from "../../../styles/header.module.css";
 import React, { useEffect, useRef, useState } from "react";
 import { useMetas } from "@/app/context/metaProvider";
 import { useTheme } from "@/app/context/themeProvider";

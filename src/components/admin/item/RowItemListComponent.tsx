@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import UpdateItemButton from "@/components/admin/form/UpdateItemButton";
-import s from "../../../styles/admin/AdminList.module.css";
+import s from "../../../styles/admin/adminList.module.css";
 import { Category, ItemFull } from "@/lib/type";
 import { useMemo } from "react";
 

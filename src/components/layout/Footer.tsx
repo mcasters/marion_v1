@@ -1,6 +1,6 @@
 "use client";
 
-import s from "@/styles/Footer.module.css";
+import s from "@/styles/footer.module.css";
 import { ROUTES } from "@/constants/specific/routes";
 import { useSession } from "@/app/context/sessionProvider";
 import Link from "next/link";

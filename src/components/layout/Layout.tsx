@@ -7,7 +7,7 @@ import { ROUTES } from "@/constants/specific/routes";
 import Header from "./header/Header";
 import Main from "./Main";
 import Footer from "./Footer";
-import s from "@/styles/Layout.module.css";
+import s from "@/styles/layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { hexToRgb } from "@/utils/commonUtils";
 import AuthStatus from "@/components/auth/AuthStatus";

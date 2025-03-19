@@ -1,7 +1,7 @@
 "use client";
 
 import { MENU_1_ITEMS } from "@/constants/specific/routes";
-import s from "@/styles/Nav_1.module.css";
+import s from "@/styles/nav_1.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import NavItem from "@/components/layout/header/menu1/NavItem";
 import { getBorderColor } from "@/utils/commonUtils";

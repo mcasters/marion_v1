@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import s from "@/styles/ItemPage.module.css";
+import s from "@/styles/itemPage.module.css";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";

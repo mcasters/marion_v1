@@ -2,7 +2,7 @@
 
 import { ReactNode } from "react";
 
-import s from "../../../../styles/admin/Modal.module.css";
+import s from "./modal.module.css";
 
 interface Props {
   children?: ReactNode;

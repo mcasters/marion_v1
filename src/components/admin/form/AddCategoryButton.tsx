@@ -1,7 +1,7 @@
 "use client";
 
 import useModal from "@/components/admin/form/modal/useModal";
-import Modal from "@/components/admin/form/modal/Modal";
+import Modal from "@/components/admin/form/modal/modal";
 import CategoryForm from "@/components/admin/form/CategoryForm";
 import s from "@/styles/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";

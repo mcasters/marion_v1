@@ -1,9 +1,9 @@
 "use client";
 
-import s from "@/styles/admin/AdminTheme.module.css";
+import s from "@/styles/admin/adminTheme.module.css";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
-import Modal from "@/components/admin/form/modal/Modal";
+import Modal from "@/components/admin/form/modal/modal";
 import useModal from "@/components/admin/form/modal/useModal";
 import { PresetColor } from "@prisma/client";
 import DeleteIcon from "@/components/icons/DeleteIcon";

@@ -2,9 +2,9 @@
 
 import { PresetColor, Theme } from "@prisma/client";
 import useModal from "@/components/admin/form/modal/useModal";
-import Modal from "@/components/admin/form/modal/Modal";
+import Modal from "@/components/admin/form/modal/modal";
 import React, { useEffect, useState } from "react";
-import s from "@/styles/admin/AdminTheme.module.css";
+import s from "@/styles/admin/adminTheme.module.css";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { colorNameToHex } from "@/utils/commonUtils";
