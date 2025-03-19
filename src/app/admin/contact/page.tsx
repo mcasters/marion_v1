@@ -6,9 +6,9 @@ import {
 } from "@/utils/commonUtils";
 import s from "@/styles/admin/admin.module.css";
 import { Label } from "@prisma/client";
-import TextAreaForm from "@/components/admin/form/TextAreaForm";
+import TextAreaForm from "@/components/admin/form/content/TextAreaForm";
 import React from "react";
-import InputForm from "@/components/admin/form/InputForm";
+import InputForm from "@/components/admin/form/content/InputForm";
 import { getContentsFull } from "@/app/actions/contents";
 
 export default async function Contact() {

@@ -3,7 +3,7 @@
 import DeleteButton from "@/components/admin/form/DeleteButton";
 import s from "../../../../styles/admin/adminList.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
-import UpdateCategoryButton from "@/components/admin/form/UpdateCategoryButton";
+import UpdateCategoryButton from "@/components/admin/form/category/UpdateCategoryButton";
 import Image from "next/image";
 
 interface Props {

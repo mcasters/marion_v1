@@ -2,33 +2,26 @@
 
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/modal";
-import CategoryForm from "@/components/admin/form/CategoryForm";
+import CategoryForm from "@/components/admin/form/category/CategoryForm";
+import s from "@/styles/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
-import UpdateIcon from "@/components/icons/UpdateIcon";
 
 type Props = {
   category: Category;
   items: ItemFull[];
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
-  disabled?: boolean;
 };
-export default function UpdateCategoryButton({
-  category,
-  items,
-  type,
-  disabled,
-}: Props) {
+export default function AddCategoryButton({ category, items, type }: Props) {
   const { isOpen, toggle } = useModal();
 
   return (
     <>
       <button
         onClick={toggle}
-        className="iconButton"
-        aria-label="Mise à jour"
-        disabled={disabled ? disabled : false}
+        className={`${s.addButton} adminButton`}
+        aria-label="Ajout"
       >
-        <UpdateIcon />
+        Ajouter une catégorie
       </button>
       <Modal isOpen={isOpen} toggle={toggle}>
         <CategoryForm

@@ -1,4 +1,4 @@
-import PostForm from "@/components/admin/form/PostForm";
+import PostForm from "@/components/admin/form/post/PostForm";
 import PostListComponent from "@/components/admin/post/PostListComponent";
 import s from "@/styles/admin/admin.module.css";
 import React from "react";

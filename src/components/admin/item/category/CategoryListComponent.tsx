@@ -5,7 +5,7 @@ import React from "react";
 import s from "@/styles/admin/adminList.module.css";
 import style from "@/styles/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
-import AddCategoryButton from "@/components/admin/form/AddCategoryButton";
+import AddCategoryButton from "@/components/admin/form/category/AddCategoryButton";
 import { getEmptyCategory } from "@/utils/commonUtils";
 
 interface Props {

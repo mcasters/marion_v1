@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import s from "@/styles/admin/admin.module.css";
 import { useAlert } from "@/app/context/AlertProvider";
-import Preview from "@/components/admin/form/imageForm/Preview";
+import Preview from "@/components/admin/form/image/Preview";
 import { Image as IImage, Type } from "@/lib/type";
 
 interface Props {

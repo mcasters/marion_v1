@@ -3,11 +3,11 @@
 import React, { useActionState, useEffect, useRef } from "react";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
-import Images from "@/components/admin/form/imageForm/Images";
+import Images from "@/components/admin/form/image/Images";
 import { useAlert } from "@/app/context/AlertProvider";
 import { updateContent } from "@/app/actions/contents/admin";
 import { Label } from "@prisma/client";
-import PreviewForm from "@/components/admin/form/imageForm/PreviewForm";
+import PreviewForm from "@/components/admin/form/image/PreviewForm";
 import { Image } from "@/lib/type";
 import s from "@/styles/admin/admin.module.css";
 

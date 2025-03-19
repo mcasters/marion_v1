@@ -5,7 +5,7 @@ import s from "@/styles/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import { useAlert } from "@/app/context/AlertProvider";
-import Images from "@/components/admin/form/imageForm/Images";
+import Images from "@/components/admin/form/image/Images";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import MetaForm from "@/components/admin/form/metaForm";
+import MetaForm from "@/components/admin/form/content/metaForm";
 import { META, SEO } from "@/constants/admin";
 
 interface Props {

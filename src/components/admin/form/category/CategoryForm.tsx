@@ -8,7 +8,7 @@ import CancelButton from "@/components/admin/form/CancelButton";
 import { Category, Image, ItemFull, Type } from "@/lib/type";
 import { useAlert } from "@/app/context/AlertProvider";
 import { getEmptyCategory } from "@/utils/commonUtils";
-import SelectImageList from "@/components/admin/form/imageForm/SelectImageList";
+import SelectImageList from "@/components/admin/form/image/SelectImageList";
 import { createCategory, updateCategory } from "@/app/actions/items/admin";
 
 interface Props {

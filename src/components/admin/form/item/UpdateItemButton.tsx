@@ -3,9 +3,9 @@
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/modal";
 import { Category, ItemFull, PostFull, Type } from "@/lib/type";
-import PostForm from "@/components/admin/form/PostForm";
+import PostForm from "@/components/admin/form/post/PostForm";
 import UpdateIcon from "@/components/icons/UpdateIcon";
-import ItemForm from "@/components/admin/form/ItemForm";
+import ItemForm from "@/components/admin/form/item/ItemForm";
 import React from "react";
 import { updateItem } from "@/app/actions/items/admin";
 

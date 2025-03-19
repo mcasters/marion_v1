@@ -2,7 +2,7 @@
 
 import React, { useActionState, useEffect, useRef, useState } from "react";
 
-import Images from "@/components/admin/form/imageForm/Images";
+import Images from "@/components/admin/form/image/Images";
 import { PostFull, Type } from "@/lib/type";
 import s from "@/styles/admin/admin.module.css";
 import { getEmptyPost } from "@/utils/commonUtils";
