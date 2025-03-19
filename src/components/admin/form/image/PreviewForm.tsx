@@ -2,7 +2,7 @@
 
 import React, { useActionState, useEffect } from "react";
 import Image from "next/image";
-import s from "@/styles/admin/admin.module.css";
+import s from "@/components/admin/admin.module.css";
 import { Image as IImage } from "@/lib/type";
 import DeleteIcon from "@/components/icons/DeleteIcon";
 import { useAlert } from "@/app/context/AlertProvider";

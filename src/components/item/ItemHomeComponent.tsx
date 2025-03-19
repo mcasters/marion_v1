@@ -2,7 +2,7 @@
 
 import { Category, Type } from "@/lib/type";
 import React from "react";
-import s from "@/components/item/ItemHomeComponent.module.css";
+import s from "@/components/item/itemHomeComponent.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "@/app/context/themeProvider";

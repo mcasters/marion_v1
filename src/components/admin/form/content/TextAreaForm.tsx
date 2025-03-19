@@ -2,7 +2,7 @@
 
 import React, { useActionState, useEffect, useState } from "react";
 import { Label } from "@prisma/client";
-import s from "@/styles/admin/admin.module.css";
+import s from "@/components/admin/admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import { useAlert } from "@/app/context/AlertProvider";

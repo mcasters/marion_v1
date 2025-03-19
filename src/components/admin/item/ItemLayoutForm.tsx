@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useActionState, useEffect, useState } from "react";
-import s from "@/styles/admin/admin.module.css";
+import s from "@/components/admin/admin.module.css";
 import { useAlert } from "@/app/context/AlertProvider";
 import { updateMeta } from "@/app/actions/meta/admin";
 import { Type } from "@/lib/type";

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import s from "@/styles/admin/admin.module.css";
+import s from "@/components/admin/admin.module.css";
 import Image from "next/image";
 import { Image as IImage, ItemFull } from "@/lib/type";
 import { getEmptyImage } from "@/utils/commonUtils";

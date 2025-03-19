@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useActionState, useEffect, useState } from "react";
-import style from "@/styles/admin/admin.module.css";
+import style from "@/components/admin/admin.module.css";
 import s from "./chatMessage.module.css";
 import { addMessage, updateMessage } from "@/app/actions/messages";
 import { useSession } from "@/app/context/sessionProvider";

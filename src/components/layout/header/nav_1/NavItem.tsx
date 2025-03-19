@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { MENU_1_ITEMS } from "@/constants/specific/routes";
-import s from "./NavItem.module.css";
+import s from "./navItem.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import React, { useMemo } from "react";
 import LAYOUT from "@/constants/layout";

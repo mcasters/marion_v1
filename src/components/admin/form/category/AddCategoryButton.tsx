@@ -3,7 +3,7 @@
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/modal";
 import CategoryForm from "@/components/admin/form/category/CategoryForm";
-import s from "@/styles/admin/admin.module.css";
+import s from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 
 type Props = {

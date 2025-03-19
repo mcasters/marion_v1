@@ -2,7 +2,7 @@
 
 import { PresetColor } from "@prisma/client";
 import PresetColorPicker from "@/components/admin/theme/presetColor/PresetColorPicker";
-import s from "@/styles/admin/adminTheme.module.css";
+import s from "@/components/admin/theme/adminTheme.module.css";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {

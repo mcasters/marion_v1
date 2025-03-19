@@ -1,6 +1,6 @@
 "use client";
 
-import s from "./MonoLayout.module.css";
+import s from "./monoLayout.module.css";
 import { ItemFull } from "@/lib/type";
 import React, { useMemo, useState } from "react";
 import { getItemPhotoTab } from "@/utils/imageUtils";

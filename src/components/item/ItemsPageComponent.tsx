@@ -2,8 +2,8 @@
 
 import { Category, ItemFull, Type } from "@/lib/type";
 import React from "react";
-import s from "@/components/item/ItemsComponent.module.css";
-import ItemLayoutComponent from "@/components/item/itemLayout/ItemLayoutComponent";
+import s from "@/components/item/itemsPageComponent.module.css";
+import ItemLayoutComponent from "@/components/item/itemLayouts/ItemLayoutComponent";
 
 interface Props {
   tag: string;
@@ -11,7 +11,12 @@ interface Props {
   category?: Category;
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 }
-export default function ItemsComponent({ tag, items, category, type }: Props) {
+export default function ItemsPageComponent({
+  tag,
+  items,
+  category,
+  type,
+}: Props) {
   return (
     <>
       <div className={s.infoCategory}>

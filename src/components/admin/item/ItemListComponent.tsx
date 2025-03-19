@@ -2,8 +2,8 @@
 
 import RowItemListComponent from "./RowItemListComponent";
 import React, { useEffect, useState } from "react";
-import s from "@/styles/admin/adminList.module.css";
-import style from "@/styles/admin/admin.module.css";
+import s from "@/components/admin/adminList.module.css";
+import style from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import AddItemButton from "@/components/admin/form/item/AddItemButton";

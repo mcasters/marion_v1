@@ -1,9 +1,9 @@
 "use client";
 
 import LAYOUT from "@/constants/layout";
-import Nav_1 from "@/components/layout/header/menu1/Nav_1";
-import Nav_2 from "@/components/layout/header/Nav_2";
-import s from "../../../styles/header.module.css";
+import Nav_1 from "@/components/layout/header/nav_1/Nav_1";
+import Nav_2 from "@/components/layout/header/nav_2/Nav_2";
+import s from "./header.module.css";
 import { ROUTES } from "@/constants/specific/routes";
 import React, { useState } from "react";
 import HomeSection from "@/components/layout/header/HomeSection";

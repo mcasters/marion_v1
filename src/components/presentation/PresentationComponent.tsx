@@ -1,6 +1,6 @@
 "use client";
 
-import s from "./PresentationComponent.module.css";
+import s from "./presentationComponent.module.css";
 import React, { useMemo } from "react";
 import Image from "next/image";
 import { DEVICE } from "@/constants/image";

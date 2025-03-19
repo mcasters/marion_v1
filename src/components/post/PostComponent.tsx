@@ -1,6 +1,6 @@
 "use client";
 
-import s from "./PostComponent.module.css";
+import s from "./postComponent.module.css";
 import Gallery from "@/components/image/gallery/Gallery";
 import React, { useMemo, useState } from "react";
 import { PostFull } from "@/lib/type";

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { MENU_2 } from "@/constants/specific/routes";
-import s from "@/styles/nav_2.module.css";
+import s from "@/components/layout/header/nav_2/nav_2.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { useMetas } from "@/app/context/metaProvider";
 import { getBorderColor } from "@/utils/commonUtils";

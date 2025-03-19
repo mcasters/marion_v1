@@ -1,6 +1,6 @@
 "use client";
 
-import s from "@/styles/admin/adminTheme.module.css";
+import s from "@/components/admin/theme/adminTheme.module.css";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import Modal from "@/components/admin/form/modal/modal";
