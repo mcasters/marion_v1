@@ -86,7 +86,7 @@ export default function AdminTheme({ themes, presetColors }: Props) {
             dbTheme !== undefined &&
             Object.entries(removeProperty("isActive", workTheme))
               .sort()
-              .toString() !=
+              .toString() !==
               Object.entries(removeProperty("isActive", dbTheme))
                 .sort()
                 .toString()

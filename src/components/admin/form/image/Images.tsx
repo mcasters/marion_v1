@@ -9,7 +9,7 @@ import { Image as IImage, Type } from "@/lib/type";
 
 interface Props {
   type: Type | null;
-  reset: number;
+  resetFlag: number;
   isMultiple: boolean;
   smallImage: boolean;
   onNewImages?: (arg0: string[]) => void;
@@ -20,7 +20,7 @@ interface Props {
 
 export default function Images({
   type,
-  reset,
+  resetFlag,
   isMultiple,
   smallImage,
   onNewImages,
@@ -37,7 +37,7 @@ export default function Images({
     setNewImages([]);
     setAcceptSmallImage(false);
     if (inputRef.current) inputRef.current.value = "";
-  }, [reset]);
+  }, [resetFlag]);
 
   const handleFiles = async () => {
     if (

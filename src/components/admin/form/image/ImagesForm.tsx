@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect, useRef } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import CancelButton from "@/components/admin/form/CancelButton";
 import Images from "@/components/admin/form/image/Images";
@@ -29,13 +29,15 @@ export default function ImagesForm({
   isMain = false,
 }: Props) {
   const alert = useAlert();
-  const resetImageRef = useRef<number>(0);
   const [state, action] = useActionState(updateContent, null);
+  const [reset, setReset] = useState(0);
+
+  const handleReset = () => setReset(reset + 1);
 
   useEffect(() => {
     if (state) {
       alert(state.message, state.isError);
-      if (!state.isError) resetImageRef.current = resetImageRef.current + 1;
+      if (!state.isError) handleReset();
     }
   }, [state]);
 
@@ -48,13 +50,13 @@ export default function ImagesForm({
         <input type="hidden" name="isMain" value={isMain?.toString()} />
         <Images
           type={null}
-          reset={resetImageRef.current}
+          resetFlag={reset}
           isMultiple={isMultiple}
           smallImage={smallImage}
         />
         <>
           <SubmitButton />
-          <CancelButton />
+          <CancelButton onCancel={handleReset} />
         </>
       </form>
     </>

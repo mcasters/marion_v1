@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect, useRef, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 
 import Images from "@/components/admin/form/image/Images";
 import { PostFull, Type } from "@/lib/type";
@@ -18,10 +18,9 @@ interface Props {
 
 export default function PostForm({ post, toggleModal }: Props) {
   const isUpdate = post.id !== 0;
-  const resetMainImageRef = useRef<number>(0);
-  const resetImagesRef = useRef<number>(0);
   const alert = useAlert();
 
+  const [reset, setReset] = useState(0);
   const [workPost, setWorkPost] = useState<PostFull>(post);
   const [date, setDate] = useState<string>(
     new Date(post.date).getFullYear().toString(),
@@ -33,19 +32,18 @@ export default function PostForm({ post, toggleModal }: Props) {
     null,
   );
 
-  const reset = () => {
+  const handleReset = () => {
     if (toggleModal) toggleModal();
     else {
       setWorkPost(getEmptyPost());
       setDate("");
-      resetMainImageRef.current = resetMainImageRef.current + 1;
-      resetImagesRef.current = resetImagesRef.current + 1;
+      setReset(reset + 1);
     }
   };
 
   useEffect(() => {
     if (state) {
-      if (!state.isError) reset();
+      if (!state.isError) handleReset();
       alert(state.message, state.isError);
     }
   }, [state]);
@@ -109,7 +107,7 @@ export default function PostForm({ post, toggleModal }: Props) {
         <div className={s.imagesContainer}>
           <Images
             type={Type.POST}
-            reset={resetMainImageRef.current}
+            resetFlag={reset}
             smallImage={true}
             isMultiple={false}
             images={post.images.filter((i) => i.isMain) || []}
@@ -120,7 +118,7 @@ export default function PostForm({ post, toggleModal }: Props) {
         <div className={s.imagesContainer}>
           <Images
             type={Type.POST}
-            reset={resetImagesRef.current}
+            resetFlag={reset}
             smallImage={true}
             isMultiple={true}
             images={post.images.filter((i) => !i.isMain) || []}
@@ -132,7 +130,7 @@ export default function PostForm({ post, toggleModal }: Props) {
         </div>
         <div className={s.buttonSection}>
           <SubmitButton disabled={!workPost.title || !date} />
-          <CancelButton onCancel={reset} />
+          <CancelButton onCancel={handleReset} />
         </div>
       </form>
     </div>

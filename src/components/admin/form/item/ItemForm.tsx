@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect, useRef, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
@@ -28,8 +28,8 @@ export default function ItemForm({
   const isUpdate = item.id !== 0;
   const isSculpture = item.type === Type.SCULPTURE;
   const alert = useAlert();
-  const resetImageRef = useRef<number>(0);
 
+  const [reset, setReset] = useState(0);
   const [workItem, setWorkItem] = useState<ItemFull>(item);
   const [date, setDate] = useState<string>(
     new Date(item.date).getFullYear().toString(),
@@ -38,20 +38,20 @@ export default function ItemForm({
   const [newImages, setNewImages] = useState<string[]>([]);
   const [state, action] = useActionState(itemAction, null);
 
-  const reset = () => {
+  const handleReset = () => {
     if (toggleModal) toggleModal();
     else {
       setWorkItem(getEmptyItem(item.type));
       setDate("");
       setFilenamesToDelete([]);
       setNewImages([]);
-      resetImageRef.current = resetImageRef.current + 1;
+      setReset(reset + 1);
     }
   };
 
   useEffect(() => {
     if (state) {
-      if (!state.isError) reset();
+      if (!state.isError) handleReset();
       alert(state.message, state.isError);
     }
   }, [state]);
@@ -214,7 +214,7 @@ export default function ItemForm({
         <div className={s.imagesContainer}>
           <Images
             type={item.type}
-            reset={resetImageRef.current}
+            resetFlag={reset}
             isMultiple={isSculpture}
             smallImage={true}
             onNewImages={setNewImages}
@@ -239,7 +239,7 @@ export default function ItemForm({
                 filenamesToDelete.length >= workItem.images.length)
             }
           />
-          <CancelButton onCancel={reset} />
+          <CancelButton onCancel={handleReset} />
         </div>
       </form>
     </div>

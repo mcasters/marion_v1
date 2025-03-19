@@ -59,7 +59,10 @@ export default function MetaForm({
           )}
         </label>
         <SubmitButton disabled={!isChanged} />
-        <CancelButton disabled={!isChanged} />
+        <CancelButton
+          disabled={!isChanged}
+          onCancel={() => setText(textContent)}
+        />
       </form>
     </>
   );

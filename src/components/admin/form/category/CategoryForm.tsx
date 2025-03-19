@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect, useRef, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 
 import s from "@/components/admin/admin.module.css";
 import SubmitButton from "@/components/admin/form/SubmitButton";
@@ -30,17 +30,15 @@ export default function CategoryForm({
     isUpdate ? updateCategory : createCategory,
     null,
   );
-  const resetImageRef = useRef<number>(0);
   const alert = useAlert();
   const message = `Parmi les renseignements facultatif d'une catégorie, la photo d'une œuvre peut être assignée à cette catégorie, cela permet à l'utilisateur d'avoir une idée du genre d'œuvre qui s'y trouve (cette photo s'affiche dans la pastille sur laquelle on clique pour sélectionner la catégorie). Cependant, cette photo ne peut être ajoutée qu'une fois que des œuvres y sont classées, puisque le choix de la photo s'effectue parmi ces œuvres. Donc après avoir créé la catégorie, et après y avoir classé des œuvres, tu pourras alors choisir une photo en allant dans la mise à jour de la catégorie.`;
 
-  const reset = () => {
+  const handleReset = () => {
     if (toggleModal) toggleModal();
     else {
       const emptyCat = getEmptyCategory();
       setWorkCategory(emptyCat);
       setImage(emptyCat.content.image);
-      resetImageRef.current = resetImageRef.current + 1;
     }
   };
 
@@ -48,7 +46,7 @@ export default function CategoryForm({
     if (state) {
       if (!state.isError) {
         alert(state.message, false);
-        reset();
+        handleReset();
       } else alert(state.message, true);
     }
   }, [state]);
@@ -118,7 +116,7 @@ export default function CategoryForm({
         )}
         <div className={s.buttonSection}>
           <SubmitButton />
-          <CancelButton onCancel={reset} />
+          <CancelButton onCancel={handleReset} />
         </div>
       </form>
     </div>
