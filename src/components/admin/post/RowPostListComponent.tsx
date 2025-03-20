@@ -5,8 +5,8 @@ import s from "../adminList.module.css";
 import { PostFull } from "@/lib/type";
 import { getMainImage } from "@/utils/commonUtils";
 import { deletePost, updatePost } from "@/app/actions/posts/admin";
-import DeleteButton from "@/components/admin/form/DeleteButton";
-import AddUpdateButton from "@/components/admin/form/AddUpdateButton";
+import DeleteButton from "@/components/admin/form/deleteButton";
+import AddUpdateButton from "@/components/admin/form/addUpdateButton";
 import React from "react";
 
 interface Props {

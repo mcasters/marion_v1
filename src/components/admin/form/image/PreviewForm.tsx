@@ -4,8 +4,8 @@ import React, { useActionState, useEffect } from "react";
 import Image from "next/image";
 import s from "@/components/admin/admin.module.css";
 import { Image as IImage } from "@/lib/type";
-import DeleteIcon from "@/components/icons/DeleteIcon";
-import { useAlert } from "@/app/context/AlertProvider";
+import DeleteIcon from "@/components/icons/deleteIcon";
+import { useAlert } from "@/app/context/alertProvider";
 import { Label } from "@prisma/client";
 import { deleteContentImage } from "@/app/actions/contents/admin";
 

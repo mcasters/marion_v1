@@ -1,7 +1,7 @@
 "use client";
 
-import CategoryListComponent from "@/components/admin/item/category/CategoryListComponent";
-import CategoryForm from "@/components/admin/form/category/CategoryForm";
+import CategoryListComponent from "@/components/admin/item/category/categoryListComponent";
+import CategoryForm from "@/components/admin/form/category/categoryForm";
 import s from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyCategory } from "@/utils/commonUtils";

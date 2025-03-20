@@ -2,7 +2,7 @@
 
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/modal";
-import CategoryForm from "@/components/admin/form/category/CategoryForm";
+import CategoryForm from "@/components/admin/form/category/categoryForm";
 import s from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 

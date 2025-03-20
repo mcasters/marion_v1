@@ -2,9 +2,9 @@
 
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/modal";
-import CategoryForm from "@/components/admin/form/category/CategoryForm";
+import CategoryForm from "@/components/admin/form/category/categoryForm";
 import { Category, ItemFull, Type } from "@/lib/type";
-import UpdateIcon from "@/components/icons/UpdateIcon";
+import UpdateIcon from "@/components/icons/updateIcon";
 
 type Props = {
   category: Category;

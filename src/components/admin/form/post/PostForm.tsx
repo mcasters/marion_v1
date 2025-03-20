@@ -2,12 +2,12 @@
 
 import React, { useActionState, useEffect, useState } from "react";
 
-import Images from "@/components/admin/form/image/Images";
+import Images from "@/components/admin/form/image/images";
 import { PostFull, Type } from "@/lib/type";
 import s from "@/components/admin/admin.module.css";
-import CancelButton from "@/components/admin/form/CancelButton";
-import SubmitButton from "@/components/admin/form/SubmitButton";
-import { useAlert } from "@/app/context/AlertProvider";
+import CancelButton from "@/components/admin/form/cancelButton";
+import SubmitButton from "@/components/admin/form/submitButton";
+import { useAlert } from "@/app/context/alertProvider";
 
 interface Props {
   post: PostFull;

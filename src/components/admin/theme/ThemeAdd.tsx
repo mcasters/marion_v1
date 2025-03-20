@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import { useAlert } from "@/app/context/AlertProvider";
+import { useAlert } from "@/app/context/alertProvider";
 import { createTheme } from "@/app/actions/theme/admin";
 
 export default function ThemeAdd() {

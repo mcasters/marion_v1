@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import { useAlert } from "@/app/context/AlertProvider";
+import { useAlert } from "@/app/context/alertProvider";
 import { THEME } from "@/constants/admin";
 import { updateTheme } from "@/app/actions/theme/admin";
 

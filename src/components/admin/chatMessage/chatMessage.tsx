@@ -5,7 +5,7 @@ import s from "./chatMessage.module.css";
 import { useSession } from "@/app/context/sessionProvider";
 import { useTheme } from "@/app/context/themeProvider";
 import { Message } from "@/lib/type";
-import MoreIcon from "@/components/icons/MoreIcon";
+import MoreIcon from "@/components/icons/moreIcon";
 import { deleteMessage } from "@/app/actions/messages";
 
 type Props = {

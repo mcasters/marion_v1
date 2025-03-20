@@ -3,11 +3,11 @@
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/modal";
 import { Category, ItemFull, PostFull, Type } from "@/lib/type";
-import PostForm from "@/components/admin/form/post/PostForm";
-import ItemForm from "@/components/admin/form/item/ItemForm";
+import PostForm from "@/components/admin/form/post/postForm";
+import ItemForm from "@/components/admin/form/item/itemForm";
 import React from "react";
 import s from "@/components/admin/admin.module.css";
-import UpdateIcon from "@/components/icons/UpdateIcon";
+import UpdateIcon from "@/components/icons/updateIcon";
 
 type Props = {
   item: ItemFull | PostFull;

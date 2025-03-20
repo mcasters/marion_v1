@@ -8,7 +8,7 @@ import s from "@/components/admin/theme/adminTheme.module.css";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { colorNameToHex } from "@/utils/commonUtils";
-import { useAlert } from "@/app/context/AlertProvider";
+import { useAlert } from "@/app/context/alertProvider";
 import { createPresetColor } from "@/app/actions/theme/admin";
 import { OnlyString } from "@/lib/type";
 

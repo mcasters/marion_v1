@@ -3,7 +3,7 @@
 import React from "react";
 import { PresetColor, Theme } from "@prisma/client";
 import ChatMessages from "@/components/admin/chatMessage/chatMessages";
-import AdminTheme from "@/components/admin/theme/AdminTheme";
+import AdminTheme from "@/components/admin/theme/adminTheme";
 import { Message } from "@/lib/type";
 import s from "@/components/admin/admin.module.css";
 

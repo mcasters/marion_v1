@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 
-import DeleteButton from "@/components/admin/form/DeleteButton";
+import DeleteButton from "@/components/admin/form/deleteButton";
 import s from "../adminList.module.css";
 import { Category, ItemFull } from "@/lib/type";
 import React, { useMemo } from "react";
 import { deleteItem, updateItem } from "@/app/actions/items/admin";
-import AddUpdateButton from "@/components/admin/form/AddUpdateButton";
+import AddUpdateButton from "@/components/admin/form/addUpdateButton";
 
 interface Props {
   item: ItemFull;

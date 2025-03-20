@@ -1,6 +1,6 @@
 "use client";
 
-import ColorPicker from "@/components/admin/theme/ColorPicker";
+import ColorPicker from "@/components/admin/theme/colorPicker";
 import React from "react";
 import s from "./adminTheme.module.css";
 import { PresetColor } from "@prisma/client";

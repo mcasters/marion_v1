@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import DeleteIcon from "@/components/icons/DeleteIcon";
-import { useAlert } from "@/app/context/AlertProvider";
+import DeleteIcon from "@/components/icons/deleteIcon";
+import { useAlert } from "@/app/context/alertProvider";
 
 type Props = {
   action: () => Promise<{

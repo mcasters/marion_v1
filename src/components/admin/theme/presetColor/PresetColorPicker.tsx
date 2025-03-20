@@ -6,8 +6,8 @@ import { HexColorInput, HexColorPicker } from "react-colorful";
 import Modal from "@/components/admin/form/modal/modal";
 import useModal from "@/components/admin/form/modal/useModal";
 import { PresetColor } from "@prisma/client";
-import DeleteIcon from "@/components/icons/DeleteIcon";
-import { useAlert } from "@/app/context/AlertProvider";
+import DeleteIcon from "@/components/icons/deleteIcon";
+import { useAlert } from "@/app/context/alertProvider";
 import {
   deletePresetColor,
   updatePresetColor,

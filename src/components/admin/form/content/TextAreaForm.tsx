@@ -3,9 +3,9 @@
 import React, { useActionState, useEffect, useState } from "react";
 import { Label } from "@prisma/client";
 import s from "@/components/admin/admin.module.css";
-import SubmitButton from "@/components/admin/form/SubmitButton";
-import CancelButton from "@/components/admin/form/CancelButton";
-import { useAlert } from "@/app/context/AlertProvider";
+import SubmitButton from "@/components/admin/form/submitButton";
+import CancelButton from "@/components/admin/form/cancelButton";
+import { useAlert } from "@/app/context/alertProvider";
 import { updateContent } from "@/app/actions/contents/admin";
 
 interface Props {

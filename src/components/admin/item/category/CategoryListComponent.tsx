@@ -1,11 +1,11 @@
 "use client";
 
-import RowCategoryListComponent from "./RowCategoryListComponent";
+import RowCategoryListComponent from "./rowCategoryListComponent";
 import React from "react";
 import s from "@/components/admin/adminList.module.css";
 import style from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
-import AddCategoryButton from "@/components/admin/form/category/AddCategoryButton";
+import AddCategoryButton from "@/components/admin/form/category/addCategoryButton";
 import { getEmptyCategory } from "@/utils/commonUtils";
 
 interface Props {

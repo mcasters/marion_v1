@@ -3,12 +3,12 @@
 import React, { useActionState, useEffect, useState } from "react";
 
 import s from "@/components/admin/admin.module.css";
-import SubmitButton from "@/components/admin/form/SubmitButton";
-import CancelButton from "@/components/admin/form/CancelButton";
+import SubmitButton from "@/components/admin/form/submitButton";
+import CancelButton from "@/components/admin/form/cancelButton";
 import { Category, Image, ItemFull, Type } from "@/lib/type";
-import { useAlert } from "@/app/context/AlertProvider";
+import { useAlert } from "@/app/context/alertProvider";
 import { getEmptyCategory } from "@/utils/commonUtils";
-import SelectImageList from "@/components/admin/form/image/SelectImageList";
+import SelectImageList from "@/components/admin/form/image/selectImageList";
 import { createCategory, updateCategory } from "@/app/actions/items/admin";
 
 interface Props {

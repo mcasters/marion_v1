@@ -1,9 +1,9 @@
 "use client";
 
-import DeleteButton from "@/components/admin/form/DeleteButton";
+import DeleteButton from "@/components/admin/form/deleteButton";
 import s from "../../adminList.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
-import UpdateCategoryButton from "@/components/admin/form/category/UpdateCategoryButton";
+import UpdateCategoryButton from "@/components/admin/form/category/updateCategoryButton";
 import Image from "next/image";
 import { deleteCategory } from "@/app/actions/items/admin";
 

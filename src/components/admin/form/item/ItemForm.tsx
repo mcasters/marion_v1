@@ -3,10 +3,10 @@
 import React, { useActionState, useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
-import { useAlert } from "@/app/context/AlertProvider";
-import Images from "@/components/admin/form/image/Images";
-import SubmitButton from "@/components/admin/form/SubmitButton";
-import CancelButton from "@/components/admin/form/CancelButton";
+import { useAlert } from "@/app/context/alertProvider";
+import Images from "@/components/admin/form/image/images";
+import SubmitButton from "@/components/admin/form/submitButton";
+import CancelButton from "@/components/admin/form/cancelButton";
 
 interface Props {
   item: ItemFull;

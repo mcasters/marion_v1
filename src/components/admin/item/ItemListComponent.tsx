@@ -1,12 +1,12 @@
 "use client";
 
-import RowItemListComponent from "./RowItemListComponent";
+import RowItemListComponent from "./rowItemListComponent";
 import React, { useEffect, useState } from "react";
 import s from "@/components/admin/adminList.module.css";
 import style from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
-import AddUpdateButton from "@/components/admin/form/AddUpdateButton";
+import AddUpdateButton from "@/components/admin/form/addUpdateButton";
 import { createItem } from "@/app/actions/items/admin";
 
 interface Props {

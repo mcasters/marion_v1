@@ -3,10 +3,10 @@
 import React from "react";
 import style from "@/components/admin/admin.module.css";
 import s from "@/components/admin/adminList.module.css";
-import RowPostListComponent from "@/components/admin/post/RowPostListComponent";
+import RowPostListComponent from "@/components/admin/post/rowPostListComponent";
 import { PostFull } from "@/lib/type";
 import { getEmptyPost } from "@/utils/commonUtils";
-import AddUpdateButton from "@/components/admin/form/AddUpdateButton";
+import AddUpdateButton from "@/components/admin/form/addUpdateButton";
 import { createPost } from "@/app/actions/posts/admin";
 
 interface Props {

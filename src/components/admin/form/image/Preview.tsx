@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import s from "@/components/admin/admin.module.css";
 import { Image as IImage } from "@/lib/type";
-import DeleteIcon from "@/components/icons/DeleteIcon";
+import DeleteIcon from "@/components/icons/deleteIcon";
 
 type Props = {
   images: IImage[];

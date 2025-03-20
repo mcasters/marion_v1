@@ -3,8 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import s from "@/components/admin/admin.module.css";
-import { useAlert } from "@/app/context/AlertProvider";
-import Preview from "@/components/admin/form/image/Preview";
+import { useAlert } from "@/app/context/alertProvider";
+import Preview from "@/components/admin/form/image/preview";
 import { Image as IImage, Type } from "@/lib/type";
 
 interface Props {
