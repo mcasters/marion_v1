@@ -9,9 +9,9 @@ import { Image as IImage, Type } from "@/lib/type";
 
 interface Props {
   type: Type | null;
-  resetFlag: number;
   isMultiple: boolean;
   smallImage: boolean;
+  resetFlag?: number;
   onNewImages?: (arg0: string[]) => void;
   onDelete?: (filename: string) => void;
   images?: IImage[];

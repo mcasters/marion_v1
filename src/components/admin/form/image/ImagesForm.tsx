@@ -50,9 +50,9 @@ export default function ImagesForm({
         <input type="hidden" name="isMain" value={isMain?.toString()} />
         <Images
           type={null}
-          resetFlag={reset}
           isMultiple={isMultiple}
           smallImage={smallImage}
+          resetFlag={reset}
         />
         <>
           <SubmitButton />

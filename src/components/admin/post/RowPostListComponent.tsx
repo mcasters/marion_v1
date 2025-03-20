@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import UpdateItemButton from "@/components/admin/form/item/UpdateItemButton";
 import s from "../adminList.module.css";
 import { PostFull } from "@/lib/type";
 import { getMainImage } from "@/utils/commonUtils";
-import { deletePost } from "@/app/actions/posts/admin";
+import { deletePost, updatePost } from "@/app/actions/posts/admin";
 import DeleteButton from "@/components/admin/form/DeleteButton";
+import AddUpdateButton from "@/components/admin/form/AddUpdateButton";
+import React from "react";
 
 interface Props {
   post: PostFull;
@@ -38,7 +39,7 @@ export default function RowPostListComponent({ post }: Props) {
         )}
       </li>
       <li className={s.icon}>
-        <UpdateItemButton item={post} />
+        <AddUpdateButton item={post} action={updatePost} />
       </li>
       <li className={s.icon}>
         <DeleteButton action={() => deletePost(post.id)} />

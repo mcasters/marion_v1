@@ -5,52 +5,41 @@ import React, { useActionState, useEffect, useState } from "react";
 import Images from "@/components/admin/form/image/Images";
 import { PostFull, Type } from "@/lib/type";
 import s from "@/components/admin/admin.module.css";
-import { getEmptyPost } from "@/utils/commonUtils";
 import CancelButton from "@/components/admin/form/CancelButton";
 import SubmitButton from "@/components/admin/form/SubmitButton";
 import { useAlert } from "@/app/context/AlertProvider";
-import { createPost, updatePost } from "@/app/actions/posts/admin";
 
 interface Props {
   post: PostFull;
-  toggleModal?: () => void;
+  formAction: (
+    prevState: { message: string; isError: boolean } | null,
+    formData: FormData,
+  ) => Promise<{ isError: boolean; message: string }>;
+  toggleModal: () => void;
 }
 
-export default function PostForm({ post, toggleModal }: Props) {
+export default function PostForm({ post, formAction, toggleModal }: Props) {
   const isUpdate = post.id !== 0;
   const alert = useAlert();
 
-  const [reset, setReset] = useState(0);
   const [workPost, setWorkPost] = useState<PostFull>(post);
   const [date, setDate] = useState<string>(
     new Date(post.date).getFullYear().toString(),
   );
   const [mainFilenameToDelete, setMainFilenameToDelete] = useState<string>("");
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
-  const [state, action] = useActionState(
-    isUpdate ? updatePost : createPost,
-    null,
-  );
-
-  const handleReset = () => {
-    if (toggleModal) toggleModal();
-    else {
-      setWorkPost(getEmptyPost());
-      setDate("");
-      setReset(reset + 1);
-    }
-  };
+  const [state, action] = useActionState(formAction, null);
 
   useEffect(() => {
     if (state) {
-      if (!state.isError) handleReset();
+      if (!state.isError) toggleModal();
       alert(state.message, state.isError);
     }
   }, [state]);
 
   return (
-    <div className={isUpdate ? s.modalContainer : s.container}>
-      <h2 className={isUpdate ? s.modalTitle : s.title2}>
+    <div className={s.modalContainer}>
+      <h2 className={s.modalTitle}>
         {isUpdate ? "Modifier un post" : "Ajouter un post"}
       </h2>
       <form action={action}>
@@ -107,30 +96,28 @@ export default function PostForm({ post, toggleModal }: Props) {
         <div className={s.imagesContainer}>
           <Images
             type={Type.POST}
-            resetFlag={reset}
-            smallImage={true}
             isMultiple={false}
-            images={post.images.filter((i) => i.isMain) || []}
+            smallImage={true}
             onDelete={(filename) => setMainFilenameToDelete(filename)}
+            images={post.images.filter((i) => i.isMain) || []}
             title="Image principale (facultative)"
           />
         </div>
         <div className={s.imagesContainer}>
           <Images
             type={Type.POST}
-            resetFlag={reset}
-            smallImage={true}
             isMultiple={true}
-            images={post.images.filter((i) => !i.isMain) || []}
+            smallImage={true}
             onDelete={(filename) =>
               setFilenamesToDelete([...filenamesToDelete, filename])
             }
+            images={post.images.filter((i) => !i.isMain) || []}
             title="Album d'images (facultatif)"
           />
         </div>
         <div className={s.buttonSection}>
           <SubmitButton disabled={!workPost.title || !date} />
-          <CancelButton onCancel={handleReset} />
+          <CancelButton onCancel={toggleModal} />
         </div>
       </form>
     </div>

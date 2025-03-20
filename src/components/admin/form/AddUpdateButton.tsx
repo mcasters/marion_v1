@@ -4,17 +4,22 @@ import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/modal";
 import { Category, ItemFull, PostFull, Type } from "@/lib/type";
 import PostForm from "@/components/admin/form/post/PostForm";
-import UpdateIcon from "@/components/icons/UpdateIcon";
 import ItemForm from "@/components/admin/form/item/ItemForm";
 import React from "react";
-import { updateItem } from "@/app/actions/items/admin";
+import s from "@/components/admin/admin.module.css";
+import UpdateIcon from "@/components/icons/UpdateIcon";
 
 type Props = {
   item: ItemFull | PostFull;
+  action: (
+    prevState: { message: string; isError: boolean } | null,
+    formData: FormData,
+  ) => Promise<{ isError: boolean; message: string }>;
   categories?: Category[];
 };
-export default function UpdateItemButton({ item, categories }: Props) {
+export default function AddUpdateButton({ item, action, categories }: Props) {
   const { isOpen, toggle } = useModal();
+  const isUpdate = item.id != 0;
 
   return (
     <>
@@ -23,23 +28,27 @@ export default function UpdateItemButton({ item, categories }: Props) {
           e.preventDefault();
           toggle();
         }}
-        className="iconButton"
-        aria-label="Mise à jour"
+        className={isUpdate ? "iconButton" : `${s.addButton} adminButton`}
+        aria-label={isUpdate ? "Mise à jour" : "Ajout"}
       >
-        <UpdateIcon />
+        {isUpdate ? (
+          <UpdateIcon />
+        ) : (
+          `Ajouter ${item.type === Type.DRAWING || item.type === Type.POST ? "un" : "une"} ${item.type}`
+        )}
       </button>
       <Modal isOpen={isOpen} toggle={toggle}>
         {item.type === Type.DRAWING ||
         item.type === Type.SCULPTURE ||
         item.type === Type.PAINTING ? (
           <ItemForm
-            categories={categories}
             item={item}
+            formAction={action}
             toggleModal={toggle}
-            itemAction={updateItem}
+            categories={categories}
           />
         ) : item.type === Type.POST ? (
-          <PostForm post={item} toggleModal={toggle} />
+          <PostForm post={item} formAction={action} toggleModal={toggle} />
         ) : undefined}
       </Modal>
     </>

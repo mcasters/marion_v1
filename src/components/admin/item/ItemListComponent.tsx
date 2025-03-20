@@ -6,7 +6,8 @@ import s from "@/components/admin/adminList.module.css";
 import style from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
-import AddItemButton from "@/components/admin/form/item/AddItemButton";
+import AddUpdateButton from "@/components/admin/form/AddUpdateButton";
+import { createItem } from "@/app/actions/items/admin";
 
 interface Props {
   categories: Category[];
@@ -106,7 +107,11 @@ export default function ItemListComponent({
             );
           })}
       </div>
-      <AddItemButton item={getEmptyItem(type)} categories={categories} />
+      <AddUpdateButton
+        item={getEmptyItem(type)}
+        action={createItem}
+        categories={categories}
+      />
     </div>
   );
 }

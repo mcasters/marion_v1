@@ -3,7 +3,6 @@
 import React, { useActionState, useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
-import { getEmptyItem } from "@/utils/commonUtils";
 import { useAlert } from "@/app/context/AlertProvider";
 import Images from "@/components/admin/form/image/Images";
 import SubmitButton from "@/components/admin/form/SubmitButton";
@@ -11,17 +10,17 @@ import CancelButton from "@/components/admin/form/CancelButton";
 
 interface Props {
   item: ItemFull;
-  itemAction: (
+  formAction: (
     prevState: { message: string; isError: boolean } | null,
     formData: FormData,
   ) => Promise<{ isError: boolean; message: string }>;
-  toggleModal?: () => void;
+  toggleModal: () => void;
   categories?: Category[];
 }
 
 export default function ItemForm({
   item,
-  itemAction,
+  formAction,
   toggleModal,
   categories,
 }: Props) {
@@ -29,29 +28,17 @@ export default function ItemForm({
   const isSculpture = item.type === Type.SCULPTURE;
   const alert = useAlert();
 
-  const [reset, setReset] = useState(0);
   const [workItem, setWorkItem] = useState<ItemFull>(item);
   const [date, setDate] = useState<string>(
     new Date(item.date).getFullYear().toString(),
   );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const [newImages, setNewImages] = useState<string[]>([]);
-  const [state, action] = useActionState(itemAction, null);
-
-  const handleReset = () => {
-    if (toggleModal) toggleModal();
-    else {
-      setWorkItem(getEmptyItem(item.type));
-      setDate("");
-      setFilenamesToDelete([]);
-      setNewImages([]);
-      setReset(reset + 1);
-    }
-  };
+  const [state, action] = useActionState(formAction, null);
 
   useEffect(() => {
     if (state) {
-      if (!state.isError) handleReset();
+      if (!state.isError) toggleModal();
       alert(state.message, state.isError);
     }
   }, [state]);
@@ -214,7 +201,6 @@ export default function ItemForm({
         <div className={s.imagesContainer}>
           <Images
             type={item.type}
-            resetFlag={reset}
             isMultiple={isSculpture}
             smallImage={true}
             onNewImages={setNewImages}
@@ -239,7 +225,7 @@ export default function ItemForm({
                 filenamesToDelete.length >= workItem.images.length)
             }
           />
-          <CancelButton onCancel={handleReset} />
+          <CancelButton onCancel={toggleModal} />
         </div>
       </form>
     </div>

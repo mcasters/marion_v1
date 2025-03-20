@@ -31,8 +31,8 @@ export default async function Home() {
           images={getSliderPortraitImages(contents)}
           isMultiple={true}
           label={Label.SLIDER}
-          isMain
           smallImage={false}
+          isMain
         />
       </div>
       <div className={s.container}>

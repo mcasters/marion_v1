@@ -5,6 +5,9 @@ import style from "@/components/admin/admin.module.css";
 import s from "@/components/admin/adminList.module.css";
 import RowPostListComponent from "@/components/admin/post/RowPostListComponent";
 import { PostFull } from "@/lib/type";
+import { getEmptyPost } from "@/utils/commonUtils";
+import AddUpdateButton from "@/components/admin/form/AddUpdateButton";
+import { createPost } from "@/app/actions/posts/admin";
 
 interface Props {
   posts?: PostFull[];
@@ -21,6 +24,7 @@ export default function PostListComponent({ posts }: Props) {
             return <RowPostListComponent key={post.id} post={post} />;
           })}
       </div>
+      <AddUpdateButton item={getEmptyPost()} action={createPost} />
     </div>
   );
 }

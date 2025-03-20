@@ -19,10 +19,10 @@ export default async function Presentation() {
       <h1 className={s.title1}>Contenus de la page Présentation</h1>
       <div className={s.container}>
         <ImagesForm
+          images={getPresentationImage(contents)}
           isMultiple={false}
           label={Label.PRESENTATION}
           smallImage={true}
-          images={getPresentationImage(contents)}
           title="Image de présentation (facultatif)"
         />
       </div>
