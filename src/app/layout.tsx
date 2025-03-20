@@ -1,6 +1,6 @@
 import type { Viewport } from "next";
 import { Metadata } from "next";
-import Layout from "@/components/layout/Layout";
+import Layout from "@/components/layout/layout";
 import Providers from "./context/providers";
 import "@/styles/globals-specific.css";
 import { getIntroText, getMetaMap, themeToHexa } from "@/utils/commonUtils";

@@ -1,4 +1,4 @@
-import PostListComponent from "@/components/admin/post/PostListComponent";
+import PostListComponent from "@/components/admin/post/postListComponent";
 import s from "@/components/admin/admin.module.css";
 import React from "react";
 import { getPostsFull } from "@/app/actions/posts";

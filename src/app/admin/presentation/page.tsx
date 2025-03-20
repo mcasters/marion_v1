@@ -7,8 +7,8 @@ import {
 import s from "@/components/admin/admin.module.css";
 import { Label } from "@prisma/client";
 import React from "react";
-import TextAreaForm from "@/components/admin/form/content/TextAreaForm";
-import ImagesForm from "@/components/admin/form/image/ImagesForm";
+import TextAreaForm from "@/components/admin/form/content/textAreaForm";
+import ImagesForm from "@/components/admin/form/image/imagesForm";
 import { getContentsFull } from "@/app/actions/contents";
 
 export default async function Presentation() {

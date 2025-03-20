@@ -4,7 +4,7 @@ import {
   getPresetColors,
   getThemesFull,
 } from "@/app/actions/theme";
-import AdminHome from "@/components/admin/AdminHome";
+import AdminHome from "@/components/admin/adminHome";
 import { getMessages } from "@/app/actions/messages";
 import { Metadata } from "next";
 

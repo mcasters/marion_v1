@@ -9,7 +9,7 @@ import {
   getPhoneText,
 } from "@/utils/commonUtils";
 import { getContentsFull } from "@/app/actions/contents";
-import InstagramIcon from "@/components/icons/InstagramIcon";
+import InstagramIcon from "@/components/icons/instagramIcon";
 import { getMetas } from "@/app/actions/meta";
 import { META } from "@/constants/admin";
 

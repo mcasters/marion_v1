@@ -1,4 +1,4 @@
-import ItemsPageComponent from "@/components/item/ItemsPageComponent";
+import ItemsPageComponent from "@/components/item/itemsPageComponent";
 import { getSession } from "@/app/lib/auth";
 import { getItemsByYear } from "@/app/actions/items";
 import { Type } from "@/lib/type";

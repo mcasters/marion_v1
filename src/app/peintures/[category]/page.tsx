@@ -4,7 +4,7 @@ import { Type } from "@/lib/type";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
-import ItemsPageComponent from "@/components/item/ItemsPageComponent";
+import ItemsPageComponent from "@/components/item/itemsPageComponent";
 import { META } from "@/constants/admin";
 
 type Props = {

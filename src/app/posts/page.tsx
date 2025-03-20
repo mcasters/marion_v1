@@ -1,5 +1,5 @@
 import React from "react";
-import PostComponent from "@/components/post/PostComponent";
+import PostComponent from "@/components/post/postComponent";
 import { PostFull } from "@/lib/type";
 import { getPostsFull } from "@/app/actions/posts";
 
