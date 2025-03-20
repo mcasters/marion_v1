@@ -1,12 +1,12 @@
 "use client";
 
 import LAYOUT from "@/constants/layout";
-import Nav_1 from "@/components/layout/header/nav_1/Nav_1";
-import Nav_2 from "@/components/layout/header/nav_2/Nav_2";
+import Nav_1 from "@/components/layout/header/nav_1/nav_1";
+import Nav_2 from "@/components/layout/header/nav_2/nav_2";
 import s from "./header.module.css";
 import { ROUTES } from "@/constants/specific/routes";
 import React, { useState } from "react";
-import HomeSection from "@/components/layout/header/HomeSection";
+import HomeSection from "@/components/layout/header/homeSection";
 
 type Props = {
   path: string;

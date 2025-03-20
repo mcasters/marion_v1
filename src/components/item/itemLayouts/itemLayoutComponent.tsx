@@ -1,12 +1,12 @@
 "use client";
 
-import s from "./ItemLayoutComponent.module.css";
+import s from "./itemLayoutComponent.module.css";
 import { ItemFull, ItemLayout, Type } from "@/lib/type";
 import React from "react";
-import MonoLayoutComponent from "@/components/item/itemLayouts/mono/MonoLayoutComponent";
-import GalleryLayoutComponent from "@/components/item/itemLayouts/gallery/GalleryLayoutComponent";
-import SculptureLayoutComponent from "@/components/item/itemLayouts/sculpture/SculptureLayoutComponent";
-import DoubleLayoutComponent from "@/components/item/itemLayouts/double/DoubleLayoutComponent";
+import MonoLayoutComponent from "@/components/item/itemLayouts/mono/monoLayoutComponent";
+import GalleryLayoutComponent from "@/components/item/itemLayouts/gallery/galleryLayoutComponent";
+import SculptureLayoutComponent from "@/components/item/itemLayouts/sculpture/sculptureLayoutComponent";
+import DoubleLayoutComponent from "@/components/item/itemLayouts/double/doubleLayoutComponent";
 import { useMetas } from "@/app/context/metaProvider";
 import { getItemLayout } from "@/utils/commonUtils";
 

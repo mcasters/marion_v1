@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect } from "react";
-import s from "./AlertModal.module.css";
-import CheckIcon from "@/components/icons/CheckIcon";
-import ErrorIcon from "@/components/icons/ErrorIcon";
+import s from "./alertModal.module.css";
+import CheckIcon from "@/components/icons/checkIcon";
+import ErrorIcon from "@/components/icons/errorIcon";
 
 type Props = {
   message: string;

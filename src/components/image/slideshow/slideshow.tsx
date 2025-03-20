@@ -2,10 +2,10 @@
 
 import { Photo } from "@/lib/type";
 import { useEffect, useState } from "react";
-import s from "@/components/image/slideshow/Slider.module.css";
+import s from "@/components/image/slideshow/slider.module.css";
 import Image from "next/image";
-import ArrowPrev from "@/components/icons/ArrowPrev";
-import ArrowNext from "@/components/icons/ArrowNext";
+import ArrowPrev from "@/components/icons/arrowPrev";
+import ArrowNext from "@/components/icons/arrowNext";
 import { onNext, onPrev } from "@/components/image/common";
 
 type Props = {

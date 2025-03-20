@@ -4,15 +4,15 @@ import React, { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
 import { ROUTES } from "@/constants/specific/routes";
-import Header from "./header/Header";
-import Main from "./Main";
-import Footer from "./Footer";
+import Header from "./header/header";
+import Main from "./main";
+import Footer from "./footer";
 import s from "@/components/layout/layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { hexToRgb } from "@/utils/commonUtils";
-import AuthStatus from "@/components/auth/AuthStatus";
+import AuthStatus from "@/components/auth/authStatus";
 import { useSession } from "@/app/context/sessionProvider";
-import AdminNav from "@/components/layout/admin/AdminNav";
+import AdminNav from "@/components/layout/admin/adminNav";
 
 interface Props {
   introduction: string;

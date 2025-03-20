@@ -3,11 +3,11 @@
 import React, { useState } from "react";
 import { DEVICE } from "@/constants/image";
 import { PhotoTab } from "@/lib/type";
-import s from "./Gallery.module.css";
+import s from "./gallery.module.css";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import Image from "next/image";
 import { createPortal } from "react-dom";
-import Lightbox from "@/components/image/lightbox/Lightbox";
+import Lightbox from "@/components/image/lightbox/lightbox";
 
 interface Props {
   photos: PhotoTab;

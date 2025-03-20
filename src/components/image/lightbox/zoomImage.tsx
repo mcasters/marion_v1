@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import s from "@/components/image/lightbox/Lightbox.module.css";
-import ZoomInIcon from "@/components/icons/ZoomInIcon";
-import ZoomOutIcon from "@/components/icons/ZoomOutIcon";
-import CloseIcon from "@/components/icons/CloseIcon";
+import s from "@/components/image/lightbox/lightbox.module.css";
+import ZoomInIcon from "@/components/icons/zoomInIcon";
+import ZoomOutIcon from "@/components/icons/zoomOutIcon";
+import CloseIcon from "@/components/icons/closeIcon";
 import { Photo, PhotoEnhanced } from "@/lib/type";
-import ImageInfos from "@/components/image/common/ImageInfos";
-import LimitedImageInfos from "@/components/image/common/LimitedImageInfos";
+import ImageInfos from "@/components/image/common/imageInfos";
+import LimitedImageInfos from "@/components/image/common/limitedImageInfos";
 
 const ZOOM_SENSITIVITY = 0.4;
 const ZOOM_SENSITIVITY_MOBILE = 0.6;

@@ -4,7 +4,7 @@ import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
 import React from "react";
 import { PhotoTab } from "@/lib/type";
-import Slideshow from "@/components/image/slideshow/Slideshow";
+import Slideshow from "@/components/image/slideshow/slideshow";
 
 export type Props = {
   portraitPhotos: PhotoTab;

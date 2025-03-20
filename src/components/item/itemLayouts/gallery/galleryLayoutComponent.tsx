@@ -9,8 +9,8 @@ import Image from "next/image";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
 import { createPortal } from "react-dom";
-import Lightbox from "@/components/image/lightbox/Lightbox";
-import ImageInfos from "@/components/image/common/ImageInfos";
+import Lightbox from "@/components/image/lightbox/lightbox";
+import ImageInfos from "@/components/image/common/imageInfos";
 import { META } from "@/constants/admin";
 import { useTheme } from "@/app/context/themeProvider";
 

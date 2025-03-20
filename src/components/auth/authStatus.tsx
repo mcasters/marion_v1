@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import s from "./authentication.module.css";
 import { ROUTES } from "@/constants/specific/routes";
-import LogoutForm from "@/components/auth/LogoutForm";
+import LogoutForm from "@/components/auth/logoutForm";
 
 type Props = {
   email: string;

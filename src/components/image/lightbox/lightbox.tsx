@@ -1,11 +1,11 @@
 "use client";
 
-import s from "./Lightbox.module.css";
+import s from "./lightbox.module.css";
 import { Photo, PhotoEnhanced } from "@/lib/type";
 import React, { useState } from "react";
-import ArrowPrev from "@/components/icons/ArrowPrev";
-import ArrowNext from "@/components/icons/ArrowNext";
-import ZoomImage from "@/components/image/lightbox/ZoomImage";
+import ArrowPrev from "@/components/icons/arrowPrev";
+import ArrowNext from "@/components/icons/arrowNext";
+import ZoomImage from "@/components/image/lightbox/zoomImage";
 import { onNext, onPrev } from "@/components/image/common";
 
 type Props = {

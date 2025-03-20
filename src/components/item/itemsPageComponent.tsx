@@ -3,7 +3,7 @@
 import { Category, ItemFull, Type } from "@/lib/type";
 import React from "react";
 import s from "@/components/item/itemsPageComponent.module.css";
-import ItemLayoutComponent from "@/components/item/itemLayouts/ItemLayoutComponent";
+import ItemLayoutComponent from "@/components/item/itemLayouts/itemLayoutComponent";
 
 interface Props {
   tag: string;
