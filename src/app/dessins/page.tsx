@@ -1,6 +1,6 @@
 import { Type } from "@/lib/type";
 import { getCategories, getYears } from "@/app/actions/items";
-import ItemHomeComponent from "@/components/item/ItemHomeComponent";
+import ItemHomeComponent from "@/components/item/itemHomeComponent";
 import { getSession } from "@/app/lib/auth";
 
 export default async function Page() {

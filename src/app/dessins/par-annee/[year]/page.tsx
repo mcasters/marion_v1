@@ -1,5 +1,5 @@
 import { getItemsByYear } from "@/app/actions/items";
-import ItemsPageComponent from "@/components/item/ItemsPageComponent";
+import ItemsPageComponent from "@/components/item/itemsPageComponent";
 import { Type } from "@/lib/type";
 import { getSession } from "@/app/lib/auth";
 import { Metadata } from "next";
