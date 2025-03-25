@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import s from "./adminTheme.module.css";
+import s from "../adminTheme.module.css";
 import { PAGE_TYPE, THEME_DATAS } from "@/constants/admin";
-import ColorSwatch from "@/components/admin/theme/colorSwatch";
+import ColorSwatch from "@/components/admin/theme/dashboard/colorSwatch";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 
 export default function ThemeDashboard() {

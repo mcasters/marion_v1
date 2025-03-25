@@ -9,8 +9,7 @@ import { deleteTheme } from "@/app/actions/theme/admin";
 
 export default function ThemeDelete() {
   const alert = useAlert();
-  const { workTheme, setWorkTheme, themes, setThemes } =
-    useAdminWorkThemeContext();
+  const { workTheme, setWorkTheme, setThemes } = useAdminWorkThemeContext();
 
   const handleDelete = async () => {
     const { message, isError, updatedThemes } = await deleteTheme(workTheme.id);

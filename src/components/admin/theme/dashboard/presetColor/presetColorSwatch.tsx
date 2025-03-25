@@ -13,7 +13,7 @@ import {
 } from "@/app/actions/theme/admin";
 import { BASE_PRESET_COLOR } from "@/constants/specific";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import PresetColorPicker from "@/components/admin/theme/presetColor/presetColorPicker";
+import PresetColorPicker from "@/components/admin/theme/dashboard/presetColor/presetColorPicker";
 
 interface Props {
   presetColor: PresetColor;
