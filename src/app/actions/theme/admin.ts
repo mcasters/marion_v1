@@ -55,7 +55,11 @@ export async function updateTheme(theme: Theme) {
   }
 }
 
-export async function deleteTheme(id: number) {
+export async function deleteTheme(id: number): Promise<{
+  message: string;
+  isError: boolean;
+  updatedThemes: Theme[] | null;
+}> {
   try {
     const themeToDelete = await prisma.theme.findUnique({
       where: {
@@ -68,6 +72,7 @@ export async function deleteTheme(id: number) {
         return {
           message: "le thème par défaut ne peut pas être supprimé",
           isError: true,
+          updatedThemes: null,
         };
       }
       if (themeToDelete.isActive) {
@@ -84,10 +89,16 @@ export async function deleteTheme(id: number) {
         where: { id },
       });
     }
+    const updatedThemes = await prisma.theme.findMany();
+
     revalidatePath("/admin");
-    return { message: "Thème supprimé", isError: false };
+    return { message: "Thème supprimé", isError: false, updatedThemes };
   } catch (e) {
-    return { message: "Erreur à la suppression", isError: true };
+    return {
+      message: "Erreur à la suppression",
+      isError: true,
+      updatedThemes: null,
+    };
   }
 }
 
@@ -117,20 +128,28 @@ export async function activateTheme(id: number) {
   }
 }
 
-export async function createPresetColor(name: string, color: string) {
+export async function createPresetColor(
+  name: string,
+  color: string,
+): Promise<{
+  message: string;
+  isError: boolean;
+  newPresetColor: PresetColor | null;
+}> {
   try {
-    await prisma.presetColor.create({
+    const newPresetColor = await prisma.presetColor.create({
       data: {
         name,
         color,
       },
     });
     revalidatePath("/admin");
-    return { message: "Couleur perso ajoutée", isError: false };
+    return { message: "Couleur perso ajoutée", isError: false, newPresetColor };
   } catch (e) {
     return {
       message: "Erreur à la création de la couleur perso",
       isError: true,
+      newPresetColor: null,
     };
   }
 }
@@ -155,7 +174,12 @@ export async function updatePresetColor(presetColor: PresetColor) {
   }
 }
 
-export async function deletePresetColor(id: number) {
+export async function deletePresetColor(id: number): Promise<{
+  message: string;
+  isError: boolean;
+  updatedPresetColors: PresetColor[] | null;
+  updatedThemes: Theme[] | null;
+}> {
   try {
     const presetColor = await prisma.presetColor.findUnique({
       where: {
@@ -165,7 +189,6 @@ export async function deletePresetColor(id: number) {
 
     if (presetColor) {
       const themes: Theme[] = await prisma.theme.findMany();
-      const updatedThemes = [];
       for await (const theme of themes) {
         const updatedTheme = theme;
         let isModified = false;
@@ -179,27 +202,36 @@ export async function deletePresetColor(id: number) {
             updatedTheme[key as keyof OnlyString<Theme>] = presetColor.color;
           }
         }
-        if (isModified) updatedThemes.push(updatedTheme);
+        if (isModified) {
+          const { id, ...rest } = updatedTheme;
+          await prisma.theme.update({
+            where: {
+              id,
+            },
+            data: { ...rest },
+          });
+        }
       }
-
-      for await (const theme of updatedThemes) {
-        const { id, ...rest } = theme;
-        await prisma.theme.update({
-          where: {
-            id,
-          },
-          data: { ...rest },
-        });
-      }
-
       await prisma.presetColor.delete({
         where: { id },
       });
     }
+    const updatedThemes = await prisma.theme.findMany();
+    const updatedPresetColors = await prisma.presetColor.findMany();
 
     revalidatePath("/admin");
-    return { message: "Couleur perso supprimée", isError: false };
+    return {
+      message: "Couleur perso supprimée",
+      isError: false,
+      updatedPresetColors,
+      updatedThemes,
+    };
   } catch (e) {
-    return { message: "Erreur à la suppression", isError: true };
+    return {
+      message: "Erreur à la suppression",
+      isError: true,
+      updatedPresetColors: null,
+      updatedThemes: null,
+    };
   }
 }

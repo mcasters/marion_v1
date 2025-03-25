@@ -5,20 +5,6 @@ import { getBasePresetColorData, getBaseThemeData } from "@/utils/commonUtils";
 import { THEME } from "@/constants/admin";
 import { activateTheme } from "@/app/actions/theme/admin";
 
-export async function getThemesFull(): Promise<Theme[]> {
-  const res = await prisma.theme.findMany();
-
-  if (res.length === 0) {
-    const defaultTheme = await prisma.theme.create({
-      data: {
-        ...getBaseThemeData(),
-      },
-    });
-    res.push(defaultTheme);
-  }
-  return JSON.parse(JSON.stringify(res));
-}
-
 const getActivatedBaseTheme = async (): Promise<Theme> => {
   let theme = await prisma.theme.findUnique({
     where: {
@@ -50,6 +36,7 @@ export async function getActiveTheme(): Promise<Theme> {
   return JSON.parse(JSON.stringify(theme));
 }
 
+// For admin
 export async function getPresetColors(): Promise<PresetColor[]> {
   const presetColors = await prisma.presetColor.findMany();
 
@@ -62,4 +49,19 @@ export async function getPresetColors(): Promise<PresetColor[]> {
     presetColors.push(defaultPresetColor);
   }
   return JSON.parse(JSON.stringify(presetColors));
+}
+
+// For admin
+export async function getThemesFull(): Promise<Theme[]> {
+  const activatedTheme = await prisma.theme.findFirst({
+    where: {
+      isActive: true,
+    },
+  });
+  if (!activatedTheme) {
+    await getActivatedBaseTheme();
+  }
+  const res = await prisma.theme.findMany();
+
+  return JSON.parse(JSON.stringify(res));
 }
