@@ -1,166 +1,110 @@
 "use client";
 
-import { PresetColor, Theme } from "@prisma/client";
-import useModal from "@/components/admin/form/modal/useModal";
-import Modal from "@/components/admin/form/modal/modal";
 import React, { useEffect, useState } from "react";
 import s from "@/components/admin/theme/adminTheme.module.css";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { colorNameToHex } from "@/utils/commonUtils";
-import { useAlert } from "@/app/context/alertProvider";
-import { createPresetColor } from "@/app/actions/theme/admin";
-import { OnlyString } from "@/lib/type";
 
 interface Props {
-  label: string;
-  colorLabel: string;
-  pageTypeName: string;
-  presetColors: PresetColor[];
-  deletedPresetColor: PresetColor | null;
+  color: string;
+  onColorChange: (color: string) => void;
+  onCreatePresetColor: (nameColor: string, hexColor: string) => void;
+  onClose: () => void;
+  onCancel: () => void;
+  title: string;
 }
 
 export default function ColorPicker({
-  label, // what is displayed
-  colorLabel,
-  pageTypeName,
-  presetColors,
-  deletedPresetColor,
+  color,
+  onColorChange,
+  onCreatePresetColor,
+  onClose,
+  onCancel,
+  title,
 }: Props) {
-  const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
-  const { isOpen, toggle } = useModal();
-  const alert = useAlert();
-  const [color, setColor] = useState<string>(
-    workTheme[colorLabel as keyof OnlyString<Theme>],
-  );
-  const [nameToSave, setNameToSave] = useState<string>("");
+  const { workTheme, presetColors } = useAdminWorkThemeContext();
+  const isPresetColor = !color.startsWith("#");
+  const hexColor = colorNameToHex(color, presetColors);
+  const [_nameColor, set_nameColor] = useState<string>("");
+  const [isColorChanged, setIsColorChanged] = useState<boolean>(false);
 
   useEffect(() => {
-    setColor(workTheme[colorLabel as keyof OnlyString<Theme>]);
-  }, [workTheme, colorLabel]);
+    set_nameColor(isPresetColor ? color : "");
+  }, [workTheme]);
 
-  useEffect(() => {
-    if (deletedPresetColor && deletedPresetColor.name === color)
-      setColor(deletedPresetColor.color);
-  }, [deletedPresetColor, color]);
-
-  const onAddPresetColor = async () => {
-    const res = await createPresetColor(nameToSave, color);
-    alert(res.message, res.isError);
-    setWorkTheme({ ...workTheme, [colorLabel]: nameToSave } as Theme);
-    setColor(nameToSave);
-    setNameToSave("");
-  };
-
-  const onSelectPresetColor = (colorName: string): void => {
-    setWorkTheme({ ...workTheme, [colorLabel]: colorName } as Theme);
-  };
-
-  const handleChange = (color: string): void => {
-    setColor(color);
-  };
-
-  const updateWorkTheme = () => {
-    setWorkTheme({ ...workTheme, [colorLabel]: color } as Theme);
-    toggle();
+  const handleColorChange = (color: string) => {
+    if (color.startsWith("#")) {
+      set_nameColor("");
+      setIsColorChanged(true);
+    } else setIsColorChanged(false);
+    onColorChange(color);
   };
 
   return (
-    <div className={s.colorContainer}>
-      <div className={s.colorPickerContainer}>
-        <button
-          className={
-            isOpen
-              ? `${s.swatch} ${s.open}`
-              : color.charAt(0) !== "#"
-                ? `${s.swatch} ${s.focus}`
-                : s.swatch
-          }
-          style={{
-            backgroundColor: colorNameToHex(color, presetColors),
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            toggle();
-          }}
+    <div className={s.colorPicker}>
+      <h2>{title}</h2>
+      <div className={s.picker}>
+        <HexColorPicker
+          color={hexColor}
+          onChange={handleColorChange}
+          style={{ width: "250px" }}
         />
-        <Modal isOpen={isOpen} toggle={toggle}>
-          <div className={s.colorPicker}>
-            <h2>{pageTypeName}</h2>
-            <p className={s.subtitle}>{label}</p>
-            <div className={s.picker}>
-              <HexColorPicker
-                color={colorNameToHex(color, presetColors)}
-                onChange={handleChange}
-                style={{ width: "250px" }}
-              />
-            </div>
-            <p>Couleur sélectionnée (notation hexadécimale) :</p>
-            <div>
-              <div
-                className={s.halfWidth}
-                style={{
-                  backgroundColor: colorNameToHex(color, presetColors),
-                }}
-              ></div>
-              <HexColorInput
-                color={colorNameToHex(color, presetColors)}
-                onChange={handleChange}
-                prefixed={true}
-                className={s.halfWidth}
-              />
-            </div>
-            <div className={s.presetColorForm}>
-              <input
-                className={s.halfWidth}
-                placeholder="Nom de la couleur"
-                value={nameToSave}
-                onChange={(e) => setNameToSave(e.target.value)}
-              />
-              <button
-                onClick={onAddPresetColor}
-                className={`${s.halfWidth}`}
-                disabled={nameToSave === ""}
-              >
-                Mémoriser la couleur
-              </button>
-            </div>
-            <div className={s.pickerSwatches}>
-              {presetColors?.map((p) => (
-                <div key={p.id} className={s.presetColorContainer}>
-                  <button
-                    className={
-                      p.name ===
-                        workTheme[colorLabel as keyof OnlyString<Theme>] &&
-                      p.color === colorNameToHex(color, presetColors)
-                        ? `${s.swatch} ${s.focus}`
-                        : s.swatch
-                    }
-                    style={{
-                      background: p.color,
-                    }}
-                    onClick={() => onSelectPresetColor(p.name)}
-                  />
-                  <p>{p.name}</p>
-                </div>
-              ))}
-            </div>
-            <button className={s.halfWidth} onClick={updateWorkTheme}>
-              OK
-            </button>
-            <button
-              onClick={() => {
-                setColor(workTheme[colorLabel as keyof OnlyString<Theme>]);
-                toggle();
-              }}
-              className={s.halfWidth}
-            >
-              Annuler
-            </button>
-          </div>
-        </Modal>
       </div>
-      <p className={s.label}>{label}</p>
+      <p>Couleur sélectionnée (notation hexadécimale) :</p>
+      <div>
+        <div
+          className={s.halfWidth}
+          style={{ backgroundColor: hexColor }}
+        ></div>
+        <HexColorInput
+          color={hexColor}
+          onChange={handleColorChange}
+          prefixed={true}
+          className={s.halfWidth}
+        />
+      </div>
+      <div className={s.presetColorForm}>
+        <input
+          className={s.halfWidth}
+          placeholder="Nom de la couleur"
+          value={_nameColor}
+          onChange={(e) => set_nameColor(e.target.value)}
+        />
+        <button
+          onClick={() => onCreatePresetColor(_nameColor, hexColor)}
+          className={s.halfWidth}
+          disabled={
+            _nameColor === "" ||
+            _nameColor === color ||
+            (!isColorChanged && isPresetColor)
+          }
+        >
+          Mémoriser la couleur
+        </button>
+      </div>
+      <div className={s.pickerSwatches}>
+        {presetColors?.map((p) => (
+          <div key={p.id} className={s.presetColorContainer}>
+            <button
+              className={
+                p.name === color ? `${s.swatch} ${s.isPresetColor}` : s.swatch
+              }
+              style={{
+                background: p.color,
+              }}
+              onClick={() => handleColorChange(p.name)}
+            />
+            <p>{p.name}</p>
+          </div>
+        ))}
+      </div>
+      <button className={s.halfWidth} onClick={onClose}>
+        OK
+      </button>
+      <button onClick={onCancel} className={s.halfWidth}>
+        Annuler
+      </button>
     </div>
   );
 }

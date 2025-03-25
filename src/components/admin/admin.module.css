@@ -67,7 +67,6 @@
 
 .metaForm button{
   margin: 0;
-  height: min-content;
   width: auto;
   align-self: end;
 }
@@ -76,19 +75,8 @@
   margin: 1em 0;
 }
 
-.radioInput {
-  margin-right: 10px;
-  height: unset;
-}
-
-.radioLabel {
-  height: 50px;
-  line-height: 50px;
-  margin: 0;
-}
-
 .checkInput {
-  margin-left: 10px;
+  margin: 0 10px;
   height: unset;
 }
 

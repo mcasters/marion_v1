@@ -9,12 +9,12 @@
   padding: 2px;
   border: var(--color-border-auth-status) solid 1px;
   box-shadow: 0 0 7px #363636;
-  font-weight: 700;
+  font-weight: 500;
   user-select: none;
 }
 
 .authStatusWrapper button {
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .container {

@@ -112,15 +112,12 @@ export default function Images({
           multiple={isMultiple}
         />
         {smallImage && (
-          <label htmlFor="small-image" className={s.radioLabel}>
+          <label className={s.checkLabel}>
             <input
-              type="radio"
-              id="small-image"
-              name="small-image"
+              type="checkbox"
               checked={acceptSmallImage}
-              onClick={() => setAcceptSmallImage(!acceptSmallImage)}
-              onChange={handleFiles}
-              className={s.radioInput}
+              onChange={() => setAcceptSmallImage(!acceptSmallImage)}
+              className={s.checkInput}
             />
             Accepter les images sous 2000 px de large
           </label>

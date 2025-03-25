@@ -6,13 +6,32 @@ import { useAlert } from "@/app/context/alertProvider";
 import { createTheme } from "@/app/actions/theme/admin";
 
 export default function ThemeAdd() {
-  const { workTheme, setWorkTheme } = useAdminWorkThemeContext();
+  const { workTheme, setWorkTheme, setIsUpdated, themes, setThemes } =
+    useAdminWorkThemeContext();
   const [themeName, setThemeName] = useState<string>("");
   const alert = useAlert();
+
+  const handleAdd = async () => {
+    if (themeName === "") alert("Le nom du nouveau thème est manquant", true);
+    else {
+      const { theme, message, isError } = await createTheme(
+        workTheme,
+        themeName,
+      );
+      if (theme) {
+        setThemes([...themes, theme]);
+        setWorkTheme(theme);
+        setIsUpdated(true);
+        setThemeName("");
+      }
+      alert(message, isError);
+    }
+  };
 
   return (
     <>
       <input
+        name="newTheme"
         required
         placeholder="Nom du nouveau thème"
         type="text"
@@ -23,14 +42,7 @@ export default function ThemeAdd() {
         style={{ marginRight: "0" }}
       />
       <button
-        onClick={async () => {
-          const res = await createTheme(workTheme, themeName);
-          if (res.theme) {
-            setWorkTheme(res.theme);
-            setThemeName("");
-          }
-          alert(res.message, res.isError);
-        }}
+        onClick={handleAdd}
         className="adminButton"
         style={{ marginLeft: "0" }}
       >

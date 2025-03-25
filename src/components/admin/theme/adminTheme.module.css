@@ -56,7 +56,7 @@ ColorPicker
   text-align: center;
   width: 400px;
   max-height: 90vh;
-  padding: 1.5em 1em 1em;
+  padding: 0.5em;
 }
 
 .subtitle {
@@ -77,7 +77,7 @@ ColorPicker
   margin: 4px;
 }
 
-.focus {
+.isPresetColor {
   outline: solid #1196c7 2px;
   outline-offset: 2px;
 }
@@ -109,11 +109,10 @@ ColorPicker
   word-break: break-word;
 }
 
-.halfWidth {
+.colorPicker .halfWidth {
   display: inline-block;
   width: 45%;
   height: 36px;
-  line-height: 36px;
   vertical-align: top;
   margin: 0.3em;
   padding: 0 0.4em;
@@ -121,18 +120,15 @@ ColorPicker
 
 .actionContainer {
   display: flex;
-  flex-wrap: wrap;
   text-align: center;
+  justify-content: center;
 }
 
-.actionPartContainer {
-  flex: auto;
-}
-
-.actionPartContainer button {
+.actionContainer button {
   width: 260px;
 }
 
-.actionPartContainer input {
+.actionContainer input {
   width: 200px;
+  margin: 0.5em 0;
 }
