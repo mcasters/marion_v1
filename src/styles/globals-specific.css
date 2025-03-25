@@ -146,12 +146,12 @@ a:focus,
   text-shadow: none;
 }
 
-.button,
 button::selection,
 img::selection,
-button:focus,
-img:focus {
-  background: none;
+label::selection {
+  user-select: none;
+  background: transparent;
+  color: initial;
 }
 
 textarea, input {
@@ -189,7 +189,7 @@ figure {
 
 .area,
 textarea,
-input:not([type="radio"], [type="checkbox"]),
+input:not([type="checkbox"]),
 select {
   width: 100%;
   background-color: white;
@@ -234,10 +234,8 @@ input::file-selector-button {
   padding: 0;
   margin: 0.5em;
   height: 50px;
-  line-height: 50px;
   box-shadow: inset 0 0.8em 1em 0 #efefef;
   border: 1px solid #bdbdbd;
-  outline: none;
   background-color: #e2e2e2;
 }
 

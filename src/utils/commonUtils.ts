@@ -14,9 +14,6 @@ import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
 import { Meta } from ".prisma/client";
 import { META } from "@/constants/admin";
 
-export const capitalize = (string: string): string =>
-  string.charAt(0).toUpperCase() + string.slice(1);
-
 export const getItemType = (
   typeString: string,
 ): Type.PAINTING | Type.SCULPTURE | Type.DRAWING => {
@@ -164,11 +161,6 @@ export function getBorderColor(colorHex: string): string | null {
   }
   return null;
 }
-
-export const removeProperty = (
-  propKey: string,
-  { [propKey]: propValue, ...rest },
-) => rest;
 
 export const getEmptyItem = (
   type: Type.SCULPTURE | Type.DRAWING | Type.PAINTING,
