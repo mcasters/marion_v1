@@ -15,5 +15,5 @@ Location: Bordeaux, Nouvelle-Aquitaine, France
 
 Last update: 2020/03/08
 Standards: HTML5, CSS3, JavaScript
-Components: Node.js, React, Graphql, Next.js
+Components: Node.js, React, Next.js
 Software: WebStorm, GitKraken
