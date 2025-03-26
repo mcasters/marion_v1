@@ -18,7 +18,7 @@ export async function generateMetadata({
   const metas = getMetaMap(await getMetas());
   const session = await getSession();
   const categoryKey = (await params).category;
-  const category = await getCategory(categoryKey, Type.PAINTING, !session);
+  const category = await getCategory(categoryKey, Type.PAINTING, !!session);
 
   if (metas && category) {
     const text =

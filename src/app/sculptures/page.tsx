@@ -5,8 +5,8 @@ import { getCategories, getYears } from "@/app/actions/items";
 
 export default async function Page() {
   const session = await getSession();
-  const categories = await getCategories(Type.SCULPTURE, !session);
-  const years = await getYears(Type.SCULPTURE, !session);
+  const categories = await getCategories(Type.SCULPTURE, !!session);
+  const years = await getYears(Type.SCULPTURE, !!session);
 
   return (
     <ItemHomeComponent

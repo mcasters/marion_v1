@@ -5,15 +5,15 @@ import { getNoCategory } from "@/utils/commonUtils";
 
 export async function cache<S>(
   fn: () => Promise<S>,
-  isToCache: boolean,
+  isAdmin: boolean,
   key: string,
 ): Promise<S> {
-  const query = isToCache
-    ? unstable_cache(async () => fn(), [key], {
+  const query = isAdmin
+    ? fn
+    : unstable_cache(async () => fn(), [key], {
         revalidate: 60,
         tags: [key],
-      })
-    : fn;
+      });
   return query();
 }
 
