@@ -216,18 +216,10 @@ export const getItemPhotoTabEnhanced = (
 
 export const getSliderLandscapeImages = (contents: ContentFull[]): Image[] => {
   const images: Image[] = getSliders(contents);
-  const tab: Image[] = [];
-  images.forEach((i) => {
-    if (!i.isMain) tab.push(i);
-  });
-  return tab;
+  return images.filter((i) => !i.isMain);
 };
 
 export const getSliderPortraitImages = (contents: ContentFull[]): Image[] => {
   const images: Image[] = getSliders(contents);
-  const tab: Image[] = [];
-  images.forEach((i) => {
-    if (i.isMain) tab.push(i);
-  });
-  return tab;
+  return images.filter((i) => i.isMain);
 };

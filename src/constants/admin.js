@@ -64,7 +64,7 @@ export const PAGE_TYPE = {
 
 export const THEME_DATAS = {
   // general
-  [THEME_PROPS.LINK_COLOR]: {
+  [THEME_PROPS.LINE_COLOR]: {
     label: "Ligne au top",
     pageType: PAGE_TYPE.GENERAL,
   },

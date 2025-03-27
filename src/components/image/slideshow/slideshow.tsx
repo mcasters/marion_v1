@@ -1,12 +1,14 @@
 "use client";
 
-import { Photo } from "@/lib/type";
+import { HomeLayout, Photo } from "@/lib/type";
 import { useEffect, useState } from "react";
 import s from "@/components/image/slideshow/slider.module.css";
 import Image from "next/image";
 import ArrowPrev from "@/components/icons/arrowPrev";
 import ArrowNext from "@/components/icons/arrowNext";
 import { onNext, onPrev } from "@/components/image/common";
+import { useMetas } from "@/app/context/metaProvider";
+import { getHomeLayout } from "@/utils/commonUtils";
 
 type Props = {
   photos: Photo[];
@@ -15,6 +17,8 @@ type Props = {
 };
 
 export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
+  const metas = useMetas();
+  const isPlainHomeLayout = getHomeLayout(metas) === HomeLayout.PLAIN;
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -37,17 +41,17 @@ export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
             src={p.src}
             width={p.width}
             height={p.height}
-            className={`${s.slide} ${i === active ? s.active : ""}`}
+            className={`${isPlainHomeLayout ? `${s.plainSlide} ${s.slide}` : s.slide} ${i === active ? s.active : ""}`}
             loading="eager"
             draggable={false}
             style={{
-              objectFit: "contain",
+              objectFit: isPlainHomeLayout ? "cover" : "contain",
             }}
             priority={i < 1}
             unoptimized
           />
         ))}
-        {!isSmall && (
+        {!isSmall && photos.length > 1 && (
           <>
             <button
               className={`${s.prev} iconButton`}

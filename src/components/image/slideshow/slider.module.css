@@ -6,6 +6,11 @@
   height: auto;
 }
 
+.plainSlide {
+  width: 100vw;
+  height: 100vh;
+}
+
 @keyframes fade {
   from {
     opacity: 0.4;
