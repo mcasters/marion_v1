@@ -45,6 +45,11 @@ export enum ItemLayout {
   SCULPTURE,
 }
 
+export enum HomeLayout {
+  PLAIN,
+  NAV,
+}
+
 export type PostFull = {
   id: number;
   type: Type.POST;

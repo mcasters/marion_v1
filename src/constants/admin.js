@@ -194,6 +194,7 @@ export const META = {
   PAINTING_LAYOUT: "paintingLayout",
   SCULPTURE_LAYOUT: "sculptureLayout",
   DRAWING_LAYOUT: "drawingLayout",
+  HOME_LAYOUT: "homeLayout",
 
   SEO_SITE_TITLE: "seoSiteTitle",
   URL: "url",

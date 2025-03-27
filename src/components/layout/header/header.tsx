@@ -10,10 +10,15 @@ import HomeSection from "@/components/layout/header/homeSection";
 
 type Props = {
   path: string;
+  isPlainHomeLayout: boolean;
   introduction?: string;
 };
 
-export default function Header({ path, introduction }: Props) {
+export default function Header({
+  path,
+  isPlainHomeLayout,
+  introduction,
+}: Props) {
   const isHome = path == ROUTES.HOME;
   const isPainting = path === ROUTES.PAINTING;
   const isSculpture = path === ROUTES.SCULPTURE;
@@ -23,7 +28,7 @@ export default function Header({ path, introduction }: Props) {
 
   if (isHome)
     return (
-      <header className={s.header}>
+      <header className={isPlainHomeLayout ? s.plainHomeHeader : s.header}>
         <HomeSection
           handleDisappear={setTitleIsGone}
           yLimit={LAYOUT.LINE_HEIGHT}

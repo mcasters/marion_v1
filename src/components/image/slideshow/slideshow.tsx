@@ -43,7 +43,7 @@ export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
             style={{
               objectFit: "contain",
             }}
-            priority={i < 0}
+            priority={i < 1}
             unoptimized
           />
         ))}

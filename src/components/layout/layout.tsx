@@ -9,10 +9,12 @@ import Main from "./main";
 import Footer from "./footer";
 import s from "@/components/layout/layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
-import { hexToRgb } from "@/utils/commonUtils";
+import { getHomeLayout, hexToRgb } from "@/utils/commonUtils";
 import AuthStatus from "@/components/auth/authStatus";
 import { useSession } from "@/app/context/sessionProvider";
 import AdminNav from "@/components/layout/admin/adminNav";
+import { useMetas } from "@/app/context/metaProvider";
+import { HomeLayout } from "@/lib/type";
 
 interface Props {
   introduction: string;
@@ -23,6 +25,8 @@ export default function Layout({ introduction, children }: Props) {
   const theme = useTheme();
   const path = `/${usePathname().split("/")[1]}`;
   const session = useSession();
+  const metas = useMetas();
+  const isPlainHomeLayout = getHomeLayout(metas) === HomeLayout.PLAIN;
 
   const isHome = path === ROUTES.HOME;
   const isPainting = path === ROUTES.PAINTING;
@@ -43,11 +47,17 @@ export default function Layout({ introduction, children }: Props) {
     >
       <div className={`${s.line} line`}></div>
       {session?.user && <AuthStatus email={session.user.email} />}
-      {isHome && <div className={`${s.gradient} gradient`}></div>}
+      {isHome && !isPlainHomeLayout && (
+        <div className={`${s.gradient} gradient`}></div>
+      )}
       {isAdminPage ? (
         <AdminNav />
       ) : (
-        <Header path={path} introduction={introduction} />
+        <Header
+          path={path}
+          isPlainHomeLayout={isPlainHomeLayout}
+          introduction={introduction}
+        />
       )}
       <Main isHome={isHome}>{children}</Main>
       <Footer path={path} />

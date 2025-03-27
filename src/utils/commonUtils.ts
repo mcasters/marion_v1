@@ -2,6 +2,7 @@ import { Label, PresetColor, Theme } from "@prisma/client";
 import {
   Category,
   ContentFull,
+  HomeLayout,
   Image,
   ItemFull,
   ItemLayout,
@@ -243,4 +244,8 @@ export const getItemLayout = (
     case Type.DRAWING:
       return parseInt(metas.get(META.DRAWING_LAYOUT) || "1");
   }
+};
+
+export const getHomeLayout = (metas: Map<string, string>): HomeLayout => {
+  return parseInt(metas.get(META.HOME_LAYOUT) || "0");
 };
