@@ -228,6 +228,7 @@ model Theme {
   linkHoverItemColor      String
   colorItem               String
   titleColor              String  @default("#2e6177")
+  introColor              String  @default("#2e6177")
 }
 
 model PresetColor {

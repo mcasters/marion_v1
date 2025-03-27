@@ -7,6 +7,7 @@ export const THEME_PROPS = {
   LINE_COLOR: "lineColor",
   BD_COLOR: "backgroundColor",
   TITLE_COLOR: "titleColor",
+  INTRO_COLOR: "introColor",
   COLOR: "color",
   LINK_COLOR: "linkColor",
   LINK_HOVER_COLOR: "linkHoverColor",
@@ -87,6 +88,10 @@ export const THEME_DATAS = {
   // Home
   [THEME_PROPS.TITLE_COLOR]: {
     label: "Titre",
+    pageType: PAGE_TYPE.HOME,
+  },
+  [THEME_PROPS.INTRO_COLOR]: {
+    label: "Introduction",
     pageType: PAGE_TYPE.HOME,
   },
   [THEME_PROPS.MENU_1_HOME_COLOR]: {
