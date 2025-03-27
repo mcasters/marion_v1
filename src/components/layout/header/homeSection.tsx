@@ -49,8 +49,13 @@ export default function HomeSection({
       `}</style>
     </section>
   ) : (
-    <section ref={ref} className={s.intro}>
+    <section ref={ref} className={`${s.intro} intro`}>
       <p>{text}</p>
+      <style jsx>{`
+        .intro {
+          color: ${theme.introColor};
+        }
+      `}</style>
     </section>
   );
 }
