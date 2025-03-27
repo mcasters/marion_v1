@@ -97,22 +97,22 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
           <Images
             type={Type.POST}
             isMultiple={false}
-            smallImage={true}
+            acceptSmallImage={true}
             onDelete={(filename) => setMainFilenameToDelete(filename)}
             images={post.images.filter((i) => i.isMain) || []}
-            title="Image principale (facultative)"
+            info="Image principale (facultative)"
           />
         </div>
         <div className={s.imagesContainer}>
           <Images
             type={Type.POST}
             isMultiple={true}
-            smallImage={true}
+            acceptSmallImage={true}
             onDelete={(filename) =>
               setFilenamesToDelete([...filenamesToDelete, filename])
             }
             images={post.images.filter((i) => !i.isMain) || []}
-            title="Album d'images (facultatif)"
+            info="Album d'images (facultatif)"
           />
         </div>
         <div className={s.buttonSection}>

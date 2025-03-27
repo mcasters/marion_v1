@@ -22,7 +22,7 @@ export default async function Presentation() {
           images={getPresentationImage(contents)}
           isMultiple={false}
           label={Label.PRESENTATION}
-          smallImage={true}
+          acceptSmallImage={true}
           title="Image de présentation (facultatif)"
         />
       </div>

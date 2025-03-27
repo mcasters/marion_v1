@@ -15,7 +15,7 @@ type Props = {
   images: Image[];
   isMultiple: boolean;
   label: string;
-  smallImage: boolean;
+  acceptSmallImage: boolean;
   title?: string;
   isMain?: boolean;
 };
@@ -24,7 +24,7 @@ export default function ImagesForm({
   images,
   isMultiple,
   label,
-  smallImage,
+  acceptSmallImage,
   title,
   isMain = false,
 }: Props) {
@@ -51,7 +51,7 @@ export default function ImagesForm({
         <Images
           type={null}
           isMultiple={isMultiple}
-          smallImage={smallImage}
+          acceptSmallImage={acceptSmallImage}
           resetFlag={reset}
         />
         <>

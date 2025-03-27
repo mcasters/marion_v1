@@ -202,13 +202,13 @@ export default function ItemForm({
           <Images
             type={item.type}
             isMultiple={isSculpture}
-            smallImage={true}
+            acceptSmallImage={true}
             onNewImages={setNewImages}
             onDelete={(filename) => {
               setFilenamesToDelete([...filenamesToDelete, filename]);
             }}
             images={item.images}
-            title={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
+            info={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
           />
         </div>
         <div className={s.buttonSection}>

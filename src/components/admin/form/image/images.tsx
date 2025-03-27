@@ -10,32 +10,32 @@ import { Image as IImage, Type } from "@/lib/type";
 interface Props {
   type: Type | null;
   isMultiple: boolean;
-  smallImage: boolean;
+  acceptSmallImage: boolean;
   resetFlag?: number;
   onNewImages?: (arg0: string[]) => void;
   onDelete?: (filename: string) => void;
   images?: IImage[];
-  title?: string;
+  info?: string;
 }
 
 export default function Images({
   type,
   resetFlag,
   isMultiple,
-  smallImage,
+  acceptSmallImage,
   onNewImages,
   onDelete,
   images,
-  title,
+  info,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [newImages, setNewImages] = useState<string[]>([]);
-  const [acceptSmallImage, setAcceptSmallImage] = useState<boolean>(false);
+  const [smallImageSelected, setSmallImageSelected] = useState<boolean>(false);
   const alert = useAlert();
 
   useEffect(() => {
     setNewImages([]);
-    setAcceptSmallImage(false);
+    setSmallImageSelected(false);
     if (inputRef.current) inputRef.current.value = "";
   }, [resetFlag]);
 
@@ -67,7 +67,7 @@ export default function Images({
 
         const bmp = await createImageBitmap(file);
         const { width } = bmp;
-        if (!acceptSmallImage && width < 2000) {
+        if (!smallImageSelected && width < 2000) {
           error = true;
           alert(
             `Dimension de l'image trop petite. Largeur minimum : 2000 pixels`,
@@ -86,7 +86,7 @@ export default function Images({
         if (onNewImages) onNewImages(newFiles);
       } else {
         setNewImages([]);
-        setAcceptSmallImage(false);
+        setSmallImageSelected(false);
         inputRef.current.value = "";
         if (onNewImages) onNewImages([]);
       }
@@ -95,7 +95,7 @@ export default function Images({
 
   return (
     <>
-      {title && <label className={s.formLabel}>{title}</label>}
+      {info && <label className={s.formLabel}>{info}</label>}
       {images && onDelete && type && (
         <Preview
           images={images}
@@ -111,21 +111,21 @@ export default function Images({
           ref={inputRef}
           multiple={isMultiple}
         />
-        {smallImage && (
+        {acceptSmallImage && (
           <label className={s.checkLabel}>
             <input
               type="checkbox"
-              checked={acceptSmallImage}
-              onChange={() => setAcceptSmallImage(!acceptSmallImage)}
+              checked={smallImageSelected}
+              onChange={() => setSmallImageSelected(!smallImageSelected)}
               className={s.checkInput}
             />
             Accepter les images sous 2000 px de large
           </label>
         )}
       </div>
-      <div>
-        {newImages.length > 0 &&
-          newImages.map((src) => (
+      {newImages.length > 0 && (
+        <div>
+          {newImages.map((src) => (
             <div key={src} className={s.imageWrapper}>
               <Image
                 unoptimized={true}
@@ -139,7 +139,8 @@ export default function Images({
               />
             </div>
           ))}
-      </div>
+        </div>
+      )}
     </>
   );
 }
