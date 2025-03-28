@@ -1,9 +1,9 @@
 "use server";
 import { PresetColor, Theme } from "@prisma/client";
 import prisma from "@/lib/prisma";
-import { getBasePresetColorData, getBaseThemeData } from "@/utils/commonUtils";
 import { THEME } from "@/constants/admin";
 import { activateTheme } from "@/app/actions/theme/admin";
+import { getBasePresetColorData, getBaseThemeData } from "@/utils/themeUtils";
 
 const getActivatedBaseTheme = async (): Promise<Theme> => {
   let theme = await prisma.theme.findUnique({

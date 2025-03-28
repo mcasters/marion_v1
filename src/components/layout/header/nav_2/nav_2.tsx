@@ -7,8 +7,8 @@ import { MENU_2 } from "@/constants/specific/routes";
 import s from "@/components/layout/header/nav_2/nav_2.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { useMetas } from "@/app/context/metaProvider";
-import { getBorderColor } from "@/utils/commonUtils";
 import { META } from "@/constants/admin";
+import { getBorderColor } from "@/utils/themeUtils";
 
 interface Props {
   navLayout: string;

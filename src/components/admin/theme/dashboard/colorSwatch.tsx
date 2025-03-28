@@ -5,12 +5,12 @@ import useModal from "@/components/admin/form/modal/useModal";
 import React, { useEffect, useRef } from "react";
 import s from "@/components/admin/theme/adminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import { colorNameToHex } from "@/utils/commonUtils";
 import { OnlyString } from "@/lib/type";
 import ColorPicker from "@/components/admin/theme/dashboard/colorPicker";
 import Modal from "@/components/admin/form/modal/modal";
 import { createPresetColor } from "@/app/actions/theme/admin";
 import { useAlert } from "@/app/context/alertProvider";
+import { colorNameToHex } from "@/utils/themeUtils";
 
 interface Props {
   label: string;

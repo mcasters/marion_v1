@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import s from "@/components/admin/theme/adminTheme.module.css";
 import { HexColorInput, HexColorPicker } from "react-colorful";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import { colorNameToHex } from "@/utils/commonUtils";
+
+import { colorNameToHex } from "@/utils/themeUtils";
 
 interface Props {
   color: string;

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Layout from "@/components/layout/layout";
 import Providers from "./context/providers";
 import "@/styles/globals-specific.css";
-import { getIntroText, getMetaMap, themeToHexa } from "@/utils/commonUtils";
+import { getIntroText, getMetaMap } from "@/utils/commonUtils";
 import React from "react";
 import StyledJsxRegistry from "./registry";
 import { getSession } from "@/app/lib/auth";
@@ -12,6 +12,7 @@ import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
 import { Cormorant, Cormorant_SC } from "next/font/google";
 import { META } from "@/constants/admin";
+import { themeToHexa } from "@/utils/themeUtils";
 
 const cormorant = Cormorant({
   subsets: ["latin"],

@@ -4,7 +4,8 @@ import { MENU_1_ITEMS } from "@/constants/specific/routes";
 import s from "@/components/layout/header/nav_1/nav_1.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import NavItem from "@/components/layout/header/nav_1/navItem";
-import { getBorderColor } from "@/utils/commonUtils";
+
+import { getBorderColor } from "@/utils/themeUtils";
 
 type Props = {
   navLayout: string;
