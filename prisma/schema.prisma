@@ -200,35 +200,47 @@ model Theme {
   id                      Int     @id @default(autoincrement())
   name                    String  @unique
   isActive                Boolean @default(false)
-  backgroundColor         String
-  backgroundColorItem     String
   lineColor               String
-  menu1Color              String
-  menu2Color              String
-  menu1HomeColor          String
-  menu2HomeColor          String
-  menu1ItemColor          String
-  menu2ItemColor          String
-  menu1LinkColor          String
-  menu2LinkColor          String
-  menu1LinkHomeColor      String
-  menu2LinkHomeColor      String
-  menu1LinkItemColor      String
-  menu2LinkItemColor      String
-  menu1LinkHoverColor     String
-  menu2LinkHoverColor     String
-  menu1LinkHomeHoverColor String
-  menu2LinkHomeHoverColor String
-  menu1LinkHoverItemColor String
-  menu2LinkHoverItemColor String
-  linkColor               String
-  linkHoverColor          String
-  color                   String
-  linkItemColor           String
-  linkHoverItemColor      String
-  colorItem               String
-  titleColor              String  @default("#2e6177")
-  introColor              String  @default("#2e6177")
+  titleColor              String
+  menu1_background_home   String
+  menu1_link_home         String
+  menu1_linkHover_home    String
+  menu2_background_home   String
+  menu2_link_home         String
+  menu2_linkHover_home    String
+  main_text_home          String
+  footer_background_home  String
+  footer_text_home        String
+  footer_link_home        String
+  footer_linkHover_home   String
+  menu1_background_item   String
+  menu1_link_item         String
+  menu1_linkHover_item    String
+  menu2_background_item   String
+  menu2_link_item         String
+  menu2_linkHover_item    String
+  main_background_item    String
+  main_text_item          String
+  main_link_item          String
+  main_linkHover_item     String
+  footer_background_item  String
+  footer_text_item        String
+  footer_link_item        String
+  footer_linkHover_item   String
+  menu1_background_other  String
+  menu1_link_other        String
+  menu1_linkHover_other   String
+  menu2_background_other  String
+  menu2_link_other        String
+  menu2_linkHover_other   String
+  main_background_other   String
+  main_text_other         String
+  main_link_other         String
+  main_linkHover_other    String
+  footer_background_other String
+  footer_text_other       String
+  footer_link_other       String
+  footer_linkHover_other  String
 }
 
 model PresetColor {

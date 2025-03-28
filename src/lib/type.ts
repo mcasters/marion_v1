@@ -104,3 +104,28 @@ export type PhotoTabEnhanced = {
 export type Session = {
   user: User;
 };
+
+type SubTheme = {
+  background: string;
+  text: string;
+  link: string;
+  linkHover: string;
+};
+
+type PageTheme = {
+  menu1: SubTheme;
+  menu2: SubTheme;
+  main: SubTheme;
+  footer: SubTheme;
+};
+
+export type EnhancedTheme = {
+  id: number;
+  name: string;
+  isActive: boolean;
+  lineColor: string;
+  titleColor: string;
+  home: PageTheme;
+  item: PageTheme;
+  other: PageTheme;
+};

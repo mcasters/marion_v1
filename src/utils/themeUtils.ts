@@ -1,5 +1,5 @@
 import { PresetColor, Theme } from "@prisma/client";
-import { OnlyString } from "@/lib/type";
+import { EnhancedTheme, OnlyString } from "@/lib/type";
 
 import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
 
@@ -70,3 +70,91 @@ export function getBorderColor(colorHex: string): string | null {
   }
   return null;
 }
+
+export const getEnhancedTheme = (theme: Theme): EnhancedTheme => {
+  return {
+    id: theme.id,
+    name: theme.name,
+    isActive: theme.isActive,
+    lineColor: theme.lineColor,
+    titleColor: theme.titleColor,
+    home: {
+      menu1: {
+        background: theme.menu1_background_home,
+        text: "",
+        link: theme.menu1_link_home,
+        linkHover: theme.menu1_linkHover_home,
+      },
+      menu2: {
+        background: theme.menu2_background_home,
+        text: "",
+        link: theme.menu2_link_home,
+        linkHover: theme.menu2_linkHover_home,
+      },
+      main: {
+        background: "",
+        text: theme.main_text_home,
+        link: "",
+        linkHover: "",
+      },
+      footer: {
+        background: theme.footer_background_home,
+        text: theme.footer_background_home,
+        link: theme.footer_link_home,
+        linkHover: theme.footer_linkHover_home,
+      },
+    },
+    item: {
+      menu1: {
+        background: theme.menu1_background_item,
+        text: "",
+        link: theme.menu1_link_item,
+        linkHover: theme.menu1_linkHover_item,
+      },
+      menu2: {
+        background: theme.menu2_background_item,
+        text: "",
+        link: theme.menu2_link_item,
+        linkHover: theme.menu2_linkHover_item,
+      },
+      main: {
+        background: theme.main_background_item,
+        text: theme.main_text_item,
+        link: theme.main_link_item,
+        linkHover: theme.main_linkHover_item,
+      },
+      footer: {
+        background: theme.footer_background_item,
+        text: theme.footer_background_item,
+        link: theme.footer_link_item,
+        linkHover: theme.footer_linkHover_item,
+      },
+    },
+    other: {
+      menu1: {
+        background: theme.menu1_background_other,
+        text: "",
+        link: theme.menu1_link_other,
+        linkHover: theme.menu1_linkHover_other,
+      },
+      menu2: {
+        background: theme.menu2_background_other,
+        text: "",
+        link: theme.menu2_link_other,
+        linkHover: theme.menu2_linkHover_other,
+      },
+      main: {
+        background: theme.main_background_other,
+        text: theme.main_text_other,
+        link: theme.main_link_other,
+        linkHover: theme.main_linkHover_other,
+      },
+      footer: {
+        background: theme.footer_background_other,
+        text: theme.footer_background_other,
+        link: theme.footer_link_other,
+        linkHover: theme.footer_linkHover_other,
+      },
+    },
+  };
+};
