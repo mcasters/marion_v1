@@ -20,7 +20,7 @@ export default function ThemeDashboard() {
             return (
               <ColorSwatch
                 key={i}
-                label="Ligne au top"
+                label={`${THEME_LABEL[key]}`}
                 dbLabel={key}
                 pageTypeName={PAGE_TYPE.GENERAL}
               />

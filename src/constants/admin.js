@@ -10,6 +10,8 @@ export const PAGE_TYPE = {
 };
 
 export const THEME_LABEL = {
+  lineColor: "Ligne au top",
+  titleColor: "Titre du site",
   menu1: "Menu 1",
   menu2: "Menu 2",
   main: "Corps",
