@@ -105,27 +105,27 @@ export type Session = {
   user: User;
 };
 
-type SubTheme = {
-  background: string;
-  text: string;
-  link: string;
-  linkHover: string;
+type ThemeTarget = {
+  background?: string;
+  text?: string;
+  link?: string;
+  linkHover?: string;
 };
 
-type PageTheme = {
-  menu1: SubTheme;
-  menu2: SubTheme;
-  main: SubTheme;
-  footer: SubTheme;
+type ThemePagePart = {
+  menu1: ThemeTarget;
+  menu2: ThemeTarget;
+  main: ThemeTarget;
+  footer: ThemeTarget;
 };
 
-export type EnhancedTheme = {
+export type ThemeEnhanced = {
   id: number;
   name: string;
   isActive: boolean;
   lineColor: string;
   titleColor: string;
-  home: PageTheme;
-  item: PageTheme;
-  other: PageTheme;
+  home: ThemePagePart;
+  item: ThemePagePart;
+  other: ThemePagePart;
 };

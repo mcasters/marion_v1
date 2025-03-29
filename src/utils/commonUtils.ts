@@ -37,6 +37,12 @@ export const transformValueToKey = (value: string): string =>
     .replace(/î/gi, "i")
     .replace(/ë/gi, "e");
 
+export const createNestedObject = (obj, key, ...keys) => {
+  return key != undefined
+    ? createNestedObject(obj[key] || (obj[key] = {}), ...keys)
+    : obj;
+};
+
 export const getPresentationContent = (
   contents: ContentFull[],
 ): ContentFull | null =>
