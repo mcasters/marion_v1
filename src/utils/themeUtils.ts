@@ -64,16 +64,16 @@ export function rgbToHex(r: number, g: number, b: number): string {
 export function getBorderColor(colorHex: string): string | null {
   const array = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(colorHex);
   if (array) {
-    const r = parseInt(array[1], 16) - 30;
-    const g = parseInt(array[2], 16) - 30;
-    const b = parseInt(array[3], 16) - 30;
+    const r = parseInt(array[1], 16) - 20;
+    const g = parseInt(array[2], 16) - 20;
+    const b = parseInt(array[3], 16) - 20;
     return rgbToHex(r <= 0 ? 0 : r, g <= 0 ? 0 : g, b <= 0 ? 0 : b);
   }
   return null;
 }
 
 export const getEnhancedTheme = (theme: Theme): ThemeEnhanced => {
-  let enhancedTheme = {};
+  const enhancedTheme = {};
   Object.entries(theme).forEach(([key, value]) => {
     const stringSplit = key.split("_");
     if (stringSplit.length === 3) {

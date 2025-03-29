@@ -203,20 +203,27 @@ model Theme {
   lineColor               String
   titleColor              String
   menu1_background_home   String
+  menu1_text_home         String
   menu1_link_home         String
   menu1_linkHover_home    String
   menu2_background_home   String
+  menu2_text_home         String
   menu2_link_home         String
   menu2_linkHover_home    String
+  main_background_home    String
   main_text_home          String
+  main_link_home          String
+  main_linkHover_home     String
   footer_background_home  String
   footer_text_home        String
   footer_link_home        String
   footer_linkHover_home   String
   menu1_background_item   String
+  menu1_text_item         String
   menu1_link_item         String
   menu1_linkHover_item    String
   menu2_background_item   String
+  menu2_text_item         String
   menu2_link_item         String
   menu2_linkHover_item    String
   main_background_item    String
@@ -228,9 +235,11 @@ model Theme {
   footer_link_item        String
   footer_linkHover_item   String
   menu1_background_other  String
+  menu1_text_other        String
   menu1_link_other        String
   menu1_linkHover_other   String
   menu2_background_other  String
+  menu2_text_other        String
   menu2_link_other        String
   menu2_linkHover_other   String
   main_background_other   String

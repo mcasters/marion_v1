@@ -105,14 +105,14 @@ export type Session = {
   user: User;
 };
 
-type ThemeTarget = {
+export type ThemeTarget = {
   background: string;
   text: string;
   link: string;
   linkHover: string;
 };
 
-type ThemePagePart = {
+export type ThemePagePart = {
   menu1: ThemeTarget;
   menu2: ThemeTarget;
   main: ThemeTarget;
