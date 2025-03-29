@@ -2,6 +2,24 @@ export const THEME = {
   BASE_THEME: "Thème de base",
 };
 
+export const PAGE_TYPE = {
+  GENERAL: "Général",
+  ITEM: "Pages d'items",
+  OTHERS: "Autres pages",
+  HOME: "Page home",
+};
+
+export const THEME_LABEL = {
+  menu1: "Menu 1",
+  menu2: "Menu 2",
+  main: "Corps",
+  footer: "Pied de page",
+  background: "Fond",
+  text: "Texte",
+  link: "Lien",
+  linkHover: "Lien pointé",
+};
+
 export const COOKIE_NAME = "adminSession";
 
 /* SEO */

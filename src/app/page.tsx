@@ -2,8 +2,6 @@ import HomePage from "@/components/home/homePage";
 import { getContentsFull } from "@/app/actions/contents";
 import { getSliderPhotoTab } from "@/utils/imageUtils";
 import { getSliderContent } from "@/utils/commonUtils";
-import { getEnhancedTheme } from "@/utils/themeUtils";
-import { getActiveTheme } from "@/app/actions/theme";
 
 export default async function Page() {
   // This request should be cached until manually invalidated.
@@ -25,8 +23,6 @@ export default async function Page() {
     getSliderContent(contents),
     `Œuvre de ${process.env.TITLE}`,
   );
-
-  const theme = getEnhancedTheme(await getActiveTheme());
 
   return <HomePage portraitPhotos={mainPhotos} landscapePhotos={photos} />;
 }
