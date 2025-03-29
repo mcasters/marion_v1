@@ -2,15 +2,14 @@
 
 import { ReactNode } from "react";
 import { ThemeProvider } from "@/app/context/themeProvider";
-import { Theme } from "@prisma/client";
 import { SessionProvider } from "@/app/context/sessionProvider";
-import { Session } from "@/lib/type";
+import { Session, ThemeEnhanced } from "@/lib/type";
 import { AlertProvider } from "@/app/context/alertProvider";
 import { MetaProvider } from "@/app/context/metaProvider";
 
 interface Props {
   session: Session | null;
-  theme: Theme;
+  theme: ThemeEnhanced;
   metaMap: Map<string, string>;
   children: ReactNode;
 }

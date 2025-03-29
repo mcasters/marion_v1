@@ -32,12 +32,15 @@ export default function ThemeDashboard() {
         {Object.entries(workThemeEnhanced["home"]).map(
           ([pagePart, content], i) =>
             Object.entries(content).map(([target, value], ii) => (
-              <ColorSwatch
-                key={`${i}-${ii}`}
-                label={`${THEME_LABEL[pagePart]} - ${THEME_LABEL[target]}`}
-                dbLabel={`${pagePart}_${target}_home`}
-                pageTypeName={PAGE_TYPE.HOME}
-              />
+              <>
+                {i !== 0 && ii === 0 && <div style={{ height: "30px" }}></div>}
+                <ColorSwatch
+                  key={`${i}-${ii}`}
+                  label={`${THEME_LABEL[pagePart]} - ${THEME_LABEL[target]}`}
+                  dbLabel={`${pagePart}_${target}_home`}
+                  pageTypeName={PAGE_TYPE.HOME}
+                />
+              </>
             )),
         )}
       </section>
@@ -46,12 +49,15 @@ export default function ThemeDashboard() {
         {Object.entries(workThemeEnhanced["other"]).map(
           ([pagePart, content], i) =>
             Object.entries(content).map(([target, value], ii) => (
-              <ColorSwatch
-                key={`${i}-${ii}`}
-                label={`${THEME_LABEL[pagePart]} - ${THEME_LABEL[target]}`}
-                dbLabel={`${pagePart}_${target}_other`}
-                pageTypeName={PAGE_TYPE.HOME}
-              />
+              <>
+                {i !== 0 && ii === 0 && <div style={{ height: "30px" }}></div>}
+                <ColorSwatch
+                  key={`${i}-${ii}`}
+                  label={`${THEME_LABEL[pagePart]} - ${THEME_LABEL[target]}`}
+                  dbLabel={`${pagePart}_${target}_other`}
+                  pageTypeName={PAGE_TYPE.HOME}
+                />
+              </>
             )),
         )}
       </section>
@@ -60,12 +66,15 @@ export default function ThemeDashboard() {
         {Object.entries(workThemeEnhanced["item"]).map(
           ([pagePart, content], i) =>
             Object.entries(content).map(([target, value], ii) => (
-              <ColorSwatch
-                key={`${i}-${ii}`}
-                label={`${THEME_LABEL[pagePart]} - ${THEME_LABEL[target]}`}
-                dbLabel={`${pagePart}_${target}_item`}
-                pageTypeName={PAGE_TYPE.HOME}
-              />
+              <>
+                {i !== 0 && ii === 0 && <div style={{ height: "30px" }}></div>}
+                <ColorSwatch
+                  key={`${i}-${ii}`}
+                  label={`${THEME_LABEL[pagePart]} - ${THEME_LABEL[target]}`}
+                  dbLabel={`${pagePart}_${target}_item`}
+                  pageTypeName={PAGE_TYPE.HOME}
+                />
+              </>
             )),
         )}
       </section>
