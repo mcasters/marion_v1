@@ -55,7 +55,7 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
               </Link>
               <style jsx>{`
                 .imageOverLayer {
-                  color: ${theme.linkHoverColor};
+                  color: ${theme.other.main.linkHover};
                 }
               `}</style>
             </li>

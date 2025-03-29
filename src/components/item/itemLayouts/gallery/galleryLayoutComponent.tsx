@@ -59,7 +59,7 @@ export default function GalleryLayoutComponent({ items }: Props) {
             </figcaption>
             <style jsx>{`
               .infoContainer:hover {
-                color: ${theme.linkHoverColor};
+                color: ${theme.other.main.linkHover};
               }
             `}</style>
           </article>

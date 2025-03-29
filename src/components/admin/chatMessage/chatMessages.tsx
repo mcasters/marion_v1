@@ -73,14 +73,14 @@ export default function ChatMessages({ dbMessages }: Props) {
         <button
           type="submit"
           className={s.chatButton}
-          style={{ backgroundColor: theme.color }}
+          style={{ backgroundColor: theme.other.main.text }}
         >
           {message?.id ? "Mettre à jour" : "Envoyer"}
         </button>
         <button
           onClick={() => setMessage(undefined)}
           className={s.chatButton}
-          style={{ backgroundColor: theme.color }}
+          style={{ backgroundColor: theme.other.main.text }}
         >
           Annuler
         </button>

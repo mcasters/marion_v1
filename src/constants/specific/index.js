@@ -68,14 +68,19 @@ export const BASE_THEME = {
 
   // homePage
   menu1_background_home: "#e7e7e7",
+  menu1_text_home: "",
   menu1_link_home: "#333",
   menu1_linkHover_home: "#be2d01",
 
   menu2_background_home: "#fafafa",
+  menu2_text_home: "",
   menu2_link_home: "#be2d01",
   menu2_linkHover_home: "#333",
 
+  main_background_home: "",
   main_text_home: "#333",
+  main_link_home: "",
+  main_linkHover_home: "",
 
   footer_background_home: "#be2d01",
   footer_text_home: "#ee7845",
@@ -84,10 +89,12 @@ export const BASE_THEME = {
 
   // item
   menu1_background_item: "#e7e7e7",
+  menu1_text_item: "",
   menu1_link_item: "#333",
   menu1_linkHover_item: "#be2d01",
 
   menu2_background_item: "#fafafa",
+  menu2_text_item: "",
   menu2_link_item: "#be2d01",
   menu2_linkHover_item: "#333",
 
@@ -103,10 +110,12 @@ export const BASE_THEME = {
 
   // other
   menu1_background_other: "#e7e7e7",
+  menu1_text_other: "",
   menu1_link_other: "#333",
   menu1_linkHover_other: "#be2d01",
 
   menu2_background_other: "#fafafa",
+  menu2_text_other: "",
   menu2_link_other: "#be2d01",
   menu2_linkHover_other: "#333",
 

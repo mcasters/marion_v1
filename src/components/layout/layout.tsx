@@ -30,20 +30,19 @@ export default function Layout({ introduction, children }: Props) {
   const isPlainHomeLayout = getHomeLayout(metas) === HomeLayout.PLAIN;
 
   const isHome = path === ROUTES.HOME;
-  const isPainting = path === ROUTES.PAINTING;
-  const isSculpture = path === ROUTES.SCULPTURE;
-  const isDrawing = path === ROUTES.DRAWING;
+  const isItem =
+    path === ROUTES.PAINTING ||
+    path === ROUTES.SCULPTURE ||
+    path === ROUTES.DRAWING;
   const isAdminPage = path === ROUTES.ADMIN;
 
-  const gradientRgbObject = hexToRgb(theme.menu1HomeColor);
+  const gradientRgbObject = hexToRgb(theme.home.menu1.background);
   const gradientRgb = `${gradientRgbObject?.r},${gradientRgbObject?.g},${gradientRgbObject?.b}`;
 
   return (
     <div
       className={
-        isPainting || isSculpture || isDrawing
-          ? `${s.itemWrapper} itemWrapper`
-          : `${s.wrapper} wrapper`
+        isItem ? `${s.itemWrapper} itemWrapper` : `${s.wrapper} wrapper`
       }
     >
       <div className={`${s.line} line`}></div>

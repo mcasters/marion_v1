@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Fragment } from "react";
 import s from "../adminTheme.module.css";
 import { PAGE_TYPE, THEME_LABEL } from "@/constants/admin";
 import ColorSwatch from "@/components/admin/theme/dashboard/colorSwatch";
@@ -32,15 +32,14 @@ export default function ThemeDashboard() {
         {Object.entries(workThemeEnhanced["home"]).map(
           ([pagePart, content], i) =>
             Object.entries(content).map(([target, value], ii) => (
-              <>
+              <Fragment key={`${i}-${ii}`}>
                 {i !== 0 && ii === 0 && <div style={{ height: "30px" }}></div>}
                 <ColorSwatch
-                  key={`${i}-${ii}`}
                   label={`${THEME_LABEL[pagePart]} - ${THEME_LABEL[target]}`}
                   dbLabel={`${pagePart}_${target}_home`}
                   pageTypeName={PAGE_TYPE.HOME}
                 />
-              </>
+              </Fragment>
             )),
         )}
       </section>
@@ -49,15 +48,14 @@ export default function ThemeDashboard() {
         {Object.entries(workThemeEnhanced["other"]).map(
           ([pagePart, content], i) =>
             Object.entries(content).map(([target, value], ii) => (
-              <>
+              <Fragment key={`${i}-${ii}`}>
                 {i !== 0 && ii === 0 && <div style={{ height: "30px" }}></div>}
                 <ColorSwatch
-                  key={`${i}-${ii}`}
                   label={`${THEME_LABEL[pagePart]} - ${THEME_LABEL[target]}`}
                   dbLabel={`${pagePart}_${target}_other`}
                   pageTypeName={PAGE_TYPE.HOME}
                 />
-              </>
+              </Fragment>
             )),
         )}
       </section>
@@ -66,15 +64,14 @@ export default function ThemeDashboard() {
         {Object.entries(workThemeEnhanced["item"]).map(
           ([pagePart, content], i) =>
             Object.entries(content).map(([target, value], ii) => (
-              <>
+              <Fragment key={`${i}-${ii}`}>
                 {i !== 0 && ii === 0 && <div style={{ height: "30px" }}></div>}
                 <ColorSwatch
-                  key={`${i}-${ii}`}
                   label={`${THEME_LABEL[pagePart]} - ${THEME_LABEL[target]}`}
                   dbLabel={`${pagePart}_${target}_item`}
                   pageTypeName={PAGE_TYPE.HOME}
                 />
-              </>
+              </Fragment>
             )),
         )}
       </section>

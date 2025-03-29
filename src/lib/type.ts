@@ -106,10 +106,10 @@ export type Session = {
 };
 
 type ThemeTarget = {
-  background?: string;
-  text?: string;
-  link?: string;
-  linkHover?: string;
+  background: string;
+  text: string;
+  link: string;
+  linkHover: string;
 };
 
 type ThemePagePart = {

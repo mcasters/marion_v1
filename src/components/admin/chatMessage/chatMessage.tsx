@@ -37,7 +37,7 @@ export default function ChatMessage({
       <p
         className={s.authorName}
         style={{
-          color: isMessageOwner ? theme.color : theme.linkColor,
+          color: isMessageOwner ? theme.other.main.text : theme.other.main.link,
         }}
       >
         {`${email} - ${new Date(message.date).toLocaleDateString("fr-FR")}`}
@@ -45,7 +45,9 @@ export default function ChatMessage({
       <div
         className={s.message}
         style={{
-          backgroundColor: isMessageOwner ? theme.color : theme.linkColor,
+          backgroundColor: isMessageOwner
+            ? theme.other.main.text
+            : theme.other.main.link,
         }}
       >
         {isMessageOwner && (

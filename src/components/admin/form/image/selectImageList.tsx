@@ -15,7 +15,9 @@ type Props = {
 
 export default function SelectImageList({ items, value, onChange }: Props) {
   const theme = useTheme();
-  const [selectedColor, setSelectedColor] = React.useState(theme.linkColor);
+  const [selectedColor, setSelectedColor] = React.useState(
+    theme.other.main.link,
+  );
   const [filenameSelected, setFilenameSelected] = useState<string>(
     value.filename,
   );
@@ -34,11 +36,13 @@ export default function SelectImageList({ items, value, onChange }: Props) {
           className={s.option}
           onMouseEnter={() =>
             filenameSelected === ""
-              ? setSelectedColor(theme.linkHoverColor)
+              ? setSelectedColor(theme.other.main.linkHover)
               : ""
           }
           onMouseLeave={() =>
-            filenameSelected === "" ? setSelectedColor(theme.linkColor) : ""
+            filenameSelected === ""
+              ? setSelectedColor(theme.other.main.link)
+              : ""
           }
           style={
             filenameSelected === "" ? { background: `${selectedColor}` } : {}
@@ -56,10 +60,12 @@ export default function SelectImageList({ items, value, onChange }: Props) {
                   className={s.option}
                   onClick={() => onSelectImage(image)}
                   onMouseEnter={() =>
-                    isSelected ? setSelectedColor(theme.linkHoverColor) : ""
+                    isSelected
+                      ? setSelectedColor(theme.other.main.linkHover)
+                      : ""
                   }
                   onMouseLeave={() =>
-                    isSelected ? setSelectedColor(theme.linkColor) : ""
+                    isSelected ? setSelectedColor(theme.other.main.link) : ""
                   }
                   style={isSelected ? { background: `${selectedColor}` } : {}}
                 >

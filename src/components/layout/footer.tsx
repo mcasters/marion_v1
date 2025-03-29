@@ -28,10 +28,10 @@ export default function Footer({ path }: Props) {
         className={isDark ? `${s.footer} ${s.dark}` : s.footer}
         style={
           !isDark
-            ? { color: theme.color }
+            ? { color: theme.other.main.text }
             : isM
-              ? { color: theme.linkHoverColor }
-              : { color: theme.colorItem }
+              ? { color: theme.other.main.linkHover }
+              : { color: theme.item.main.text }
         }
       >
         <p>{metas.get(META.FOOTER)}</p>
