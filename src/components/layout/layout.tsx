@@ -60,14 +60,14 @@ export default function Layout({ introduction, children }: Props) {
         />
       )}
       <Main isHome={isHome}>{children}</Main>
-      <Footer path={path} />
+      <Footer isItem={isItem} isHome={isHome} />
       <style jsx global>{`
         .line {
           background-color: ${theme.lineColor};
         }
         .wrapper {
-          background-color: ${theme.backgroundColor};
-          color: ${theme.color};
+          background-color: ${theme.other.main.background};
+          color: ${theme.other.main.text};
         }
         .gradient {
           background: linear-gradient(
@@ -94,36 +94,36 @@ export default function Layout({ introduction, children }: Props) {
         .wrapper .buttonLink,
         .iconButton,
         .linkColor {
-          color: ${theme.linkColor};
+          color: ${theme.other.main.link};
         }
         .wrapper .icon {
-          fill: ${theme.linkColor};
+          fill: ${theme.other.main.link};
         }
         .wrapper a:hover,
         .wrapper .buttonLink:hover,
         .iconButton:hover {
-          color: ${theme.linkHoverColor};
+          color: ${theme.other.main.linkHover};
         }
         .wrapper .icon:hover {
-          fill: ${theme.linkHoverColor};
+          fill: ${theme.other.main.linkHover};
         }
         .itemWrapper {
-          background-color: ${theme.backgroundColorItem};
-          color: ${theme.colorItem};
+          background-color: ${theme.item.main.background};
+          color: ${theme.item.main.text};
         }
         .itemWrapper a,
         .itemWrapper .buttonLink {
-          color: ${theme.linkItemColor};
+          color: ${theme.item.main.link};
         }
         .itemWrapper .icon {
-          fill: ${theme.linkItemColor};
+          fill: ${theme.item.main.link};
         }
         .itemWrapper a:hover,
         .itemWrapper .buttonLink:hover {
-          color: ${theme.linkHoverItemColor};
+          color: ${theme.item.main.linkHover};
         }
         .itemWrapper .icon:hover {
-          fill: ${theme.linkHoverItemColor};
+          fill: ${theme.item.main.linkHover};
         }
       `}</style>
     </div>

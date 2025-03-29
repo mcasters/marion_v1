@@ -8,7 +8,6 @@ import React, { useMemo } from "react";
 import LAYOUT from "@/constants/layout";
 import { usePathname } from "next/navigation";
 import { useMetas } from "@/app/context/metaProvider";
-import { META } from "@/constants/admin";
 
 type Props = {
   itemTag: string;
@@ -24,24 +23,24 @@ export default function NavItem({ itemTag, navLayout }: Props) {
 
   const themeLink = useMemo(() => {
     return navLayout === LAYOUT.ITEM_NAV
-      ? theme.menu1LinkItemColor
+      ? theme.item.menu1.link
       : navLayout === LAYOUT.HOME_NAV
-        ? theme.menu1LinkHomeColor
-        : theme.menu1LinkColor;
+        ? theme.home.menu1.link
+        : theme.other.menu1.link;
   }, [theme, navLayout]);
   const themeLinkHover = useMemo(() => {
     return navLayout === LAYOUT.ITEM_NAV
-      ? theme.menu1LinkHoverItemColor
+      ? theme.item.menu1.linkHover
       : navLayout === LAYOUT.HOME_NAV
-        ? theme.menu1LinkHomeHoverColor
-        : theme.menu1LinkHoverColor;
+        ? theme.home.menu1.linkHover
+        : theme.other.menu1.linkHover;
   }, [theme, navLayout]);
   const themeBorderActive = useMemo(() => {
-    return metas.get(META.SITE_TITLE)?.startsWith("M")
-      ? theme.menu2LinkItemColor
-      : navLayout === LAYOUT.ITEM_NAV
-        ? theme.menu1LinkItemColor
-        : theme.menu2LinkItemColor;
+    return navLayout === LAYOUT.ITEM_NAV
+      ? theme.item.menu2.link
+      : navLayout === LAYOUT.HOME_NAV
+        ? theme.home.menu2.link
+        : theme.other.menu2.link;
   }, [theme, navLayout]);
 
   return (

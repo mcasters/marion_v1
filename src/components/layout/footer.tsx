@@ -9,35 +9,53 @@ import { useMetas } from "@/app/context/metaProvider";
 import { META } from "@/constants/admin";
 
 type Props = {
-  path: string | null;
+  isItem: boolean;
+  isHome: boolean;
 };
 
-export default function Footer({ path }: Props) {
+export default function Footer({ isItem, isHome }: Props) {
   const session = useSession();
   const metas = useMetas();
   const theme = useTheme();
-  const isPainting = path === ROUTES.PAINTING;
-  const isSculpture = path === ROUTES.SCULPTURE;
-  const isM = metas.get(META.SITE_TITLE)?.startsWith("M");
-  const isDrawing = isM ? path === ROUTES.DRAWING : false;
-  const isDark = isPainting || isSculpture || isDrawing;
 
   return (
     <>
       <footer
-        className={isDark ? `${s.footer} ${s.dark}` : s.footer}
+        className={s.footer}
         style={
-          !isDark
-            ? { color: theme.other.main.text }
-            : isM
-              ? { color: theme.other.main.linkHover }
-              : { color: theme.item.main.text }
+          isItem
+            ? {
+                color: theme.item.footer.text,
+                backgroundColor: theme.item.footer.background,
+              }
+            : isHome
+              ? {
+                  color: theme.home.footer.text,
+                  backgroundColor: theme.home.footer.background,
+                }
+              : {
+                  color: theme.other.footer.text,
+                  backgroundColor: theme.other.footer.background,
+                }
         }
       >
         <p>{metas.get(META.FOOTER)}</p>
         <br />
         <br />
-        {!session?.user && <Link href={ROUTES.LOGIN}>Admin</Link>}
+        {!session?.user && (
+          <Link
+            href={ROUTES.LOGIN}
+            style={
+              isItem
+                ? { color: theme.item.footer.link }
+                : isHome
+                  ? { color: theme.home.footer.link }
+                  : { color: theme.other.footer.link }
+            }
+          >
+            Admin
+          </Link>
+        )}
       </footer>
     </>
   );

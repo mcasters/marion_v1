@@ -28,19 +28,23 @@ export default function Nav_1({ navLayout }: Props) {
       </ul>
       <style jsx>{`
         .itemNav {
-          background-color: ${theme.menu1ItemColor};
-          border-bottom: 1px solid ${getBorderColor(theme.menu1ItemColor)};
+          background-color: ${theme.item.menu1.background};
+          border-bottom: 1px solid
+            ${getBorderColor(theme.item.menu1.background)};
         }
         .nav {
-          background-color: ${theme.menu1Color};
-          border-bottom: 1px solid ${getBorderColor(theme.menu1Color)};
+          background-color: ${theme.other.menu1.background};
+          border-bottom: 1px solid
+            ${getBorderColor(theme.other.menu1.background)};
         }
         .homeNavFix {
-          background-color: ${theme.menu1HomeColor};
-          border-bottom: 1px solid ${getBorderColor(theme.menu1HomeColor)};
+          background-color: ${theme.home.menu1.background};
+          border-bottom: 1px solid
+            ${getBorderColor(theme.home.menu1.background)};
         }
         .homeNav .ul {
-          border-bottom: 1px solid ${getBorderColor(theme.menu1HomeColor)};
+          border-bottom: 1px solid
+            ${getBorderColor(theme.home.menu1.background)};
         }
       `}</style>
     </nav>

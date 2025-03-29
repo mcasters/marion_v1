@@ -57,33 +57,35 @@ export default function Nav_2({ navLayout }: Props) {
       </ul>
       <style jsx>{`
         .itemNav {
-          background-color: ${theme.menu2ItemColor};
-          border-bottom: 1px solid ${getBorderColor(theme.menu2ItemColor)};
+          background-color: ${theme.item.menu2.background};
+          border-bottom: 1px solid
+            ${getBorderColor(theme.item.menu2.background)};
         }
         .nav {
-          background-color: ${theme.menu2Color};
-          border-bottom: 1px solid ${getBorderColor(theme.menu2Color)};
+          background-color: ${theme.other.menu2.background};
+          border-bottom: 1px solid
+            ${getBorderColor(theme.other.menu2.background)};
         }
         .homeNavFix {
-          background-color: ${theme.menu2HomeColor + "aa"};
+          background-color: ${theme.home.menu2.background + "aa"};
         }
         .homeNav .link {
-          color: ${theme.menu2LinkHomeColor};
+          color: ${theme.home.menu2.link};
         }
         .nav .link {
-          color: ${theme.menu2LinkColor};
+          color: ${theme.other.menu2.link};
         }
         .itemNav .link {
-          color: ${theme.menu2LinkItemColor};
+          color: ${theme.item.menu2.link};
         }
         .homeNav .link:hover {
-          color: ${theme.menu2LinkHomeHoverColor};
+          color: ${theme.home.menu2.linkHover};
         }
         .nav .link:hover {
-          color: ${theme.menu2LinkHoverColor};
+          color: ${theme.other.menu2.linkHover};
         }
         .itemNav .link:hover {
-          color: ${theme.menu2LinkHoverItemColor};
+          color: ${theme.item.menu2.linkHover};
         }
       `}</style>
     </nav>

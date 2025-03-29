@@ -1,3 +1,5 @@
+import {ThemeEnhancedKey, ThemePagePartKey, ThemeTargetKey} from "@/lib/type";
+
 export const THEME = {
   BASE_THEME: "Thème de base",
 };
@@ -9,7 +11,7 @@ export const PAGE_TYPE = {
   HOME: "Page home",
 };
 
-export const THEME_LABEL = {
+export const THEME_LABEL: { [key in ThemeTargetKey | ThemePagePartKey | ThemeEnhancedKey]: string } = {
   lineColor: "Ligne au top",
   titleColor: "Titre du site",
   menu1: "Menu 1",

@@ -53,7 +53,7 @@ export default function HomeSection({
       <p>{text}</p>
       <style jsx>{`
         .intro {
-          color: ${theme.introColor};
+          color: ${theme.home.main.text};
         }
       `}</style>
     </section>
