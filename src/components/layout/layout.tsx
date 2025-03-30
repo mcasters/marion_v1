@@ -34,7 +34,7 @@ export default function Layout({ introduction, children }: Props) {
     path === ROUTES.PAINTING ||
     path === ROUTES.SCULPTURE ||
     path === ROUTES.DRAWING;
-  const isAdminPage = path === ROUTES.ADMIN;
+  const isAdmin = path === ROUTES.ADMIN;
 
   const gradientRgbObject = hexToRgb(theme.home.menu1.background);
   const gradientRgb = `${gradientRgbObject?.r},${gradientRgbObject?.g},${gradientRgbObject?.b}`;
@@ -42,7 +42,11 @@ export default function Layout({ introduction, children }: Props) {
   return (
     <div
       className={
-        isItem ? `${s.itemWrapper} itemWrapper` : `${s.wrapper} wrapper`
+        isItem
+          ? `${s.wrapper} itemWrapper`
+          : isHome
+            ? `${s.wrapper} homeWrapper`
+            : `${s.wrapper} wrapper`
       }
     >
       <div className={`${s.line} line`}></div>
@@ -50,7 +54,7 @@ export default function Layout({ introduction, children }: Props) {
       {isHome && !isPlainHomeLayout && (
         <div className={`${s.gradient} gradient`}></div>
       )}
-      {isAdminPage ? (
+      {isAdmin ? (
         <AdminNav />
       ) : (
         <Header
@@ -68,6 +72,14 @@ export default function Layout({ introduction, children }: Props) {
         .wrapper {
           background-color: ${theme.other.main.background};
           color: ${theme.other.main.text};
+        }
+        .itemWrapper {
+          background-color: ${theme.item.main.background};
+          color: ${theme.item.main.text};
+        }
+        .homeWrapper {
+          background-color: ${theme.home.main.background};
+          color: ${theme.home.main.text};
         }
         .gradient {
           background: linear-gradient(
@@ -91,7 +103,9 @@ export default function Layout({ introduction, children }: Props) {
           );
         }
         .wrapper a,
+        .homeWrapper a,
         .wrapper .buttonLink,
+        .homeWrapper .buttonLink,
         .iconButton,
         .linkColor {
           color: ${theme.other.main.link};
@@ -100,16 +114,14 @@ export default function Layout({ introduction, children }: Props) {
           fill: ${theme.other.main.link};
         }
         .wrapper a:hover,
+        .homeWrapper a:hover,
         .wrapper .buttonLink:hover,
+        .homeWrapper .buttonLink:hover,
         .iconButton:hover {
           color: ${theme.other.main.linkHover};
         }
         .wrapper .icon:hover {
           fill: ${theme.other.main.linkHover};
-        }
-        .itemWrapper {
-          background-color: ${theme.item.main.background};
-          color: ${theme.item.main.text};
         }
         .itemWrapper a,
         .itemWrapper .buttonLink {

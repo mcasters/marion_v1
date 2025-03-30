@@ -7,7 +7,7 @@
     z-index: 10;
 }
 
-.itemWrapper, .wrapper {
+.wrapper {
     min-height: 100vh;
 }
 
