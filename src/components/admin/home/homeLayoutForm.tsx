@@ -72,7 +72,7 @@ export default function HomeLayoutForm() {
           <p>
             <strong>{`Texte intégré :`}</strong>
             <br />
-            {`Le titre du site, les menus, et l'introduction sont situés sur l'image qui prend tout l'écran. Nécessité d'accorder la couleur des textes avec l'image pour qu'ils restent lisibles.`}
+            {`Le titre du site, les menus, et l'introduction sont situés sur l'image qui prend tout l'écran. Leur couleur doit alors être accordée avec l'image pour qu'ils restent lisibles : Mettre une seule image est sans doute plus simple.`}
           </p>
         </label>
       </form>

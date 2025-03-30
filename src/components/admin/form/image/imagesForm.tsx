@@ -9,7 +9,6 @@ import { updateContent } from "@/app/actions/contents/admin";
 import { Label } from "@prisma/client";
 import PreviewForm from "@/components/admin/form/image/previewForm";
 import { Image } from "@/lib/type";
-import s from "@/components/admin/admin.module.css";
 
 type Props = {
   images: Image[];
@@ -43,7 +42,6 @@ export default function ImagesForm({
 
   return (
     <>
-      {title && <label className={s.formLabel}>{title}</label>}
       <PreviewForm images={images} contentLabel={Label.SLIDER} />
       <form action={action}>
         <input type="hidden" name="label" value={label} />
@@ -53,6 +51,7 @@ export default function ImagesForm({
           isMultiple={isMultiple}
           acceptSmallImage={acceptSmallImage}
           resetFlag={reset}
+          info={title}
         />
         <>
           <SubmitButton />

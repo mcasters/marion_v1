@@ -16,15 +16,14 @@ type Props = {
 export default function HomeSliderForm({ images, title, info, isMain }: Props) {
   return (
     <div className={s.container}>
-      <h2 className={s.title2}>
-        {title} <small>({info})</small>
-      </h2>
+      <h2 className={s.title2}>{title}</h2>
       <ImagesForm
         images={images}
         isMultiple={true}
         label={Label.SLIDER}
         acceptSmallImage={false}
         isMain={isMain}
+        title={info}
       />
     </div>
   );

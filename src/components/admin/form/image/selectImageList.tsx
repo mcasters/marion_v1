@@ -86,11 +86,6 @@ export default function SelectImageList({ items, value, onChange }: Props) {
       </div>
       Les images sont ici tronquées au carré, comme elles sont affichées dans la
       pastille de la catégorie.
-      <style jsx>{`
-        .line {
-          background-color: ${theme.lineColor};
-        }
-      `}</style>
     </>
   );
 }
