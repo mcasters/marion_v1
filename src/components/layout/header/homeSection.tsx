@@ -44,7 +44,7 @@ export default function HomeSection({
       <h1 className={`${s.title} title`}>{metas.get(META.SITE_TITLE)}</h1>
       <style jsx>{`
         .title {
-          color: ${theme.titleColor};
+          color: ${theme.general.titleColor};
         }
       `}</style>
     </section>

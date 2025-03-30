@@ -2,17 +2,22 @@ export const THEME = {
   BASE_THEME: "Thème de base",
 };
 
-export const PAGE_TYPE = {
-  GENERAL: "Général",
-  ITEM: "Pages d'items",
-  OTHERS: "Autres pages",
-  HOME: "Page home",
+export const THEME_ENHANCED_LABEL = {
+  general: "Général",
+  home: "Page home",
+  item: "Pages d'items",
+  other: "Autres pages",
+};
+
+export const THEME_GENERAL_LABEL = {
+  lineColor: "Ligne au top",
+  titleColor: "Titre du site",
 };
 
 export const THEME_PAGE_PART_LABEL = {
   menu1: "Menu 1",
   menu2: "Menu 2",
-  main: "Corps",
+  main: "Corps de page",
   footer: "Pied de page",
 };
 
@@ -20,12 +25,7 @@ export const THEME_TARGET_LABEL = {
   background: "Fond",
   text: "Texte",
   link: "Lien",
-  linkHover: "Lien pointé",
-};
-
-export const THEME_ENHANCED_LABEL = {
-  lineColor: "Ligne au top",
-  titleColor: "Titre du site",
+  linkHover: "Lien pointé*",
 };
 
 export const COOKIE_NAME = "adminSession";

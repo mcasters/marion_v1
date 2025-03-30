@@ -63,8 +63,8 @@ export const BASE_THEME_OLD = {
 export const BASE_THEME = {
   name: THEME.BASE_THEME,
   isActive: true,
-  lineColor: "#be2d01",
-  titleColor: "#333",
+  lineColor_general: "#be2d01",
+  titleColor_general: "#333",
 
   // homePage
   menu1_background_home: "#e7e7e7",

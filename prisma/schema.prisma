@@ -200,8 +200,8 @@ model Theme {
   id                      Int     @id @default(autoincrement())
   name                    String  @unique
   isActive                Boolean @default(false)
-  lineColor               String
-  titleColor              String
+  lineColor_general       String
+  titleColor_general      String
   menu1_background_home   String
   menu1_text_home         String
   menu1_link_home         String

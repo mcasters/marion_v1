@@ -2,6 +2,16 @@
   margin: 0 0 4em;
 }
 
+.flex {
+  padding: 1em;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex section {
+  width: 270px;
+}
+
 .sectionTitle {
   font-family: var( --font-family-serif-caps);
   letter-spacing: 3px;
@@ -10,15 +20,17 @@
   text-align: left;
 }
 
-.flex {
-  padding: 1em;
-  display: flex;
-  flex-wrap: wrap;
+.subSection {
+  padding-bottom: 1.5em;
 }
 
-.themeContainer section {
-  width: 270px;
+.subTitle {
+  text-decoration: underline;
+  font-size: 1em;
+  text-align: left;
 }
+
+/* ColorSwatch */
 
 .colorContainer {
   display: flex;

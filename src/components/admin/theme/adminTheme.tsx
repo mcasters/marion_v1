@@ -3,7 +3,7 @@
 import React from "react";
 import themeStyle from "./adminTheme.module.css";
 import ThemeAdd from "@/components/admin/theme/themeAdd";
-import ThemeDashboard from "@/components/admin/theme/dashboard/themeDashboard";
+import Dashboard from "@/components/admin/theme/dashboard/dashboard";
 import ThemeUpdate from "@/components/admin/theme/themeUpdate";
 import s from "@/components/admin/admin.module.css";
 import PresetColorDashboard from "@/components/admin/theme/dashboard/presetColor/presetColorDashboard";
@@ -24,7 +24,7 @@ export default function AdminTheme() {
       </div>
       <div className={themeStyle.themeContainer}>
         <h3 className={s.title3}>Détail du thème sélectionné :</h3>
-        <ThemeDashboard />
+        <Dashboard />
         <div className={themeStyle.actionContainer}>
           <ThemeAdd />
           <ThemeUpdate />

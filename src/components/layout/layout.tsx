@@ -67,7 +67,7 @@ export default function Layout({ introduction, children }: Props) {
       <Footer isItem={isItem} isHome={isHome} />
       <style jsx global>{`
         .line {
-          background-color: ${theme.lineColor};
+          background-color: ${theme.general.lineColor};
         }
         .wrapper {
           background-color: ${theme.other.main.background};

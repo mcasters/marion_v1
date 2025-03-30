@@ -112,6 +112,11 @@ export type ThemeTarget = {
   linkHover: string;
 };
 
+export type ThemeGeneral = {
+  lineColor: string;
+  titleColor: string;
+};
+
 export type ThemePagePart = {
   menu1: ThemeTarget;
   menu2: ThemeTarget;
@@ -120,8 +125,7 @@ export type ThemePagePart = {
 };
 
 export type ThemeEnhanced = {
-  lineColor: string;
-  titleColor: string;
+  general: ThemeGeneral;
   home: ThemePagePart;
   item: ThemePagePart;
   other: ThemePagePart;
