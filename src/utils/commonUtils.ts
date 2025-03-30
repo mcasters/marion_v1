@@ -37,9 +37,11 @@ export const transformValueToKey = (value: string): string =>
     .replace(/î/gi, "i")
     .replace(/ë/gi, "e");
 
+// @ts-expect-error: any return function
 export const createNestedObject = (obj, key, ...keys) => {
   return key != undefined
-    ? createNestedObject(obj[key] || (obj[key] = {}), ...keys)
+    ? // @ts-expect-error: A spread argument must either have a tuple type or be passed to a rest parameter.
+      createNestedObject(obj[key] || (obj[key] = {}), ...keys)
     : obj;
 };
 

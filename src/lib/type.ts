@@ -120,9 +120,6 @@ export type ThemePagePart = {
 };
 
 export type ThemeEnhanced = {
-  id: number;
-  name: string;
-  isActive: boolean;
   lineColor: string;
   titleColor: string;
   home: ThemePagePart;

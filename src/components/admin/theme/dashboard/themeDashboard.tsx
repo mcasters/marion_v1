@@ -2,11 +2,16 @@
 
 import React, { Fragment } from "react";
 import s from "../adminTheme.module.css";
-import { PAGE_TYPE, THEME_LABEL } from "@/constants/admin";
+import {
+  PAGE_TYPE,
+  THEME_ENHANCED_LABEL,
+  THEME_PAGE_PART_LABEL,
+  THEME_TARGET_LABEL,
+} from "@/constants/admin";
 import ColorSwatch from "@/components/admin/theme/dashboard/colorSwatch";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { getEnhancedTheme } from "@/utils/themeUtils";
-import { OnlyString, ThemeEnhanced } from "@/lib/type";
+import { ThemePagePart, ThemeTarget } from "@/lib/type";
 
 export default function ThemeDashboard() {
   const { workTheme, isUpdated } = useAdminWorkThemeContext();
@@ -21,7 +26,7 @@ export default function ThemeDashboard() {
             return (
               <ColorSwatch
                 key={i}
-                label={`${THEME_LABEL[key as keyof OnlyString<ThemeEnhanced>]}`}
+                label={`${THEME_ENHANCED_LABEL[key]}`}
                 dbLabel={key}
                 pageTypeName={PAGE_TYPE.GENERAL}
               />
@@ -34,10 +39,10 @@ export default function ThemeDashboard() {
           ([pagePart, content], i) =>
             Object.entries(content).map(([target, value], ii) => (
               <Fragment key={`${i}-${ii}`}>
-                {i !== 0 && ii === 0 && <div style={{ height: "30px" }}></div>}
+                {i !== 0 && ii === 0 && <br />}
                 {value !== "" && (
                   <ColorSwatch
-                    label={`${THEME_LABEL[pagePart as keyof OnlyString<ThemeEnhanced>]} - ${THEME_LABEL[target as keyof OnlyString<ThemeEnhanced>]}`}
+                    label={`${THEME_PAGE_PART_LABEL[pagePart as keyof ThemePagePart]} - ${THEME_TARGET_LABEL[target as keyof ThemeTarget]}`}
                     dbLabel={`${pagePart}_${target}_home`}
                     pageTypeName={PAGE_TYPE.HOME}
                   />
@@ -52,10 +57,10 @@ export default function ThemeDashboard() {
           ([pagePart, content], i) =>
             Object.entries(content).map(([target, value], ii) => (
               <Fragment key={`${i}-${ii}`}>
-                {i !== 0 && ii === 0 && <div style={{ height: "30px" }}></div>}
+                {i !== 0 && ii === 0 && <br />}
                 {value !== "" && (
                   <ColorSwatch
-                    label={`${THEME_LABEL[pagePart as keyof OnlyString<ThemeEnhanced>]} - ${THEME_LABEL[target as keyof OnlyString<ThemeEnhanced>]}`}
+                    label={`${THEME_PAGE_PART_LABEL[pagePart as keyof ThemePagePart]} - ${THEME_TARGET_LABEL[target as keyof ThemeTarget]}`}
                     dbLabel={`${pagePart}_${target}_other`}
                     pageTypeName={PAGE_TYPE.HOME}
                   />
@@ -70,10 +75,10 @@ export default function ThemeDashboard() {
           ([pagePart, content], i) =>
             Object.entries(content).map(([target, value], ii) => (
               <Fragment key={`${i}-${ii}`}>
-                {i !== 0 && ii === 0 && <div style={{ height: "30px" }}></div>}
+                {i !== 0 && ii === 0 && <br />}
                 {value !== "" && (
                   <ColorSwatch
-                    label={`${THEME_LABEL[pagePart as keyof OnlyString<ThemeEnhanced>]} - ${THEME_LABEL[target as keyof OnlyString<ThemeEnhanced>]}`}
+                    label={`${THEME_PAGE_PART_LABEL[pagePart as keyof ThemePagePart]} - ${THEME_TARGET_LABEL[target as keyof ThemeTarget]}`}
                     dbLabel={`${pagePart}_${target}_item`}
                     pageTypeName={PAGE_TYPE.HOME}
                   />

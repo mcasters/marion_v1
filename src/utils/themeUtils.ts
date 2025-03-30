@@ -74,14 +74,16 @@ export function getBorderColor(colorHex: string): string | null {
 
 export const getEnhancedTheme = (theme: Theme): ThemeEnhanced => {
   const enhancedTheme = {};
+
   Object.entries(theme).forEach(([key, value]) => {
     const stringSplit = key.split("_");
+
     if (stringSplit.length === 3) {
       const [pagePart, target, page] = stringSplit;
       createNestedObject(enhancedTheme, page, pagePart)[target] = value;
-    } else {
+    } else if (key === "lineColor" || key === "titleColor")
+      // @ts-expect-error: lineColor ans titleColor values are always string
       enhancedTheme[key] = value;
-    }
   });
   return enhancedTheme as ThemeEnhanced;
 };
