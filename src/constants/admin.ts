@@ -9,16 +9,16 @@ export const THEME_ENHANCED_LABEL = {
   other: "Autres pages",
 };
 
-export const THEME_GENERAL_LABEL = {
-  lineColor: "Ligne au top",
-  titleColor: "Titre du site",
-};
-
 export const THEME_PAGE_PART_LABEL = {
   menu1: "Menu 1",
   menu2: "Menu 2",
   main: "Corps de page",
   footer: "Pied de page",
+};
+
+export const THEME_GENERAL_TARGET_LABEL = {
+  lineColor: "Ligne au top",
+  titleColor: "Titre du site",
 };
 
 export const THEME_TARGET_LABEL = {

@@ -1,5 +1,5 @@
 import { PresetColor, Theme } from "@prisma/client";
-import { OnlyString, ThemeEnhanced } from "@/lib/type";
+import { OnlyString, StructuredTheme } from "@/lib/type";
 
 import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
 import { createNestedObject } from "@/utils/commonUtils";
@@ -72,18 +72,18 @@ export function getBorderColor(colorHex: string): string | null {
   return null;
 }
 
-export const getEnhancedTheme = (theme: Theme): ThemeEnhanced => {
-  const enhancedTheme = {};
+export const getStructuredTheme = (theme: Theme): StructuredTheme => {
+  const structuredTheme = {};
   Object.entries(theme).forEach(([key, value]) => {
     const stringSplit = key.split("_");
 
     if (stringSplit.length === 3) {
       const [pagePart, target, page] = stringSplit;
-      createNestedObject(enhancedTheme, page, pagePart)[target] = value;
+      createNestedObject(structuredTheme, page, pagePart)[target] = value;
     } else if (stringSplit.length === 2) {
       const [target, page] = stringSplit;
-      createNestedObject(enhancedTheme, page)[target] = value;
+      createNestedObject(structuredTheme, page)[target] = value;
     }
   });
-  return enhancedTheme as ThemeEnhanced;
+  return structuredTheme as StructuredTheme;
 };

@@ -5,24 +5,32 @@ import useModal from "@/components/admin/form/modal/useModal";
 import React, { useEffect, useRef } from "react";
 import s from "@/components/admin/theme/adminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import { OnlyString } from "@/lib/type";
+import {
+  OnlyString,
+  StructuredTheme,
+  ThemeGeneralTarget,
+  ThemePagePart,
+  ThemeTarget,
+} from "@/lib/type";
 import ColorPicker from "@/components/admin/theme/dashboard/colorPicker";
 import Modal from "@/components/admin/form/modal/modal";
 import { createPresetColor } from "@/app/actions/theme/admin";
 import { useAlert } from "@/app/context/alertProvider";
 import { colorNameToHex } from "@/utils/themeUtils";
+import {
+  THEME_ENHANCED_LABEL,
+  THEME_GENERAL_TARGET_LABEL,
+  THEME_PAGE_PART_LABEL,
+  THEME_TARGET_LABEL,
+} from "@/constants/admin";
 
 interface Props {
-  label: string;
-  dbLabel: string;
-  pageTypeName: string;
+  page: string;
+  pagePart: string | null;
+  target: string;
 }
 
-export default function ColorSwatch({
-  label, // what is displayed
-  dbLabel,
-  pageTypeName,
-}: Props) {
+export default function ColorSwatch({ page, pagePart, target }: Props) {
   const {
     workTheme,
     setWorkTheme,
@@ -33,6 +41,12 @@ export default function ColorSwatch({
   } = useAdminWorkThemeContext();
   const alert = useAlert();
   const { isOpen, toggle } = useModal();
+  const dbLabel = pagePart
+    ? `${pagePart}_${target}_${page}`
+    : `${target}_${page}`;
+  const label = pagePart
+    ? THEME_TARGET_LABEL[target as keyof ThemeTarget]
+    : THEME_GENERAL_TARGET_LABEL[target as keyof ThemeGeneralTarget];
   const color: string = workTheme[dbLabel as keyof OnlyString<Theme>];
   const initialColor = useRef("");
   const initialIsUpdated = useRef(true);
@@ -100,7 +114,7 @@ export default function ColorSwatch({
             onCreatePresetColor={handleCreatePresetColor}
             onClose={toggle}
             onCancel={handleCancel}
-            title={`${pageTypeName} : ${label}`}
+            title={`${THEME_ENHANCED_LABEL[page as keyof StructuredTheme]} / ${pagePart ? `${THEME_PAGE_PART_LABEL[pagePart as keyof ThemePagePart]} /` : ""} ${label}`}
           />
         </Modal>
       </div>

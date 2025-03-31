@@ -3,13 +3,13 @@
 import { ReactNode } from "react";
 import { ThemeProvider } from "@/app/context/themeProvider";
 import { SessionProvider } from "@/app/context/sessionProvider";
-import { Session, ThemeEnhanced } from "@/lib/type";
+import { Session, StructuredTheme } from "@/lib/type";
 import { AlertProvider } from "@/app/context/alertProvider";
 import { MetaProvider } from "@/app/context/metaProvider";
 
 interface Props {
   session: Session | null;
-  theme: ThemeEnhanced;
+  theme: StructuredTheme;
   metaMap: Map<string, string>;
   children: ReactNode;
 }

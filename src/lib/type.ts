@@ -112,7 +112,7 @@ export type ThemeTarget = {
   linkHover: string;
 };
 
-export type ThemeGeneral = {
+export type ThemeGeneralTarget = {
   lineColor: string;
   titleColor: string;
 };
@@ -124,8 +124,8 @@ export type ThemePagePart = {
   footer: ThemeTarget;
 };
 
-export type ThemeEnhanced = {
-  general: ThemeGeneral;
+export type StructuredTheme = {
+  general: ThemeGeneralTarget;
   home: ThemePagePart;
   item: ThemePagePart;
   other: ThemePagePart;

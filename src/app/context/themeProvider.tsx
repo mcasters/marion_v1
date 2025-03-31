@@ -1,11 +1,11 @@
 "use client";
 import { createContext, ReactNode, useContext } from "react";
-import { ThemeEnhanced } from "@/lib/type";
+import { StructuredTheme } from "@/lib/type";
 
-const ThemeContext = createContext<ThemeEnhanced>({} as ThemeEnhanced);
+const ThemeContext = createContext<StructuredTheme>({} as StructuredTheme);
 
 interface Props {
-  theme: ThemeEnhanced;
+  theme: StructuredTheme;
   children: ReactNode;
 }
 

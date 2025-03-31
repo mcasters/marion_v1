@@ -12,7 +12,7 @@ import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
 import { Cormorant, Cormorant_SC } from "next/font/google";
 import { META } from "@/constants/admin";
-import { getEnhancedTheme, themeToHexa } from "@/utils/themeUtils";
+import { getStructuredTheme, themeToHexa } from "@/utils/themeUtils";
 
 const cormorant = Cormorant({
   subsets: ["latin"],
@@ -69,7 +69,7 @@ export default async function RootLayout({
       <body>
         <Providers
           session={session}
-          theme={getEnhancedTheme(hexaTheme)}
+          theme={getStructuredTheme(hexaTheme)}
           metaMap={metaMap}
         >
           <StyledJsxRegistry>
