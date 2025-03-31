@@ -5,7 +5,7 @@ import { getMetas } from "@/app/actions/meta";
 import MetaComponent from "@/components/admin/meta/metaComponent";
 
 export default async function Contact() {
-  const metas = getMetaMap(await getMetas());
+  const metas = getMetaMap(await getMetas(true));
 
   return (
     <>

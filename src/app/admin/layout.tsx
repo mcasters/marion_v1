@@ -10,8 +10,8 @@ import {
 export default async function layout({ children }: { children: ReactNode }) {
   const themes = await getThemesFull();
   const activeTheme =
-    themes.find((t) => t.isActive) || (await getActiveTheme());
-  const presetColors = await getPresetColors();
+    themes.find((t) => t.isActive) || (await getActiveTheme(true));
+  const presetColors = await getPresetColors(true);
 
   return (
     <AdminWorkThemeProvider

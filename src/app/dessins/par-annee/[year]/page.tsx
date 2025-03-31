@@ -15,7 +15,8 @@ type Props = {
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | undefined> {
-  const metas = getMetaMap(await getMetas());
+  const session = await getSession();
+  const metas = getMetaMap(await getMetas(!!session));
   const year = (await params).year;
   if (metas) {
     return {

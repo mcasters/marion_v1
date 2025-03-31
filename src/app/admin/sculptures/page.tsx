@@ -2,17 +2,14 @@ import ItemListComponent from "@/components/admin/item/itemListComponent";
 import s from "@/components/admin/admin.module.css";
 import React from "react";
 import { Type } from "@/lib/type";
-import { getMetaMap } from "@/utils/commonUtils";
 import { getAllCategories, getAllItems, getYears } from "@/app/actions/items";
 import ItemLayoutForm from "@/components/admin/item/itemLayoutForm";
-import { getMetas } from "@/app/actions/meta";
 import CategoryListComponent from "@/components/admin/item/category/categoryListComponent";
 
 export default async function Sculptures() {
   const categories = await getAllCategories(Type.SCULPTURE);
   const years = await getYears(Type.SCULPTURE, true);
   const items = await getAllItems(Type.SCULPTURE);
-  const metas = getMetaMap(await getMetas());
 
   return (
     <>

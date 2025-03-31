@@ -5,9 +5,11 @@ import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
 
 import { META } from "@/constants/admin";
+import { getSession } from "@/app/lib/auth";
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
-  const metas = getMetaMap(await getMetas());
+  const session = await getSession();
+  const metas = getMetaMap(await getMetas(!!session));
   if (metas) {
     return {
       title: metas.get(META.DOCUMENT_TITLE_DRAWING_HOME),

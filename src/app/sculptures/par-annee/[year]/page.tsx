@@ -15,8 +15,9 @@ type Props = {
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | undefined> {
-  const metas = getMetaMap(await getMetas());
   const year = (await params).year;
+  const session = await getSession();
+  const metas = getMetaMap(await getMetas(!!session));
   if (metas) {
     return {
       title: `${metas.get(META.DOCUMENT_TITLE_SCULPTURE)} - Année ${year}`,
