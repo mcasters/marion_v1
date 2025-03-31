@@ -2,7 +2,6 @@
 
 import { Category, ItemFull, Type } from "@/lib/type";
 import {
-  cache,
   KEYS,
   queryAllCategories,
   queryAllItems,
@@ -14,12 +13,13 @@ import {
   queryYears,
 } from "@/app/actions/items/queries";
 import { getNoCategory } from "@/utils/commonUtils";
+import { cacheDBDatas } from "@/app/actions/actionUtils";
 
 export async function getYears(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   isAdmin: boolean,
 ): Promise<number[]> {
-  const years = await cache(
+  const years = await cacheDBDatas(
     () => queryYears(type),
     isAdmin,
     `${KEYS[type].years}`,
@@ -32,13 +32,13 @@ export async function getCategories(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   isAdmin: boolean,
 ): Promise<Category[]> {
-  const categories = await cache(
+  const categories = await cacheDBDatas(
     () => queryCategories(type),
     isAdmin,
     KEYS[type].categories,
   );
 
-  const noCategory = await cache(
+  const noCategory = await cacheDBDatas(
     () => queryNoCategory(type),
     isAdmin,
     KEYS[type].noCategory,
@@ -53,7 +53,7 @@ export async function getItemsByYear(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   isAdmin: boolean,
 ): Promise<ItemFull[]> {
-  const items = await cache(
+  const items = await cacheDBDatas(
     () => queryItemsByYear(type, year),
     isAdmin,
     `${KEYS[type].itemsByYear}-${year}`,
@@ -72,7 +72,7 @@ export async function getCategory(
   if (categoryKey === "no-category") {
     category = getNoCategory();
   } else {
-    category = await cache(
+    category = await cacheDBDatas(
       () => queryCategory(type, categoryKey),
       isAdmin,
       `${KEYS[type].category}-${categoryKey}`,
@@ -86,7 +86,7 @@ export async function getItemsByCategory(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   isAdmin: boolean,
 ): Promise<ItemFull[]> {
-  const items = await cache(
+  const items = await cacheDBDatas(
     () => queryItemsByCategory(type, categoryKey),
     isAdmin,
     `${KEYS[type].itemsByCategory}-${categoryKey}`,

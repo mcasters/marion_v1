@@ -1,21 +1,6 @@
-import { unstable_cache } from "next/cache";
 import { Category, ItemFull, Type } from "@/lib/type";
 import prisma from "@/lib/prisma";
 import { getNoCategory } from "@/utils/commonUtils";
-
-export async function cache<S>(
-  fn: () => Promise<S>,
-  isAdmin: boolean,
-  key: string,
-): Promise<S> {
-  const query = isAdmin
-    ? fn
-    : unstable_cache(async () => fn(), [key], {
-        revalidate: 60,
-        tags: [key],
-      });
-  return query();
-}
 
 export const KEYS = {
   [Type.PAINTING]: {
