@@ -12,7 +12,7 @@ import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
 import { Cormorant, Cormorant_SC } from "next/font/google";
 import { META } from "@/constants/admin";
-import { getStructuredTheme, themeToHexa } from "@/utils/themeUtils";
+import { getStructHexaTheme } from "@/utils/themeUtils";
 
 const cormorant = Cormorant({
   subsets: ["latin"],
@@ -59,19 +59,15 @@ export default async function RootLayout({
 }) {
   const session = await getSession();
   const contents = await getContentsFull();
-  const theme = await getActiveTheme();
-  const presetColors = await getPresetColors();
-  const hexaTheme = themeToHexa(theme, presetColors);
+  const theme = await getActiveTheme(!!session);
+  const pColors = await getPresetColors(!!session);
+  const structuredTheme = await getStructHexaTheme(theme, pColors, !!session);
   const metaMap = getMetaMap(await getMetas());
 
   return (
     <html lang="fr" className={`${cormorant.variable} ${cormorantSC.variable}`}>
       <body>
-        <Providers
-          session={session}
-          theme={getStructuredTheme(hexaTheme)}
-          metaMap={metaMap}
-        >
+        <Providers session={session} theme={structuredTheme} metaMap={metaMap}>
           <StyledJsxRegistry>
             <Layout introduction={getIntroText(contents)}>{children}</Layout>
           </StyledJsxRegistry>
