@@ -8,7 +8,7 @@ import {
   Type,
 } from "@/lib/type";
 import { IMAGE } from "@/constants/image";
-import { getSliders } from "@/utils/commonUtils";
+import { getSliderContent, getSliders } from "@/utils/commonUtils";
 
 const getEmptyPhotoTab = (): PhotoTab => {
   return { sm: [], md: [], lg: [] };
@@ -160,11 +160,15 @@ const getPhotosEnhancedFromImages = (
 };
 
 export const getSliderPhotoTab = (
-  content: ContentFull | null,
-  alt: string,
+  contents: ContentFull[],
 ): { mainPhotos: PhotoTab; photos: PhotoTab } => {
+  const content = getSliderContent(contents);
   if (content) {
-    return getSplitMainPhotosFromImages(content.images, "miscellaneous", alt);
+    return getSplitMainPhotosFromImages(
+      content.images,
+      "miscellaneous",
+      `Œuvre de ${process.env.TITLE}`,
+    );
   }
   return { mainPhotos: getEmptyPhotoTab(), photos: getEmptyPhotoTab() };
 };

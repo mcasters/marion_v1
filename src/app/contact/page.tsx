@@ -12,10 +12,12 @@ import { getContentsFull } from "@/app/actions/contents";
 import InstagramIcon from "@/components/icons/instagramIcon";
 import { getMetas } from "@/app/actions/meta";
 import { META } from "@/constants/admin";
+import { getSession } from "@/app/lib/auth";
 
 export default async function Contact() {
-  const contents = await getContentsFull();
-  const metas = getMetaMap(await getMetas());
+  const session = await getSession();
+  const contents = await getContentsFull(!!session);
+  const metas = getMetaMap(await getMetas(!!session));
   const email = getEmailText(contents);
   const contactText = getContactText(contents);
   const owner = metas.get(META.SITE_TITLE);

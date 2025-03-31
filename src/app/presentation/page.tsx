@@ -6,9 +6,11 @@ import {
 } from "@/utils/commonUtils";
 import PresentationComponent from "@/components/presentation/presentationComponent";
 import { getContentsFull } from "@/app/actions/contents";
+import { getSession } from "@/app/lib/auth";
 
 export default async function Presentation() {
-  const contents = await getContentsFull();
+  const session = await getSession();
+  const contents = await getContentsFull(!!session);
   const presentationContent = getPresentationContent(contents);
   const demarche = getDemarcheText(contents);
   const inspiration = getInspirationText(contents);

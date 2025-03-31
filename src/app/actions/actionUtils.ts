@@ -8,7 +8,7 @@ export async function cacheDBDatas<S>(
   const query = isAdmin
     ? fn
     : unstable_cache(async () => fn(), [key], {
-        revalidate: 60 * 10,
+        revalidate: 60 * 5,
         tags: [key],
       });
   return query();
