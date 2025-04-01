@@ -1,11 +1,9 @@
 import { getItemsByYear } from "@/app/actions/items";
 import ItemsPageComponent from "@/components/item/itemsPageComponent";
 import { Type } from "@/lib/type";
-import { getSession } from "@/app/lib/auth";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
-
 import { META } from "@/constants/admin";
 
 type Props = {
@@ -15,8 +13,7 @@ type Props = {
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | undefined> {
-  const session = await getSession();
-  const metas = getMetaMap(await getMetas(!!session));
+  const metas = getMetaMap(await getMetas());
   const year = (await params).year;
   if (metas) {
     return {
@@ -36,8 +33,7 @@ export async function generateMetadata({
 
 export default async function Page({ params }: Props) {
   const year = (await params).year;
-  const session = await getSession();
-  const items = await getItemsByYear(year, Type.DRAWING, !!session);
+  const items = await getItemsByYear(year, Type.DRAWING);
 
   return <ItemsPageComponent tag={year} items={items} type={Type.DRAWING} />;
 }

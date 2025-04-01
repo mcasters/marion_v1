@@ -1,4 +1,3 @@
-import { getSession } from "@/app/lib/auth";
 import { getCategory, getItemsByCategory } from "@/app/actions/items";
 import { Type } from "@/lib/type";
 import { Metadata } from "next";
@@ -14,10 +13,9 @@ type Props = {
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | undefined> {
-  const session = await getSession();
-  const metas = getMetaMap(await getMetas(!!session));
   const categoryKey = (await params).category;
-  const category = await getCategory(categoryKey, Type.PAINTING, !!session);
+  const metas = getMetaMap(await getMetas());
+  const category = await getCategory(categoryKey, Type.PAINTING);
 
   if (metas && category) {
     const text =
@@ -41,9 +39,8 @@ export async function generateMetadata({
 
 export default async function Page({ params }: Props) {
   const categoryKey = (await params).category;
-  const session = await getSession();
-  const category = await getCategory(categoryKey, Type.PAINTING, !session);
-  const items = await getItemsByCategory(categoryKey, Type.PAINTING, !session);
+  const category = await getCategory(categoryKey, Type.PAINTING);
+  const items = await getItemsByCategory(categoryKey, Type.PAINTING);
 
   return (
     <>
