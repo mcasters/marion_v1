@@ -25,7 +25,6 @@ export default function Gallery({ photos }: Props) {
         {photoToDisplay.map((p, i) => {
           return (
             <Image
-              defaultValue={i}
               key={i}
               src={p.src}
               alt={p.alt}
@@ -34,6 +33,7 @@ export default function Gallery({ photos }: Props) {
               style={{
                 objectFit: "contain",
               }}
+              unoptimized
               className={`${s.image}`}
               onClick={() => setIndex(i)}
             />
