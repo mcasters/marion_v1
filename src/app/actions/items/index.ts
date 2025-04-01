@@ -17,11 +17,9 @@ import { cacheDBDatas } from "@/app/actions/actionUtils";
 
 export async function getYears(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-  isAdmin: boolean,
 ): Promise<number[]> {
   const years = await cacheDBDatas(
     () => queryYears(type),
-    isAdmin,
     `${KEYS[type].years}`,
   );
 
@@ -30,17 +28,14 @@ export async function getYears(
 
 export async function getCategories(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-  isAdmin: boolean,
 ): Promise<Category[]> {
   const categories = await cacheDBDatas(
     () => queryCategories(type),
-    isAdmin,
     KEYS[type].categories,
   );
 
   const noCategory = await cacheDBDatas(
     () => queryNoCategory(type),
-    isAdmin,
     KEYS[type].noCategory,
   );
   if (noCategory) categories.push(noCategory);
@@ -51,11 +46,9 @@ export async function getCategories(
 export async function getItemsByYear(
   year: string,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-  isAdmin: boolean,
 ): Promise<ItemFull[]> {
   const items = await cacheDBDatas(
     () => queryItemsByYear(type, year),
-    isAdmin,
     `${KEYS[type].itemsByYear}-${year}`,
   );
 
@@ -65,7 +58,6 @@ export async function getItemsByYear(
 export async function getCategory(
   categoryKey: string,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-  isAdmin: boolean,
 ): Promise<Category | null> {
   let category;
 
@@ -74,7 +66,6 @@ export async function getCategory(
   } else {
     category = await cacheDBDatas(
       () => queryCategory(type, categoryKey),
-      isAdmin,
       `${KEYS[type].category}-${categoryKey}`,
     );
   }
@@ -84,11 +75,9 @@ export async function getCategory(
 export async function getItemsByCategory(
   categoryKey: string,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-  isAdmin: boolean,
 ): Promise<ItemFull[]> {
   const items = await cacheDBDatas(
     () => queryItemsByCategory(type, categoryKey),
-    isAdmin,
     `${KEYS[type].itemsByCategory}-${categoryKey}`,
   );
 

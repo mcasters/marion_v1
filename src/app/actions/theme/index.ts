@@ -7,22 +7,15 @@ import {
   queryPresetColors,
 } from "@/app/actions/theme/queries";
 
-export async function getActiveTheme(isAdmin: boolean): Promise<Theme> {
-  const theme = await cacheDBDatas(
-    () => queryActiveTheme(),
-    isAdmin,
-    "activeTheme",
-  );
+export async function getActiveTheme(): Promise<Theme> {
+  const theme = await cacheDBDatas(() => queryActiveTheme(), "activeTheme");
 
   return JSON.parse(JSON.stringify(theme));
 }
 
-export async function getPresetColors(
-  isAdmin: boolean,
-): Promise<PresetColor[]> {
+export async function getPresetColors(): Promise<PresetColor[]> {
   const presetColors = await cacheDBDatas(
     () => queryPresetColors(),
-    isAdmin,
     "presetColors",
   );
 
