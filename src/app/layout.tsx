@@ -34,8 +34,7 @@ export const viewport: Viewport = {
 };
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
-  const session = await getSession();
-  const metas = getMetaMap(await getMetas(!!session));
+  const metas = getMetaMap(await getMetas());
   if (metas) {
     return {
       title: metas.get(META.DOCUMENT_TITLE_HOME),
@@ -59,11 +58,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getSession();
-  const theme = await getActiveTheme(!!session);
-  const pColors = await getPresetColors(!!session);
-  const structuredTheme = await getStructHexaTheme(theme, pColors, !!session);
-  const metas = await getMetas(!!session);
-  const contents = await getContentsFull(!!session);
+  const theme = await getActiveTheme();
+  const pColors = await getPresetColors();
+  const structuredTheme = await getStructHexaTheme(theme, pColors);
+  const metas = await getMetas();
+  const contents = await getContentsFull();
 
   return (
     <html lang="fr" className={`${cormorant.variable} ${cormorantSC.variable}`}>

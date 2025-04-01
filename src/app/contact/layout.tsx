@@ -3,13 +3,10 @@ import s from "@/styles/contactPage.module.css";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
-
 import { META } from "@/constants/admin";
-import { getSession } from "@/app/lib/auth";
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
-  const session = await getSession();
-  const metas = getMetaMap(await getMetas(!!session));
+  const metas = getMetaMap(await getMetas());
   if (metas) {
     return {
       title: metas.get(META.DOCUMENT_TITLE_CONTACT),
@@ -27,8 +24,7 @@ export async function generateMetadata(): Promise<Metadata | undefined> {
 }
 
 export default async function layout({ children }: { children: ReactNode }) {
-  const session = await getSession();
-  const metas = getMetaMap(await getMetas(!!session));
+  const metas = getMetaMap(await getMetas());
   const owner = metas.get(META.SITE_TITLE);
   return (
     <div className={s.container}>
