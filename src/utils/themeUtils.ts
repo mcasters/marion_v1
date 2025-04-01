@@ -91,11 +91,9 @@ export const getStructuredTheme = (theme: Theme): StructuredTheme => {
 export const getStructHexaTheme = async (
   theme: Theme,
   presetColors: PresetColor[],
-  isAdmin: boolean,
 ): Promise<StructuredTheme> => {
   return await cacheDatas(
     () => getStructuredTheme(themeToHexa(theme, presetColors)),
-    isAdmin,
     "structuredHexaTheme",
   );
 };

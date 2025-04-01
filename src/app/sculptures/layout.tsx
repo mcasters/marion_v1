@@ -3,13 +3,10 @@ import s from "@/styles/itemPage.module.css";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
-
 import { META } from "@/constants/admin";
-import { getSession } from "@/app/lib/auth";
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
-  const session = await getSession();
-  const metas = getMetaMap(await getMetas(!!session));
+  const metas = getMetaMap(await getMetas());
   if (metas) {
     return {
       title: metas.get(META.DOCUMENT_TITLE_SCULPTURE_HOME),
