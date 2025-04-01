@@ -9,7 +9,7 @@ import CategoryListComponent from "@/components/admin/item/category/categoryList
 export default async function Dessins() {
   const categories = await getAllCategories(Type.DRAWING);
   const items = await getAllItems(Type.DRAWING);
-  const years = await getYears(Type.DRAWING, true);
+  const years = await getYears(Type.DRAWING);
 
   return (
     <>

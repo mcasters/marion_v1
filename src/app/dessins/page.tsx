@@ -5,8 +5,8 @@ import { getSession } from "@/app/lib/auth";
 
 export default async function Page() {
   const session = await getSession();
-  const categories = await getCategories(Type.DRAWING, !!session);
-  const years = await getYears(Type.DRAWING, !!session);
+  const categories = await getCategories(Type.DRAWING);
+  const years = await getYears(Type.DRAWING);
 
   return (
     <ItemHomeComponent

@@ -12,7 +12,7 @@ import HomeLayoutForm from "@/components/admin/home/homeLayoutForm";
 import HomeSliderForm from "@/components/admin/home/homeSliderForm";
 
 export default async function Home() {
-  const contents = await getContentsFull(true);
+  const contents = await getContentsFull();
 
   return (
     <>

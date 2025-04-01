@@ -8,7 +8,7 @@ import CategoryListComponent from "@/components/admin/item/category/categoryList
 
 export default async function Peintures() {
   const categories = await getAllCategories(Type.PAINTING);
-  const years = await getYears(Type.PAINTING, true);
+  const years = await getYears(Type.PAINTING);
   const items = await getAllItems(Type.PAINTING);
 
   return (

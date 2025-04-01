@@ -12,7 +12,7 @@ import ImagesForm from "@/components/admin/form/image/imagesForm";
 import { getContentsFull } from "@/app/actions/contents";
 
 export default async function Presentation() {
-  const contents = await getContentsFull(true);
+  const contents = await getContentsFull();
 
   return (
     <>

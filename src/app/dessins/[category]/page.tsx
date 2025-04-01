@@ -43,8 +43,8 @@ export async function generateMetadata({
 export default async function Page({ params }: Props) {
   const categoryKey = (await params).category;
   const session = await getSession();
-  const category = await getCategory(categoryKey, Type.DRAWING, !session);
-  const items = await getItemsByCategory(categoryKey, Type.DRAWING, !session);
+  const category = await getCategory(categoryKey, Type.DRAWING);
+  const items = await getItemsByCategory(categoryKey, Type.DRAWING);
 
   return (
     <>

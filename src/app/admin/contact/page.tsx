@@ -12,7 +12,7 @@ import InputForm from "@/components/admin/form/content/inputForm";
 import { getContentsFull } from "@/app/actions/contents";
 
 export default async function Contact() {
-  const contents = await getContentsFull(true);
+  const contents = await getContentsFull();
 
   return (
     <>
