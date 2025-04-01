@@ -9,8 +9,7 @@ app.prepare().then(() => {
   const server = express();
 
   server.use("/images", express.static(process.env.PHOTOS_PATH));
-
-  server.all("*", (req, res) => {
+  server.use((req, res) => {
     return handle(req, res);
   });
 
