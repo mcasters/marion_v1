@@ -5,9 +5,7 @@ import s from "./authentication.module.css";
 import { loginAction } from "@/app/actions/auth";
 
 export default function LoginForm() {
-  const [state, action] = useActionState(loginAction, {
-    message: "",
-  });
+  const [state, action] = useActionState(loginAction, undefined);
 
   return (
     <form action={action} className={s.loginForm}>
@@ -25,7 +23,7 @@ export default function LoginForm() {
         autoComplete="true"
         required
       />
-      <p className={s.errorMessage}>{state?.message}</p>
+      <p className={s.errorMessage}>{state?.error}</p>
       <button type="submit" className="adminButton">
         Login
       </button>

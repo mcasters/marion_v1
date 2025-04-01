@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 
 export async function loginAction(
-  prevState: { message: string },
+  prevState: { error: string } | undefined,
   formData: FormData,
 ) {
   const email = formData.get("email") as string;
@@ -17,12 +17,12 @@ export async function loginAction(
       where: { email },
       omit: { password: false },
     });
-    if (!user) return { message: "Erreur d'authentification" };
+    if (!user) return { error: "Erreur d'authentification" };
     const res = await bcrypt.compare(password, user.password);
-    if (!res) return { message: "Erreur d'authentification" };
+    if (!res) return { error: "Erreur d'authentification" };
     await setCookie(user);
   } catch (e) {
-    return { message: `Erreur d'authentification` };
+    return { error: `Erreur d'authentification` };
   }
   redirect("/admin");
 }
