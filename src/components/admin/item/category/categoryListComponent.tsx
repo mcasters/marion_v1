@@ -5,7 +5,7 @@ import React from "react";
 import s from "@/components/admin/adminList.module.css";
 import style from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
-import AddCategoryButton from "@/components/admin/form/category/addCategoryButton";
+import AddUpdateCategoryButton from "@/components/admin/form/category/addUpdateCategoryButton";
 import { getEmptyCategory } from "@/utils/commonUtils";
 
 interface Props {
@@ -41,7 +41,7 @@ export default function CategoryListComponent({
         })}
       </div>
       <h5>{message}</h5>
-      <AddCategoryButton
+      <AddUpdateCategoryButton
         category={getEmptyCategory()}
         items={items}
         type={type}

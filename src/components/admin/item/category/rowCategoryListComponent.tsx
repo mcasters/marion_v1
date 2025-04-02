@@ -3,9 +3,9 @@
 import DeleteButton from "@/components/admin/form/deleteButton";
 import s from "../../adminList.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
-import UpdateCategoryButton from "@/components/admin/form/category/updateCategoryButton";
 import Image from "next/image";
 import { deleteCategory } from "@/app/actions/items/admin";
+import AddUpdateCategoryButton from "@/components/admin/form/category/addUpdateCategoryButton";
 
 interface Props {
   category: Category;
@@ -45,7 +45,7 @@ export default function RowCategoryListComponent({
         {countItems} {type}(s)
       </li>
       <li className={s.icon}>
-        <UpdateCategoryButton
+        <AddUpdateCategoryButton
           category={category}
           items={items}
           type={type}
