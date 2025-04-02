@@ -1,50 +1,49 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
-import s from "@/components/admin/admin.module.css";
-import { Image as IImage } from "@/lib/type";
+import React from "react";
 import DeleteIcon from "@/components/icons/deleteIcon";
+import ImageWrapper from "@/components/admin/form/image/imageWrapper";
+import s from "@/components/admin/admin.module.css";
+import DeleteButton from "@/components/admin/form/deleteButton";
 
 type Props = {
-  images: IImage[];
+  filenames: string[];
   pathImage: string;
-  onDelete: (filename: string) => void;
+  onDelete?: (filename: string) => void;
+  deleteAction?: (
+    filename: string,
+  ) => Promise<{ isError: boolean; message: string }>;
 };
 
-export default function Preview({ images, pathImage, onDelete }: Props) {
-  const [existantFilenames, setExistantFilenames] = useState<string[]>(
-    images.map((i) => i.filename),
-  );
-
+export default function Preview({
+  filenames,
+  pathImage,
+  onDelete,
+  deleteAction,
+}: Props) {
   return (
     <>
-      {existantFilenames.map((filename) => (
-        <div key={filename} className={s.imageWrapper}>
-          <Image
-            src={`${pathImage}/sm/${filename}`}
-            width={150}
-            height={150}
+      {filenames.map((filename) => (
+        <div key={filename} className={s.previewContainer}>
+          <ImageWrapper
+            src={pathImage === "" ? filename : `${pathImage}/sm/${filename}`}
             alt="Image de l'item"
-            style={{
-              objectFit: "contain",
-            }}
-            unoptimized
-            className={s.image}
           />
-          <button
-            onClick={() => {
-              const tab = existantFilenames.filter((f) => {
-                return f !== filename;
-              });
-              setExistantFilenames(tab);
-              onDelete(filename);
-            }}
-            className="iconButton"
-            aria-label="Supprimer"
-          >
-            <DeleteIcon />
-          </button>
+          {onDelete && (
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                onDelete(filename);
+              }}
+              className="iconButton"
+              aria-label="Supprimer"
+            >
+              <DeleteIcon />
+            </button>
+          )}
+          {deleteAction && (
+            <DeleteButton action={() => deleteAction(filename)} />
+          )}
         </div>
       ))}
     </>

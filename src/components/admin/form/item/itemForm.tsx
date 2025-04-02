@@ -2,11 +2,12 @@
 
 import React, { useActionState, useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
-import { Category, ItemFull, Type } from "@/lib/type";
+import { Category, Image, ItemFull, Type } from "@/lib/type";
 import { useAlert } from "@/app/context/alertProvider";
-import Images from "@/components/admin/form/image/images";
+import AddImages from "@/components/admin/form/image/addImages";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
+import Preview from "@/components/admin/form/image/preview";
 
 interface Props {
   item: ItemFull;
@@ -33,7 +34,7 @@ export default function ItemForm({
     new Date(item.date).getFullYear().toString(),
   );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
-  const [newImages, setNewImages] = useState<string[]>([]);
+  const [filenamesToAdd, setFilenamesToAdd] = useState<string[]>([]);
   const [state, action] = useActionState(formAction, null);
 
   useEffect(() => {
@@ -199,15 +200,21 @@ export default function ItemForm({
           </label>
         )}
         <div className={s.imagesContainer}>
-          <Images
-            type={item.type}
-            isMultiple={isSculpture}
-            acceptSmallImage={true}
-            onNewImages={setNewImages}
+          <Preview
+            filenames={workItem.images.map((i: Image) => i.filename)}
+            pathImage={`/images/${item.type}`}
             onDelete={(filename) => {
+              const images = workItem.images.filter(
+                (i: Image) => i.filename !== filename,
+              );
+              setWorkItem({ ...workItem, images });
               setFilenamesToDelete([...filenamesToDelete, filename]);
             }}
-            images={item.images}
+          />
+          <AddImages
+            isMultiple={isSculpture}
+            acceptSmallImage={true}
+            onNewImages={setFilenamesToAdd}
             info={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
           />
         </div>
@@ -220,8 +227,8 @@ export default function ItemForm({
               workItem.height === 0 ||
               workItem.width === 0 ||
               (isSculpture && workItem.length === 0) ||
-              (newImages.length === 0 && workItem.images.length === 0) ||
-              (newImages.length === 0 &&
+              (filenamesToAdd.length === 0 && workItem.images.length === 0) ||
+              (filenamesToAdd.length === 0 &&
                 filenamesToDelete.length >= workItem.images.length)
             }
           />

@@ -22,8 +22,8 @@ export default function HomeSliderForm({ images, title, info, isMain }: Props) {
         isMultiple={true}
         label={Label.SLIDER}
         acceptSmallImage={false}
-        isMain={isMain}
         title={info}
+        isMain={isMain}
       />
     </div>
   );

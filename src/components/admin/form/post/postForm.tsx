@@ -2,12 +2,13 @@
 
 import React, { useActionState, useEffect, useState } from "react";
 
-import Images from "@/components/admin/form/image/images";
-import { PostFull, Type } from "@/lib/type";
+import AddImages from "@/components/admin/form/image/addImages";
+import { Image, PostFull, Type } from "@/lib/type";
 import s from "@/components/admin/admin.module.css";
 import CancelButton from "@/components/admin/form/cancelButton";
 import SubmitButton from "@/components/admin/form/submitButton";
 import { useAlert } from "@/app/context/alertProvider";
+import Preview from "@/components/admin/form/image/preview";
 
 interface Props {
   post: PostFull;
@@ -94,17 +95,47 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
           />
         </label>
         <div className={s.imagesContainer}>
-          <Images
-            type={Type.POST}
+          <Preview
+            filenames={post.images.map((i) => {
+              if (i.isMain) return i.filename;
+            })}
+            pathImage={`/images/${Type.POST}`}
+            onDelete={(filename) => {
+              const images = workPost.images.filter(
+                (i: Image) => i.filename !== filename,
+              );
+              setWorkPost({ ...workPost, images });
+              setMainFilenameToDelete(filename);
+            }}
+          />
+          <AddImages
             isMultiple={false}
             acceptSmallImage={true}
-            onDelete={(filename) => setMainFilenameToDelete(filename)}
-            images={post.images.filter((i) => i.isMain) || []}
             info="Image principale (facultative)"
           />
         </div>
         <div className={s.imagesContainer}>
-          <Images
+          <Preview
+            filenames={
+              post.images.map((i) => {
+                if (!i.isMain) return i.filename;
+              }) || []
+            }
+            pathImage={`/images/${Type.POST}`}
+            onDelete={(filename) => {
+              const images = workPost.images.filter(
+                (i: Image) => i.filename !== filename,
+              );
+              setWorkPost({ ...workPost, images });
+              setFilenamesToDelete([...filenamesToDelete, filename]);
+            }}
+          />
+          <AddImages
+            isMultiple={true}
+            acceptSmallImage={true}
+            info="Album d'images (facultatif)"
+          />
+          <AddImages
             type={Type.POST}
             isMultiple={true}
             acceptSmallImage={true}
