@@ -12,7 +12,8 @@ import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
 import { Cormorant, Cormorant_SC } from "next/font/google";
 import { META } from "@/constants/admin";
-import { getStructHexaTheme } from "@/utils/themeUtils";
+
+import { getStructHexaTheme } from "@/utils/serverUtils";
 
 const cormorant = Cormorant({
   subsets: ["latin"],

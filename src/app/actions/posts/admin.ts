@@ -2,17 +2,18 @@
 
 import {
   deleteFile,
-  getPostDir,
+  getItemDir,
   resizeAndSaveImage,
 } from "@/utils/serverUtils";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
+import { Type } from "@/lib/type";
 
 export async function createPost(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  const dir = getPostDir();
+  const dir = getItemDir(Type.POST);
   const rawFormData = Object.fromEntries(formData);
   const mainFile = rawFormData.file as File;
   const files = formData.getAll("files") as File[];
@@ -63,7 +64,7 @@ export async function updatePost(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  const dir = getPostDir();
+  const dir = getItemDir(Type.POST);
   const rawFormData = Object.fromEntries(formData);
   const id = Number(rawFormData.id);
 
@@ -160,7 +161,7 @@ export async function updatePost(
 }
 
 export async function deletePost(id: number) {
-  const dir = getPostDir();
+  const dir = getItemDir(Type.POST);
   try {
     const post = await prisma.post.findUnique({
       where: { id },

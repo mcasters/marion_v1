@@ -13,15 +13,13 @@ import {
   queryYears,
 } from "@/app/actions/items/queries";
 import { getNoCategory } from "@/utils/commonUtils";
-import { cacheDBDatas } from "@/app/actions/actionUtils";
+
+import { cacheDatas } from "@/utils/serverUtils";
 
 export async function getYears(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
 ): Promise<number[]> {
-  const years = await cacheDBDatas(
-    () => queryYears(type),
-    `${KEYS[type].years}`,
-  );
+  const years = await cacheDatas(() => queryYears(type), `${KEYS[type].years}`);
 
   return JSON.parse(JSON.stringify(years));
 }
@@ -29,12 +27,12 @@ export async function getYears(
 export async function getCategories(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
 ): Promise<Category[]> {
-  const categories = await cacheDBDatas(
+  const categories = await cacheDatas(
     () => queryCategories(type),
     KEYS[type].categories,
   );
 
-  const noCategory = await cacheDBDatas(
+  const noCategory = await cacheDatas(
     () => queryNoCategory(type),
     KEYS[type].noCategory,
   );
@@ -47,7 +45,7 @@ export async function getItemsByYear(
   year: string,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
 ): Promise<ItemFull[]> {
-  const items = await cacheDBDatas(
+  const items = await cacheDatas(
     () => queryItemsByYear(type, year),
     `${KEYS[type].itemsByYear}-${year}`,
   );
@@ -64,7 +62,7 @@ export async function getCategory(
   if (categoryKey === "no-category") {
     category = getNoCategory();
   } else {
-    category = await cacheDBDatas(
+    category = await cacheDatas(
       () => queryCategory(type, categoryKey),
       `${KEYS[type].category}-${categoryKey}`,
     );
@@ -76,7 +74,7 @@ export async function getItemsByCategory(
   categoryKey: string,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
 ): Promise<ItemFull[]> {
-  const items = await cacheDBDatas(
+  const items = await cacheDatas(
     () => queryItemsByCategory(type, categoryKey),
     `${KEYS[type].itemsByCategory}-${categoryKey}`,
   );

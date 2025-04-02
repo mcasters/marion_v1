@@ -2,7 +2,6 @@ import { Category, ItemFull, Type } from "@/lib/type";
 import {
   deleteFile,
   getItemDir,
-  getSculptureDir,
   resizeAndSaveImage,
 } from "@/utils/serverUtils";
 import prisma from "@/lib/prisma";
@@ -85,7 +84,7 @@ const handleSculptImages = async (
   title: string,
   filenamesToDelete: string,
 ) => {
-  const dir = getSculptureDir();
+  const dir = getItemDir(Type.SCULPTURE);
   if (filenamesToDelete) {
     for await (const filename of filenamesToDelete.split(",")) {
       deleteFile(dir, filename);

@@ -1,20 +1,20 @@
 "use server";
 import { PresetColor, Theme } from "@prisma/client";
 import prisma from "@/lib/prisma";
-import { cacheDBDatas } from "@/app/actions/actionUtils";
 import {
   queryActiveTheme,
   queryPresetColors,
 } from "@/app/actions/theme/queries";
+import { cacheDatas } from "@/utils/serverUtils";
 
 export async function getActiveTheme(): Promise<Theme> {
-  const theme = await cacheDBDatas(() => queryActiveTheme(), "activeTheme");
+  const theme = await cacheDatas(() => queryActiveTheme(), "activeTheme");
 
   return JSON.parse(JSON.stringify(theme));
 }
 
 export async function getPresetColors(): Promise<PresetColor[]> {
-  const presetColors = await cacheDBDatas(
+  const presetColors = await cacheDatas(
     () => queryPresetColors(),
     "presetColors",
   );
