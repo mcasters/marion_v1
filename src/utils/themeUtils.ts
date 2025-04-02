@@ -2,7 +2,7 @@ import { PresetColor, Theme } from "@prisma/client";
 import { OnlyString, StructuredTheme } from "@/lib/type";
 
 import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
-import { cacheDatas, createNestedObject } from "@/utils/commonUtils";
+import { createNestedObject } from "@/utils/commonUtils";
 
 export const getBaseThemeData = () => {
   return BASE_THEME;
@@ -86,14 +86,4 @@ export const getStructuredTheme = (theme: Theme): StructuredTheme => {
     }
   });
   return structuredTheme as StructuredTheme;
-};
-
-export const getStructHexaTheme = async (
-  theme: Theme,
-  presetColors: PresetColor[],
-): Promise<StructuredTheme> => {
-  return await cacheDatas(
-    () => getStructuredTheme(themeToHexa(theme, presetColors)),
-    "structuredHexaTheme",
-  );
 };
