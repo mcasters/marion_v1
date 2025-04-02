@@ -24,7 +24,7 @@ export default function InputForm({
   const [text, setText] = useState<string>(textContent);
   const [isChanged, setIsChanged] = useState(false);
   const alert = useAlert();
-  const [state, action] = useActionState(updateContent, null);
+  const [state, action] = useActionState(updateContent, undefined);
 
   useEffect(() => {
     if (state) {

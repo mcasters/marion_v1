@@ -10,7 +10,7 @@ import { revalidatePath } from "next/cache";
 import { Label } from "@prisma/client";
 
 export async function updateContent(
-  prevState: { message: string; isError: boolean } | null,
+  prevState: { message: string; isError: boolean } | undefined,
   formData: FormData,
 ) {
   try {
@@ -121,6 +121,7 @@ export async function updateContent(
         : label === Label.PRESENTATION
           ? "/admin/presentation"
           : "/admin/contact";
+
     revalidatePath(path);
     return { message: "Contenu modifié", isError: false };
   } catch (e) {
@@ -128,12 +129,8 @@ export async function updateContent(
   }
 }
 
-export async function deleteContentImage(
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
+export async function deleteContentImage(filename: string) {
   const dir = getMiscellaneousDir();
-  const filename = formData.get("filename") as string;
 
   try {
     if (filename) {
@@ -159,13 +156,9 @@ export async function deleteContentImage(
         });
       }
     }
-    const label = formData.get("label");
-    const path =
-      label === Label.SLIDER
-        ? "/admin/home"
-        : label === Label.PRESENTATION
-          ? "/admin/presentation"
-          : "/admin/contact";
+    const path = filename.startsWith("presentation")
+      ? "/admin/presentation"
+      : "/admin/home";
     revalidatePath(path);
     return { message: "Image supprimée", isError: false };
   } catch (e) {
