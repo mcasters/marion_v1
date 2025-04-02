@@ -1,40 +1,32 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import s from "@/components/admin/admin.module.css";
 import { useAlert } from "@/app/context/alertProvider";
 import Preview from "@/components/admin/form/image/preview";
-import { Image as IImage, Type } from "@/lib/type";
 
 interface Props {
-  type: Type | null;
   isMultiple: boolean;
   acceptSmallImage: boolean;
   resetFlag?: number;
   onNewImages?: (arg0: string[]) => void;
-  onDelete?: (filename: string) => void;
-  images?: IImage[];
   info?: string;
 }
 
-export default function Images({
-  type,
-  resetFlag,
+export default function AddImages({
   isMultiple,
   acceptSmallImage,
+  resetFlag,
   onNewImages,
-  onDelete,
-  images,
   info,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [newImages, setNewImages] = useState<string[]>([]);
+  const [newFilenames, setNewFilenames] = useState<string[]>([]);
   const [smallImageSelected, setSmallImageSelected] = useState<boolean>(false);
   const alert = useAlert();
 
   useEffect(() => {
-    setNewImages([]);
+    setNewFilenames([]);
     setSmallImageSelected(false);
     if (inputRef.current) inputRef.current.value = "";
   }, [resetFlag]);
@@ -82,10 +74,10 @@ export default function Images({
       }
 
       if (!error && newFiles.length > 0) {
-        setNewImages(newFiles);
+        setNewFilenames(newFiles);
         if (onNewImages) onNewImages(newFiles);
       } else {
-        setNewImages([]);
+        setNewFilenames([]);
         setSmallImageSelected(false);
         inputRef.current.value = "";
         if (onNewImages) onNewImages([]);
@@ -96,13 +88,6 @@ export default function Images({
   return (
     <>
       {info && <label className={s.formLabel}>{info}</label>}
-      {images && onDelete && type && (
-        <Preview
-          images={images}
-          pathImage={`/images/${type}`}
-          onDelete={onDelete}
-        />
-      )}
       <div className={s.imageInputContainer}>
         <input
           type="file"
@@ -123,24 +108,11 @@ export default function Images({
           </label>
         )}
       </div>
-      {newImages.length > 0 && (
-        <div>
-          {newImages.map((src) => (
-            <div key={src} className={s.imageWrapper}>
-              <Image
-                unoptimized={true}
-                src={src}
-                width={150}
-                height={150}
-                alt="Nouvelle image"
-                style={{
-                  objectFit: "contain",
-                }}
-              />
-            </div>
-          ))}
-        </div>
-      )}
+      <div className={s.previewAddContainer}>
+        {newFilenames.length > 0 && (
+          <Preview filenames={newFilenames} pathImage={""} />
+        )}
+      </div>
     </>
   );
 }
