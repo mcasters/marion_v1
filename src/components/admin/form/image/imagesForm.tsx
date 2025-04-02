@@ -51,7 +51,6 @@ export default function ImagesForm({
         deleteAction={(filename) => deleteContentImage(filename)}
       />
       <form action={action}>
-        <input type="hidden" name="label" value={label} />
         <input type="hidden" name="isMain" value={isMain?.toString()} />
         <AddImages
           isMultiple={isMultiple}
