@@ -6,7 +6,7 @@ import s from "@/components/admin/admin.module.css";
 import CancelButton from "@/components/admin/form/cancelButton";
 import SubmitButton from "@/components/admin/form/submitButton";
 import { useAlert } from "@/app/context/alertProvider";
-import ImageFormPart from "@/components/admin/form/item/imageFormPart";
+import ImageFormPart from "@/components/admin/form/image/imageFormPart";
 
 interface Props {
   post: PostFull;

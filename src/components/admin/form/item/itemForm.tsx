@@ -6,7 +6,7 @@ import { Category, Image, ItemFull, Type } from "@/lib/type";
 import { useAlert } from "@/app/context/alertProvider";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
-import ImageFormPart from "@/components/admin/form/item/imageFormPart";
+import ImageFormPart from "@/components/admin/form/image/imageFormPart";
 
 interface Props {
   item: ItemFull;
