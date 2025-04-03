@@ -13,6 +13,7 @@ type Props = {
   deleteAction?: (
     filename: string,
   ) => Promise<{ isError: boolean; message: string }>;
+  title?: string;
 };
 
 export default function Preview({
@@ -20,9 +21,11 @@ export default function Preview({
   pathImage,
   onDelete,
   deleteAction,
+  title,
 }: Props) {
   return (
     <>
+      {title && <label className={s.formLabel}>{title}</label>}
       {filenames.map((filename) => (
         <div key={filename} className={s.previewContainer}>
           <ImageWrapper

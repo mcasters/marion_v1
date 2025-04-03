@@ -1,14 +1,12 @@
 "use client";
 
 import React, { useActionState, useEffect, useState } from "react";
-
-import AddImages from "@/components/admin/form/image/addImages";
 import { Image, PostFull, Type } from "@/lib/type";
 import s from "@/components/admin/admin.module.css";
 import CancelButton from "@/components/admin/form/cancelButton";
 import SubmitButton from "@/components/admin/form/submitButton";
 import { useAlert } from "@/app/context/alertProvider";
-import Preview from "@/components/admin/form/image/preview";
+import ImageFormPart from "@/components/admin/form/item/imageFormPart";
 
 interface Props {
   post: PostFull;
@@ -37,6 +35,15 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
       alert(state.message, state.isError);
     }
   }, [state]);
+
+  const handleOnDelete = (filename: string, isMain: boolean) => {
+    const images = workPost.images.filter(
+      (i: Image) => i.filename !== filename,
+    );
+    setWorkPost({ ...workPost, images });
+    if (isMain) setMainFilenameToDelete(filename);
+    else setFilenamesToDelete([...filenamesToDelete, filename]);
+  };
 
   return (
     <div className={s.modalContainer}>
@@ -94,58 +101,27 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
             value={workPost.text}
           />
         </label>
-        <div className={s.imagesContainer}>
-          <Preview
-            filenames={post.images.map((i) => {
-              if (i.isMain) return i.filename;
-            })}
-            pathImage={`/images/${Type.POST}`}
-            onDelete={(filename) => {
-              const images = workPost.images.filter(
-                (i: Image) => i.filename !== filename,
-              );
-              setWorkPost({ ...workPost, images });
-              setMainFilenameToDelete(filename);
-            }}
-          />
-          <AddImages
-            isMultiple={false}
-            acceptSmallImage={true}
-            info="Image principale (facultative)"
-          />
-        </div>
-        <div className={s.imagesContainer}>
-          <Preview
-            filenames={
-              post.images.map((i) => {
-                if (!i.isMain) return i.filename;
-              }) || []
-            }
-            pathImage={`/images/${Type.POST}`}
-            onDelete={(filename) => {
-              const images = workPost.images.filter(
-                (i: Image) => i.filename !== filename,
-              );
-              setWorkPost({ ...workPost, images });
-              setFilenamesToDelete([...filenamesToDelete, filename]);
-            }}
-          />
-          <AddImages
-            isMultiple={true}
-            acceptSmallImage={true}
-            info="Album d'images (facultatif)"
-          />
-          <AddImages
-            type={Type.POST}
-            isMultiple={true}
-            acceptSmallImage={true}
-            onDelete={(filename) =>
-              setFilenamesToDelete([...filenamesToDelete, filename])
-            }
-            images={post.images.filter((i) => !i.isMain) || []}
-            info="Album d'images (facultatif)"
-          />
-        </div>
+        <ImageFormPart
+          filenames={workPost.images
+            .filter((i) => i.isMain)
+            .map((i) => i.filename)}
+          type={Type.POST}
+          isMultiple={false}
+          acceptSmallImage={true}
+          onDelete={(filename) => handleOnDelete(filename, true)}
+          title="Image principale (facultative)"
+        />
+        <br />
+        <ImageFormPart
+          filenames={workPost.images
+            .filter((i) => !i.isMain)
+            .map((i) => i.filename)}
+          type={Type.POST}
+          isMultiple={true}
+          acceptSmallImage={true}
+          onDelete={(filename) => handleOnDelete(filename, false)}
+          title="Album d'images (facultatif)"
+        />
         <div className={s.buttonSection}>
           <SubmitButton disabled={!workPost.title || !date} />
           <CancelButton onCancel={toggleModal} />

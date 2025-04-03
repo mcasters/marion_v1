@@ -4,10 +4,9 @@ import React, { useActionState, useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import { Category, Image, ItemFull, Type } from "@/lib/type";
 import { useAlert } from "@/app/context/alertProvider";
-import AddImages from "@/components/admin/form/image/addImages";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
-import Preview from "@/components/admin/form/image/preview";
+import ImageFormPart from "@/components/admin/form/item/imageFormPart";
 
 interface Props {
   item: ItemFull;
@@ -199,25 +198,21 @@ export default function ItemForm({
             />
           </label>
         )}
-        <div className={s.imagesContainer}>
-          <Preview
-            filenames={workItem.images.map((i: Image) => i.filename)}
-            pathImage={`/images/${item.type}`}
-            onDelete={(filename) => {
-              const images = workItem.images.filter(
-                (i: Image) => i.filename !== filename,
-              );
-              setWorkItem({ ...workItem, images });
-              setFilenamesToDelete([...filenamesToDelete, filename]);
-            }}
-          />
-          <AddImages
-            isMultiple={isSculpture}
-            acceptSmallImage={true}
-            onNewImages={setFilenamesToAdd}
-            info={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
-          />
-        </div>
+        <ImageFormPart
+          filenames={workItem.images.map((i: Image) => i.filename)}
+          type={item.type}
+          isMultiple={isSculpture}
+          acceptSmallImage={true}
+          onDelete={(filename) => {
+            const images = workItem.images.filter(
+              (i: Image) => i.filename !== filename,
+            );
+            setWorkItem({ ...workItem, images });
+            setFilenamesToDelete([...filenamesToDelete, filename]);
+          }}
+          onAdd={setFilenamesToAdd}
+          title={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
+        />
         <div className={s.buttonSection}>
           <SubmitButton
             disabled={
@@ -227,9 +222,7 @@ export default function ItemForm({
               workItem.height === 0 ||
               workItem.width === 0 ||
               (isSculpture && workItem.length === 0) ||
-              (filenamesToAdd.length === 0 && workItem.images.length === 0) ||
-              (filenamesToAdd.length === 0 &&
-                filenamesToDelete.length >= workItem.images.length)
+              (filenamesToAdd.length === 0 && workItem.images.length === 0)
             }
           />
           <CancelButton onCancel={toggleModal} />
