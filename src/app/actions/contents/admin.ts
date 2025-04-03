@@ -22,7 +22,7 @@ export async function updateContent(
     const content = await findOrCreateContent(label);
     await updateText(content.id, text);
 
-    return { message: "Contenu modifié", isError: false };
+    return { message: "Contenu enregistré", isError: false };
   } catch (e) {
     return { message: "Erreur à l'enregistrement", isError: true };
   }
@@ -42,7 +42,7 @@ export async function updateImageContent(
     const path =
       label === Label.PRESENTATION ? "/admin/presentation" : "/admin/home";
     revalidatePath(path);
-    return { message: "Images modifiées", isError: false };
+    return { message: "Images enregistrées", isError: false };
   } catch (e) {
     return { message: "Erreur à l'enregistrement", isError: true };
   }

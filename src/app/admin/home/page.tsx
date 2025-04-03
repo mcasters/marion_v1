@@ -8,8 +8,8 @@ import {
   getSliderLandscapeImages,
   getSliderPortraitImages,
 } from "@/utils/imageUtils";
-import HomeLayoutForm from "@/components/admin/home/homeLayoutForm";
-import HomeSliderForm from "@/components/admin/home/homeSliderForm";
+import HomeLayoutForm from "@/components/admin/form/home/homeLayoutForm";
+import HomeSliderForm from "@/components/admin/form/home/homeSliderForm";
 
 export default async function Home() {
   const contents = await getContentsFull();
@@ -26,16 +26,8 @@ export default async function Home() {
         />
       </div>
       <HomeSliderForm
-        images={getSliderPortraitImages(contents)}
-        title={`Images affichées sur écran mobile`}
-        isMain={true}
-        info={`Une ou plusieurs images possible. Format portrait mieux adapté`}
-      />
-      <HomeSliderForm
-        images={getSliderLandscapeImages(contents)}
-        title={`Images affichées sur écran ordinateur`}
-        isMain={false}
-        info={`Une ou plusieurs images possible. Format paysage ou carré mieux adapté`}
+        mobileImages={getSliderPortraitImages(contents)}
+        desktopImages={getSliderLandscapeImages(contents)}
       />
     </>
   );
