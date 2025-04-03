@@ -10,13 +10,7 @@ export const findOrCreateContent = async (
     where: {
       label,
     },
-    include: {
-      images: {
-        select: {
-          filename: true,
-        },
-      },
-    },
+    include: { images: true },
   });
 
   if (!BDContent) {

@@ -48,43 +48,6 @@ export async function updateImageContent(
   }
 }
 
-async function updateImageSlider(id: number, formData: FormData) {
-  const files = formData.getAll("files") as File[];
-
-  for (const file of files) {
-    if (file.size > 0) {
-      const isMain = formData.get("isMain") === "true";
-      const title = isMain ? "mobileSlider" : "desktopSlider";
-      await saveContentImage(id, file, title, isMain);
-    }
-  }
-}
-
-async function updateImagePresentation(
-  bdContent: ContentFull,
-  formData: FormData,
-) {
-  const id = bdContent.id;
-  const image = bdContent.images[0];
-  const file = formData.get("file") as File;
-
-  if (file && file.size > 0) {
-    if (image) {
-      const oldFilename = image.filename;
-      deleteFile(getMiscellaneousDir(), oldFilename);
-      await prisma.content.update({
-        where: { id },
-        data: {
-          images: {
-            delete: { filename: oldFilename },
-          },
-        },
-      });
-    }
-    await saveContentImage(id, file, "presentation", false);
-  }
-}
-
 export async function deleteContentImage(filename: string) {
   const dir = getMiscellaneousDir();
 
@@ -119,5 +82,42 @@ export async function deleteContentImage(filename: string) {
     return { message: "Image supprimée", isError: false };
   } catch (e) {
     return { message: "Erreur à la suppression", isError: true };
+  }
+}
+
+async function updateImageSlider(id: number, formData: FormData) {
+  const files = formData.getAll("files") as File[];
+
+  for (const file of files) {
+    if (file.size > 0) {
+      const isMain = formData.get("isMain") === "true";
+      const title = isMain ? "mobileSlider" : "desktopSlider";
+      await saveContentImage(id, file, title, isMain);
+    }
+  }
+}
+
+async function updateImagePresentation(
+  bdContent: ContentFull,
+  formData: FormData,
+) {
+  const id = bdContent.id;
+  const image = bdContent.images[0];
+  const file = formData.get("file") as File;
+
+  if (file && file.size > 0) {
+    if (image) {
+      const oldFilename = image.filename;
+      deleteFile(getMiscellaneousDir(), oldFilename);
+      await prisma.content.update({
+        where: { id },
+        data: {
+          images: {
+            delete: { filename: oldFilename },
+          },
+        },
+      });
+    }
+    await saveContentImage(id, file, "presentation", false);
   }
 }
