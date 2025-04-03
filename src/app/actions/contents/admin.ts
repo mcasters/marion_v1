@@ -1,315 +1,87 @@
 "use server";
 
-import {
-  deleteFile,
-  getMiscellaneousDir,
-  resizeAndSaveImage,
-} from "@/utils/serverUtils";
+import { deleteFile, getMiscellaneousDir } from "@/utils/serverUtils";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { Label } from "@prisma/client";
+import {
+  findOrCreateContent,
+  saveContentImage,
+  updateText,
+} from "@/app/actions/contents/queries";
+import { ContentFull } from "@/lib/type";
 
-export async function updateSliderContent(
+export async function updateContent(
   prevState: { message: string; isError: boolean } | undefined,
   formData: FormData,
 ) {
+  const label = formData.get("label") as Label;
+  const text = formData.get("text") as string;
+
   try {
-    const dir = getMiscellaneousDir();
+    const content = await findOrCreateContent(label);
+    await updateText(content.id, text);
 
-    let BDContent = await prisma.content.findUnique({
-      where: {
-        label: Label.SLIDER,
-      },
-      include: {
-        images: {
-          select: {
-            filename: true,
-          },
-        },
-      },
-    });
+    return { message: "Contenu modifié", isError: false };
+  } catch (e) {
+    return { message: "Erreur à l'enregistrement", isError: true };
+  }
+}
 
-    if (!BDContent) {
-      BDContent = await prisma.content.create({
-        data: {
-          label: Label.SLIDER,
-          title: "",
-          text: formData.get("text") as string | "",
-          images: {},
-        },
-        include: { images: true },
-      });
-    }
+export async function updateImageContent(
+  prevState: { message: string; isError: boolean } | undefined,
+  formData: FormData,
+) {
+  const label = formData.get("label") as Label;
+  const bdContent = await findOrCreateContent(label);
 
-    const id = BDContent.id;
+  try {
+    if (label === Label.SLIDER) await updateImageSlider(bdContent.id, formData);
+    else await updateImagePresentation(bdContent, formData);
 
-    const files = formData.getAll("files") as File[];
-    for (const file of files) {
-      if (file.size > 0) {
-        const isMain = formData.get("isMain") === "true";
-        const title = isMain ? "mobileSlider" : "desktopSlider";
-        const fileInfo = await resizeAndSaveImage(file, title, dir);
-        if (fileInfo) {
-          await prisma.content.update({
-            where: { id },
-            data: {
-              images: {
-                create: {
-                  filename: fileInfo.filename,
-                  width: fileInfo.width,
-                  height: fileInfo.height,
-                  isMain,
-                },
-              },
-            },
-          });
-        }
-      }
-    }
-
-    revalidatePath("/admin/home");
+    const path =
+      label === Label.PRESENTATION ? "/admin/presentation" : "/admin/home";
+    revalidatePath(path);
     return { message: "Images modifiées", isError: false };
   } catch (e) {
     return { message: "Erreur à l'enregistrement", isError: true };
   }
 }
 
-export async function updateImagePresentationContent(
-  prevState: { message: string; isError: boolean } | undefined,
-  formData: FormData,
-) {
-  try {
-    const dir = getMiscellaneousDir();
+async function updateImageSlider(id: number, formData: FormData) {
+  const files = formData.getAll("files") as File[];
 
-    let BDContent = await prisma.content.findUnique({
-      where: {
-        label: Label.PRESENTATION,
-      },
-      include: {
-        images: {
-          select: {
-            filename: true,
-          },
-        },
-      },
-    });
-
-    if (!BDContent) {
-      BDContent = await prisma.content.create({
-        data: {
-          label: Label.PRESENTATION,
-          title: "",
-          text: formData.get("text") as string | "",
-          images: {},
-        },
-        include: { images: true },
-      });
+  for (const file of files) {
+    if (file.size > 0) {
+      const isMain = formData.get("isMain") === "true";
+      const title = isMain ? "mobileSlider" : "desktopSlider";
+      await saveContentImage(id, file, title, isMain);
     }
-
-    const id = BDContent.id;
-    const file = formData.get("file") as File;
-    if (file && file.size > 0) {
-      if (BDContent.images.length > 0) {
-        const oldFilename = BDContent.images[0].filename;
-        deleteFile(dir, oldFilename);
-        await prisma.content.update({
-          where: { id },
-          data: {
-            images: {
-              delete: { filename: oldFilename },
-            },
-          },
-        });
-      }
-      const fileInfo = await resizeAndSaveImage(file, "presentation", dir);
-      if (fileInfo) {
-        await prisma.content.update({
-          where: { id },
-          data: {
-            images: {
-              create: {
-                filename: fileInfo.filename,
-                width: fileInfo.width,
-                height: fileInfo.height,
-              },
-            },
-          },
-        });
-      }
-    }
-
-    revalidatePath("/admin/presentation");
-    return { message: "Contenu modifié", isError: false };
-  } catch (e) {
-    return { message: "Erreur à l'enregistrement", isError: true };
   }
 }
 
-export async function updatePresentationTextContent(
-  prevState: { message: string; isError: boolean } | undefined,
+async function updateImagePresentation(
+  bdContent: ContentFull,
   formData: FormData,
 ) {
-  try {
-    let BDContent = await prisma.content.findUnique({
-      where: {
-        label: Label.PRESENTATION,
-      },
-      include: {
-        images: {
-          select: {
-            filename: true,
-          },
-        },
-      },
-    });
+  const id = bdContent.id;
+  const image = bdContent.images[0];
+  const file = formData.get("file") as File;
 
-    if (!BDContent) {
-      BDContent = await prisma.content.create({
-        data: {
-          label: Label.PRESENTATION,
-          title: "",
-          text: formData.get("text") as string | "",
-          images: {},
-        },
-        include: { images: true },
-      });
-    } else {
-      const id = BDContent.id;
+  if (file && file.size > 0) {
+    if (image) {
+      const oldFilename = image.filename;
+      deleteFile(getMiscellaneousDir(), oldFilename);
       await prisma.content.update({
-        where: {
-          id,
-        },
+        where: { id },
         data: {
-          text: formData.get("text") as string,
+          images: {
+            delete: { filename: oldFilename },
+          },
         },
-        include: { images: true },
       });
     }
-
-    revalidatePath("/admin/presentation");
-    return { message: "Contenu modifié", isError: false };
-  } catch (e) {
-    return { message: "Erreur à l'enregistrement", isError: true };
-  }
-}
-
-export async function updateContent(
-  prevState: { message: string; isError: boolean } | undefined,
-  formData: FormData,
-) {
-  try {
-    const dir = getMiscellaneousDir();
-    const label = formData.get("label") as Label;
-
-    let BDContent = await prisma.content.findUnique({
-      where: {
-        label,
-      },
-      include: {
-        images: {
-          select: {
-            filename: true,
-          },
-        },
-      },
-    });
-
-    if (!BDContent) {
-      BDContent = await prisma.content.create({
-        data: {
-          label,
-          title: "",
-          text: formData.get("text") as string | "",
-          images: {},
-        },
-        include: { images: true },
-      });
-    }
-
-    const id = BDContent.id;
-
-    // Content with only images (Label.SLIDER)
-    if (label === Label.SLIDER) {
-      const files = formData.getAll("files") as File[];
-      for (const file of files) {
-        if (file.size > 0) {
-          const isMain = formData.get("isMain") === "true";
-          const title = isMain ? "mobileSlider" : "desktopSlider";
-          const fileInfo = await resizeAndSaveImage(file, title, dir);
-          if (fileInfo) {
-            await prisma.content.update({
-              where: { id },
-              data: {
-                images: {
-                  create: {
-                    filename: fileInfo.filename,
-                    width: fileInfo.width,
-                    height: fileInfo.height,
-                    isMain,
-                  },
-                },
-              },
-            });
-          }
-        }
-      }
-    } else {
-      const file = formData.get("file") as File;
-      if (label === Label.PRESENTATION && file) {
-        // Contents with only one image (Image PRESENTATION)
-        if (file && file.size > 0) {
-          if (BDContent.images.length > 0) {
-            const oldFilename = BDContent.images[0].filename;
-            deleteFile(dir, oldFilename);
-            await prisma.content.update({
-              where: { id },
-              data: {
-                images: {
-                  delete: { filename: oldFilename },
-                },
-              },
-            });
-          }
-          const fileInfo = await resizeAndSaveImage(file, "presentation", dir);
-          if (fileInfo) {
-            await prisma.content.update({
-              where: { id },
-              data: {
-                images: {
-                  create: {
-                    filename: fileInfo.filename,
-                    width: fileInfo.width,
-                    height: fileInfo.height,
-                  },
-                },
-              },
-            });
-          }
-        }
-      } else {
-        await prisma.content.update({
-          where: {
-            id,
-          },
-          data: {
-            text: formData.get("text") as string,
-          },
-          include: { images: true },
-        });
-      }
-    }
-
-    const path =
-      label === Label.SLIDER
-        ? "/admin/home"
-        : label === Label.PRESENTATION
-          ? "/admin/presentation"
-          : "/admin/contact";
-
-    revalidatePath(path);
-    return { message: "Contenu modifié", isError: false };
-  } catch (e) {
-    return { message: "Erreur à l'enregistrement", isError: true };
+    await saveContentImage(id, file, "presentation", false);
   }
 }
 

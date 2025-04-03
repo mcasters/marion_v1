@@ -7,16 +7,17 @@ import AddImages from "@/components/admin/form/image/addImages";
 import { useAlert } from "@/app/context/alertProvider";
 import {
   deleteContentImage,
-  updateContent,
+  updateImageContent,
 } from "@/app/actions/contents/admin";
 import s from "@/components/admin/admin.module.css";
 import { Image } from "@/lib/type";
 import Preview from "@/components/admin/form/image/preview";
+import { Label } from "@prisma/client";
 
 type Props = {
   images: Image[];
   isMultiple: boolean;
-  label: string;
+  label: Label;
   acceptSmallImage: boolean;
   title?: string;
   isMain?: boolean;
@@ -31,7 +32,7 @@ export default function ImagesForm({
   isMain = false,
 }: Props) {
   const alert = useAlert();
-  const [state, action] = useActionState(updateContent, undefined);
+  const [state, action] = useActionState(updateImageContent, undefined);
   const [reset, setReset] = useState(0);
 
   const handleReset = () => setReset(reset + 1);
@@ -51,6 +52,7 @@ export default function ImagesForm({
         deleteAction={(filename) => deleteContentImage(filename)}
       />
       <form action={action}>
+        <input type="hidden" name="label" value={label} />
         <input type="hidden" name="isMain" value={isMain?.toString()} />
         <AddImages
           isMultiple={isMultiple}
