@@ -7,7 +7,7 @@ import { THEME } from "@/constants/admin";
 import { updateTheme } from "@/app/actions/theme/admin";
 
 export default function ThemeUpdate() {
-  const { workTheme, setIsUpdated, themes, setThemes } =
+  const { workTheme, isUpdated, setIsUpdated, themes, setThemes } =
     useAdminWorkThemeContext();
   const alert = useAlert();
 
@@ -27,7 +27,7 @@ export default function ThemeUpdate() {
     <button
       onClick={handleUpdate}
       className="adminButton"
-      disabled={workTheme.name === THEME.BASE_THEME}
+      disabled={workTheme.name === THEME.BASE_THEME || isUpdated}
     >
       {`Sauvegarder le thème "${workTheme.name}"`}
     </button>
