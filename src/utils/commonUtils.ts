@@ -12,16 +12,6 @@ import {
 import { Meta } from ".prisma/client";
 import { META } from "@/constants/admin";
 
-export const getItemType = (
-  typeString: string,
-): Type.PAINTING | Type.SCULPTURE | Type.DRAWING => {
-  return typeString === Type.PAINTING
-    ? Type.PAINTING
-    : typeString === Type.SCULPTURE
-      ? Type.SCULPTURE
-      : Type.DRAWING;
-};
-
 export const transformValueToKey = (value: string): string =>
   value
     .toLowerCase()

@@ -3,7 +3,6 @@
 import { deleteFile, getItemDir } from "@/utils/serverUtils";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { getItemType } from "@/utils/commonUtils";
 import {
   getCategoryData,
   getPaintOrDrawData,
@@ -15,8 +14,7 @@ export async function createItem(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  const typeString = formData.get("type") as string;
-  const type = getItemType(typeString);
+  const type = formData.get("type");
 
   try {
     if (type === Type.PAINTING)
@@ -44,8 +42,8 @@ export async function updateItem(
   formData: FormData,
 ) {
   const id = Number(formData.get("id"));
-  const typeString = formData.get("type") as string;
-  const type = getItemType(typeString);
+  const type = formData.get("type");
+
   try {
     const oldItem: ItemFull =
       type === Type.PAINTING
@@ -154,15 +152,44 @@ export async function createCategory(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  const typeString = formData.get("type") as string;
-  const type = getItemType(typeString);
+  const type = formData.get("type");
+  const value = formData.get("value") as string;
+  const data = getCategoryData(formData, null);
 
   try {
-    const data = getCategoryData(formData, null);
-    if (type === Type.PAINTING) await prisma.paintingCategory.create({ data });
-    if (type === Type.DRAWING) await prisma.drawingCategory.create({ data });
-    if (type === Type.SCULPTURE)
+    if (type === Type.PAINTING) {
+      const alreadyExists = await prisma.paintingCategory.findUnique({
+        where: { value },
+      });
+      if (alreadyExists)
+        return {
+          message: "Erreur : nom de catégories déjà existant",
+          isError: true,
+        };
+      await prisma.paintingCategory.create({ data });
+    }
+    if (type === Type.DRAWING) {
+      const alreadyExists = await prisma.drawingCategory.findUnique({
+        where: { value },
+      });
+      if (alreadyExists)
+        return {
+          message: "Erreur : nom de catégories déjà existant",
+          isError: true,
+        };
+      await prisma.drawingCategory.create({ data });
+    }
+    if (type === Type.SCULPTURE) {
+      const alreadyExists = await prisma.sculptureCategory.findUnique({
+        where: { value },
+      });
+      if (alreadyExists)
+        return {
+          message: "Erreur : nom de catégories déjà existant",
+          isError: true,
+        };
       await prisma.sculptureCategory.create({ data });
+    }
 
     revalidatePath(`/admin/${type}s`);
     return { message: "Catégorie ajoutée", isError: false };
@@ -175,9 +202,9 @@ export async function updateCategory(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  const typeString = formData.get("type") as string;
-  const type = getItemType(typeString);
+  const type = formData.get("type");
   const id = Number(formData.get("id"));
+  const value = formData.get("value") as string;
 
   try {
     const oldCat =
@@ -211,6 +238,7 @@ export async function updateCategory(
           where: { id },
           data,
         });
+
       if (type === Type.DRAWING)
         await prisma.drawingCategory.update({
           where: { id },
