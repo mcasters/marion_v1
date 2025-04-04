@@ -1,4 +1,4 @@
-import { mkdir, stat, unlinkSync } from "fs";
+import { mkdir, rmSync, stat } from "fs";
 import sharp from "sharp";
 import { join } from "path";
 import { transformValueToKey } from "@/utils/commonUtils";
@@ -167,9 +167,9 @@ export const resizeAndSaveImage = async (
 };
 
 export const deleteFile = (dir: string, filename: string) => {
-  unlinkSync(`${dir}/sm/${filename}`);
-  unlinkSync(`${dir}/md/${filename}`);
-  unlinkSync(`${dir}/${filename}`);
+  rmSync(`${dir}/sm/${filename}`, { force: true });
+  rmSync(`${dir}/md/${filename}`, { force: true });
+  rmSync(`${dir}/${filename}`, { force: true });
 };
 
 export const getStructHexaTheme = async (
