@@ -4,8 +4,8 @@ import DeleteButton from "@/components/admin/form/deleteButton";
 import s from "../../adminList.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import Image from "next/image";
-import { deleteCategory } from "@/app/actions/items/admin";
 import AddUpdateCategoryButton from "@/components/admin/form/category/addUpdateCategoryButton";
+import { deleteCategory } from "@/app/actions/items/categories/admin";
 
 interface Props {
   category: Category;

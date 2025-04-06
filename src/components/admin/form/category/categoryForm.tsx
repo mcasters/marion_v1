@@ -9,7 +9,11 @@ import { Category, Image, ItemFull, Type } from "@/lib/type";
 import { useAlert } from "@/app/context/alertProvider";
 import { getEmptyCategory } from "@/utils/commonUtils";
 import SelectImageList from "@/components/admin/form/image/selectImageList";
-import { createCategory, updateCategory } from "@/app/actions/items/admin";
+
+import {
+  createCategory,
+  updateCategory,
+} from "@/app/actions/items/categories/admin";
 
 interface Props {
   category: Category;
