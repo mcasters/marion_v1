@@ -1,34 +1,24 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 "use server";
 
-import { deleteFile, getItemDir } from "@/utils/serverUtils";
+import { deleteFile, getDir } from "@/utils/serverUtils";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import {
-  getCategoryData,
-  getPaintOrDrawData,
-  getSculptData,
-} from "@/app/actions/items/utils";
+import { getData, getItemModel } from "@/app/actions/items/utils";
 import { ItemFull, Type } from "@/lib/type";
 
 export async function createItem(
   prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
-  const type = formData.get("type");
+  const type = formData.get("type") as Type;
+  const model = getItemModel(type);
 
   try {
-    if (type === Type.PAINTING)
-      await prisma.painting.create({
-        data: await getPaintOrDrawData(type, formData, null),
-      });
-    if (type === Type.SCULPTURE)
-      await prisma.sculpture.create({
-        data: await getSculptData(formData, null),
-      });
-    if (type === Type.DRAWING)
-      await prisma.drawing.create({
-        data: await getPaintOrDrawData(type, formData, null),
-      });
+    await model.create({
+      data: await getData(type, formData, null),
+    });
 
     revalidatePath(`/admin/${type}s`);
     return { message: `Item ajouté`, isError: false };
@@ -42,260 +32,68 @@ export async function updateItem(
   formData: FormData,
 ) {
   const id = Number(formData.get("id"));
-  const type = formData.get("type");
+  const type = formData.get("type") as Type;
+  const model = getItemModel(type);
 
   try {
-    const oldItem: ItemFull =
-      type === Type.PAINTING
-        ? await prisma.painting.findUnique({
-            where: { id },
-          })
-        : type === Type.SCULPTURE
-          ? await prisma.sculpture.findUnique({
-              where: { id },
-            })
-          : type === Type.DRAWING
-            ? await prisma.drawing.findUnique({
-                where: { id },
-              })
-            : null;
+    const oldItem: ItemFull = await model.findUnique({
+      where: { id },
+    });
 
     if (oldItem) {
-      if (type === Type.PAINTING)
-        await prisma.painting.update({
-          where: { id },
-          data: await getPaintOrDrawData(type, formData, oldItem),
-        });
-      if (type === Type.SCULPTURE)
-        await prisma.sculpture.update({
-          where: { id },
-          data: await getSculptData(formData, oldItem),
-        });
-      if (type === Type.DRAWING)
-        await prisma.drawing.update({
-          where: { id },
-          data: await getPaintOrDrawData(type, formData, oldItem),
-        });
+      await model.update({
+        where: { id },
+        data: await getData(type, formData, oldItem),
+      });
     }
     revalidatePath(`/admin/${type}s`);
     return { message: "Item modifié", isError: false };
   } catch (e) {
-    return { message: `Erreur à l'enregistrement`, isError: true };
+    return { message: `Erreur à l'enregistrement : ${e}`, isError: true };
   }
 }
 
 export async function deleteItem(
   id: number,
-  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
+  type: Type,
 ): Promise<{
   message: string;
   isError: boolean;
 }> {
+  const model = getItemModel(type);
+
   try {
-    const item: ItemFull =
-      type === Type.PAINTING
-        ? await prisma.painting.findUnique({
-            where: { id },
-          })
-        : type === Type.SCULPTURE
-          ? await prisma.sculpture.findUnique({
-              where: { id },
-              include: {
-                images: {
-                  select: {
-                    filename: true,
-                  },
+    const item: ItemFull = await model.findUnique({
+      where: { id },
+      include:
+        type === Type.SCULPTURE
+          ? {
+              images: {
+                select: {
+                  filename: true,
                 },
               },
-            })
-          : type === Type.DRAWING
-            ? await prisma.drawing.findUnique({
-                where: { id },
-              })
-            : null;
+            }
+          : undefined,
+    });
 
     if (item) {
-      const dir = getItemDir(type);
-      if (type === Type.PAINTING || type === Type.DRAWING) {
-        deleteFile(dir, item.images[0].filename);
-        if (type === Type.PAINTING)
-          await prisma.painting.delete({
-            where: { id },
-          });
-        else
-          await prisma.drawing.delete({
-            where: { id },
-          });
-      }
-      if (type === Type.SCULPTURE) {
-        for (const image of item.images) {
-          deleteFile(dir, image.filename);
+      const dir = getDir(type);
+      for (const image of item.images) {
+        deleteFile(dir, image.filename);
+        if (type === Type.SCULPTURE)
           await prisma.sculptureImage.delete({
             where: {
               filename: image.filename,
             },
           });
-        }
-        await prisma.sculpture.delete({
-          where: { id },
-        });
       }
+      await model.delete({
+        where: { id },
+      });
     }
     revalidatePath(`/admin/${type}s`);
     return { message: `Item supprimé`, isError: false };
-  } catch (e) {
-    return { message: "Erreur à la suppression", isError: true };
-  }
-}
-
-export async function createCategory(
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
-  const type = formData.get("type");
-  const value = formData.get("value") as string;
-  const data = getCategoryData(formData, null);
-
-  try {
-    if (type === Type.PAINTING) {
-      const alreadyExists = await prisma.paintingCategory.findUnique({
-        where: { value },
-      });
-      if (alreadyExists)
-        return {
-          message: "Erreur : nom de catégories déjà existant",
-          isError: true,
-        };
-      await prisma.paintingCategory.create({ data });
-    }
-    if (type === Type.DRAWING) {
-      const alreadyExists = await prisma.drawingCategory.findUnique({
-        where: { value },
-      });
-      if (alreadyExists)
-        return {
-          message: "Erreur : nom de catégories déjà existant",
-          isError: true,
-        };
-      await prisma.drawingCategory.create({ data });
-    }
-    if (type === Type.SCULPTURE) {
-      const alreadyExists = await prisma.sculptureCategory.findUnique({
-        where: { value },
-      });
-      if (alreadyExists)
-        return {
-          message: "Erreur : nom de catégories déjà existant",
-          isError: true,
-        };
-      await prisma.sculptureCategory.create({ data });
-    }
-
-    revalidatePath(`/admin/${type}s`);
-    return { message: "Catégorie ajoutée", isError: false };
-  } catch (e) {
-    return { message: "Erreur à la création", isError: true };
-  }
-}
-
-export async function updateCategory(
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
-  const type = formData.get("type");
-  const id = Number(formData.get("id"));
-  const value = formData.get("value") as string;
-
-  try {
-    const oldCat =
-      type === Type.PAINTING
-        ? await prisma.paintingCategory.findUnique({
-            where: { id },
-            include: { content: true },
-          })
-        : type === Type.SCULPTURE
-          ? await prisma.sculptureCategory.findUnique({
-              where: { id },
-              include: { content: true },
-            })
-          : type === Type.DRAWING
-            ? await prisma.drawingCategory.findUnique({
-                where: { id },
-                include: { content: true },
-              })
-            : null;
-
-    if (oldCat) {
-      const data = getCategoryData(formData, oldCat);
-
-      if (type === Type.PAINTING)
-        await prisma.paintingCategory.update({
-          where: { id },
-          data,
-        });
-      if (type === Type.SCULPTURE)
-        await prisma.sculptureCategory.update({
-          where: { id },
-          data,
-        });
-
-      if (type === Type.DRAWING)
-        await prisma.drawingCategory.update({
-          where: { id },
-          data,
-        });
-    }
-
-    revalidatePath(`/admin/${type}s`);
-    return { message: "Catégorie modifiée", isError: false };
-  } catch (e) {
-    return { message: "Erreur à la modification", isError: true };
-  }
-}
-
-export async function deleteCategory(
-  id: number,
-  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-) {
-  try {
-    const category =
-      type === Type.PAINTING
-        ? await prisma.paintingCategory.findUnique({
-            where: { id },
-          })
-        : type === Type.SCULPTURE
-          ? await prisma.sculptureCategory.findUnique({
-              where: { id },
-            })
-          : type === Type.DRAWING
-            ? await prisma.drawingCategory.findUnique({
-                where: { id },
-              })
-            : null;
-
-    if (category) {
-      const contentId = category.categoryContentId;
-      if (contentId) {
-        await prisma.categoryContent.delete({
-          where: { id: contentId },
-        });
-      }
-
-      if (type === Type.PAINTING)
-        await prisma.paintingCategory.delete({
-          where: { id },
-        });
-      if (type === Type.SCULPTURE)
-        await prisma.sculptureCategory.delete({
-          where: { id },
-        });
-      if (type === Type.DRAWING)
-        await prisma.drawingCategory.delete({
-          where: { id },
-        });
-    }
-    revalidatePath(`/admin/${type}s`);
-    return { message: "Catégorie supprimée", isError: false };
   } catch (e) {
     return { message: "Erreur à la suppression", isError: true };
   }

@@ -1,49 +1,32 @@
-import { Category, ItemFull, Type } from "@/lib/type";
-import {
-  deleteFile,
-  getItemDir,
-  resizeAndSaveImage,
-} from "@/utils/serverUtils";
+import { ItemFull, Type } from "@/lib/type";
+import { deleteFile, getDir, resizeAndSaveImage } from "@/utils/serverUtils";
 import prisma from "@/lib/prisma";
-import { transformValueToKey } from "@/utils/commonUtils";
 
-export const getPaintOrDrawData = async (
-  type: Type.PAINTING | Type.DRAWING,
-  formData: FormData,
-  oldItem: ItemFull | null,
-) => {
-  const rawFormData = Object.fromEntries(formData);
-  const file = rawFormData.file as File;
-  const title = rawFormData.title as string;
-  const category = handleCategory(rawFormData.categoryId as string, oldItem);
-  const fileInfo = await handlePaintOrDrawImages(type, file, title, oldItem);
-
-  return {
-    title,
-    date: new Date(Number(rawFormData.date), 1),
-    technique: rawFormData.technique as string,
-    description: rawFormData.description as string,
-    height: Number(rawFormData.height),
-    width: Number(rawFormData.width),
-    isToSell: rawFormData.isToSell === "on",
-    price: Number(rawFormData.price),
-    imageFilename: fileInfo ? fileInfo.filename : undefined,
-    imageWidth: fileInfo ? fileInfo.width : undefined,
-    imageHeight: fileInfo ? fileInfo.height : undefined,
-    category,
-  };
+export const getItemModel = (type: Type) => {
+  switch (type) {
+    case Type.PAINTING:
+      return prisma.painting;
+    case Type.SCULPTURE:
+      return prisma.sculpture;
+    case Type.DRAWING:
+      return prisma.drawing;
+    case Type.POST:
+      return prisma.post;
+  }
 };
 
-export const getSculptData = async (
+export const getData = async (
+  type: Type,
   formData: FormData,
   oldItem: ItemFull | null,
 ) => {
   const rawFormData = Object.fromEntries(formData);
-  const files = formData.getAll("files") as File[];
+  const filesToAdd = getFilesTab(formData, type);
   const title = rawFormData.title as string;
   const category = handleCategory(rawFormData.categoryId as string, oldItem);
-  const images = await handleSculptImages(
-    files,
+  const images = await handleImages(
+    type,
+    filesToAdd,
     title,
     rawFormData.filenamesToDelete as string,
   );
@@ -55,63 +38,85 @@ export const getSculptData = async (
     description: rawFormData.description as string,
     height: Number(rawFormData.height),
     width: Number(rawFormData.width),
-    length: Number(rawFormData.length),
+    length: type === Type.SCULPTURE ? Number(rawFormData.length) : undefined,
     isToSell: rawFormData.isToSell === "on",
     price: Number(rawFormData.price),
     category,
-    images: {
-      create: images,
-    },
+    imageFilename: images.fileInfo ? images.fileInfo.filename : undefined,
+    imageWidth: images.fileInfo ? images.fileInfo.width : undefined,
+    imageHeight: images.fileInfo ? images.fileInfo.height : undefined,
+    images: images.images
+      ? {
+          create: images.images,
+        }
+      : undefined,
   };
 };
 
-const handlePaintOrDrawImages = async (
-  type: Type.PAINTING | Type.DRAWING,
-  file: File,
-  title: string,
-  oldItem: ItemFull | null,
-) => {
-  const dir = getItemDir(type);
-  if (file.size > 0) {
-    if (oldItem && oldItem.images[0].filename !== "")
-      deleteFile(getItemDir(type), oldItem.images[0].filename);
-    return await resizeAndSaveImage(file, title, dir);
-  } else return null;
+const getFilesTab = (formData: FormData, type: Type): File[] => {
+  const tab: File[] = [];
+  if (type === Type.SCULPTURE) {
+    const files = formData.getAll("files") as File[];
+    files.forEach((f) => {
+      if (f.size > 0) tab.push(f);
+    });
+  } else {
+    const file = formData.get("file") as File;
+    if (file.size > 0) tab.push(file);
+  }
+  return tab;
 };
 
-const handleSculptImages = async (
+type ImageResult = {
+  fileInfo: { filename: string; width: number; height: number } | null;
+  images: { filename: string; width: number; height: number }[] | null;
+};
+
+const handleImages = async (
+  type: Type,
   files: File[],
   title: string,
   filenamesToDelete: string,
-) => {
-  const dir = getItemDir(Type.SCULPTURE);
+): Promise<ImageResult> => {
+  const dir = getDir(type);
   if (filenamesToDelete) {
     for await (const filename of filenamesToDelete.split(",")) {
       deleteFile(dir, filename);
-      await prisma.sculptureImage.delete({
-        where: { filename },
-      });
-    }
-  }
-  const images = [];
-  for (const file of files) {
-    if (file.size > 0) {
-      const fileInfo = await resizeAndSaveImage(file, title, dir);
-      if (fileInfo)
-        images.push({
-          filename: fileInfo.filename,
-          width: fileInfo.width,
-          height: fileInfo.height,
+      if (type === Type.SCULPTURE)
+        await prisma.sculptureImage.delete({
+          where: { filename },
         });
     }
   }
-  return images;
+  const result: ImageResult = {
+    fileInfo: null,
+    images: null,
+  };
+
+  if (files.length > 0) {
+    if (type !== Type.SCULPTURE) {
+      const fileInfo = await resizeAndSaveImage(files[0], title, dir);
+      if (fileInfo) result.fileInfo = fileInfo;
+    } else {
+      const images = [];
+      for (const file of files) {
+        if (file.size > 0) {
+          const fileInfo = await resizeAndSaveImage(file, title, dir);
+          if (fileInfo)
+            images.push({
+              filename: fileInfo.filename,
+              width: fileInfo.width,
+              height: fileInfo.height,
+            });
+        }
+      }
+      result.images = images;
+    }
+  }
+  return result;
 };
 
-export const handleCategory = (
-  categoryId: string,
-  oldItem: ItemFull | null,
-) => {
+const handleCategory = (categoryId: string, oldItem: ItemFull | null) => {
   return categoryId !== "0"
     ? {
         connect: {
@@ -125,34 +130,4 @@ export const handleCategory = (
           },
         }
       : {};
-};
-
-export const getCategoryData = (
-  formData: FormData,
-  oldCategory: Category | null,
-) => {
-  const rawFormData = Object.fromEntries(formData);
-  const value = rawFormData.value as string;
-  const contentData = {
-    title: rawFormData.title as string,
-    text: rawFormData.text as string,
-    imageFilename: rawFormData.filename as string,
-    imageWidth: Number(rawFormData.width),
-    imageHeight: Number(rawFormData.height),
-  };
-
-  const content =
-    !oldCategory || !oldCategory.content
-      ? {
-          create: contentData,
-        }
-      : {
-          update: contentData,
-        };
-
-  return {
-    key: transformValueToKey(value),
-    value,
-    content,
-  };
 };

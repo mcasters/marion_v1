@@ -210,7 +210,11 @@ export default function ItemForm({
             setWorkItem({ ...workItem, images });
             setFilenamesToDelete([...filenamesToDelete, filename]);
           }}
-          onAdd={setFilenamesToAdd}
+          onAdd={(filenames: string[]) => {
+            setFilenamesToAdd(filenames);
+            if (!isSculpture && item.images.length > 0)
+              setFilenamesToDelete([item.images[0].filename]);
+          }}
           title={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
         />
         <div className={s.buttonSection}>

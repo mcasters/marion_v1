@@ -26,7 +26,7 @@ export async function cacheDatas<S>(
   return res();
 }
 
-export const getItemDir = (type: Type) => {
+export const getDir = (type: Type) => {
   return join(`${serverLibraryPath}`, type);
 };
 

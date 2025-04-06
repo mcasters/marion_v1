@@ -9,7 +9,7 @@ interface Props {
   isMultiple: boolean;
   acceptSmallImage: boolean;
   resetFlag?: number;
-  onNewImages?: (arg0: string[]) => void;
+  onNewImages?: (filenames: string[]) => void;
   info?: string;
 }
 

@@ -12,7 +12,7 @@ interface Props {
   isMultiple: boolean;
   acceptSmallImage: boolean;
   onDelete: (filename: string) => void;
-  onAdd?: (arg0: string[]) => void;
+  onAdd?: (filenames: string[]) => void;
   title: string;
 }
 
