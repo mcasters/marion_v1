@@ -50,6 +50,7 @@ export const resizeAndSaveImage = async (
   file: File,
   title: string = "",
   dir: string,
+  isMain: boolean = false,
 ) => {
   const titleString = transformValueToKey(title);
   const newFilename = `${titleString}-${Date.now()}.jpeg`;
@@ -150,6 +151,7 @@ export const resizeAndSaveImage = async (
           filename: newFilename,
           width: info.width,
           height: info.height,
+          isMain,
         };
       })
       .catch((err) => {
@@ -157,13 +159,11 @@ export const resizeAndSaveImage = async (
           "Erreur à l'écriture des fichiers images, nettoyage...",
           err,
         );
-        try {
-          deleteFile(dir, newFilename);
-        } catch (e) {
-          console.error("Erreur à la suppression", e);
-        }
+        deleteFile(dir, newFilename);
+        return null;
       });
   }
+  return null;
 };
 
 export const deleteFile = (dir: string, filename: string) => {

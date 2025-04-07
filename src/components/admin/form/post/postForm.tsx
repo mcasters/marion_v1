@@ -25,7 +25,6 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
   const [date, setDate] = useState<string>(
     new Date(post.date).getFullYear().toString(),
   );
-  const [mainFilenameToDelete, setMainFilenameToDelete] = useState<string>("");
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const [state, action] = useActionState(formAction, null);
 
@@ -41,8 +40,7 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
       (i: Image) => i.filename !== filename,
     );
     setWorkPost({ ...workPost, images });
-    if (isMain) setMainFilenameToDelete(filename);
-    else setFilenamesToDelete([...filenamesToDelete, filename]);
+    setFilenamesToDelete([...filenamesToDelete, filename]);
   };
 
   return (
@@ -54,11 +52,6 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
         {isUpdate && (
           <>
             <input type="hidden" name="id" value={post.id} />
-            <input
-              type="hidden"
-              name="mainFilenameToDelete"
-              value={mainFilenameToDelete}
-            />
             <input
               type="hidden"
               name="filenamesToDelete"
@@ -109,6 +102,14 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
           isMultiple={false}
           acceptSmallImage={true}
           onDelete={(filename) => handleOnDelete(filename, true)}
+          onAdd={() => {
+            const oldMainFilename = workPost.images.find((i) => i.isMain);
+            if (oldMainFilename)
+              setFilenamesToDelete([
+                ...filenamesToDelete,
+                oldMainFilename.filename,
+              ]);
+          }}
           title="Image principale (facultative)"
         />
         <br />

@@ -11,31 +11,18 @@ export async function createPost(
 ) {
   const dir = getDir(Type.POST);
   const rawFormData = Object.fromEntries(formData);
+  const title = rawFormData.title as string;
   const mainFile = rawFormData.file as File;
   const files = formData.getAll("files") as File[];
-  const title = rawFormData.title as string;
 
   try {
     const images = [];
     if (mainFile.size > 0) {
-      const fileInfo = await resizeAndSaveImage(mainFile, title, dir);
-      if (fileInfo)
-        images.push({
-          filename: fileInfo.filename,
-          width: fileInfo.width,
-          height: fileInfo.height,
-          isMain: true,
-        });
+      images.push(await resizeAndSaveImage(mainFile, title, dir, true));
     }
     for (const file of files) {
       if (file.size > 0) {
-        const fileInfo = await resizeAndSaveImage(file, title, dir);
-        if (fileInfo)
-          images.push({
-            filename: fileInfo.filename,
-            width: fileInfo.width,
-            height: fileInfo.height,
-          });
+        images.push(await resizeAndSaveImage(file, title, dir));
       }
     }
 
@@ -63,54 +50,17 @@ export async function updatePost(
   const dir = getDir(Type.POST);
   const rawFormData = Object.fromEntries(formData);
   const id = Number(rawFormData.id);
+  const filenamesToDelete = rawFormData.filenamesToDelete as string;
+  const title = rawFormData.title as string;
+  const mainFile = rawFormData.file as File;
+  const files = formData.getAll("files") as File[];
 
   try {
-    const oldPost = await prisma.post.findUnique({
-      where: { id },
-      include: {
-        images: {
-          select: {
-            filename: true,
-            isMain: true,
-          },
-        },
-      },
-    });
+    const oldPost = await prisma.post.findUnique({ where: { id } });
 
     if (oldPost) {
-      const mainFilenameToDelete = rawFormData.mainFilenameToDelete as string;
-      if (mainFilenameToDelete) {
-        deleteFile(dir, mainFilenameToDelete);
-        await prisma.postImage.delete({
-          where: { filename: mainFilenameToDelete },
-        });
-      }
-      const filenamesToDelete = rawFormData.filenamesToDelete as string;
       if (filenamesToDelete) {
         for await (const filename of filenamesToDelete.split(",")) {
-          deleteFile(dir, filename);
-          await prisma.postImage.delete({
-            where: { filename },
-          });
-        }
-      }
-
-      const images = [];
-      const mainFile = rawFormData.file as File;
-      const title = rawFormData.title as string;
-      if (mainFile.size > 0) {
-        const fileInfo = await resizeAndSaveImage(mainFile, title, dir);
-        if (fileInfo)
-          images.push({
-            filename: fileInfo.filename,
-            width: fileInfo.width,
-            height: fileInfo.height,
-            isMain: true,
-          });
-
-        const oldMainImage = oldPost.images.filter((i) => i.isMain);
-        if (oldMainImage.length > 0) {
-          const filename = oldMainImage[0].filename;
           deleteFile(dir, filename);
           await prisma.post.update({
             where: { id },
@@ -123,17 +73,13 @@ export async function updatePost(
         }
       }
 
-      const files = formData.getAll("files") as File[];
+      const images = [];
+      if (mainFile.size > 0)
+        images.push(await resizeAndSaveImage(mainFile, title, dir, true));
+
       for (const file of files) {
-        if (file.size > 0) {
-          const fileInfo = await resizeAndSaveImage(file, title, dir);
-          if (fileInfo)
-            images.push({
-              filename: fileInfo.filename,
-              width: fileInfo.width,
-              height: fileInfo.height,
-            });
-        }
+        if (file.size > 0)
+          images.push(await resizeAndSaveImage(file, title, dir));
       }
 
       await prisma.post.update({

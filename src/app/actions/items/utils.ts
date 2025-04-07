@@ -55,21 +55,26 @@ export const getData = async (
 
 const getFilesTab = (formData: FormData, type: Type): File[] => {
   const tab: File[] = [];
-  if (type === Type.SCULPTURE) {
-    const files = formData.getAll("files") as File[];
-    files.forEach((f) => {
-      if (f.size > 0) tab.push(f);
-    });
-  } else {
-    const file = formData.get("file") as File;
-    if (file.size > 0) tab.push(file);
-  }
+  const files =
+    type === Type.SCULPTURE
+      ? (formData.getAll("files") as File[])
+      : ([formData.get("file")] as File[]);
+  files.forEach((f) => {
+    if (f.size > 0) tab.push(f);
+  });
   return tab;
 };
 
 type ImageResult = {
-  fileInfo: { filename: string; width: number; height: number } | null;
-  images: { filename: string; width: number; height: number }[] | null;
+  fileInfo: {
+    filename: string;
+    width: number;
+    height: number;
+    isMain: boolean;
+  } | null;
+  images:
+    | { filename: string; width: number; height: number; isMain: boolean }[]
+    | null;
 };
 
 const handleImages = async (
@@ -95,20 +100,12 @@ const handleImages = async (
 
   if (files.length > 0) {
     if (type !== Type.SCULPTURE) {
-      const fileInfo = await resizeAndSaveImage(files[0], title, dir);
-      if (fileInfo) result.fileInfo = fileInfo;
+      result.fileInfo = await resizeAndSaveImage(files[0], title, dir);
     } else {
       const images = [];
       for (const file of files) {
-        if (file.size > 0) {
-          const fileInfo = await resizeAndSaveImage(file, title, dir);
-          if (fileInfo)
-            images.push({
-              filename: fileInfo.filename,
-              width: fileInfo.width,
-              height: fileInfo.height,
-            });
-        }
+        if (file.size > 0)
+          images.push(await resizeAndSaveImage(file, title, dir));
       }
       result.images = images;
     }
