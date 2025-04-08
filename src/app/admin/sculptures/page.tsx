@@ -2,7 +2,11 @@ import ItemListComponent from "@/components/admin/item/itemListComponent";
 import s from "@/components/admin/admin.module.css";
 import React from "react";
 import { Type } from "@/lib/type";
-import { getAllCategories, getAllItems, getYears } from "@/app/actions/items";
+import {
+  getAllCategories,
+  getAllItems,
+  getYears,
+} from "../../actions/item-post";
 import ItemLayoutForm from "@/components/admin/item/itemLayoutForm";
 import CategoryListComponent from "@/components/admin/item/category/categoryListComponent";
 

@@ -1,5 +1,5 @@
 import ItemsPageComponent from "@/components/item/itemsPageComponent";
-import { getItemsByYear } from "@/app/actions/items";
+import { getItemsByYear } from "../../../actions/item-post";
 import { Type } from "@/lib/type";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";

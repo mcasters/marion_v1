@@ -3,9 +3,13 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { getData, getItemModel } from "@/app/actions/items/utils";
+import {
+  deleteImages,
+  getData,
+  getFilenameList,
+  getItemModel,
+} from "@/app/actions/item-post/utils";
 import { Type } from "@/lib/type";
-import { deleteImages, getFilenameList } from "@/app/actions/actionUtils";
 
 export async function createItem(
   prevState: { message: string; isError: boolean } | null,

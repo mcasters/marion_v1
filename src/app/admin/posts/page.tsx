@@ -1,7 +1,8 @@
 import PostListComponent from "@/components/admin/post/postListComponent";
 import s from "@/components/admin/admin.module.css";
 import React from "react";
-import { getPostsFull } from "@/app/actions/posts";
+
+import { getPostsFull } from "@/app/actions/item-post";
 
 export default async function Sculptures() {
   const posts = await getPostsFull();

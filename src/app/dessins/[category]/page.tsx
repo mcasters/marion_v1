@@ -1,4 +1,4 @@
-import { getCategory, getItemsByCategory } from "@/app/actions/items";
+import { getCategory, getItemsByCategory } from "@/app/actions/item-post";
 import ItemsPageComponent from "@/components/item/itemsPageComponent";
 import { Type } from "@/lib/type";
 import { Metadata } from "next";

@@ -35,7 +35,7 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
     }
   }, [state]);
 
-  const handleOnDelete = (filename: string, isMain: boolean) => {
+  const handleOnDelete = (filename: string) => {
     const images = workPost.images.filter(
       (i: Image) => i.filename !== filename,
     );
@@ -49,6 +49,7 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
         {isUpdate ? "Modifier un post" : "Ajouter un post"}
       </h2>
       <form action={action}>
+        <input type="hidden" name="type" value={Type.POST} />
         {isUpdate && (
           <>
             <input type="hidden" name="id" value={post.id} />
@@ -101,7 +102,7 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
           type={Type.POST}
           isMultiple={false}
           acceptSmallImage={true}
-          onDelete={(filename) => handleOnDelete(filename, true)}
+          onDelete={(filename) => handleOnDelete(filename)}
           onAdd={() => {
             const oldMainFilename = workPost.images.find((i) => i.isMain);
             if (oldMainFilename)
@@ -120,7 +121,7 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
           type={Type.POST}
           isMultiple={true}
           acceptSmallImage={true}
-          onDelete={(filename) => handleOnDelete(filename, false)}
+          onDelete={(filename) => handleOnDelete(filename)}
           title="Album d'images (facultatif)"
         />
         <div className={s.buttonSection}>

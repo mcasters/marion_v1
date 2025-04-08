@@ -1,5 +1,5 @@
 import { Type } from "@/lib/type";
-import { getCategories, getYears } from "@/app/actions/items";
+import { getCategories, getYears } from "@/app/actions/item-post";
 import ItemHomeComponent from "@/components/item/itemHomeComponent";
 
 export default async function Page() {

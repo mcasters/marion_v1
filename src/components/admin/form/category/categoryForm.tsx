@@ -13,7 +13,7 @@ import SelectImageList from "@/components/admin/form/image/selectImageList";
 import {
   createCategory,
   updateCategory,
-} from "@/app/actions/items/categories/admin";
+} from "@/app/actions/item-post/categories/admin";
 
 interface Props {
   category: Category;

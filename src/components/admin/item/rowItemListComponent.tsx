@@ -6,7 +6,7 @@ import DeleteButton from "@/components/admin/form/deleteButton";
 import s from "../adminList.module.css";
 import { Category, ItemFull } from "@/lib/type";
 import React, { useMemo } from "react";
-import { deleteItem, updateItem } from "@/app/actions/items/admin";
+import { deleteItem, updateItem } from "@/app/actions/item-post/admin";
 import AddUpdateButton from "@/components/admin/form/addUpdateButton";
 
 interface Props {

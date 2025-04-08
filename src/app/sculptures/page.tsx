@@ -1,6 +1,6 @@
 import { Type } from "@/lib/type";
 import ItemHomeComponent from "@/components/item/itemHomeComponent";
-import { getCategories, getYears } from "@/app/actions/items";
+import { getCategories, getYears } from "../actions/item-post";
 
 export default async function Page() {
   const categories = await getCategories(Type.SCULPTURE);

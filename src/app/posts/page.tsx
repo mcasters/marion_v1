@@ -1,7 +1,8 @@
 import React from "react";
 import PostComponent from "@/components/post/postComponent";
 import { PostFull } from "@/lib/type";
-import { getPostsFull } from "@/app/actions/posts";
+
+import { getPostsFull } from "@/app/actions/item-post";
 
 export default async function Posts() {
   const posts = await getPostsFull();

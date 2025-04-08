@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import s from "../adminList.module.css";
-import { PostFull } from "@/lib/type";
+import { PostFull, Type } from "@/lib/type";
 import { getMainImage } from "@/utils/commonUtils";
-import { deletePost, updatePost } from "@/app/actions/posts/admin";
 import DeleteButton from "@/components/admin/form/deleteButton";
 import AddUpdateButton from "@/components/admin/form/addUpdateButton";
 import React from "react";
+import { deleteItem, updateItem } from "@/app/actions/item-post/admin";
 
 interface Props {
   post: PostFull;
@@ -39,10 +39,10 @@ export default function RowPostListComponent({ post }: Props) {
         )}
       </li>
       <li className={s.icon}>
-        <AddUpdateButton item={post} action={updatePost} />
+        <AddUpdateButton item={post} action={updateItem} />
       </li>
       <li className={s.icon}>
-        <DeleteButton action={() => deletePost(post.id)} />
+        <DeleteButton action={() => deleteItem(post.id, Type.POST)} />
       </li>
     </ul>
   );

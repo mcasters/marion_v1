@@ -1,6 +1,6 @@
 "use server";
 
-import { Category, ItemFull, Type } from "@/lib/type";
+import { Category, ItemFull, PostFull, Type } from "@/lib/type";
 import {
   KEYS,
   queryAllCategories,
@@ -11,10 +11,11 @@ import {
   queryItemsByYear,
   queryNoCategory,
   queryYears,
-} from "@/app/actions/items/queries";
+} from "@/app/actions/item-post/queries";
 import { getNoCategory } from "@/utils/commonUtils";
 
 import { cacheDatas } from "@/utils/serverUtils";
+import prisma from "@/lib/prisma";
 
 export async function getYears(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
@@ -80,6 +81,18 @@ export async function getItemsByCategory(
   );
 
   return JSON.parse(JSON.stringify(items));
+}
+
+export async function getPostsFull(): Promise<PostFull[]> {
+  const posts = await cacheDatas(
+    async () =>
+      await prisma.post.findMany({
+        include: { images: true },
+      }),
+    "posts",
+  );
+
+  return JSON.parse(JSON.stringify(posts));
 }
 
 // FOR ADMIN : Categories with also no Items inside

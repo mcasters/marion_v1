@@ -7,7 +7,7 @@ import style from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import AddUpdateButton from "@/components/admin/form/addUpdateButton";
-import { createItem } from "@/app/actions/items/admin";
+import { createItem } from "@/app/actions/item-post/admin";
 
 interface Props {
   categories: Category[];
