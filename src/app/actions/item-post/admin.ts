@@ -4,7 +4,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getData, getItemModel } from "@/app/actions/items/utils";
-import { ItemFull, Type } from "@/lib/type";
+import { Type } from "@/lib/type";
 import { deleteImages, getFilenameList } from "@/app/actions/actionUtils";
 
 export async function createItem(
@@ -13,6 +13,7 @@ export async function createItem(
 ) {
   const type = formData.get("type") as Type;
   const model = getItemModel(type);
+  console.log("model// ", model);
 
   try {
     await model.create({
@@ -22,7 +23,7 @@ export async function createItem(
     revalidatePath(`/admin/${type}s`);
     return { message: `Item ajouté`, isError: false };
   } catch (e) {
-    return { message: `Erreur à l'enregistrement`, isError: true };
+    return { message: `Erreur à l'enregistrement : ${e}`, isError: true };
   }
 }
 
@@ -51,10 +52,10 @@ export async function deleteItem(id: number, type: Type) {
   const model = getItemModel(type);
 
   try {
-    const item: ItemFull = await model.findUnique({
+    const item = await model.findUnique({
       where: { id },
       include:
-        type === Type.SCULPTURE
+        type === Type.SCULPTURE || type === Type.POST
           ? {
               images: {
                 select: {
