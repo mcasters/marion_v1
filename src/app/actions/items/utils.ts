@@ -1,6 +1,6 @@
-import { ItemFull, Type } from "@/lib/type";
-import { deleteFile, getDir, resizeAndSaveImage } from "@/utils/serverUtils";
+import { Type } from "@/lib/type";
 import prisma from "@/lib/prisma";
+import { addImages, deleteImages } from "@/app/actions/actionUtils";
 
 export const getItemModel = (type: Type) => {
   switch (type) {
@@ -15,115 +15,51 @@ export const getItemModel = (type: Type) => {
   }
 };
 
-export const getData = async (
-  type: Type,
-  formData: FormData,
-  oldItem: ItemFull | null,
-) => {
+export const getData = async (type: Type, formData: FormData) => {
   const rawFormData = Object.fromEntries(formData);
-  const filesToAdd = getFilesTab(formData, type);
-  const title = rawFormData.title as string;
-  const category = handleCategory(rawFormData.categoryId as string, oldItem);
-  const images = await handleImages(
-    type,
-    filesToAdd,
-    title,
-    rawFormData.filenamesToDelete as string,
-  );
+  const isSculpture = type === Type.SCULPTURE;
+
+  await deleteImages(rawFormData.filenamesToDelete as string, type);
+  const newImages = await addImages(formData, type);
 
   return {
-    title,
+    title: rawFormData.title as string,
     date: new Date(Number(rawFormData.date), 1),
     technique: rawFormData.technique as string,
     description: rawFormData.description as string,
     height: Number(rawFormData.height),
     width: Number(rawFormData.width),
-    length: type === Type.SCULPTURE ? Number(rawFormData.length) : undefined,
+    length: isSculpture ? Number(rawFormData.length) : undefined,
     isToSell: rawFormData.isToSell === "on",
     price: Number(rawFormData.price),
-    category,
-    imageFilename: images.fileInfo ? images.fileInfo.filename : undefined,
-    imageWidth: images.fileInfo ? images.fileInfo.width : undefined,
-    imageHeight: images.fileInfo ? images.fileInfo.height : undefined,
-    images: images.images
-      ? {
-          create: images.images,
-        }
-      : undefined,
+    category: getCategory(formData),
+    imageFilename:
+      !isSculpture && newImages ? newImages[0].filename : undefined,
+    imageWidth: !isSculpture && newImages ? newImages[0].width : undefined,
+    imageHeight: !isSculpture && newImages ? newImages[0].height : undefined,
+    images:
+      isSculpture && newImages
+        ? {
+            create: newImages,
+          }
+        : undefined,
   };
 };
 
-const getFilesTab = (formData: FormData, type: Type): File[] => {
-  const tab: File[] = [];
-  const files =
-    type === Type.SCULPTURE
-      ? (formData.getAll("files") as File[])
-      : ([formData.get("file")] as File[]);
-  files.forEach((f) => {
-    if (f.size > 0) tab.push(f);
-  });
-  return tab;
-};
+const getCategory = (formData: FormData) => {
+  const id = Number(formData.get("categoryId"));
+  const oldId = Number(formData.get("oldCategoryId"));
 
-type ImageResult = {
-  fileInfo: {
-    filename: string;
-    width: number;
-    height: number;
-    isMain: boolean;
-  } | null;
-  images:
-    | { filename: string; width: number; height: number; isMain: boolean }[]
-    | null;
-};
-
-const handleImages = async (
-  type: Type,
-  files: File[],
-  title: string,
-  filenamesToDelete: string,
-): Promise<ImageResult> => {
-  const dir = getDir(type);
-  if (filenamesToDelete) {
-    for await (const filename of filenamesToDelete.split(",")) {
-      deleteFile(dir, filename);
-      if (type === Type.SCULPTURE)
-        await prisma.sculptureImage.delete({
-          where: { filename },
-        });
-    }
-  }
-  const result: ImageResult = {
-    fileInfo: null,
-    images: null,
-  };
-
-  if (files.length > 0) {
-    if (type !== Type.SCULPTURE) {
-      result.fileInfo = await resizeAndSaveImage(files[0], title, dir);
-    } else {
-      const images = [];
-      for (const file of files) {
-        if (file.size > 0)
-          images.push(await resizeAndSaveImage(file, title, dir));
-      }
-      result.images = images;
-    }
-  }
-  return result;
-};
-
-const handleCategory = (categoryId: string, oldItem: ItemFull | null) => {
-  return categoryId !== "0"
+  return id !== 0
     ? {
         connect: {
-          id: Number(categoryId),
+          id: id,
         },
       }
-    : oldItem && oldItem.categoryId
+    : oldId
       ? {
           disconnect: {
-            id: Number(oldItem.categoryId),
+            id: oldId,
           },
         }
       : {};

@@ -57,6 +57,11 @@ export default function ItemForm({
           value={filenamesToDelete}
         />
         <input type="hidden" name="isToSell" value={String(item.isToSell)} />
+        <input
+          type="hidden"
+          name="oldCategoryId"
+          value={String(item.categoryId)}
+        />
         <label className={s.formLabel}>
           Titre
           <input
