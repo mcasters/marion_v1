@@ -4,25 +4,6 @@ import { THEME } from "@/constants/admin";
 import { getBasePresetColorData, getBaseThemeData } from "@/utils/themeUtils";
 import { activateTheme } from "@/app/actions/theme/admin";
 
-const queryActivatedBaseTheme = async (): Promise<Theme> => {
-  let theme = await prisma.theme.findUnique({
-    where: {
-      name: THEME.BASE_THEME,
-    },
-  });
-  if (!theme) {
-    theme = await prisma.theme.create({
-      data: {
-        ...getBaseThemeData(),
-      },
-    });
-  }
-  if (!theme.isActive) {
-    await activateTheme(theme.id);
-  }
-  return theme;
-};
-
 export const queryActiveTheme = async (): Promise<Theme> => {
   let theme = await prisma.theme.findFirst({
     where: {
@@ -46,4 +27,23 @@ export const queryPresetColors = async (): Promise<PresetColor[]> => {
     presetColors.push(defaultPresetColor);
   }
   return presetColors;
+};
+
+const queryActivatedBaseTheme = async (): Promise<Theme> => {
+  let theme = await prisma.theme.findUnique({
+    where: {
+      name: THEME.BASE_THEME,
+    },
+  });
+  if (!theme) {
+    theme = await prisma.theme.create({
+      data: {
+        ...getBaseThemeData(),
+      },
+    });
+  }
+  if (!theme.isActive) {
+    await activateTheme(theme.id);
+  }
+  return theme;
 };

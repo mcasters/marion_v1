@@ -48,7 +48,7 @@ export async function updateImageContent(
   }
 }
 
-export async function deleteContentImage(filename: string) {
+export async function deleteImageContent(filename: string) {
   const dir = getMiscellaneousDir();
 
   try {

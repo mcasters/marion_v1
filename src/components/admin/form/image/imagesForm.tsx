@@ -6,7 +6,7 @@ import CancelButton from "@/components/admin/form/cancelButton";
 import AddImages from "@/components/admin/form/image/addImages";
 import { useAlert } from "@/app/context/alertProvider";
 import {
-  deleteContentImage,
+  deleteImageContent,
   updateImageContent,
 } from "@/app/actions/contents/admin";
 import s from "@/components/admin/admin.module.css";
@@ -49,7 +49,7 @@ export default function ImagesForm({
       <Preview
         filenames={images.map((i) => i.filename)}
         pathImage="/images/miscellaneous"
-        deleteAction={(filename) => deleteContentImage(filename)}
+        deleteAction={(filename) => deleteImageContent(filename)}
       />
       <form action={action}>
         <input type="hidden" name="label" value={label} />
