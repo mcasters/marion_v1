@@ -3,7 +3,8 @@
 
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getNoCategory } from "@/utils/commonUtils";
-import { getCategoryModel, getItemModel } from "@/app/actions/item-post/utils";
+import { getItemModel } from "@/app/actions/item-post/utils";
+import { getCategoryModel } from "@/app/actions/item-post/categories/utils";
 
 export const KEYS = {
   [Type.PAINTING]: {

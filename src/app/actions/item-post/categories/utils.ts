@@ -1,4 +1,17 @@
 import { transformValueToKey } from "@/utils/commonUtils";
+import { Type } from "@/lib/type";
+import prisma from "@/lib/prisma";
+
+export const getCategoryModel = (type: Type) => {
+  switch (type) {
+    case Type.PAINTING:
+      return prisma.paintingCategory;
+    case Type.SCULPTURE:
+      return prisma.sculptureCategory;
+    case Type.DRAWING:
+      return prisma.drawingCategory;
+  }
+};
 
 export const getCategoryData = (formData: FormData) => {
   const rawFormData = Object.fromEntries(formData);

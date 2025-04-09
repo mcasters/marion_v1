@@ -15,17 +15,6 @@ export const getItemModel = (type: Type) => {
   }
 };
 
-export const getCategoryModel = (type: Type) => {
-  switch (type) {
-    case Type.PAINTING:
-      return prisma.paintingCategory;
-    case Type.SCULPTURE:
-      return prisma.sculptureCategory;
-    case Type.DRAWING:
-      return prisma.drawingCategory;
-  }
-};
-
 export const deleteImages = async (filenamesToDelete: string, type: Type) => {
   const dir = getDir(type);
 

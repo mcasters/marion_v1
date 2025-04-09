@@ -4,8 +4,10 @@
 
 import { Type } from "@/lib/type";
 import { revalidatePath } from "next/cache";
-import { getCategoryData } from "@/app/actions/item-post/categories/utils";
-import { getCategoryModel } from "@/app/actions/item-post/utils";
+import {
+  getCategoryData,
+  getCategoryModel,
+} from "@/app/actions/item-post/categories/utils";
 import prisma from "@/lib/prisma";
 
 export async function createCategory(
