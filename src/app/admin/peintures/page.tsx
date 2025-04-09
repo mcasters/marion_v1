@@ -8,7 +8,7 @@ import {
   getYears,
 } from "@/app/actions/item-post";
 import ItemLayoutForm from "@/components/admin/item/itemLayoutForm";
-import CategoryListComponent from "@/components/admin/item/category/categoryListComponent";
+import CategoryComponent from "@/components/admin/item/category/categoryComponent";
 
 export default async function Peintures() {
   const categories = await getAllCategories(Type.PAINTING);
@@ -25,7 +25,7 @@ export default async function Peintures() {
         items={items}
         type={Type.PAINTING}
       />
-      <CategoryListComponent
+      <CategoryComponent
         type={Type.PAINTING}
         categories={categories}
         items={items}

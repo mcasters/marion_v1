@@ -8,7 +8,7 @@ import {
   getYears,
 } from "../../actions/item-post";
 import ItemLayoutForm from "@/components/admin/item/itemLayoutForm";
-import CategoryListComponent from "@/components/admin/item/category/categoryListComponent";
+import CategoryComponent from "@/components/admin/item/category/categoryComponent";
 
 export default async function Dessins() {
   const categories = await getAllCategories(Type.DRAWING);
@@ -25,7 +25,7 @@ export default async function Dessins() {
         items={items}
         type={Type.DRAWING}
       />
-      <CategoryListComponent
+      <CategoryComponent
         type={Type.DRAWING}
         categories={categories}
         items={items}
