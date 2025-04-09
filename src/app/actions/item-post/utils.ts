@@ -15,7 +15,7 @@ export const getItemModel = (type: Type) => {
   }
 };
 
-export const getItemCategory = (type: Type) => {
+export const getCategoryModel = (type: Type) => {
   switch (type) {
     case Type.PAINTING:
       return prisma.paintingCategory;
@@ -136,7 +136,7 @@ const getCategory = (formData: FormData) => {
   return id !== 0
     ? {
         connect: {
-          id: id,
+          id,
         },
       }
     : oldId

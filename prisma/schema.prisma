@@ -158,30 +158,30 @@ model Drawing {
 }
 
 model PaintingCategory {
-  id                Int              @id @default(autoincrement())
-  key               String           @unique
-  value             String           @unique
+  id                Int             @id @default(autoincrement())
+  key               String          @unique
+  value             String          @unique
   paintings         Painting[]
-  content           CategoryContent? @relation(fields: [categoryContentId], references: [id])
-  categoryContentId Int?             @unique
+  content           CategoryContent @relation(fields: [categoryContentId], references: [id])
+  categoryContentId Int             @unique
 }
 
 model SculptureCategory {
-  id                Int              @id @default(autoincrement())
-  key               String           @unique
-  value             String           @unique
+  id                Int             @id @default(autoincrement())
+  key               String          @unique
+  value             String          @unique
   sculptures        Sculpture[]
-  content           CategoryContent? @relation(fields: [categoryContentId], references: [id])
-  categoryContentId Int?             @unique
+  content           CategoryContent @relation(fields: [categoryContentId], references: [id])
+  categoryContentId Int             @unique
 }
 
 model DrawingCategory {
-  id                Int              @id @default(autoincrement())
-  key               String           @unique
-  value             String           @unique
+  id                Int             @id @default(autoincrement())
+  key               String          @unique
+  value             String          @unique
   drawings          Drawing[]
-  content           CategoryContent? @relation(fields: [categoryContentId], references: [id])
-  categoryContentId Int?             @unique
+  content           CategoryContent @relation(fields: [categoryContentId], references: [id])
+  categoryContentId Int             @unique
 }
 
 model CategoryContent {

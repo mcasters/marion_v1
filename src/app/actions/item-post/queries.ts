@@ -3,7 +3,7 @@
 
 import { Category, ItemFull, Type } from "@/lib/type";
 import { getNoCategory } from "@/utils/commonUtils";
-import { getItemCategory, getItemModel } from "@/app/actions/item-post/utils";
+import { getCategoryModel, getItemModel } from "@/app/actions/item-post/utils";
 
 export const KEYS = {
   [Type.PAINTING]: {
@@ -107,7 +107,7 @@ export const queryCategory = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   categoryKey: string,
 ): Promise<Category | null> => {
-  const model = getItemCategory(type);
+  const model = getCategoryModel(type);
 
   return await model.findUnique({
     where: { key: categoryKey },
@@ -120,7 +120,7 @@ export const queryCategory = async (
 export const queryCategories = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
 ): Promise<Category[]> => {
-  const model = getItemCategory(type);
+  const model = getCategoryModel(type);
   const whereClause =
     type === Type.PAINTING
       ? {
@@ -149,7 +149,7 @@ export const queryCategories = async (
 export const queryAllCategories = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
 ): Promise<Category[]> => {
-  const model = getItemCategory(type);
+  const model = getCategoryModel(type);
 
   return model.findMany({
     include: {

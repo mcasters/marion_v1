@@ -61,7 +61,7 @@ export default function CategoryForm({
         {isUpdate ? "Modification d'une catégorie" : "Ajout d'une catégorie"}
       </h2>
       <form action={action}>
-        {isUpdate && <input type="hidden" name="id" value={category.id} />}
+        <input type="hidden" name="id" value={category.id} />
         <input type="hidden" name="type" value={type} />
         <input type="hidden" name="filename" value={image.filename} />
         <input type="hidden" name="width" value={image.width} />

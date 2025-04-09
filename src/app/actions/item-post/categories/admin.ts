@@ -4,11 +4,9 @@
 
 import { Type } from "@/lib/type";
 import { revalidatePath } from "next/cache";
+import { getCategoryData } from "@/app/actions/item-post/categories/utils";
+import { getCategoryModel } from "@/app/actions/item-post/utils";
 import prisma from "@/lib/prisma";
-import {
-  getCategoryData,
-  getCategoryModel,
-} from "@/app/actions/item-post/categories/utils";
 
 export async function createCategory(
   prevState: { message: string; isError: boolean } | null,
@@ -16,7 +14,7 @@ export async function createCategory(
 ) {
   const type = formData.get("type") as Type;
   const value = formData.get("value") as string;
-  const data = getCategoryData(formData, null);
+  const data = getCategoryData(formData);
   const model = getCategoryModel(type);
 
   try {
@@ -46,18 +44,11 @@ export async function updateCategory(
   const model = getCategoryModel(type);
 
   try {
-    const oldCat = await model.findUnique({
+    const data = getCategoryData(formData);
+    await model.update({
       where: { id },
-      include: { content: true },
+      data,
     });
-
-    if (oldCat) {
-      const data = getCategoryData(formData, oldCat);
-      await model.update({
-        where: { id },
-        data,
-      });
-    }
 
     revalidatePath(`/admin/${type}s`);
     return { message: "Catégorie modifiée", isError: false };
@@ -76,21 +67,16 @@ export async function deleteCategory(
     const category = await model.findUnique({
       where: { id },
     });
+    await model.delete({
+      where: { id },
+    });
+    await prisma.categoryContent.delete({
+      where: { id: category.categoryContentId },
+    });
 
-    if (category) {
-      const contentId = category.categoryContentId;
-      if (contentId) {
-        await prisma.categoryContent.delete({
-          where: { id: contentId },
-        });
-      }
-      await model.delete({
-        where: { id },
-      });
-    }
     revalidatePath(`/admin/${type}s`);
     return { message: "Catégorie supprimée", isError: false };
   } catch (e) {
-    return { message: "Erreur à la suppression", isError: true };
+    return { message: `Erreur à la suppression ${e}`, isError: true };
   }
 }
