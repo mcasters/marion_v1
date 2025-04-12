@@ -1,13 +1,10 @@
 "use client";
 
-import RowItemListComponent from "./rowItemListComponent";
 import React, { useEffect, useState } from "react";
 import s from "@/components/admin/adminList.module.css";
 import style from "@/components/admin/admin.module.css";
 import { Category, ItemFull, Type } from "@/lib/type";
-import { getEmptyItem } from "@/utils/commonUtils";
-import AddUpdateButton from "@/components/admin/form/addUpdateButton";
-import { createItem } from "@/app/actions/item-post/admin";
+import ListComponent from "@/components/admin/item/listComponent";
 
 interface Props {
   categories: Category[];
@@ -15,7 +12,7 @@ interface Props {
   items: ItemFull[];
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 }
-export default function ItemListComponent({
+export default function WorkListComponent({
   categories,
   years,
   items,
@@ -95,23 +92,7 @@ export default function ItemListComponent({
         </select>
       </label>
       <h4>{`Filtre : ${filteredItems.length} ${type}s`}</h4>
-      <div className={`${s.listWrapper} area`}>
-        {filteredItems &&
-          filteredItems.map((item: ItemFull) => {
-            return (
-              <RowItemListComponent
-                key={item.id}
-                item={item}
-                categories={categories}
-              />
-            );
-          })}
-      </div>
-      <AddUpdateButton
-        item={getEmptyItem(type)}
-        action={createItem}
-        categories={categories}
-      />
+      <ListComponent items={items} categories={categories} />
     </div>
   );
 }

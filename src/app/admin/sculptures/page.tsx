@@ -1,4 +1,4 @@
-import ItemListComponent from "@/components/admin/item/itemListComponent";
+import WorkListComponent from "@/components/admin/item/workListComponent";
 import s from "@/components/admin/admin.module.css";
 import React from "react";
 import { Type } from "@/lib/type";
@@ -19,7 +19,7 @@ export default async function Sculptures() {
     <>
       <h1 className={s.title1}>Les sculptures</h1>
       <ItemLayoutForm type={Type.SCULPTURE} />
-      <ItemListComponent
+      <WorkListComponent
         categories={categories}
         years={years}
         items={items}

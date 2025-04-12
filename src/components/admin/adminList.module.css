@@ -15,8 +15,7 @@
 }
 
 .itemList,
-.categoryList,
-.postList {
+.categoryList {
   border-bottom: 1px dotted var(--color-light);
   padding-left: 1em;
   display: flex;
@@ -25,8 +24,7 @@
 }
 
 .itemList li,
-.categoryList li,
-.postList li {
+.categoryList li {
   display: block;
   height: 50px;
   line-height: 50px;
@@ -34,8 +32,7 @@
 }
 
 .itemTitle,
-.categoryTitle,
-.postTitle {
+.categoryTitle {
   font-weight: bold;
   text-align: left;
   flex: 30%;
@@ -50,8 +47,7 @@
 }
 
 .itemYear,
-.categoryImage,
-.postImage {
+.categoryImage {
   flex: 10%;
 }
 
