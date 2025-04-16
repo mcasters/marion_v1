@@ -2,24 +2,26 @@
 
 import useModal from "@/components/admin/form/modal/useModal";
 import Modal from "@/components/admin/form/modal/modal";
-import { Category, ItemFull, PostFull, Type } from "@/lib/type";
-import PostForm from "@/components/admin/form/post/postForm";
+import { Category, Item, Type } from "@/lib/type";
+import PostForm from "@/components/admin/form/item/postForm";
 import ItemForm from "@/components/admin/form/item/itemForm";
 import React from "react";
 import s from "@/components/admin/admin.module.css";
 import UpdateIcon from "@/components/icons/updateIcon";
+import CategoryForm from "@/components/admin/form/item/categoryForm";
 
-type Props = {
-  item: ItemFull | PostFull;
-  action: (
-    prevState: { message: string; isError: boolean } | null,
-    formData: FormData,
-  ) => Promise<{ isError: boolean; message: string }>;
+export type AddUpdateButtonProps = {
+  item: Item;
   categories?: Category[];
+  disabled?: boolean;
 };
-export default function AddUpdateButton({ item, action, categories }: Props) {
+export default function AddUpdateButton({
+  item,
+  categories,
+  disabled,
+}: AddUpdateButtonProps) {
   const { isOpen, toggle } = useModal();
-  const isUpdate = item.id != 0;
+  const isUpdate = item.id != 0 || item.key === "no-category";
 
   return (
     <>
@@ -30,6 +32,7 @@ export default function AddUpdateButton({ item, action, categories }: Props) {
         }}
         className={isUpdate ? "iconButton" : `${s.addButton} adminButton`}
         aria-label={isUpdate ? "Mise à jour" : "Ajout"}
+        disabled={disabled ? disabled : false}
       >
         {isUpdate ? (
           <UpdateIcon />
@@ -41,15 +44,12 @@ export default function AddUpdateButton({ item, action, categories }: Props) {
         {item.type === Type.DRAWING ||
         item.type === Type.SCULPTURE ||
         item.type === Type.PAINTING ? (
-          <ItemForm
-            item={item}
-            formAction={action}
-            toggleModal={toggle}
-            categories={categories}
-          />
+          <ItemForm item={item} toggleModal={toggle} categories={categories} />
         ) : item.type === Type.POST ? (
-          <PostForm post={item} formAction={action} toggleModal={toggle} />
-        ) : undefined}
+          <PostForm post={item} toggleModal={toggle} />
+        ) : (
+          <CategoryForm category={item} toggleModal={toggle} />
+        )}
       </Modal>
     </>
   );

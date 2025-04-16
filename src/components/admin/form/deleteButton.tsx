@@ -4,14 +4,14 @@ import React from "react";
 import DeleteIcon from "@/components/icons/deleteIcon";
 import { useAlert } from "@/app/context/alertProvider";
 
-type Props = {
+export type DeleteButtonProps = {
   action: () => Promise<{
     message: string;
     isError: boolean;
   }>;
   disabled?: boolean;
 };
-export default function DeleteButton({ action, disabled }: Props) {
+export default function DeleteButton({ action, disabled }: DeleteButtonProps) {
   const alert = useAlert();
 
   return (

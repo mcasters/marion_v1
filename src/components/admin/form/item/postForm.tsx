@@ -7,17 +7,14 @@ import CancelButton from "@/components/admin/form/cancelButton";
 import SubmitButton from "@/components/admin/form/submitButton";
 import { useAlert } from "@/app/context/alertProvider";
 import ImageFormPart from "@/components/admin/form/image/imageFormPart";
+import { createItem, updateItem } from "@/app/actions/item-post/admin";
 
 interface Props {
   post: PostFull;
-  formAction: (
-    prevState: { message: string; isError: boolean } | null,
-    formData: FormData,
-  ) => Promise<{ isError: boolean; message: string }>;
   toggleModal: () => void;
 }
 
-export default function PostForm({ post, formAction, toggleModal }: Props) {
+export default function PostForm({ post, toggleModal }: Props) {
   const isUpdate = post.id !== 0;
   const alert = useAlert();
 
@@ -26,7 +23,10 @@ export default function PostForm({ post, formAction, toggleModal }: Props) {
     new Date(post.date).getFullYear().toString(),
   );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
-  const [state, action] = useActionState(formAction, null);
+  const [state, action] = useActionState(
+    isUpdate ? updateItem : createItem,
+    null,
+  );
 
   useEffect(() => {
     if (state) {

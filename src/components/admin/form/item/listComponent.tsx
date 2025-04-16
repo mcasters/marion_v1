@@ -23,8 +23,8 @@ export default function ListComponent({ items, categories }: Props) {
   return (
     <div className={`${s.categoryListWrapper} area`}>
       {items.map((item) => {
-        const isNoCategory = item.key === "no-category";
-        if (isCategory)
+        if (isCategory) {
+          const isNoCategory = item.key === "no-category";
           return (
             <RowListComponent
               key={item.id}
@@ -46,7 +46,7 @@ export default function ListComponent({ items, categories }: Props) {
               }
             />
           );
-        else if (isWork) {
+        } else if (isWork) {
           const itemCategory = categories
             ? categories.find((category) => category.id === item.categoryId)
             : undefined;
@@ -55,7 +55,7 @@ export default function ListComponent({ items, categories }: Props) {
               key={item.id}
               raw1={item.title}
               raw2={new Date(item.date).getFullYear().toString()}
-              raw3={itemCategory ? itemCategory.value : ""}
+              raw3={itemCategory ? itemCategory.value : " "}
               imageSrc={`/images/${item.type}/${item.images[0].filename}`}
               AddUpdateButton={
                 <AddUpdateButton item={item} categories={categories} />

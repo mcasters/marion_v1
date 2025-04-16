@@ -2,39 +2,34 @@
 
 import React, { useActionState, useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
-import { Category, Image, ItemFull, Type } from "@/lib/type";
+import { Category, Image, Type, workFull } from "@/lib/type";
 import { useAlert } from "@/app/context/alertProvider";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
 import ImageFormPart from "@/components/admin/form/image/imageFormPart";
+import { createItem, updateItem } from "@/app/actions/item-post/admin";
 
 interface Props {
-  item: ItemFull;
-  formAction: (
-    prevState: { message: string; isError: boolean } | null,
-    formData: FormData,
-  ) => Promise<{ isError: boolean; message: string }>;
+  item: workFull;
   toggleModal: () => void;
   categories?: Category[];
 }
 
-export default function ItemForm({
-  item,
-  formAction,
-  toggleModal,
-  categories,
-}: Props) {
+export default function ItemForm({ item, toggleModal, categories }: Props) {
   const isUpdate = item.id !== 0;
   const isSculpture = item.type === Type.SCULPTURE;
   const alert = useAlert();
 
-  const [workItem, setWorkItem] = useState<ItemFull>(item);
+  const [workItem, setWorkItem] = useState<workFull>(item);
   const [date, setDate] = useState<string>(
     new Date(item.date).getFullYear().toString(),
   );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const [filenamesToAdd, setFilenamesToAdd] = useState<string[]>([]);
-  const [state, action] = useActionState(formAction, null);
+  const [state, action] = useActionState(
+    isUpdate ? updateItem : createItem,
+    null,
+  );
 
   useEffect(() => {
     if (state) {

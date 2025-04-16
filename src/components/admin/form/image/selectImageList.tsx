@@ -3,23 +3,29 @@
 import React, { useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import Image from "next/image";
-import { Image as IImage, ItemFull } from "@/lib/type";
+import { Image as IImage, Type } from "@/lib/type";
 import { getEmptyImage } from "@/utils/commonUtils";
 import { useTheme } from "@/app/context/themeProvider";
 
 type Props = {
-  items: ItemFull[];
-  value: IImage;
+  itemsImages: IImage[];
+  selectedImage: IImage;
   onChange: (image: IImage) => void;
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 };
 
-export default function SelectImageList({ items, value, onChange }: Props) {
+export default function SelectImageList({
+  itemsImages,
+  selectedImage,
+  onChange,
+  type,
+}: Props) {
   const theme = useTheme();
   const [selectedColor, setSelectedColor] = React.useState(
     theme.other.main.link,
   );
   const [filenameSelected, setFilenameSelected] = useState<string>(
-    value.filename,
+    selectedImage.filename,
   );
 
   const onSelectImage = (image: IImage) => {
@@ -50,38 +56,34 @@ export default function SelectImageList({ items, value, onChange }: Props) {
         >
           -- Aucune image --
         </div>
-        {items.length > 0 &&
-          items.map((item: ItemFull) => {
-            return item.images.map((image: IImage) => {
-              const isSelected = image.filename === filenameSelected;
-              return (
-                <div
-                  key={`${item.id}-${image.id}`}
-                  className={s.option}
-                  onClick={() => onSelectImage(image)}
-                  onMouseEnter={() =>
-                    isSelected
-                      ? setSelectedColor(theme.other.main.linkHover)
-                      : ""
-                  }
-                  onMouseLeave={() =>
-                    isSelected ? setSelectedColor(theme.other.main.link) : ""
-                  }
-                  style={isSelected ? { background: `${selectedColor}` } : {}}
-                >
-                  <Image
-                    src={`/images/${item.type}/sm/${image.filename}`}
-                    width={120}
-                    height={120}
-                    alt="Image de l'item"
-                    style={{
-                      objectFit: "cover",
-                    }}
-                    unoptimized
-                  />
-                </div>
-              );
-            });
+        {itemsImages.length > 0 &&
+          itemsImages.map((image: IImage) => {
+            const isSelected = image.filename === filenameSelected;
+            return (
+              <div
+                key={image.id}
+                className={s.option}
+                onClick={() => onSelectImage(image)}
+                onMouseEnter={() =>
+                  isSelected ? setSelectedColor(theme.other.main.linkHover) : ""
+                }
+                onMouseLeave={() =>
+                  isSelected ? setSelectedColor(theme.other.main.link) : ""
+                }
+                style={isSelected ? { background: `${selectedColor}` } : {}}
+              >
+                <Image
+                  src={`/images/${type}/sm/${image.filename}`}
+                  width={120}
+                  height={120}
+                  alt="Image de l'item"
+                  style={{
+                    objectFit: "cover",
+                  }}
+                  unoptimized
+                />
+              </div>
+            );
           })}
       </div>
       Les images sont ici tronquées au carré, comme elles sont affichées dans la

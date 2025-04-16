@@ -1,10 +1,10 @@
 "use client";
 
-import { ItemFull, Type } from "@/lib/type";
+import { Type, workFull } from "@/lib/type";
 import React from "react";
 
 interface Props {
-  item: ItemFull;
+  item: workFull;
   isLightbox: boolean;
 }
 export default function ImageInfos({ item, isLightbox }: Props) {
