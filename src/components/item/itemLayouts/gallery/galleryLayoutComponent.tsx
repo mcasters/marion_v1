@@ -1,7 +1,7 @@
 "use client";
 
 import s from "./galleryLayout.module.css";
-import { ItemFull } from "@/lib/type";
+import { workFull } from "@/lib/type";
 import React, { useMemo, useState } from "react";
 import { getItemPhotoTabEnhanced } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
@@ -15,7 +15,7 @@ import { META } from "@/constants/admin";
 import { useTheme } from "@/app/context/themeProvider";
 
 interface Props {
-  items: ItemFull[];
+  items: workFull[];
 }
 export default function GalleryLayoutComponent({ items }: Props) {
   const metas = useMetas();

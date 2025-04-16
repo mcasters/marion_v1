@@ -1,7 +1,7 @@
 "use client";
 
 import s from "./sculptureLayout.module.css";
-import { ItemFull } from "@/lib/type";
+import { workFull } from "@/lib/type";
 import React, { useMemo, useState } from "react";
 import { getItemPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
@@ -14,7 +14,7 @@ import { DEVICE } from "@/constants/image";
 import { META } from "@/constants/admin";
 
 interface Props {
-  item: ItemFull;
+  item: workFull;
   priority: boolean;
 }
 export default function SculptureLayoutComponent({ item, priority }: Props) {

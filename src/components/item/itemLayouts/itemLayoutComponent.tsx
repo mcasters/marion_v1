@@ -1,7 +1,7 @@
 "use client";
 
 import s from "./itemLayoutComponent.module.css";
-import { ItemFull, ItemLayout, Type } from "@/lib/type";
+import { ItemLayout, Type, workFull } from "@/lib/type";
 import React from "react";
 import MonoLayoutComponent from "@/components/item/itemLayouts/mono/monoLayoutComponent";
 import GalleryLayoutComponent from "@/components/item/itemLayouts/gallery/galleryLayoutComponent";
@@ -11,7 +11,7 @@ import { useMetas } from "@/app/context/metaProvider";
 import { getItemLayout } from "@/utils/commonUtils";
 
 interface Props {
-  items: ItemFull[];
+  items: workFull[];
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 }
 export default function ItemLayoutComponent({ items, type }: Props) {
