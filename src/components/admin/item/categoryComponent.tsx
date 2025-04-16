@@ -20,7 +20,7 @@ export default function CategoryComponent({ type, categories, items }: Props) {
       <h2 className={style.title2}>Gestion des catégories</h2>
       <ListComponent items={getCategoriesFull(categories, items)} />
       <h5>{message}</h5>
-      <AddUpdateButton item={getEmptyCategoryFull(type)} workType={type} />
+      <AddUpdateButton item={getEmptyCategoryFull(type)} />
     </div>
   );
 }

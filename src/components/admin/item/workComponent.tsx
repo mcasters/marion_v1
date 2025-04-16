@@ -5,7 +5,6 @@ import s from "@/components/admin/adminList.module.css";
 import style from "@/components/admin/admin.module.css";
 import { Category, Type, workFull } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
-import { createItem } from "@/app/actions/item-post/admin";
 import AddUpdateButton from "@/components/admin/form/addUpdateButton";
 import ListComponent from "@/components/admin/form/item/listComponent";
 
@@ -98,7 +97,6 @@ export default function WorkComponent({
       <ListComponent items={items} categories={categories} />
       <AddUpdateButton
         item={getEmptyItem(items[0].type)}
-        action={createItem}
         categories={categories}
       />
     </div>
