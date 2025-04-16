@@ -1,5 +1,5 @@
 import { Type } from "@/lib/type";
-import WorkListComponent from "@/components/admin/item/workListComponent";
+import WorkComponent from "@/components/admin/item/workComponent";
 import s from "@/components/admin/admin.module.css";
 import React from "react";
 import {
@@ -8,7 +8,7 @@ import {
   getYears,
 } from "../../actions/item-post";
 import ItemLayoutForm from "@/components/admin/item/itemLayoutForm";
-import CategoryComponent from "@/components/admin/item/category/categoryComponent";
+import CategoryComponent from "@/components/admin/item/categoryComponent";
 
 export default async function Dessins() {
   const categories = await getAllCategories(Type.DRAWING);
@@ -19,7 +19,7 @@ export default async function Dessins() {
     <>
       <h1 className={s.title1}>Les dessins</h1>
       <ItemLayoutForm type={Type.DRAWING} />
-      <WorkListComponent
+      <WorkComponent
         categories={categories}
         years={years}
         items={items}

@@ -1,4 +1,4 @@
-import WorkListComponent from "@/components/admin/item/workListComponent";
+import WorkComponent from "@/components/admin/item/workComponent";
 import s from "@/components/admin/admin.module.css";
 import React from "react";
 import { Type } from "@/lib/type";
@@ -8,7 +8,7 @@ import {
   getYears,
 } from "../../actions/item-post";
 import ItemLayoutForm from "@/components/admin/item/itemLayoutForm";
-import CategoryComponent from "@/components/admin/item/category/categoryComponent";
+import CategoryComponent from "@/components/admin/item/categoryComponent";
 
 export default async function Sculptures() {
   const categories = await getAllCategories(Type.SCULPTURE);
@@ -19,7 +19,7 @@ export default async function Sculptures() {
     <>
       <h1 className={s.title1}>Les sculptures</h1>
       <ItemLayoutForm type={Type.SCULPTURE} />
-      <WorkListComponent
+      <WorkComponent
         categories={categories}
         years={years}
         items={items}

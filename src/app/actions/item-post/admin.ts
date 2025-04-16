@@ -17,7 +17,6 @@ export async function createItem(
 ) {
   const type = formData.get("type") as Type;
   const model = getItemModel(type);
-  console.log("model// ", model);
 
   try {
     await model.create({

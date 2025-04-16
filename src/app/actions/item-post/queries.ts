@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 
-import { Category, ItemFull, Type } from "@/lib/type";
+import { Category, Type, workFull } from "@/lib/type";
 import { getNoCategory } from "@/utils/commonUtils";
 import { getItemModel } from "@/app/actions/item-post/utils";
 import { getCategoryModel } from "@/app/actions/item-post/categories/utils";
@@ -61,7 +61,7 @@ export const queryYears = async (
 export const queryItemsByYear = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   year: string,
-): Promise<ItemFull[]> => {
+): Promise<workFull[]> => {
   const model = getItemModel(type);
 
   return await model.findMany({
@@ -79,7 +79,7 @@ export const queryItemsByYear = async (
 export const queryItemsByCategory = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
   categoryKey: string,
-): Promise<ItemFull[]> => {
+): Promise<workFull[]> => {
   const model = getItemModel(type);
 
   return await model.findMany({
@@ -161,7 +161,7 @@ export const queryAllCategories = async (
 
 export const queryAllItems = async (
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): Promise<ItemFull[]> => {
+): Promise<workFull[]> => {
   const model = getItemModel(type);
 
   return await model.findMany({
