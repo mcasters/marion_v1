@@ -1,11 +1,11 @@
 import {
   ContentFull,
   Image,
-  ItemFull,
   PhotoTab,
   PhotoTabEnhanced,
   PostFull,
   Type,
+  workFull,
 } from "@/lib/type";
 import { IMAGE } from "@/constants/image";
 import { getSliderContent, getSliders } from "@/utils/commonUtils";
@@ -124,7 +124,7 @@ const getPhotosFromImages = (
 };
 
 const getPhotosEnhancedFromImages = (
-  item: ItemFull,
+  item: workFull,
   alt: string,
   photos: PhotoTabEnhanced,
 ): PhotoTabEnhanced => {
@@ -197,7 +197,7 @@ export const getPostPhotoTab = (
   );
 };
 
-export const getItemPhotoTab = (item: ItemFull, alt: string): PhotoTab => {
+export const getItemPhotoTab = (item: workFull, alt: string): PhotoTab => {
   const folder =
     item.type === Type.PAINTING
       ? "peinture"
@@ -208,7 +208,7 @@ export const getItemPhotoTab = (item: ItemFull, alt: string): PhotoTab => {
 };
 
 export const getItemPhotoTabEnhanced = (
-  items: ItemFull[],
+  items: workFull[],
   alt: string,
 ): PhotoTabEnhanced => {
   let photosEnhanced = getEmptyPhotoTabEnhanced();

@@ -1,13 +1,14 @@
 import { Label } from "@prisma/client";
 import {
   Category,
+  CategoryFull,
   ContentFull,
   HomeLayout,
   Image,
-  ItemFull,
   ItemLayout,
   PostFull,
   Type,
+  workFull,
 } from "@/lib/type";
 import { Meta } from ".prisma/client";
 import { META } from "@/constants/admin";
@@ -87,7 +88,7 @@ export const getMainImage = (post: PostFull) => {
 
 export const getEmptyItem = (
   type: Type.SCULPTURE | Type.DRAWING | Type.PAINTING,
-): ItemFull => {
+): workFull => {
   return {
     id: 0,
     type,
@@ -136,12 +137,18 @@ export const getEmptyContent = () => {
   };
 };
 
-export const getEmptyCategory = (): Category => {
+export const getEmptyCategoryFull = (
+  workType: Type.PAINTING | Type.DRAWING | Type.SCULPTURE,
+): CategoryFull => {
   return {
     id: 0,
     key: "",
     value: "",
+    type: "catégorie",
+    count: 0,
+    workType,
     content: getEmptyContent(),
+    images: [getEmptyImage()],
   };
 };
 
@@ -170,4 +177,27 @@ export const getItemLayout = (
 
 export const getHomeLayout = (metas: Map<string, string>): HomeLayout => {
   return parseInt(metas.get(META.HOME_LAYOUT) || "0");
+};
+
+export const getCategoriesFull = (
+  categories: Category[],
+  items: workFull[],
+): CategoryFull[] => {
+  const map = new Map();
+  categories.forEach((category) => {
+    map.set(category.id, {
+      ...category,
+      type: "catégorie",
+      workType: items[0].type,
+      images: [],
+      count: 0,
+    });
+  });
+  items.forEach((item) => {
+    const categoryMap =
+      item.categoryId === null ? map.get(0) : map.get(item.categoryId);
+    categoryMap.images.push(...item.images);
+    categoryMap.count += 1;
+  });
+  return [...map.values()];
 };
