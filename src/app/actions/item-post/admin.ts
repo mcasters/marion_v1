@@ -4,8 +4,8 @@
 
 import { revalidatePath } from "next/cache";
 import {
+  createDataAndHandleFiles,
   deleteImages,
-  getData,
   getFilenameList,
   getItemModel,
 } from "@/app/actions/item-post/utils";
@@ -16,17 +16,29 @@ export async function createItem(
   formData: FormData,
 ) {
   const type = formData.get("type") as Type;
+  const title = formData.get("title") as string;
   const model = getItemModel(type);
 
   try {
+    if (await model.findFirst({ where: { title } }))
+      return {
+        message: `Erreur : le titre "${title}" existe déjà`,
+        isError: true,
+      };
+  } catch (e) {
+    return { message: `Erreur à la vérification`, isError: true };
+  }
+
+  try {
+    const data = await createDataAndHandleFiles(type, formData);
     await model.create({
-      data: await getData(type, formData),
+      data,
     });
 
     revalidatePath(`/admin/${type}s`);
     return { message: `Item ajouté`, isError: false };
   } catch (e) {
-    return { message: `Erreur à l'enregistrement : ${e}`, isError: true };
+    return { message: `Erreur à l'enregistrement`, isError: true };
   }
 }
 
@@ -36,18 +48,33 @@ export async function updateItem(
 ) {
   const id = Number(formData.get("id"));
   const type = formData.get("type") as Type;
+  const title = formData.get("title") as string;
   const model = getItemModel(type);
 
   try {
+    const existingItem = await model.findFirst({
+      where: { title },
+    });
+    if (existingItem && existingItem.id !== id)
+      return {
+        message: `Erreur : le titre "${title}" existe déjà`,
+        isError: true,
+      };
+  } catch (e) {
+    return { message: `Erreur à la vérification`, isError: true };
+  }
+
+  try {
+    const data = await createDataAndHandleFiles(type, formData);
     await model.update({
       where: { id },
-      data: await getData(type, formData),
+      data,
     });
 
     revalidatePath(`/admin/${type}s`);
     return { message: "Item modifié", isError: false };
   } catch (e) {
-    return { message: `Erreur à l'enregistrement : ${e}`, isError: true };
+    return { message: `Erreur à l'enregistrement`, isError: true };
   }
 }
 
@@ -76,6 +103,6 @@ export async function deleteItem(id: number, type: Type) {
     revalidatePath(`/admin/${type}s`);
     return { message: `Item supprimé`, isError: false };
   } catch (e) {
-    return { message: "Erreur à la suppression", isError: true };
+    return { message: `Erreur à la suppression`, isError: true };
   }
 }
