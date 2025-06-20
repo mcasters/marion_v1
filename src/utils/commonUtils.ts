@@ -144,7 +144,7 @@ export const getEmptyCategoryFull = (
     id: 0,
     key: "",
     value: "",
-    type: "catégorie",
+    type: Type.CATEGORY,
     count: 0,
     workType,
     content: getEmptyContent(),

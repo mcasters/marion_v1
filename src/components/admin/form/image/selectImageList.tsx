@@ -61,7 +61,7 @@ export default function SelectImageList({
             const isSelected = image.filename === filenameSelected;
             return (
               <div
-                key={image.id}
+                key={image.filename}
                 className={s.option}
                 onClick={() => onSelectImage(image)}
                 onMouseEnter={() =>

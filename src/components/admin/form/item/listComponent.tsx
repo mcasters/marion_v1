@@ -16,7 +16,7 @@ interface Props {
 }
 export default function ListComponent({ items, categories }: Props) {
   const type = items[0].type;
-  const isCategory = type === "catégorie";
+  const isCategory = type === Type.CATEGORY;
   const isPost = type === Type.POST;
   const isWork = !isCategory || !isPost;
 

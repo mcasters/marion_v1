@@ -10,12 +10,29 @@ type StringKeys<T> = {
 }[keyof T];
 export type OnlyString<T> = { [k in StringKeys<T>]: boolean };
 
-type PaintingFull = Prisma.Result<typeof prisma.painting, {}, any>; // With Image-like[] field
+export enum Type {
+  PAINTING = "peinture",
+  SCULPTURE = "sculpture",
+  POST = "post",
+  DRAWING = "dessin",
+  CATEGORY = "catégorie",
+}
+
+type PaintingFull = Prisma.Result<typeof prisma.painting, {}, any>; // With Image[] field
 type SculptureFull = Prisma.Result<typeof prisma.sculpture, {}, any>;
-type DrawingFull = Prisma.Result<typeof prisma.drawing, {}, any>; // With Image-like[] field
-type CategoryContent = Prisma.Result<typeof prisma.categoryContent, {}, any>; // With Image-like field
+type DrawingFull = Prisma.Result<typeof prisma.drawing, {}, any>; // With Image[] field
+type CategoryContent = Prisma.Result<typeof prisma.categoryContent, {}, any>; // With Image field
 
 export type workFull = PaintingFull | SculptureFull | DrawingFull;
+
+export type PostFull = {
+  id: number;
+  type: Type.POST;
+  title: string;
+  date: Date;
+  text: string;
+  images: Image[];
+};
 
 export type Category = {
   id: number;
@@ -25,13 +42,13 @@ export type Category = {
 };
 
 export type CategoryFull = Category & {
-  type: "catégorie";
+  type: Type.CATEGORY;
   workType: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
   images: Image[];
   count: number;
 };
 
-export type Item = workFull | CategoryFull;
+export type Item = workFull | PostFull | CategoryFull;
 
 export type Message = {
   id: number;
@@ -39,13 +56,6 @@ export type Message = {
   text: string;
   author: User;
 };
-
-export enum Type {
-  PAINTING = "peinture",
-  SCULPTURE = "sculpture",
-  POST = "post",
-  DRAWING = "dessin",
-}
 
 export enum ItemLayout {
   MONO,
@@ -58,15 +68,6 @@ export enum HomeLayout {
   PLAIN,
   NAV,
 }
-
-export type PostFull = {
-  id: number;
-  type: Type.POST;
-  title: string;
-  date: Date;
-  text: string;
-  images: Image[];
-};
 
 export type ContentFull = {
   id: number;
