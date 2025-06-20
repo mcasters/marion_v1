@@ -18,7 +18,10 @@ export default function CategoryComponent({ type, categories, items }: Props) {
   return (
     <div className={style.container}>
       <h2 className={style.title2}>Gestion des catégories</h2>
-      <ListComponent items={getCategoriesFull(categories, items)} />
+      <ListComponent
+        items={getCategoriesFull(categories, items, type)}
+        type={Type.CATEGORY}
+      />
       <h5>{message}</h5>
       <AddUpdateButton item={getEmptyCategoryFull(type)} />
     </div>

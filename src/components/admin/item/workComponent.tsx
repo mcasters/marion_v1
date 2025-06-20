@@ -94,11 +94,8 @@ export default function WorkComponent({
         </select>
       </label>
       <h4>{`Filtre : ${filteredItems.length} ${type}s`}</h4>
-      <ListComponent items={items} categories={categories} />
-      <AddUpdateButton
-        item={getEmptyItem(items[0].type)}
-        categories={categories}
-      />
+      <ListComponent items={items} categories={categories} type={type} />
+      <AddUpdateButton item={getEmptyItem(type)} categories={categories} />
     </div>
   );
 }

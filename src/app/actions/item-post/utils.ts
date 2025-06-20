@@ -30,6 +30,21 @@ export const deleteImages = async (filenamesToDelete: string, type: Type) => {
       await prisma.postImage.delete({
         where: { filename },
       });
+    const categoryContents = await prisma.categoryContent.findMany({
+      where: {
+        imageFilename: filename,
+      },
+    });
+    for await (const categoryContent of categoryContents) {
+      await prisma.categoryContent.update({
+        where: { id: categoryContent.id },
+        data: {
+          imageFilename: "",
+          imageWidth: 0,
+          imageHeight: 0,
+        },
+      });
+    }
   }
 };
 
@@ -42,7 +57,10 @@ export const getFilenameList = (images: [{ filename: string }]): string => {
   return string;
 };
 
-export const getData = async (type: Type, formData: FormData) => {
+export const createDataAndHandleFiles = async (
+  type: Type,
+  formData: FormData,
+) => {
   const rawFormData = Object.fromEntries(formData);
 
   await deleteImages(rawFormData.filenamesToDelete as string, type);

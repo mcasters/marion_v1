@@ -182,13 +182,14 @@ export const getHomeLayout = (metas: Map<string, string>): HomeLayout => {
 export const getCategoriesFull = (
   categories: Category[],
   items: workFull[],
+  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
 ): CategoryFull[] => {
   const map = new Map();
   categories.forEach((category) => {
     map.set(category.id, {
       ...category,
       type: "catégorie",
-      workType: items[0].type,
+      workType: type,
       images: [],
       count: 0,
     });

@@ -12,10 +12,10 @@ import { getMainImage } from "@/utils/commonUtils";
 
 interface Props {
   items: Item[];
+  type: Type;
   categories?: Category[];
 }
-export default function ListComponent({ items, categories }: Props) {
-  const type = items[0].type;
+export default function ListComponent({ items, type, categories }: Props) {
   const isCategory = type === Type.CATEGORY;
   const isPost = type === Type.POST;
   const isWork = !isCategory || !isPost;
@@ -56,7 +56,11 @@ export default function ListComponent({ items, categories }: Props) {
               raw1={item.title}
               raw2={new Date(item.date).getFullYear().toString()}
               raw3={itemCategory ? itemCategory.value : " "}
-              imageSrc={`/images/${item.type}/${item.images[0].filename}`}
+              imageSrc={
+                item.images[0]?.filename
+                  ? `/images/${type}/${item.images[0].filename}`
+                  : ""
+              }
               AddUpdateButton={
                 <AddUpdateButton item={item} categories={categories} />
               }
