@@ -156,6 +156,7 @@ export const queryAllCategories = async (
     include: {
       content: true,
     },
+    orderBy: { value: "asc" },
   });
 };
 
@@ -166,6 +167,6 @@ export const queryAllItems = async (
 
   return await model.findMany({
     include: type === Type.SCULPTURE ? { images: true } : undefined,
-    orderBy: { date: "asc" },
+    orderBy: [{ date: "desc" }, { title: "asc" }],
   });
 };
