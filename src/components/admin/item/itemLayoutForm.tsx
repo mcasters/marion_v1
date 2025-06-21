@@ -15,10 +15,12 @@ type Props = {
 
 export default function ItemLayoutForm({ type }: Props) {
   const metas = useMetas();
-  const [value, setValue] = useState<string>(
-    getItemLayout(metas, type).toString(),
-  );
   const alert = useAlert();
+  const [itemLayout, itemDarkBackground] = getItemLayout(metas, type);
+  const [layout, setLayout] = useState<string>(itemLayout.toString());
+  const [darkBackground, setDarkBackground] = useState<boolean>(
+    itemDarkBackground === 1,
+  );
   const [state, action] = useActionState(updateMeta, null);
 
   useEffect(() => {
@@ -42,18 +44,22 @@ export default function ItemLayoutForm({ type }: Props) {
                 : "drawingLayout"
           }
         />
-        <input type="hidden" name="text" value={value} />
+        <input type="hidden" name="layout" value={layout} />
+        <input
+          type="hidden"
+          name="darkBackground"
+          value={darkBackground ? "1" : "0"}
+        />
         {(type === Type.PAINTING || type === Type.DRAWING) && (
           <>
             <label className={s.layoutLabel}>
               <button
-                onClick={(e) => setValue(e.currentTarget.value)}
+                onClick={() => setLayout("0")}
                 className={
-                  value === "0"
+                  layout === "0"
                     ? `${s.buttonLayoutSelected} ${s.buttonLayout}`
                     : s.buttonLayout
                 }
-                value="0"
               >
                 <Image
                   src="/assets/mono-layout.png"
@@ -71,13 +77,12 @@ export default function ItemLayoutForm({ type }: Props) {
             </label>
             <label className={s.layoutLabel}>
               <button
-                onClick={(e) => setValue(e.currentTarget.value)}
+                onClick={() => setLayout("1")}
                 className={
-                  value === "1"
+                  layout === "1"
                     ? `${s.buttonLayoutSelected} ${s.buttonLayout}`
                     : s.buttonLayout
                 }
-                value="1"
               >
                 <Image
                   src="/assets/double-layout.png"
@@ -99,13 +104,12 @@ export default function ItemLayoutForm({ type }: Props) {
         {type === Type.SCULPTURE && (
           <label className={s.layoutLabel}>
             <button
-              onClick={(e) => setValue(e.currentTarget.value)}
+              onClick={() => setLayout("3")}
               className={
-                value === "3"
+                layout === "3"
                   ? `${s.buttonLayoutSelected} ${s.buttonLayout}`
                   : s.buttonLayout
               }
-              value="3"
             >
               <Image
                 src="/assets/sculpture-layout.png"
@@ -125,13 +129,12 @@ export default function ItemLayoutForm({ type }: Props) {
         )}
         <label className={s.layoutLabel}>
           <button
-            onClick={(e) => setValue(e.currentTarget.value)}
+            onClick={() => setLayout("2")}
             className={
-              value === "2"
+              layout === "2"
                 ? `${s.buttonLayoutSelected} ${s.buttonLayout}`
                 : s.buttonLayout
             }
-            value="2"
           >
             <Image
               src="/assets/gallery-layout.png"
@@ -146,6 +149,19 @@ export default function ItemLayoutForm({ type }: Props) {
             <br />
             {`Vision d'ensemble, toutes les œuvres sont ensemble, et leur description n'apparait que lorsqu'on pointe la souris, ou dans la "lightbox" (lorsqu'on ouvre l'image en grand).`}
           </p>
+        </label>
+        <br />
+        <br />
+        <label className={s.checkLabel}>
+          <button
+            onClick={() => setDarkBackground(!darkBackground)}
+            className={
+              darkBackground
+                ? `${s.buttonLayoutSelected} ${s.buttonDarkBackground}`
+                : `${s.buttonDarkBackground}`
+            }
+          />
+          <strong>Zone plus foncée derrière les œuvres</strong>
         </label>
       </form>
     </div>

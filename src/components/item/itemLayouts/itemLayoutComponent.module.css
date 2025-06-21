@@ -11,8 +11,11 @@
   .sculptureContent,
   .monoContent,
   .multipleContent {
-    background: var(--color-background-item);
     padding: 3em;
+  }
+
+  .darkBackground {
+    background: var(--overlayer);
   }
 
   .doubleContent {

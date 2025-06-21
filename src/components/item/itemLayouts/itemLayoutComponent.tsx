@@ -1,7 +1,7 @@
 "use client";
 
 import s from "./itemLayoutComponent.module.css";
-import { ItemLayout, Type, workFull } from "@/lib/type";
+import { ItemDarkBackground, ItemLayout, Type, workFull } from "@/lib/type";
 import React from "react";
 import MonoLayoutComponent from "@/components/item/itemLayouts/mono/monoLayoutComponent";
 import GalleryLayoutComponent from "@/components/item/itemLayouts/gallery/galleryLayoutComponent";
@@ -16,14 +16,16 @@ interface Props {
 }
 export default function ItemLayoutComponent({ items, type }: Props) {
   const metas = useMetas();
-  const layout = getItemLayout(metas, type);
+  const [itemLayout, itemDarkBackground] = getItemLayout(metas, type);
   return (
     <>
       {(() => {
-        switch (layout) {
+        switch (itemLayout) {
           case ItemLayout.MONO:
             return (
-              <div className={s.monoContent}>
+              <div
+                className={`${s.monoContent} ${itemDarkBackground === ItemDarkBackground.TRUE ? s.darkBackground : ""}`}
+              >
                 {items.map((item, i) => (
                   <MonoLayoutComponent key={i} item={item} priority={i < 2} />
                 ))}
@@ -31,7 +33,9 @@ export default function ItemLayoutComponent({ items, type }: Props) {
             );
           case ItemLayout.DOUBLE:
             return (
-              <div className={s.doubleContent}>
+              <div
+                className={`${s.doubleContent} ${itemDarkBackground === ItemDarkBackground.TRUE ? s.darkBackground : ""}`}
+              >
                 {items.map((item, i) => (
                   <DoubleLayoutComponent key={i} item={item} priority={i < 2} />
                 ))}
@@ -39,7 +43,9 @@ export default function ItemLayoutComponent({ items, type }: Props) {
             );
           case ItemLayout.SCULPTURE:
             return (
-              <div className={s.sculptureContent}>
+              <div
+                className={`${s.sculptureContent} ${itemDarkBackground === ItemDarkBackground.TRUE ? s.darkBackground : ""}`}
+              >
                 {items.map((item, i) => (
                   <SculptureLayoutComponent
                     key={i}
@@ -51,7 +57,9 @@ export default function ItemLayoutComponent({ items, type }: Props) {
             );
           case ItemLayout.MULTIPLE:
             return (
-              <div className={s.multipleContent}>
+              <div
+                className={`${s.multipleContent} ${itemDarkBackground === ItemDarkBackground.TRUE ? s.darkBackground : ""}`}
+              >
                 <GalleryLayoutComponent items={items} />
               </div>
             );

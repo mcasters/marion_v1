@@ -30,7 +30,6 @@ export const THEME_TARGET_LABEL = {
 
 export const COOKIE_NAME = "adminSession";
 
-/* SEO */
 export const META = {
   SITE_TITLE: "siteTitle",
   SITE_EMAIL: "siteEmail",

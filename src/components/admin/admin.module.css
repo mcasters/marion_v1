@@ -137,11 +137,18 @@
 /* End Select Image */
 
 /* Select Layout item */
-.buttonLayout {
+.buttonLayout, .buttonDarkBackground  {
   background: unset;
-  border: unset;
   border: solid 6px transparent;
   margin-right: 10px;
+}
+
+.buttonDarkBackground {
+  background: #ffffff;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 0 2px #6c6c6c ;
 }
 
 .buttonLayoutSelected {

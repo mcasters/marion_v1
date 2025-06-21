@@ -5,6 +5,7 @@ import {
   ContentFull,
   HomeLayout,
   Image,
+  ItemDarkBackground,
   ItemLayout,
   PostFull,
   Type,
@@ -164,15 +165,16 @@ export const getNoCategory = (): Category => {
 export const getItemLayout = (
   metas: Map<string, string>,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): ItemLayout => {
-  switch (type) {
-    case Type.PAINTING:
-      return parseInt(metas.get(META.PAINTING_LAYOUT) || "1");
-    case Type.SCULPTURE:
-      return parseInt(metas.get(META.SCULPTURE_LAYOUT) || "3");
-    case Type.DRAWING:
-      return parseInt(metas.get(META.DRAWING_LAYOUT) || "1");
-  }
+): [ItemLayout, ItemDarkBackground] => {
+  const metaLayout =
+    type === Type.PAINTING
+      ? metas.get(META.PAINTING_LAYOUT) || "1,1"
+      : type === Type.SCULPTURE
+        ? metas.get(META.SCULPTURE_LAYOUT) || "3,1"
+        : metas.get(META.DRAWING_LAYOUT) || "1,1";
+
+  const strings = metaLayout.split(",");
+  return [parseInt(strings[0]), parseInt(strings[1])];
 };
 
 export const getHomeLayout = (metas: Map<string, string>): HomeLayout => {

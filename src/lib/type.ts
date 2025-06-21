@@ -64,6 +64,11 @@ export enum ItemLayout {
   SCULPTURE,
 }
 
+export enum ItemDarkBackground {
+  FALSE,
+  TRUE,
+}
+
 export enum HomeLayout {
   PLAIN,
   NAV,
