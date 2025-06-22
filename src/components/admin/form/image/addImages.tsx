@@ -21,69 +21,18 @@ export default function AddImages({
   info,
 }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [newFilenames, setNewFilenames] = useState<string[]>([]);
+  const [urls, setUrls] = useState([]);
+  const [resizedFiles, setResizedFiles] = useState<File[]>([]);
   const [smallImageSelected, setSmallImageSelected] = useState<boolean>(false);
   const alert = useAlert();
 
   useEffect(() => {
-    setNewFilenames([]);
+    setUrls([]);
     setSmallImageSelected(false);
     if (inputRef.current) inputRef.current.value = "";
   }, [resetFlag]);
 
-  const handleFiles = async () => {
-    if (
-      !inputRef.current ||
-      !inputRef.current.files ||
-      inputRef.current.files.length === 0
-    )
-      return;
-    const filesUploaded = inputRef.current.files;
-    if (filesUploaded.length > 0) {
-      const files = Array.from(filesUploaded);
-      const newFiles: string[] = [];
-      let error = false;
-      let weight = 0;
-
-      for await (const file of files) {
-        weight += file.size;
-        if (weight > 30000000) {
-          error = true;
-          alert(
-            "La taille totale des fichiers excède la limite de sécurité (30 MB).\nAjouter moins de fichier à la fois.",
-            true,
-            5000,
-          );
-          break;
-        }
-
-        const bmp = await createImageBitmap(file);
-        const { width } = bmp;
-        if (!smallImageSelected && width < 2000) {
-          error = true;
-          alert(
-            `Dimension de l'image trop petite. Largeur minimum : 2000 pixels`,
-            true,
-            5000,
-          );
-          bmp.close();
-          break;
-        }
-        newFiles.push(URL.createObjectURL(file));
-        bmp.close();
-      }
-
-      if (!error && newFiles.length > 0) {
-        setNewFilenames(newFiles);
-        if (onNewImages) onNewImages(newFiles);
-      } else {
-        setNewFilenames([]);
-        setSmallImageSelected(false);
-        inputRef.current.value = "";
-        if (onNewImages) onNewImages([]);
-      }
-    }
-  };
+  const handleFiles = async () => {};
 
   return (
     <>
@@ -109,9 +58,7 @@ export default function AddImages({
         )}
       </div>
       <div className={s.previewAddContainer}>
-        {newFilenames.length > 0 && (
-          <Preview filenames={newFilenames} pathImage={""} />
-        )}
+        {urls.length > 0 && <Preview filenames={urls} pathImage={""} />}
       </div>
     </>
   );

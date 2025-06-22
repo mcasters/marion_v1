@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useActionState, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import { Category, Image, Type, workFull } from "@/lib/type";
 import { useAlert } from "@/app/context/alertProvider";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
-import ImageFormPart from "@/components/admin/form/image/imageFormPart";
 import { createItem, updateItem } from "@/app/actions/item-post/admin";
+import Preview from "@/components/admin/form/image/preview";
+import { constraintImage } from "@/components/admin/form/formUtils";
 
 interface Props {
   item: workFull;
@@ -19,32 +20,94 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
   const isUpdate = item.id !== 0;
   const isSculpture = item.type === Type.SCULPTURE;
   const alert = useAlert();
-
+  const inputRef = useRef<HTMLInputElement>(null);
   const [workItem, setWorkItem] = useState<workFull>(item);
   const [date, setDate] = useState<string>(
     new Date(item.date).getFullYear().toString(),
   );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
-  const [filenamesToAdd, setFilenamesToAdd] = useState<string[]>([]);
-  const [state, action] = useActionState(
-    isUpdate ? updateItem : createItem,
-    null,
-  );
+  const [smallImageSelected, setSmallImageSelected] = useState<boolean>(false);
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [resizedFiles, setResizedFiles] = useState<File[]>([]);
 
   useEffect(() => {
-    if (state) {
-      if (!state.isError) toggleModal();
-      alert(state.message, state.isError);
+    if (!isSculpture && item.images.length > 0 && resizedFiles.length > 0) {
+      setFilenamesToDelete([item.images[0].filename]);
     }
-  }, [state]);
+  }, [resizedFiles]);
+
+  const handleFiles = async () => {
+    const fileList = inputRef.current?.files;
+    if (fileList && fileList.length > 0) {
+      if (!isSculpture) {
+        setResizedFiles([]);
+        setPreviewImages([]);
+      }
+
+      const files = Array.from(fileList);
+      let error = false;
+      let weight = 0;
+
+      for (const file of files) {
+        weight += file.size;
+        if (weight > 30000000) {
+          error = true;
+          alert(
+            "La taille totale des fichiers excède la limite de sécurité (30 MB).\nAjouter moins de fichier à la fois.",
+            true,
+            5000,
+          );
+          break;
+        }
+        const bmp = await createImageBitmap(file);
+        const { width } = bmp;
+        if (!smallImageSelected && width < 2000) {
+          error = true;
+          alert(
+            `Dimension de l'image trop petite. Largeur minimum : 2000 pixels`,
+            true,
+            5000,
+          );
+          bmp.close();
+          break;
+        }
+
+        const resizedFile = await constraintImage(file);
+        setResizedFiles((prevState) => [...prevState, resizedFile]);
+        setPreviewImages((prevState) => [
+          ...prevState,
+          URL.createObjectURL(resizedFile),
+        ]);
+      }
+
+      if (error) {
+        setResizedFiles([]);
+        setPreviewImages([]);
+        setSmallImageSelected(false);
+        if (inputRef.current) inputRef.current.value = "";
+      }
+    }
+  };
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    resizedFiles.forEach((file) => formData.append("files", file));
+    const { message, isError } = isUpdate
+      ? await updateItem(null, formData)
+      : await createItem(null, formData);
+    alert(message, isError);
+    toggleModal();
+  };
 
   return (
     <div className={s.modalContainer}>
       <h2 className={s.modalTitle}>
         {`${isUpdate ? "Modifier" : "Ajouter"} ${item.type === Type.DRAWING ? "un" : "une"} ${item.type}`}
       </h2>
-      <form action={action}>
+      <form onSubmit={onSubmit}>
         <input type="hidden" name="type" value={item.type} />
+        <input type="hidden" name="blob" value={resizedFiles.toString()} />
         {isUpdate && (
           <>
             <input type="hidden" name="id" value={item.id} />
@@ -202,25 +265,43 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
             />
           </label>
         )}
-        <ImageFormPart
-          filenames={workItem.images.map((i: Image) => i.filename)}
-          type={item.type}
-          isMultiple={isSculpture}
-          acceptSmallImage={true}
-          onDelete={(filename) => {
-            const images = workItem.images.filter(
-              (i: Image) => i.filename !== filename,
-            );
-            setWorkItem({ ...workItem, images });
-            setFilenamesToDelete([...filenamesToDelete, filename]);
-          }}
-          onAdd={(filenames: string[]) => {
-            setFilenamesToAdd(filenames);
-            if (!isSculpture && item.images.length > 0)
-              setFilenamesToDelete([item.images[0].filename]);
-          }}
-          title={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
-        />
+        <div className={s.imagesContainer}>
+          <Preview
+            filenames={workItem.images.map((i: Image) => i.filename)}
+            pathImage={`/images/${item.type}`}
+            onDelete={(filename) => {
+              const images = workItem.images.filter(
+                (i: Image) => i.filename !== filename,
+              );
+              setWorkItem({ ...workItem, images });
+              setFilenamesToDelete([...filenamesToDelete, filename]);
+            }}
+            title={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
+          />
+          <div className={s.imageInputContainer}>
+            <input
+              type="file"
+              ref={inputRef}
+              onChange={handleFiles}
+              multiple={isSculpture}
+              accept="image/png, image/jpeg"
+            />
+            <label className={s.checkLabel}>
+              <input
+                type="checkbox"
+                checked={smallImageSelected}
+                onChange={() => setSmallImageSelected(!smallImageSelected)}
+                className={s.checkInput}
+              />
+              Accepter les images sous 2000 px de large
+            </label>
+          </div>
+          <div className={s.previewAddContainer}>
+            {previewImages.length > 0 && (
+              <Preview filenames={previewImages} pathImage={""} />
+            )}
+          </div>
+        </div>
         <div className={s.buttonSection}>
           <SubmitButton
             disabled={
@@ -230,7 +311,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
               workItem.height === 0 ||
               workItem.width === 0 ||
               (isSculpture && workItem.length === 0) ||
-              (filenamesToAdd.length === 0 && workItem.images.length === 0)
+              (resizedFiles.length === 0 && workItem.images.length === 0)
             }
           />
           <CancelButton onCancel={toggleModal} />

@@ -117,19 +117,22 @@ const addImages = async (
 ): Promise<FileInfo[] | null> => {
   const tab: FileInfo[] = [];
   const title = formData.get("title") as string;
-  const file = formData.get("file") as File;
   const files = formData.getAll("files") as File[];
   const dir = getDir(type);
 
-  if (file && file.size > 0) {
-    tab.push(
-      <FileInfo>await resizeAndSaveImage(file, title, dir, type === Type.POST),
-    );
-  }
   if (files.length > 0) {
     for await (const file of files) {
       if (file.size > 0) {
-        tab.push(<FileInfo>await resizeAndSaveImage(file, title, dir));
+        tab.push(
+          <FileInfo>(
+            await resizeAndSaveImage(
+              file,
+              title,
+              dir,
+              type === Type.POST && files.length === 1,
+            )
+          ),
+        );
       }
     }
   }

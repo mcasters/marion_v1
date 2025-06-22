@@ -54,116 +54,83 @@ export const resizeAndSaveImage = async (
 ) => {
   const titleString = transformValueToKey(title);
   const newFilename = `${titleString}-${Date.now()}.jpeg`;
-  const maxSize = 140000;
   const bytes = await file.arrayBuffer();
-  const buffer = Buffer.from(bytes);
-  const constraintImage = async (buffer: Buffer, quality = 90, drop = 5) => {
-    const done = await sharp(buffer)
-      .jpeg({
-        quality: Math.trunc(quality),
+  const imageBuffer = await sharp(Buffer.from(bytes))
+    .jpeg({ quality: 100 })
+    .toBuffer();
+
+  const sharpStream = sharp({ failOn: "none" });
+  const promises = [];
+
+  promises.push(
+    sharpStream
+      .clone()
+      .withMetadata({
+        exif: {
+          IFD0: {
+            Copyright: copyright,
+          },
+        },
       })
-      .toBuffer();
-    if (done.byteLength > maxSize) {
-      return constraintImage(buffer, quality - drop);
-    }
-    return done;
-  };
-
-  const image = await sharp(buffer);
-  const metadata = await image.metadata();
-
-  if (metadata.width && metadata.height) {
-    const ratio = metadata.width / metadata.height;
-    const isPortrait = ratio <= 1.02; // (keep 2000px width for square images)
-    const width = !isPortrait ? 2000 : null;
-    const height = isPortrait ? 1500 : null;
-
-    const imageBuffer = await sharp(buffer)
-      .resize(width, height, {
+      .toFile(`${dir}/${newFilename}`),
+  );
+  promises.push(
+    sharpStream
+      .clone()
+      .resize({
+        width: IMAGE.MD_PX,
         fit: sharp.fit.inside,
         withoutEnlargement: true,
       })
-      .jpeg({ quality: 100 })
-      .toBuffer();
-
-    let lightImageBuffer = imageBuffer;
-    if (imageBuffer.byteLength > maxSize)
-      lightImageBuffer = await constraintImage(imageBuffer);
-
-    const sharpStream = sharp({ failOn: "none" });
-    const promises = [];
-
-    promises.push(
-      sharpStream
-        .clone()
-        .withMetadata({
-          exif: {
-            IFD0: {
-              Copyright: copyright,
-            },
+      .withMetadata({
+        exif: {
+          IFD0: {
+            Copyright: copyright,
           },
-        })
-        .toFile(`${dir}/${newFilename}`),
-    );
-
-    promises.push(
-      sharpStream
-        .clone()
-        .resize({
-          width: IMAGE.MD_PX,
-          fit: sharp.fit.inside,
-          withoutEnlargement: true,
-        })
-        .withMetadata({
-          exif: {
-            IFD0: {
-              Copyright: copyright,
-            },
-          },
-        })
-        .toFile(`${dir}/md/${newFilename}`),
-    );
-
-    promises.push(
-      sharpStream
-        .clone()
-        .resize({
-          width: IMAGE.SM_PX,
-          fit: sharp.fit.inside,
-          withoutEnlargement: true,
-        })
-        .withMetadata({
-          exif: {
-            IFD0: {
-              Copyright: copyright,
-            },
-          },
-        })
-        .toFile(`${dir}/sm/${newFilename}`),
-    );
-
-    sharp(lightImageBuffer).pipe(sharpStream);
-
-    return Promise.all(promises)
-      .then((res) => {
-        const info = res[0];
-        return {
-          filename: newFilename,
-          width: info.width,
-          height: info.height,
-          isMain,
-        };
+        },
       })
-      .catch((err) => {
-        console.error(
-          "Erreur à l'écriture des fichiers images, nettoyage...",
-          err,
-        );
-        deleteFile(dir, newFilename);
-        return null;
-      });
-  }
-  return null;
+      .toFile(`${dir}/md/${newFilename}`),
+  );
+  promises.push(
+    sharpStream
+      .clone()
+      .resize({
+        width: IMAGE.SM_PX,
+        fit: sharp.fit.inside,
+        withoutEnlargement: true,
+      })
+      .withMetadata({
+        exif: {
+          IFD0: {
+            Copyright: copyright,
+          },
+        },
+      })
+      .toFile(`${dir}/sm/${newFilename}`),
+  );
+
+  sharp(imageBuffer).pipe(sharpStream);
+
+  return Promise.all(promises)
+    .then((res) => {
+      const info = res[0];
+      return {
+        filename: newFilename,
+        width: info.width,
+        height: info.height,
+        isMain,
+      };
+    })
+    .catch((err) => {
+      console.error(
+        "Erreur à l'écriture des fichiers images, nettoyage...",
+        err,
+      );
+      deleteFile(`${dir}/sm`, newFilename);
+      deleteFile(`${dir}/md`, newFilename);
+      deleteFile(dir, newFilename);
+      return null;
+    });
 };
 
 export const deleteFile = (dir: string, filename: string) => {
