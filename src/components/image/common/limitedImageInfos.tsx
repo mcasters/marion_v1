@@ -8,8 +8,8 @@ interface Props {
 }
 export default function LimitedImageInfos({ photo }: Props) {
   return (
-    <div>
-      {photo.title} - {new Date(photo.date).getFullYear()}
-    </div>
+    <>
+      <span>{photo.title}</span> - {new Date(photo.date).getFullYear()}
+    </>
   );
 }

@@ -7,7 +7,6 @@ import { getItemPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
 import ImageInfos from "@/components/image/common/imageInfos";
 import Image from "next/image";
-import { createPortal } from "react-dom";
 import Lightbox from "@/components/image/lightbox/lightbox";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
@@ -60,17 +59,12 @@ export default function SculptureLayoutComponent({ item, priority }: Props) {
               </div>
             );
           })}
-
-          {index >= 0 &&
-            createPortal(
-              <Lightbox
-                photos={photosForLightbox}
-                index={index}
-                onClose={() => setIndex(-1)}
-                isSmall={isSmall}
-              />,
-              document.body,
-            )}
+          <Lightbox
+            photos={photosForLightbox}
+            index={index}
+            onClose={() => setIndex(-1)}
+            isSmall={isSmall}
+          />
         </div>
       </figure>
       <figcaption className={s.infoContainer}>

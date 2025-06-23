@@ -31,7 +31,7 @@
     transition: transform 250ms ease-out;
   }
 
-  .infoContainer {
+/*  .infoContainer {
     display: block;
     position: absolute;
     top: 0;
@@ -49,7 +49,7 @@
     background-color: rgba(0, 0, 0, 0.7);
     font-weight: 700;
     transition: all 250ms ease-out;
-  }
+  }*/
 
   .article:hover .image {
     transform: scale(1.05);

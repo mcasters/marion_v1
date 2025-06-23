@@ -8,7 +8,6 @@ import { useMetas } from "@/app/context/metaProvider";
 import Image from "next/image";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
-import { createPortal } from "react-dom";
 import Lightbox from "@/components/image/lightbox/lightbox";
 import ImageInfos from "@/components/image/common/imageInfos";
 import { META } from "@/constants/admin";
@@ -65,16 +64,12 @@ export default function GalleryLayoutComponent({ items }: Props) {
           </article>
         );
       })}
-      {index >= 0 &&
-        createPortal(
-          <Lightbox
-            photos={photosForLightbox}
-            index={index}
-            onClose={() => setIndex(-1)}
-            isSmall={isSmall}
-          />,
-          document.body,
-        )}
+      <Lightbox
+        photos={photosForLightbox}
+        index={index}
+        onClose={() => setIndex(-1)}
+        isSmall={isSmall}
+      />
     </div>
   );
 }

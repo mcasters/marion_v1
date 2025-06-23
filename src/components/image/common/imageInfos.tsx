@@ -11,15 +11,13 @@ export default function ImageInfos({ item, isLightbox }: Props) {
   if (isLightbox) {
     return (
       <>
-        <h3>{item.title}</h3>
         <p>
-          <time>{new Date(item.date).getFullYear()}</time>
-          {`, ${item.technique}`}
+          <span>{item.title}</span>
+          {` - ${item.technique}`}
           {item.type === Type.SCULPTURE
-            ? `, ${item.height} x ${item.width} x ${item.length} cm`
-            : `, ${item.height} x ${item.width} cm`}
-          {item.description !== "" && <>{`, ${item.description}`}</>}
-          {item.isToSell && <>{`, prix : ${item.price} euros`}</>}
+            ? ` - ${item.height} x ${item.width} x ${item.length} cm - `
+            : ` - ${item.height} x ${item.width} cm - `}
+          <time>{new Date(item.date).getFullYear()}</time>
         </p>
       </>
     );
@@ -28,14 +26,12 @@ export default function ImageInfos({ item, isLightbox }: Props) {
       <>
         <h2>{item.title}</h2>
         <p>
-          <time>{new Date(item.date).getFullYear()}</time>
-          {", "}
           {item.technique}
-          {","}
-          <br />
           {item.type === Type.SCULPTURE
-            ? `${item.height} x ${item.width} x ${item.length} cm`
-            : `${item.height} x ${item.width} cm`}
+            ? ` - ${item.height} x ${item.width} x ${item.length} cm`
+            : ` - ${item.height} x ${item.width} cm`}
+          <br />
+          <time>{new Date(item.date).getFullYear()}</time>
         </p>
         {item.description !== "" && (
           <>
