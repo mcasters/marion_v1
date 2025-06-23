@@ -2,9 +2,9 @@
 
 import React from "react";
 import DeleteIcon from "@/components/icons/deleteIcon";
-import ImageWrapper from "@/components/admin/form/image/imageWrapper";
 import s from "@/components/admin/admin.module.css";
 import DeleteButton from "@/components/admin/form/deleteButton";
+import Image from "next/image";
 
 type Props = {
   filenames: string[];
@@ -28,10 +28,23 @@ export default function Preview({
       {title && <label className={s.formLabel}>{title}</label>}
       {filenames.map((filename) => (
         <div key={filename} className={s.previewContainer}>
-          <ImageWrapper
+          <div key={filename} className={s.imageWrapper}>
+            <Image
+              src={pathImage === "" ? filename : `${pathImage}/sm/${filename}`}
+              width={150}
+              height={150}
+              alt="Image de l'item"
+              unoptimized={true}
+              style={{
+                objectFit: "contain",
+                display: "block",
+              }}
+            />
+          </div>
+          {/*<ImageWrapper
             src={pathImage === "" ? filename : `${pathImage}/sm/${filename}`}
             alt="Image de l'item"
-          />
+          />*/}
           {onDelete && (
             <button
               onClick={(e) => {

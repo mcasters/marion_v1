@@ -103,9 +103,9 @@ async function updateImagePresentation(
 ) {
   const id = bdContent.id;
   const image = bdContent.images[0];
-  const file = formData.get("file") as File;
+  const files = formData.getAll("files") as File[];
 
-  if (file && file.size > 0) {
+  if (files.length > 0 && files[0].size > 0) {
     if (image) {
       const oldFilename = image.filename;
       deleteFile(getMiscellaneousDir(), oldFilename);
@@ -118,6 +118,6 @@ async function updateImagePresentation(
         },
       });
     }
-    await saveContentImage(id, file, "presentation", false);
+    await saveContentImage(id, files[0], "presentation", false);
   }
 }

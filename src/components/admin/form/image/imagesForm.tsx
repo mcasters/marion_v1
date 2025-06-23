@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useActionState, useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
-import AddImages from "@/components/admin/form/image/addImages";
 import { useAlert } from "@/app/context/alertProvider";
 import {
   deleteImageContent,
@@ -13,13 +12,14 @@ import s from "@/components/admin/admin.module.css";
 import { Image } from "@/lib/type";
 import Preview from "@/components/admin/form/image/preview";
 import { Label } from "@prisma/client";
+import ImageInput from "@/components/admin/form/image/imageInput";
 
 type Props = {
   images: Image[];
   isMultiple: boolean;
   label: Label;
   acceptSmallImage: boolean;
-  title?: string;
+  title: string;
   isMain?: boolean;
 };
 
@@ -32,37 +32,41 @@ export default function ImagesForm({
   isMain = false,
 }: Props) {
   const alert = useAlert();
-  const [state, action] = useActionState(updateImageContent, undefined);
-  const [reset, setReset] = useState(0);
+  const [resizedFiles, setResizedFiles] = useState<File[]>([]);
+  const [reset, setReset] = useState<number>(0);
 
-  const handleReset = () => setReset(reset + 1);
-
-  useEffect(() => {
-    if (state) {
-      alert(state.message, state.isError);
-      if (!state.isError) handleReset();
-    }
-  }, [state]);
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    resizedFiles.forEach((file) => formData.append("files", file));
+    const { message, isError } = await updateImageContent(undefined, formData);
+    alert(message, isError);
+    setResizedFiles([]);
+    setReset((prevState) => prevState + 1);
+  };
 
   return (
     <>
+      <label className={s.formLabel}>{title}</label>
       <Preview
         filenames={images.map((i) => i.filename)}
         pathImage="/images/miscellaneous"
         deleteAction={(filename) => deleteImageContent(filename)}
       />
-      <form action={action}>
+      <form onSubmit={onSubmit}>
         <input type="hidden" name="label" value={label} />
         <input type="hidden" name="isMain" value={isMain?.toString()} />
-        <AddImages
+        <ImageInput
+          key={reset}
           isMultiple={isMultiple}
           acceptSmallImage={acceptSmallImage}
-          resetFlag={reset}
-          info={title}
+          setResizedFiles={setResizedFiles}
         />
         <div className={s.buttonSection}>
           <SubmitButton />
-          <CancelButton onCancel={handleReset} />
+          <CancelButton
+            onCancel={() => setReset((prevState) => prevState + 1)}
+          />
         </div>
       </form>
     </>
