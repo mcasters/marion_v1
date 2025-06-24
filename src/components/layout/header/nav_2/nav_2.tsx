@@ -20,7 +20,7 @@ export default function Nav_2({ navLayout }: Props) {
   const owner = metas.get(META.SITE_TITLE);
 
   return (
-    <nav className={`${s[navLayout]} ${navLayout}`}>
+    <nav className={`${s[navLayout]} ${navLayout} nav2`}>
       <ul className={s.ul}>
         {MENU_2.map((menuItem) => {
           if (menuItem.TAG === "Home")
@@ -48,8 +48,8 @@ export default function Nav_2({ navLayout }: Props) {
             );
           return (
             <li key={menuItem.TAG}>
-              <Link href={menuItem.ROUTE} key={menuItem.TAG} legacyBehavior>
-                <a className="link">{menuItem.TAG}</a>
+              <Link href={menuItem.ROUTE} key={menuItem.TAG}>
+                {menuItem.TAG}
               </Link>
             </li>
           );
@@ -68,24 +68,6 @@ export default function Nav_2({ navLayout }: Props) {
         }
         .homeNavFix {
           background-color: ${theme.home.menu2.background + "aa"};
-        }
-        .homeNav .link {
-          color: ${theme.home.menu2.link};
-        }
-        .nav .link {
-          color: ${theme.other.menu2.link};
-        }
-        .itemNav .link {
-          color: ${theme.item.menu2.link};
-        }
-        .homeNav .link:hover {
-          color: ${theme.home.menu2.linkHover};
-        }
-        .nav .link:hover {
-          color: ${theme.other.menu2.linkHover};
-        }
-        .itemNav .link:hover {
-          color: ${theme.item.menu2.linkHover};
         }
       `}</style>
     </nav>

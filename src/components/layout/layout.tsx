@@ -110,6 +110,51 @@ export default function Layout({ introduction, children }: Props) {
         .linkColor {
           color: ${theme.other.main.link};
         }
+
+        .homeWrapper > header > .nav1 > ul > li > a {
+          color: ${theme.home.menu1.link};
+        }
+        .itemWrapper > header > .nav1 > ul > li > a {
+          color: ${theme.item.menu1.link};
+        }
+        .wrapper > header > .nav1 > ul > li > a {
+          color: ${theme.other.menu1.link};
+        }
+
+        .homeWrapper > header > .nav1 > ul > li > a:hover {
+          color: ${theme.home.menu1.linkHover};
+        }
+        .itemWrapper > header > .nav1 > ul > li > a:hover {
+          color: ${theme.item.menu1.linkHover};
+        }
+        .wrapper > header > .nav1 > ul > li > a:hover {
+          color: ${theme.other.menu1.linkHover};
+        }
+
+        .itemWrapper > header > .nav1 > ul > li > a.active {
+          border-bottom-color: ${theme.item.menu1.linkHover};
+        }
+
+        .homeWrapper > header > .nav2 > ul > li > a {
+          color: ${theme.home.menu2.link};
+        }
+        .itemWrapper > header > .nav2 > ul > li > a {
+          color: ${theme.item.menu2.link};
+        }
+        .wrapper > header > .nav2 > ul > li > a {
+          color: ${theme.other.menu2.link};
+        }
+
+        .homeWrapper > header > .nav2 > ul > li > a:hover {
+          color: ${theme.home.menu2.linkHover};
+        }
+        .itemWrapper > header > .nav2 > ul > li > a:hover {
+          color: ${theme.item.menu2.linkHover};
+        }
+        .wrapper > header > .nav2 > ul > li > a:hover {
+          color: ${theme.other.menu2.linkHover};
+        }
+
         .wrapper .icon {
           fill: ${theme.other.main.link};
         }
