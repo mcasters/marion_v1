@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es2020",
     "lib": [
+      "es2020",
       "dom",
       "dom.iterable",
       "esnext"
@@ -9,16 +10,19 @@
     "sourceMap": true,
     "outDir": "dist",
     "allowJs": true,
+    "module": "esnext",
     "skipLibCheck": true,
+    /* Bundler mode */
+    "moduleResolution": "node",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    /* Linting */
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
     "incremental": true,
     "paths": {
       "@/*": [
