@@ -1,17 +1,16 @@
 "use client";
 
 import s from "./postComponent.module.css";
-import Gallery from "@/components/image/gallery/gallery";
 import React, { useMemo, useState } from "react";
 import { PostFull } from "@/lib/type";
 import { getPostPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
 import Image from "next/image";
-import { createPortal } from "react-dom";
 import Lightbox from "@/components/image/lightbox/lightbox";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
 import { META } from "@/constants/admin";
+import Gallery from "@/components/image/gallery/gallery.tsx";
 
 interface Props {
   post: PostFull;
@@ -52,17 +51,13 @@ export default function PostComponent({ post }: Props) {
               title="Agrandir"
               className={s.mainPhoto}
             />
-
-            {index >= 0 &&
-              createPortal(
-                <Lightbox
-                  photos={[mainPhotoForLightbox]}
-                  index={index}
-                  onClose={() => setIndex(-1)}
-                  isSmall={isSmall}
-                />,
-                document.body,
-              )}
+            <Lightbox
+              photos={[mainPhotoForLightbox]}
+              index={index}
+              onClose={() => setIndex(-1)}
+              isSmall={isSmall}
+            />
+            ,
           </>
         )}
         <div className={s.postInfo}>

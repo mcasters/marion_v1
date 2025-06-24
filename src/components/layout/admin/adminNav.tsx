@@ -22,7 +22,6 @@ export default function AdminNav() {
                   href={item.ROUTE}
                   key={item.TAG}
                   className={isActive ? `${s.link} ${s.active}` : `${s.link}`}
-                  legacyBehavior={false}
                 >
                   {item.TAG}
                 </Link>

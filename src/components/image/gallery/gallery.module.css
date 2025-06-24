@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6px;
+  gap: 0.5em;
 }
 
 .image{
@@ -16,8 +16,13 @@
 
 /* desktop */
 @media (min-width: 769px) {
+  .container {
+    gap: 1em;
+  }
+
   .image{
     width: auto;
     height: 30vh;
+    transition: transform 250ms ease-out;
   }
 }

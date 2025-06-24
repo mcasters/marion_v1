@@ -2,7 +2,11 @@
 .sculptureContent,
 .monoContent,
 .multipleContent {
-  padding: 1em 0;
+  padding: 1em;
+}
+
+.darkBackground {
+  background: var(--overlayer);
 }
 
 /* desktop */
@@ -12,10 +16,6 @@
   .monoContent,
   .multipleContent {
     padding: 3em;
-  }
-
-  .darkBackground {
-    background: var(--overlayer);
   }
 
   .doubleContent {

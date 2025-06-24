@@ -207,7 +207,7 @@ export const getItemPhotoTab = (item: workFull, alt: string): PhotoTab => {
   return getPhotosFromImages(item.images, folder, alt, item.title, item.date);
 };
 
-export const getItemPhotoTabEnhanced = (
+export const getItemsPhotoTabEnhanced = (
   items: workFull[],
   alt: string,
 ): PhotoTabEnhanced => {
