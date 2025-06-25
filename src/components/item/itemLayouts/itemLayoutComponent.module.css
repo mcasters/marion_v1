@@ -6,7 +6,7 @@
 }
 
 .darkBackground {
-  background: var(--overlayer);
+  background: radial-gradient(var(--overlayer), transparent);
 }
 
 /* desktop */

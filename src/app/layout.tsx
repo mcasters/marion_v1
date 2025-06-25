@@ -10,15 +10,15 @@ import { getSession } from "@/app/lib/auth";
 import { getContentsFull } from "@/app/actions/contents";
 import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
-import { Cormorant, Cormorant_SC } from "next/font/google";
+import { Cormorant_SC, EB_Garamond } from "next/font/google";
 import { META } from "@/constants/admin";
 
 import { getStructHexaTheme } from "@/utils/serverUtils";
 
-const cormorant = Cormorant({
+const garamond = EB_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-serif-cormorant",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-serif-garamond",
 });
 
 const cormorantSC = Cormorant_SC({
@@ -66,7 +66,7 @@ export default async function RootLayout({
   const contents = await getContentsFull();
 
   return (
-    <html lang="fr" className={`${cormorant.variable} ${cormorantSC.variable}`}>
+    <html lang="fr" className={`${garamond.variable} ${cormorantSC.variable}`}>
       <body>
         <Providers
           session={session}
