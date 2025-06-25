@@ -54,8 +54,8 @@ export default function ListComponent({ items, type, categories }: Props) {
             <RowListComponent
               key={item.id}
               raw1={item.title}
-              raw2={new Date(item.date).getFullYear().toString()}
-              raw3={itemCategory ? itemCategory.value : " "}
+              raw2={itemCategory ? itemCategory.value : " "}
+              raw3={new Date(item.date).getFullYear().toString()}
               imageSrc={
                 item.images[0]?.filename
                   ? `/images/${type}/${item.images[0].filename}`

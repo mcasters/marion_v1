@@ -12,13 +12,11 @@
     "allowJs": true,
     "module": "esnext",
     "skipLibCheck": true,
-    /* Bundler mode */
     "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    /* Linting */
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
