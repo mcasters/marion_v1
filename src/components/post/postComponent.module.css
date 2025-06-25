@@ -24,7 +24,7 @@
   }
 
   .postContainer:first-of-type {
-    padding: 0 0 7em;
+    padding: 0 2em 7em;
   }
 
   .mainPhoto {
@@ -33,7 +33,7 @@
   }
 
   .postInfo {
-    padding-top: 2em;
+    padding: 2em 13em 0;
   }
 }
 
