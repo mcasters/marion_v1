@@ -20,7 +20,7 @@ export async function cacheDatas<S>(
   const res = isAdmin
     ? fn
     : unstable_cache(async () => fn(), [key], {
-        revalidate: 60 * 5,
+        revalidate: 60 * 2,
         tags: [key],
       });
   return res();
