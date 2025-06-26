@@ -1,6 +1,6 @@
 "use client";
 
-import { workFull } from "@/lib/type";
+import { WorkFull } from "@/lib/type";
 import React, { useMemo } from "react";
 import { getItemsPhotoTabEnhanced } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
@@ -8,7 +8,7 @@ import { META } from "@/constants/admin";
 import Gallery from "@/components/image/gallery/gallery.tsx";
 
 interface Props {
-  items: workFull[];
+  items: WorkFull[];
 }
 export default function GalleryLayoutComponent({ items }: Props) {
   const metas = useMetas();

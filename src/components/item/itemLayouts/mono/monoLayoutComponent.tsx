@@ -1,7 +1,7 @@
 "use client";
 
 import s from "./monoLayout.module.css";
-import { workFull } from "@/lib/type";
+import { WorkFull } from "@/lib/type";
 import React, { useMemo, useState } from "react";
 import { getItemPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
@@ -13,7 +13,7 @@ import { DEVICE } from "@/constants/image";
 import { META } from "@/constants/admin";
 
 interface Props {
-  item: workFull;
+  item: WorkFull;
   priority: boolean;
 }
 export default function MonoLayoutComponent({ item, priority }: Props) {

@@ -9,7 +9,7 @@ import {
   ItemLayout,
   PostFull,
   Type,
-  workFull,
+  WorkFull,
 } from "@/lib/type";
 import { Meta } from ".prisma/client";
 import { META } from "@/constants/admin";
@@ -89,7 +89,7 @@ export const getMainImage = (post: PostFull) => {
 
 export const getEmptyItem = (
   type: Type.SCULPTURE | Type.DRAWING | Type.PAINTING,
-): workFull => {
+): WorkFull => {
   return {
     id: 0,
     type,
@@ -183,7 +183,7 @@ export const getHomeLayout = (metas: Map<string, string>): HomeLayout => {
 
 export const getCategoriesFull = (
   categories: Category[],
-  items: workFull[],
+  items: WorkFull[],
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
 ): CategoryFull[] => {
   const map = new Map();

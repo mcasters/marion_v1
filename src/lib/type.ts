@@ -23,7 +23,7 @@ type SculptureFull = Prisma.Result<typeof prisma.sculpture, {}, any>;
 type DrawingFull = Prisma.Result<typeof prisma.drawing, {}, any>; // With Image[] field
 type CategoryContent = Prisma.Result<typeof prisma.categoryContent, {}, any>; // With Image field
 
-export type workFull = PaintingFull | SculptureFull | DrawingFull;
+export type WorkFull = PaintingFull | SculptureFull | DrawingFull;
 
 export type PostFull = {
   id: number;
@@ -48,7 +48,7 @@ export type CategoryFull = Category & {
   count: number;
 };
 
-export type Item = workFull | PostFull | CategoryFull;
+export type Item = WorkFull | PostFull | CategoryFull;
 
 export type Message = {
   id: number;
@@ -107,7 +107,7 @@ export type PhotoTab = {
 };
 
 export interface PhotoEnhanced extends Photo {
-  item: workFull;
+  item: WorkFull;
 }
 
 export type PhotoTabEnhanced = {

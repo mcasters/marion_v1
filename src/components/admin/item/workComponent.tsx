@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import s from "@/components/admin/adminList.module.css";
 import style from "@/components/admin/admin.module.css";
-import { Category, Type, workFull } from "@/lib/type";
+import { Category, Type, WorkFull } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import AddUpdateButton from "@/components/admin/form/addUpdateButton";
 import ListComponent from "@/components/admin/form/item/listComponent";
@@ -11,7 +11,7 @@ import ListComponent from "@/components/admin/form/item/listComponent";
 interface Props {
   categories: Category[];
   years: number[];
-  items: workFull[];
+  items: WorkFull[];
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 }
 export default function WorkComponent({
@@ -24,15 +24,15 @@ export default function WorkComponent({
 
   const [categoryFilter, setCategoryFilter] = useState<number>(-1);
   const [yearFilter, setYearFilter] = useState<number>(-1);
-  const [filteredItems, setFilteredItems] = useState<workFull[]>(items);
+  const [filteredItems, setFilteredItems] = useState<WorkFull[]>(items);
 
-  const filterByCategory = (_items: workFull[]): workFull[] => {
+  const filterByCategory = (_items: WorkFull[]): WorkFull[] => {
     if (categoryFilter === -1) return _items;
     else if (categoryFilter === 0) return _items.filter((i) => !i.categoryId);
     else return _items.filter((i) => i.categoryId === categoryFilter);
   };
 
-  const filterByYear = (_items: workFull[]): workFull[] => {
+  const filterByYear = (_items: WorkFull[]): WorkFull[] => {
     if (yearFilter === -1) return _items;
     else
       return _items.filter(

@@ -2,7 +2,7 @@
 
 import React, { FormEvent, useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
-import { Category, Image, Type, workFull } from "@/lib/type";
+import { Category, Image, Type, WorkFull } from "@/lib/type";
 import { useAlert } from "@/app/context/alertProvider";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
@@ -11,7 +11,7 @@ import Preview from "@/components/admin/form/image/preview";
 import ImageInput from "@/components/admin/form/image/imageInput";
 
 interface Props {
-  item: workFull;
+  item: WorkFull;
   toggleModal: () => void;
   categories?: Category[];
 }
@@ -20,7 +20,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
   const isUpdate = item.id !== 0;
   const isSculpture = item.type === Type.SCULPTURE;
   const alert = useAlert();
-  const [workItem, setWorkItem] = useState<workFull>(item);
+  const [workItem, setWorkItem] = useState<WorkFull>(item);
   const [date, setDate] = useState<string>(
     new Date(item.date).getFullYear().toString(),
   );

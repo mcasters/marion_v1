@@ -1,6 +1,6 @@
 "use server";
 
-import { Category, PostFull, Type, workFull } from "@/lib/type";
+import { Category, PostFull, Type, WorkFull } from "@/lib/type";
 import {
   KEYS,
   queryAllCategories,
@@ -45,7 +45,7 @@ export async function getCategories(
 export async function getItemsByYear(
   year: string,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): Promise<workFull[]> {
+): Promise<WorkFull[]> {
   const items = await cacheDatas(
     () => queryItemsByYear(type, year),
     `${KEYS[type].itemsByYear}-${year}`,
@@ -74,7 +74,7 @@ export async function getCategory(
 export async function getItemsByCategory(
   categoryKey: string,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): Promise<workFull[]> {
+): Promise<WorkFull[]> {
   const items = await cacheDatas(
     () => queryItemsByCategory(type, categoryKey),
     `${KEYS[type].itemsByCategory}-${categoryKey}`,
@@ -110,7 +110,7 @@ export async function getAllCategories(
 // FOR ADMIN
 export async function getAllItems(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): Promise<workFull[]> {
+): Promise<WorkFull[]> {
   const items = await queryAllItems(type);
 
   return JSON.parse(JSON.stringify(items));

@@ -1,13 +1,13 @@
 "use client";
 
-import { Category, Type, workFull } from "@/lib/type";
+import { Category, Type, WorkFull } from "@/lib/type";
 import React from "react";
 import s from "@/components/item/itemsPageComponent.module.css";
 import ItemLayoutComponent from "@/components/item/itemLayouts/itemLayoutComponent";
 
 interface Props {
   tag: string;
-  items: workFull[];
+  items: WorkFull[];
   category?: Category;
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 }
