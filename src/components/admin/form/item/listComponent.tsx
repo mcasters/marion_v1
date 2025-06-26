@@ -21,7 +21,9 @@ export default function ListComponent({ items, type, categories }: Props) {
   const isWork = !isCategory || !isPost;
 
   return (
-    <div className={`${s.categoryListWrapper} area`}>
+    <div
+      className={`${isCategory ? s.categoryListWrapper : s.itemListWrapper} ${s.listWrapper} area`}
+    >
       {items.map((item) => {
         if (isCategory) {
           const isNoCategory = item.key === "no-category";
