@@ -41,15 +41,15 @@ export default function WorkComponent({
   };
 
   useEffect(() => {
-    if (!years.includes(yearFilter)) setYearFilter(-1);
+    const yearFilterDeleted = !years.includes(yearFilter);
+    if (yearFilterDeleted) setYearFilter(-1);
   }, [years]);
 
   useEffect(() => {
-    function hasCategory() {
-      const tab = categories.find((category) => category.id === categoryFilter);
-      return !!tab;
-    }
-    if (!hasCategory()) setCategoryFilter(-1);
+    const categoryFilterDeleted = !categories.find(
+      (category) => category.id === categoryFilter,
+    );
+    if (categoryFilterDeleted) setCategoryFilter(-1);
   }, [categories]);
 
   useEffect(() => {
@@ -94,7 +94,11 @@ export default function WorkComponent({
         </select>
       </label>
       <h4>{`Filtre : ${filteredItems.length} ${type}s`}</h4>
-      <ListComponent items={items} categories={categories} type={type} />
+      <ListComponent
+        items={filteredItems}
+        categories={categories}
+        type={type}
+      />
       <AddUpdateButton item={getEmptyItem(type)} categories={categories} />
     </div>
   );
