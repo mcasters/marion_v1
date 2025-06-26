@@ -46,7 +46,7 @@ export const queryYears = async (
     select: {
       date: true,
     },
-    orderBy: { date: "asc" },
+    orderBy: { date: "desc" },
   });
 
   const years: number[] = [];
@@ -72,7 +72,7 @@ export const queryItemsByYear = async (
       },
     },
     include: type === Type.SCULPTURE ? { images: true } : undefined,
-    orderBy: { date: "asc" },
+    orderBy: { date: "desc" },
   });
 };
 
@@ -87,7 +87,7 @@ export const queryItemsByCategory = async (
       category: categoryKey === "no-category" ? null : { key: categoryKey },
     },
     include: type === Type.SCULPTURE ? { images: true } : undefined,
-    orderBy: { date: "asc" },
+    orderBy: { date: "desc" },
   });
 };
 
@@ -156,7 +156,7 @@ export const queryAllCategories = async (
     include: {
       content: true,
     },
-    orderBy: { value: "asc" },
+    orderBy: { value: "desc" },
   });
 };
 
