@@ -49,7 +49,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
       ? await updateItem(null, formData)
       : await createItem(null, formData);
     alert(message, isError);
-    toggleModal();
+    if (!isError) toggleModal();
   };
 
   return (

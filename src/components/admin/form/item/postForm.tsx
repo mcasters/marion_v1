@@ -53,7 +53,7 @@ export default function PostForm({ post, toggleModal }: Props) {
       ? await updateItem(null, formData)
       : await createItem(null, formData);
     alert(message, isError);
-    toggleModal();
+    if (!isError) toggleModal();
   };
 
   return (
