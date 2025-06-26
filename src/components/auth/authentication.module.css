@@ -3,7 +3,6 @@
   top: 15px;
   left: 15px;
   z-index: 15;
-  width: 180px;
   background-color: var(--background-color-auth-status);
   color: var(--color-auth-status);
   padding: 2px;
