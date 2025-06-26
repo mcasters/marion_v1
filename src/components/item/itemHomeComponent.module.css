@@ -19,14 +19,12 @@
   display: block;
   position: relative;
   border: solid 1px;
-  transition: all 250ms ease-out;
 }
 
 .categoryLink {
   background: none;
   width: 150px;
   height: 150px;
-  transition: all 250ms ease-out;
   overflow: hidden;
 }
 
@@ -54,10 +52,6 @@
   bottom: 0;
 }
 
-.imageOverLayer {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
 /* desktop */
 @media (min-width: 769px) {
   .tagTitle {
@@ -69,11 +63,23 @@
     padding: 2em 5em 3em;
   }
 
+  .link:hover {
+    border: solid 3px;
+    transition: all 250ms ease-out;
+  }
+
   .categoryLink {
     width: 250px;
     height: 250px;
     font-size: var(--font-size-nav2);
     overflow: hidden;
+  }
+
+  .yearLink {
+    width: 100px;
+    height: 60px;
+    box-shadow: none;
+    transition: all 250ms ease-out;
   }
 
   .image {
@@ -85,27 +91,5 @@
   .categoryLink:hover .image {
     transform: scale(1.05);
     transform-origin: center;
-  }
-
-  .imageOverLayer {
-    background-color: rgba(0, 0, 0, 0.3);
-    transition: all 250ms ease-out;
-  }
-
-  .imageOverLayer:hover {
-    background-color: rgba(0, 0, 0, 0.6);
-  }
-
-  .yearLink {
-    width: 100px;
-    height: 60px;
-    box-shadow: none;
-    transition: all 250ms ease-out;
-  }
-
-  .noImageOverLayer:hover,
-  .yearLink:hover {
-    box-shadow: inset 0 0 0 2px;
-    transition: all 250ms ease-out;
   }
 }
