@@ -4,12 +4,6 @@
   white-space: pre-line;
 }
 
-.photo {
-  padding: 1em;
-  height: 40vh;
-  width: auto;
-}
-
 .presentationText {
   padding-top: 3em;
 }
@@ -20,10 +14,5 @@
     max-width: 42vw;
     margin: auto;
     text-align: left;
-  }
-
-  .photo {
-    padding: 2em;
-    height: 45vh;
   }
 }

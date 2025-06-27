@@ -10,40 +10,12 @@
 .infoContainer {
   white-space: pre-line;
   line-height: 1;
+  margin-top: 0.5em;
 }
 
 /* desktop */
 @media (min-width: 769px) {
   .article {
     padding: 0 0 5em;
-  }
-}
-
-.landscape,
-.portrait {
-  margin-bottom: 0.5em;
-  cursor: pointer;
-}
-
-.landscape {
-  width: 80vw;
-  height: auto;
-}
-
-.portrait {
-  height: 45vh;
-  width: auto;
-}
-
-/* desktop */
-@media (min-width: 769px) {
-  .landscape {
-    width: 32vw;
-    height: auto;
-  }
-
-  .portrait {
-    height: 52vh;
-    width: auto;
   }
 }

@@ -41,15 +41,13 @@ export default function Preview({
               }}
             />
           </div>
-          {/*<ImageWrapper
-            src={pathImage === "" ? filename : `${pathImage}/sm/${filename}`}
-            alt="Image de l'item"
-          />*/}
           {onDelete && (
             <button
               onClick={(e) => {
                 e.preventDefault();
-                onDelete(filename);
+                if (onDelete) {
+                  onDelete(filename);
+                }
               }}
               className="iconButton"
               aria-label="Supprimer"

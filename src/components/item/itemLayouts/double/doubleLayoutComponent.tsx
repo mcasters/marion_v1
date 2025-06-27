@@ -6,11 +6,11 @@ import React, { useMemo, useState } from "react";
 import { getItemPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
 import ImageInfos from "@/components/image/common/imageInfos";
-import Image from "next/image";
 import Lightbox from "@/components/image/lightbox/lightbox";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
 import { META } from "@/constants/admin";
+import FormattedImage from "@/components/image/formattedImage.tsx";
 
 interface Props {
   item: WorkFull;
@@ -29,34 +29,23 @@ export default function DoubleLayoutComponent({ item, priority }: Props) {
       ),
     [item],
   );
-  const photosForButton = isSmall ? photos.sm : photos.md;
-  const photosForLightbox = isSmall ? photos.md : photos.lg;
+  const photosForButton = isSmall ? photos.sm[0] : photos.md[0];
+  const photosForLightbox = isSmall ? photos.md[0] : photos.lg[0];
 
   return (
     <article className={s.article}>
       <figure>
-        {photosForButton.map((p, index) => {
-          const ratio = Math.round((p.width / p.height) * 10000);
-          return (
-            <Image
-              key={p.src}
-              src={p.src}
-              width={p.width}
-              height={p.height}
-              priority={priority}
-              style={{ objectFit: "contain" }}
-              alt={p.alt}
-              unoptimized
-              className={`${ratio >= 10300 ? s.landscape : s.portrait}`}
-              onClick={() => {
-                setIndex(index);
-              }}
-              title="Agrandir"
-            />
-          );
-        })}
+        {photosForButton && (
+          <FormattedImage
+            photo={photosForButton}
+            priority={priority}
+            onClick={() => setIndex(0)}
+            maxWidth={isSmall ? 80 : 32}
+            maxHeight={isSmall ? 45 : 52}
+          />
+        )}
         <Lightbox
-          photos={photosForLightbox}
+          photos={[photosForLightbox]}
           index={index}
           onClose={() => setIndex(-1)}
           isSmall={isSmall}

@@ -1,5 +1,5 @@
 .article {
-  padding: 0 0 3em;
+  padding: 0 0 4em;
 }
 
 .infoContainer h2 {
@@ -10,13 +10,11 @@
 .infoContainer {
   white-space: pre-line;
   line-height: 1;
+  padding-top: 0.3em;
 }
 
 /* desktop */
 @media (min-width: 769px) {
-  .article {
-    padding-bottom: 1em;
-  }
   .imageContainer {
     display: inline-block;
     text-align: right;
@@ -37,39 +35,5 @@
     font-weight: 700;
     letter-spacing: 3px;
     font-size: var(--font-size-nav2);
-  }
-}
-
-.landscape,
-.portrait {
-  margin-bottom: 0.5em;
-  cursor: pointer;
-}
-
-.landscape {
-  width: 80vw;
-  height: auto;
-}
-
-.portrait {
-  height: 45vh;
-  width: auto;
-}
-
-/* desktop */
-@media (min-width: 769px) {
-  .landscape,
-  .portrait {
-    margin-bottom: 0;
-  }
-
-  .landscape {
-    width: 45vw;
-    height: auto;
-  }
-
-  .portrait {
-    height: 58vh;
-    width: auto;
   }
 }

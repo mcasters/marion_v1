@@ -6,11 +6,11 @@ import React, { useMemo, useState } from "react";
 import { getItemPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
 import ImageInfos from "@/components/image/common/imageInfos";
-import Image from "next/image";
 import Lightbox from "@/components/image/lightbox/lightbox";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
 import { META } from "@/constants/admin";
+import FormattedImage from "@/components/image/formattedImage.tsx";
 
 interface Props {
   item: WorkFull;
@@ -38,23 +38,15 @@ export default function SculptureLayoutComponent({ item, priority }: Props) {
       <figure>
         <div className={s.imageGridContainer}>
           {photosForButton.map((p, index) => {
-            const ratio = Math.round((p.width / p.height) * 10000);
             const onLeft = index % 2 === 0;
             return (
-              <div key={p.src} className={`${onLeft ? s.left : s.right}`}>
-                <Image
-                  src={p.src}
-                  width={p.width}
-                  height={p.height}
+              <div key={index} className={`${onLeft ? s.left : s.right}`}>
+                <FormattedImage
+                  photo={p}
                   priority={priority}
-                  style={{ objectFit: "contain" }}
-                  alt={p.alt}
-                  unoptimized
-                  className={`${ratio >= 10300 ? s.landscape : s.portrait}`}
-                  onClick={() => {
-                    setIndex(index);
-                  }}
-                  title="Agrandir"
+                  onClick={() => setIndex(index)}
+                  maxWidth={isSmall ? 80 : 25}
+                  maxHeight={isSmall ? 45 : 40}
                 />
               </div>
             );

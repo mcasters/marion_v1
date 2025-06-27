@@ -12,27 +12,15 @@
   line-height: 1;
 }
 
+.left, .right {
+  margin-bottom: 0.5em;
+}
+
 /* desktop */
 @media (min-width: 769px) {
   .article {
     padding: 0 0 5em;
   }
-}
-
-.landscape,
-.portrait {
-  margin-bottom: 0.5em;
-  cursor: pointer;
-}
-
-.landscape {
-  width: 80vw;
-  height: auto;
-}
-
-.portrait {
-  height: 45vh;
-  width: auto;
 }
 
 /* desktop */
@@ -46,24 +34,11 @@
 
   .left {
     text-align: right;
+    margin-bottom: 0;
   }
 
   .right {
     text-align: left;
-  }
-
-  .landscape,
-  .portrait {
     margin-bottom: 0;
-  }
-
-  .landscape {
-    width: 30vw;
-    height: auto;
-  }
-
-  .portrait {
-    height: 50vh;
-    width: auto;
   }
 }

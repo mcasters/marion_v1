@@ -5,12 +5,12 @@ import React, { useMemo, useState } from "react";
 import { PostFull } from "@/lib/type";
 import { getPostPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
-import Image from "next/image";
-import Lightbox from "@/components/image/lightbox/lightbox";
 import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
 import { META } from "@/constants/admin";
 import Gallery from "@/components/image/gallery/gallery.tsx";
+import FormattedImage from "@/components/image/formattedImage.tsx";
+import Lightbox from "@/components/image/lightbox/lightbox.tsx";
 
 interface Props {
   post: PostFull;
@@ -37,19 +37,12 @@ export default function PostComponent({ post }: Props) {
       <article className={s.postContainer}>
         {mainPhotoForButton && (
           <>
-            <Image
-              src={mainPhotoForButton.src}
-              width={mainPhotoForButton.width}
-              height={mainPhotoForButton.height}
+            <FormattedImage
+              photo={mainPhotoForButton}
               priority={true}
-              style={{ objectFit: "contain" }}
-              alt={mainPhotoForButton.alt}
-              unoptimized
-              onClick={() => {
-                setIndex(0);
-              }}
-              title="Agrandir"
-              className={s.mainPhoto}
+              onClick={() => setIndex(0)}
+              maxWidth={isSmall ? 65 : 30}
+              maxHeight={isSmall ? 35 : 50}
             />
             <Lightbox
               photos={[mainPhotoForLightbox]}
@@ -57,7 +50,6 @@ export default function PostComponent({ post }: Props) {
               onClose={() => setIndex(-1)}
               isSmall={isSmall}
             />
-            ,
           </>
         )}
         <div className={s.postInfo}>

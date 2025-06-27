@@ -2,7 +2,6 @@
 
 import s from "./presentationComponent.module.css";
 import React, { useMemo } from "react";
-import Image from "next/image";
 import { DEVICE } from "@/constants/image";
 import { ContentFull } from "@/lib/type";
 import useWindowSize from "@/components/hooks/useWindowSize";
@@ -10,6 +9,7 @@ import { getContentPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
 
 import { META } from "@/constants/admin";
+import FormattedImage from "@/components/image/formattedImage.tsx";
 
 interface Props {
   presentationContent: ContentFull | null;
@@ -35,17 +35,11 @@ export default function PresentationComponent({
     <>
       <section className={s.contentWrapper}>
         {photo && (
-          <Image
-            src={photo.src}
-            width={photo.width}
-            height={photo.height}
-            alt={photo.alt}
-            className={s.photo}
-            style={{
-              objectFit: "contain",
-            }}
+          <FormattedImage
+            photo={photo}
             priority
-            unoptimized
+            maxWidth={isSmall ? 80 : 35}
+            maxHeight={isSmall ? 40 : 40}
           />
         )}
 
