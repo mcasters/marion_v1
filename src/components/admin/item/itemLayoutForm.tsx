@@ -72,7 +72,7 @@ export default function ItemLayoutForm({ type }: Props) {
               <p>
                 <strong>{`Une seule image dans la largeur :`}</strong>
                 <br />
-                {`Les œuvres se suivent, leur description est à côté.`}
+                {`Les œuvres se suivent, l'image est plus grande, et la description est à côté.`}
               </p>
             </label>
             <label className={s.layoutLabel}>
@@ -123,7 +123,7 @@ export default function ItemLayoutForm({ type }: Props) {
               <strong>{`Images de la sculpture groupées :`}</strong>
               <br />
               {`Les sculptures sont individualisées, leur description est en
-              dessous.`}
+              dessous. Les images d'une même œuvre étant groupées ensemble, il est plus joli qu'elles aient toutes le même ratio (rapport largeur/hauteur)`}
             </p>
           </label>
         )}
@@ -147,7 +147,7 @@ export default function ItemLayoutForm({ type }: Props) {
           <p>
             <strong>{`Galerie : toutes les images s'imbriquent :`}</strong>
             <br />
-            {`Vision d'ensemble, toutes les œuvres sont ensemble, et leur description n'apparait que lorsqu'on pointe la souris, ou dans la "lightbox" (lorsqu'on ouvre l'image en grand).`}
+            {`Vision d'ensemble, toutes les œuvres sont ensembles, et leur description n'apparait que lorsqu'on ouvre la "lightbox" (lorsqu'on clic sur l'image et qu'elle s'affiche en grand sur fond noir).`}
           </p>
         </label>
         <br />

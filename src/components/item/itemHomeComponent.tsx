@@ -16,7 +16,7 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
   const theme = useTheme();
   return (
     <>
-      <p className={`${s.tagTitle}`}>Catégories :</p>`
+      <p className={`${s.tagTitle}`}>Par catégories :</p>`
       <ul className={s.ul}>
         {categories.map((category) => {
           const content = category.content;
@@ -57,7 +57,7 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
           );
         })}
       </ul>
-      <p className={`${s.tagTitle}`}>Années :</p>
+      <p className={`${s.tagTitle}`}>Par années :</p>
       <ul className={s.ul}>
         {years.map((year) => {
           return (

@@ -9,6 +9,7 @@ import CancelButton from "@/components/admin/form/cancelButton";
 import { createItem, updateItem } from "@/app/actions/item-post/admin";
 import Preview from "@/components/admin/form/image/preview";
 import ImageInput from "@/components/admin/form/image/imageInput";
+import { format } from "date-fns/format";
 
 interface Props {
   item: WorkFull;
@@ -21,10 +22,13 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
   const isSculpture = item.type === Type.SCULPTURE;
   const alert = useAlert();
   const [workItem, setWorkItem] = useState<WorkFull>(item);
-  const [date, setDate] = useState<string>(item.date.split("T")[0]);
+  const [date, setDate] = useState<string>(
+    format(new Date(item.date), "yyyy-MM-dd"),
+  );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const [resizedFiles, setResizedFiles] = useState<File[]>([]);
 
+  console.log(format(new Date(item.date), "yyyy-MM-dd"));
   useEffect(() => {
     if (!isSculpture && workItem.images.length > 0 && resizedFiles.length > 0) {
       handleDelete(workItem.images[0].filename);
