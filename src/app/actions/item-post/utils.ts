@@ -69,7 +69,7 @@ export const createDataAndHandleFiles = async (
   if (type === Type.POST)
     return {
       title: rawFormData.title as string,
-      date: new Date(Number(rawFormData.date), 1),
+      date: new Date(rawFormData.date as string),
       text: rawFormData.text as string,
       images: newImages
         ? {
@@ -81,7 +81,7 @@ export const createDataAndHandleFiles = async (
     const isSculpture = type === Type.SCULPTURE;
     return {
       title: rawFormData.title as string,
-      date: new Date(Number(rawFormData.date), 1),
+      date: new Date(rawFormData.date as string),
       technique: rawFormData.technique as string,
       description: rawFormData.description as string,
       height: Number(rawFormData.height),

@@ -23,7 +23,6 @@
     "@prisma/client": "^6.6.0",
     "bcryptjs": "^3.0.0",
     "cross-env": "^7.0.3",
-    "date-fns": "^4.1.0",
     "express": "^5.1.0",
     "jose": "^6.0.10",
     "next": "15.3.4",

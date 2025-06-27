@@ -72,7 +72,7 @@ export const queryItemsByYear = async (
       },
     },
     include: type === Type.SCULPTURE ? { images: true } : undefined,
-    orderBy: [{ date: "desc" }, { title: "desc" }],
+    orderBy: { date: "desc" },
   });
 };
 
@@ -87,7 +87,7 @@ export const queryItemsByCategory = async (
       category: categoryKey === "no-category" ? null : { key: categoryKey },
     },
     include: type === Type.SCULPTURE ? { images: true } : undefined,
-    orderBy: [{ date: "desc" }, { title: "desc" }],
+    orderBy: { date: "desc" },
   });
 };
 
@@ -167,6 +167,6 @@ export const queryAllItems = async (
 
   return await model.findMany({
     include: type === Type.SCULPTURE ? { images: true } : undefined,
-    orderBy: [{ date: "desc" }, { title: "desc" }],
+    orderBy: { date: "desc" },
   });
 };

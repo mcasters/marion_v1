@@ -21,9 +21,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
   const isSculpture = item.type === Type.SCULPTURE;
   const alert = useAlert();
   const [workItem, setWorkItem] = useState<WorkFull>(item);
-  const [date, setDate] = useState<string>(
-    new Date(item.date).getFullYear().toString(),
-  );
+  const [date, setDate] = useState<string>(item.date.split("T")[0]);
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const [resizedFiles, setResizedFiles] = useState<File[]>([]);
 
@@ -113,15 +111,13 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
           </select>
         </label>
         <label className={s.formLabel}>
-          Année
+          Date
           <input
             onChange={(e) => {
               setDate(e.target.value);
             }}
             name="date"
-            type="number"
-            min={1980}
-            max={2100}
+            type="date"
             value={date}
             required
           />

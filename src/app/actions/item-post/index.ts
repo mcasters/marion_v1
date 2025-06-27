@@ -88,6 +88,7 @@ export async function getPostsFull(): Promise<PostFull[]> {
     async () =>
       await prisma.post.findMany({
         include: { images: true },
+        orderBy: { title: "desc" },
       }),
     "posts",
   );
