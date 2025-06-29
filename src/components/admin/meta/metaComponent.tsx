@@ -18,9 +18,9 @@ export default function MetaComponent({ metas }: Props) {
     return (
       <div key={key}>
         <MetaForm
-          textContent={metas.get(key) || ""}
-          textLabel={value}
-          label={key}
+          content={metas.get(key) || ""}
+          label={value}
+          dbLabel={key}
           isTextArea={key.startsWith("description") || key === "keywords"}
         />
         {separate && (

@@ -7,7 +7,7 @@ import {
   getAllItems,
   getYears,
 } from "@/app/actions/item-post";
-import ItemLayoutForm from "@/components/admin/item/itemLayoutForm";
+import ItemLayoutForm from "@/components/admin/form/item/itemLayoutForm.tsx";
 import CategoryComponent from "@/components/admin/item/categoryComponent";
 
 export default async function Peintures() {

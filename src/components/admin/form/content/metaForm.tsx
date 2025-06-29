@@ -8,18 +8,18 @@ import { useAlert } from "@/app/context/alertProvider";
 import { updateMeta } from "@/app/actions/meta/admin";
 
 interface Props {
-  textContent: string;
+  content: string;
+  dbLabel: string;
   label: string;
-  textLabel: string;
   isTextArea: boolean;
 }
 export default function MetaForm({
-  textContent,
+  content,
+  dbLabel,
   label,
-  textLabel,
   isTextArea,
 }: Props) {
-  const [text, setText] = useState<string>(textContent);
+  const [text, setText] = useState<string>(content);
   const [isChanged, setIsChanged] = useState(false);
   const alert = useAlert();
   const [state, action] = useActionState(updateMeta, null);
@@ -34,9 +34,9 @@ export default function MetaForm({
   return (
     <>
       <form action={action} className={s.metaForm}>
-        <input type="hidden" name="label" value={label} />
+        <input type="hidden" name="label" value={dbLabel} />
         <label className={s.formLabel}>
-          {textLabel}
+          {label}
           {isTextArea ? (
             <textarea
               name="text"
@@ -59,10 +59,7 @@ export default function MetaForm({
           )}
         </label>
         <SubmitButton disabled={!isChanged} />
-        <CancelButton
-          disabled={!isChanged}
-          onCancel={() => setText(textContent)}
-        />
+        <CancelButton disabled={!isChanged} onCancel={() => setText(content)} />
       </form>
     </>
   );

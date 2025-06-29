@@ -2,12 +2,12 @@
 
 import React, { useActionState, useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
-import { useAlert } from "@/app/context/alertProvider";
-import { updateMeta } from "@/app/actions/meta/admin";
-import { Type } from "@/lib/type";
+import { useAlert } from "@/app/context/alertProvider.tsx";
+import { updateMeta } from "@/app/actions/meta/admin.ts";
+import { Type } from "@/lib/type.ts";
 import Image from "next/image";
-import { getItemLayout } from "@/utils/commonUtils";
-import { useMetas } from "@/app/context/metaProvider";
+import { getItemLayout } from "@/utils/commonUtils.ts";
+import { useMetas } from "@/app/context/metaProvider.tsx";
 
 type Props = {
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;

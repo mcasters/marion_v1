@@ -72,7 +72,7 @@ export const META = {
   DESCRIPTION_CONTACT: "descriptionContact",
 };
 
-export const SEO = {
+export const SEO: { [key: string]: string } = {
   [META.SEO_SITE_TITLE]: "Titre du site",
   [META.URL]: "Url du site",
   [META.KEYWORDS]: "Mots clés",
