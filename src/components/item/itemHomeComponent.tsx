@@ -30,28 +30,23 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
                 title={`Catégorie ${category.value}`}
               >
                 {!noImage && (
-                  <Image
-                    src={`/images/${type}/sm/${content.image.filename}`}
-                    width={content.image.width}
-                    height={content.image.height}
-                    alt=""
-                    style={{
-                      objectFit: "cover",
-                    }}
-                    priority
-                    unoptimized
-                    className={s.image}
-                  />
+                  <>
+                    <Image
+                      src={`/images/${type}/sm/${content.image.filename}`}
+                      width={content.image.width}
+                      height={content.image.height}
+                      alt=""
+                      style={{
+                        objectFit: "cover",
+                      }}
+                      priority
+                      unoptimized
+                      className={s.image}
+                    />
+                    <p>{category.value}</p>
+                  </>
                 )}
-                <div
-                  className={
-                    noImage
-                      ? s.noImageOverLayer
-                      : `${s.imageOverLayer} imageOverLayer`
-                  }
-                >
-                  {category.value}
-                </div>
+                {noImage && <>{category.value}</>}
               </Link>
             </li>
           );
@@ -67,7 +62,7 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
                 className={`${s.link} ${s.yearLink}`}
                 title={`Année ${year}`}
               >
-                <div className={s.noImageOverLayer}>{year}</div>
+                {year}
               </Link>
             </li>
           );

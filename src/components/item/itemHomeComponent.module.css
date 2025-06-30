@@ -16,22 +16,19 @@
 }
 
 .link {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
+  box-sizing: content-box;
+  font-size: var(--font-size-nav2);
   border: solid 1px;
 }
 
 .categoryLink {
-  background: none;
   width: 150px;
   height: 150px;
   overflow: hidden;
-}
-
-.yearLink {
-  width: 80px;
-  height: 50px;
-  padding: 1em;
 }
 
 .image {
@@ -39,17 +36,19 @@
   height: 150px;
 }
 
-.noImageOverLayer,
-.imageOverLayer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.categoryLink p {
   position: absolute;
-  font-weight: 700;
-  top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  padding-top: 25px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  font-size: var(--font-size-nav1);
+}
+
+.yearLink {
+  width: 80px;
+  height: 50px;
 }
 
 /* desktop */
@@ -64,32 +63,28 @@
   }
 
   .link:hover {
-    border: solid 3px;
-    transition: all 250ms ease-out;
+    transition: all 0.4s ease-out;
   }
 
   .categoryLink {
     width: 250px;
     height: 250px;
-    font-size: var(--font-size-nav2);
-    overflow: hidden;
+  }
+
+  .image {
+    width: 250px;
+    height: 250px;
+    transition: transform 0.4s ease-out;
+  }
+
+  .categoryLink:hover .image {
+    transform: scale(1.05);
+    transform-origin: center;
   }
 
   .yearLink {
     width: 100px;
     height: 60px;
     box-shadow: none;
-    transition: all 250ms ease-out;
-  }
-
-  .image {
-    width: 250px;
-    height: 250px;
-    transition: transform 250ms ease-out;
-  }
-
-  .categoryLink:hover .image {
-    transform: scale(1.05);
-    transform-origin: center;
   }
 }
