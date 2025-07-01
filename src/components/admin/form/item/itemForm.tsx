@@ -28,14 +28,13 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
   const [resizedFiles, setResizedFiles] = useState<File[]>([]);
 
-  console.log(format(new Date(item.date), "yyyy-MM-dd"));
   useEffect(() => {
     if (!isSculpture && workItem.images.length > 0 && resizedFiles.length > 0) {
-      handleDelete(workItem.images[0].filename);
+      handleDeleteFile(workItem.images[0].filename);
     }
   }, [resizedFiles]);
 
-  const handleDelete = (filename: string) => {
+  const handleDeleteFile = (filename: string) => {
     const images = workItem.images.filter(
       (i: Image) => i.filename !== filename,
     );
@@ -220,7 +219,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
           <Preview
             filenames={workItem.images.map((i: Image) => i.filename)}
             pathImage={`/images/${item.type}`}
-            onDelete={handleDelete}
+            onDelete={handleDeleteFile}
             title={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
           />
           <ImageInput

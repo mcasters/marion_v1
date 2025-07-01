@@ -26,15 +26,19 @@ export default function PresetColorSwatch({ presetColor }: Props) {
   const alert = useAlert();
 
   const handleDelete = async () => {
-    const { updatedPresetColors, updatedThemes, message, isError } =
-      await deletePresetColor(presetColor.id);
-    if (updatedThemes && updatedPresetColors) {
-      setPresetColors(updatedPresetColors);
-      setThemes(updatedThemes);
-      const updatedWorkTheme = updatedThemes.find((t) => t.id === workTheme.id);
-      if (updatedWorkTheme !== undefined) setWorkTheme(updatedWorkTheme);
+    if (confirm("Sûr de vouloir supprimé ?")) {
+      const { updatedPresetColors, updatedThemes, message, isError } =
+        await deletePresetColor(presetColor.id);
+      if (updatedThemes && updatedPresetColors) {
+        setPresetColors(updatedPresetColors);
+        setThemes(updatedThemes);
+        const updatedWorkTheme = updatedThemes.find(
+          (t) => t.id === workTheme.id,
+        );
+        if (updatedWorkTheme !== undefined) setWorkTheme(updatedWorkTheme);
+      }
+      alert(message, isError);
     }
-    alert(message, isError);
   };
 
   const handleUpdate = async (color: string) => {

@@ -136,6 +136,14 @@ export async function createPresetColor(
   isError: boolean;
   newPresetColor: PresetColor | null;
 }> {
+  const alreadyExist = await prisma.presetColor.findUnique({ where: { name } });
+  if (alreadyExist)
+    return {
+      message: "Nom de la couleur déjà utilisé",
+      isError: true,
+      newPresetColor: null,
+    };
+
   try {
     const newPresetColor = await prisma.presetColor.create({
       data: {
