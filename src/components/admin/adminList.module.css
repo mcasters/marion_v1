@@ -33,29 +33,20 @@
   overflow: hidden;
 }
 
-.itemTitle,
-.categoryTitle {
+.itemTitle {
   font-weight: bold;
   text-align: left;
   flex: 30%;
 }
 
-.itemCategory {
+.itemInfo {
   flex: 30%;
 }
 
-.categoryCount {
-  flex: 20%;
-}
-
 .itemYear,
-.categoryImage {
-  flex: 10%;
-}
-
 .itemImage,
-.icon {
-flex: 8%;
+.itemIcon {
+flex: 10%;
 }
 
 .listContainer p {

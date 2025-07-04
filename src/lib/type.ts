@@ -19,20 +19,12 @@ export enum Type {
 }
 
 type PaintingFull = Prisma.Result<typeof prisma.painting, {}, any>; // With Image[] field
-type SculptureFull = Prisma.Result<typeof prisma.sculpture, {}, any>;
 type DrawingFull = Prisma.Result<typeof prisma.drawing, {}, any>; // With Image[] field
 type CategoryContent = Prisma.Result<typeof prisma.categoryContent, {}, any>; // With Image field
+type SculptureFull = Prisma.Result<typeof prisma.sculpture, {}, any>; // No change - just to uniformise name
+export type PostFull = Prisma.Result<typeof prisma.post, {}, any>; // No change - just to uniformise name
 
 export type WorkFull = PaintingFull | SculptureFull | DrawingFull;
-
-export type PostFull = {
-  id: number;
-  type: Type.POST;
-  title: string;
-  date: Date;
-  text: string;
-  images: Image[];
-};
 
 export type Category = {
   id: number;

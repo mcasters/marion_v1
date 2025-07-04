@@ -106,6 +106,7 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
             e.preventDefault();
             toggle();
           }}
+          title={color}
         />
         <Modal isOpen={isOpen} toggle={toggle}>
           <ColorPicker
