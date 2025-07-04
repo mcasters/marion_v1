@@ -10,10 +10,7 @@ import {
 } from "@/app/actions/item-post/categories/utils";
 import prisma from "@/lib/prisma";
 
-export async function createCategory(
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
+export async function createCategory(prevState: null, formData: FormData) {
   const type = formData.get("type") as Type;
   const value = formData.get("value") as string;
   const data = getCategoryData(formData);
@@ -37,10 +34,7 @@ export async function createCategory(
   }
 }
 
-export async function updateCategory(
-  prevState: { message: string; isError: boolean } | null,
-  formData: FormData,
-) {
+export async function updateCategory(prevState: null, formData: FormData) {
   const type = formData.get("type") as Type;
   const id = Number(formData.get("id"));
   const model = getCategoryModel(type);
@@ -79,6 +73,6 @@ export async function deleteCategory(
     revalidatePath(`/admin/${type}s`);
     return { message: "Catégorie supprimée", isError: false };
   } catch (e) {
-    return { message: `Erreur à la suppression ${e}`, isError: true };
+    return { message: "Erreur à la suppression", isError: true };
   }
 }
