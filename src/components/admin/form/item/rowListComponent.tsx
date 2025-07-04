@@ -2,49 +2,86 @@
 
 import Image from "next/image";
 
-import { DeleteButtonProps } from "@/components/admin/form/deleteButton";
+import DeleteButton from "@/components/admin/form/deleteButton";
 import s from "../../adminList.module.css";
-import React, { ReactElement } from "react";
-import { AddUpdateButtonProps } from "@/components/admin/form/addUpdateButton";
+import React from "react";
+import { Category, Item, Type } from "@/lib/type.ts";
+import ItemForm from "@/components/admin/form/item/itemForm.tsx";
+import PostForm from "@/components/admin/form/item/postForm.tsx";
+import CategoryForm from "@/components/admin/form/item/categoryForm.tsx";
+import Modal from "@/components/admin/form/modal/modal.tsx";
+import useModal from "@/components/admin/form/modal/useModal.tsx";
+import { getImageSrc } from "@/utils/commonUtils.ts";
+import { deleteCategory } from "@/app/actions/item-post/categories/admin.ts";
+import { deleteItem } from "@/app/actions/item-post/admin.ts";
 
 type Props = {
-  raw1: string;
-  raw2?: string;
-  raw3?: string;
-  imageSrc: string;
-  AddUpdateButton: ReactElement<AddUpdateButtonProps>;
-  DeleteButton: ReactElement<DeleteButtonProps>;
+  item: Item;
+  categories?: Category[];
 };
 
-export default function RowListComponent({
-  raw1,
-  raw2,
-  raw3,
-  imageSrc,
-  AddUpdateButton,
-  DeleteButton,
-}: Props) {
+export default function RowListComponent({ item, categories }: Props) {
+  const isCategory = item.type === Type.CATEGORY;
+  const isPost = item.type === Type.POST;
+  const isWork = !isCategory && !isPost;
+  const imageSrc = getImageSrc(item);
+  const { isOpen, toggle } = useModal();
+
   return (
-    <ul className={s.itemList}>
-      <li className={s.itemTitle}>{raw1}</li>
-      {raw2 && <li className={s.itemCategory}>{raw2}</li>}
-      {raw3 && <li className={s.itemYear}>{raw3}</li>}
-      <li className={s.itemImage}>
-        {imageSrc !== "" && (
-          <Image
-            src={imageSrc}
-            alt="Image principale de l'item"
-            height={50}
-            width={50}
-            style={{
-              objectFit: "contain",
-            }}
-            unoptimized
-          />
+    <>
+      <ul className={s.itemList} onDoubleClick={toggle}>
+        <li className={s.itemTitle}>{isCategory ? item.value : item.title}</li>
+        <li className={s.itemInfo}>
+          {isCategory
+            ? `${item.count} ${item.workType}(s)`
+            : isPost
+              ? new Date(item.date).getFullYear().toString()
+              : categories
+                ? categories.find((category) => category.id === item.categoryId)
+                    ?.value || " "
+                : " "}
+        </li>
+        {isWork && (
+          <li className={s.itemYear}>
+            {new Date(item.date).getFullYear().toString()}
+          </li>
         )}
-      </li>
-      <li className={s.icon}>{AddUpdateButton}</li>
-      <li className={s.icon}>{DeleteButton}</li>
-    </ul>
+        <li className={s.itemImage}>
+          {imageSrc !== "" && (
+            <Image
+              src={imageSrc}
+              alt="Image principale de l'item"
+              height={50}
+              width={50}
+              style={{
+                objectFit: "contain",
+              }}
+              unoptimized
+            />
+          )}
+        </li>
+        <li className={s.itemIcon}>
+          <DeleteButton
+            action={
+              isCategory
+                ? () => deleteCategory(item.id, item.workType)
+                : () => deleteItem(item.id, item.type)
+            }
+            disabled={
+              isCategory
+                ? item.count > 0 || item.key === "no-category"
+                : undefined
+            }
+          />
+        </li>
+      </ul>
+      <Modal isOpen={isOpen} toggle={toggle}>
+        {isWork && (
+          <ItemForm item={item} toggleModal={toggle} categories={categories} />
+        )}
+        {isPost && <PostForm post={item} toggleModal={toggle} />}
+        {isCategory && <CategoryForm category={item} toggleModal={toggle} />}
+      </Modal>
+    </>
   );
 }

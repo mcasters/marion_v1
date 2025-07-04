@@ -14,6 +14,7 @@
 .modalBox {
   display: block;
   background: #efefef;
+  color: var(--color-dark);
   max-height: 90%;
   border-radius: 0.2rem;
   overflow: scroll;

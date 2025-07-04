@@ -139,15 +139,11 @@ a:focus,
   cursor: unset;
 }
 
-::selection {
-  background: var(--link-color-dark);
-  color: var(--link-color-xlight);
-  text-shadow: none;
-}
-
 button::selection,
 img::selection,
-label::selection {
+label::selection,
+ul::selection,
+li::selection {
   user-select: none;
   background: transparent;
   color: initial;

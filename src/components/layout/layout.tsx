@@ -102,15 +102,6 @@ export default function Layout({ introduction, children }: Props) {
             rgb(${gradientRgb}) 100%
           );
         }
-        .wrapper a,
-        .homeWrapper a,
-        .wrapper .buttonLink,
-        .homeWrapper .buttonLink,
-        .iconButton,
-        .linkColor {
-          color: ${theme.other.main.link};
-        }
-
         .homeWrapper > header > .nav1 > ul > li > a {
           color: ${theme.home.menu1.link};
         }
@@ -154,9 +145,25 @@ export default function Layout({ introduction, children }: Props) {
         .wrapper > header > .nav2 > ul > li > a:hover {
           color: ${theme.other.menu2.linkHover};
         }
-
+        .wrapper a,
+        .homeWrapper a,
+        .wrapper .buttonLink,
+        .homeWrapper .buttonLink,
+        .iconButton,
+        .linkColor {
+          color: ${theme.other.main.link};
+        }
         .wrapper .icon {
           fill: ${theme.other.main.link};
+        }
+        .selected,
+        ::selection {
+          background: ${theme.other.main.link};
+          color: antiquewhite;
+          text-shadow: none;
+        }
+        .selected .icon {
+          fill: antiquewhite;
         }
         .wrapper a:hover,
         .homeWrapper a:hover,

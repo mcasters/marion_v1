@@ -51,7 +51,6 @@
   font-family: var( --font-family-serif-caps);
   font-size: 14px;
   letter-spacing: 3px;
-  color: var(--color-dark);
   text-align: left;
   margin-top: 1rem;
   line-height: 1.375;
@@ -121,6 +120,7 @@
   vertical-align: middle;
   position: relative;
   background: white;
+  color: var(--color-dark);
   overflow: scroll;
   border-collapse: collapse;
   border-bottom: 2px solid var(--color-dark);
