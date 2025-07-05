@@ -74,7 +74,7 @@
 .column {
   display: grid;
   grid-template-columns: 350px 350px;
-  grid-gap: 1em;
+  grid-column-gap: 1em;
 }
 
 .priceLabel {
@@ -127,7 +127,7 @@
 }
 
 .imageInputContainer label {
-  line-height: 46px;
+  line-height: 58px;
   margin-left: 40px;
 }
 

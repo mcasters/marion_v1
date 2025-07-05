@@ -58,7 +58,6 @@ export default function CategoryForm({ category, toggleModal }: Props) {
           }
           required
           placeholder="Nom de la catégorie"
-          className={s.formInput}
         />
         {!isUpdate && (
           <p>
@@ -76,8 +75,7 @@ export default function CategoryForm({ category, toggleModal }: Props) {
               content: { ...workCategory.content, title: e.target.value },
             })
           }
-          placeholder="Titre du descriptif (facultatif"
-          className={s.formInput}
+          placeholder="Titre du descriptif (facultatif)"
         />
         <textarea
           name="text"
@@ -90,7 +88,6 @@ export default function CategoryForm({ category, toggleModal }: Props) {
             })
           }
           placeholder="Texte descriptif (facultatif)"
-          className={s.formInput}
         />
         {isUpdate && (
           <SelectImageList

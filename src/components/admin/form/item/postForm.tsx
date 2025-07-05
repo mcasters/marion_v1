@@ -73,41 +73,33 @@ export default function PostForm({ post, toggleModal }: Props) {
             />
           </>
         )}
-        <label className={s.formLabel}>
-          Titre
-          <input
-            onChange={(e) =>
-              setWorkPost({ ...workPost, title: e.target.value })
-            }
-            name="title"
-            type="text"
-            value={workPost.title}
-            required
-          />
-        </label>
-        <label className={s.formLabel}>
-          Année
-          <input
-            onChange={(e) => {
-              setDate(e.target.value);
-            }}
-            name="date"
-            type="number"
-            min={1980}
-            max={2100}
-            value={date}
-            required
-          />
-        </label>
-        <label className={s.formLabel}>
-          Texte (facultatif)
-          <textarea
-            onChange={(e) => setWorkPost({ ...workPost, text: e.target.value })}
-            name="text"
-            rows={7}
-            value={workPost.text}
-          />
-        </label>
+        <input
+          onChange={(e) => setWorkPost({ ...workPost, title: e.target.value })}
+          name="title"
+          type="text"
+          value={workPost.title}
+          required
+          placeholder="Titre"
+        />
+        <input
+          onChange={(e) => {
+            setDate(e.target.value);
+          }}
+          name="date"
+          type="number"
+          min={1980}
+          max={2100}
+          value={date}
+          required
+          placeholder="Date"
+        />
+        <textarea
+          onChange={(e) => setWorkPost({ ...workPost, text: e.target.value })}
+          name="text"
+          rows={7}
+          value={workPost.text}
+          placeholder="Texte (facultatif)"
+        />
         <div className={s.imagesContainer}>
           <Preview
             filenames={workPost.images
