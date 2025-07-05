@@ -25,35 +25,72 @@
   text-align: left;
 }
 
-.modalTitle {
-  font-size: 1.6rem;
+.label {
+  display: block;
+  text-align: left;
+  padding: 1em 0 0.5em;
+  font-family: var(--font-family-serif-caps);
+  letter-spacing: 3px;
+  font-size: 14px;
 }
 
-.container {
+.filter {
+  display: inline-block;
+  width: 50%;
+  text-align: left;
+  padding: 0 0.5em 2em;
+}
+
+.filter select {
+  width: 100%;
+}
+
+.modalTitle {
+  font-size: 1.6rem;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.container, .layoutContainer {
   max-width: unset;
   margin: 0 0 2em;
 }
 
 /* desktop */
 @media (min-width: 769px) {
-  .container {
+  .container, .layoutContainer {
     max-width: 50vw;
     margin: 0 auto 6em;
   }
 }
 
 .modalContainer {
-  max-width: 50vw;
-  padding: 2em;
+  max-width: 60vw;
+  padding: 1em 2em;
+  font-size: var(--font-size);
+  text-align: left;
 }
 
-.formLabel {
-  font-family: var( --font-family-serif-caps);
-  font-size: 14px;
-  letter-spacing: 3px;
-  text-align: left;
-  margin-top: 1rem;
-  line-height: 1.375;
+.column {
+  display: grid;
+  grid-template-columns: 350px 350px;
+  grid-gap: 1em;
+}
+
+.priceLabel {
+  display: inline-block;
+  padding: 5px;
+  margin: 3px 0;
+}
+
+.priceInput {
+  display: inline-block;
+  width: auto !important;
+}
+
+.buttonSection {
+  margin: 1em 0 0;
+  text-align: center;
 }
 
 .metaForm {
@@ -64,24 +101,17 @@
   grid-auto-rows: min-content;
 }
 
+.metaForm label {
+  padding-bottom: 0;
+}
+
+.metaForm input, .metaForm label, .metaForm textarea {
+  margin-bottom: 0;
+}
 .metaForm button{
-  margin: 0;
   width: auto;
   align-self: end;
-}
-
-.buttonSection {
-  margin: 1em 0;
-}
-
-.checkInput {
-  margin: 0 10px;
-  height: unset;
-}
-
-.checkLabel {
-  height: 50px;
-  line-height: 50px;
+  padding: 5px;
   margin: 0;
 }
 
@@ -93,19 +123,31 @@
 
 .imageInputContainer {
   display: flex;
+  padding: 0.5em 0;
+}
+
+.imageInputContainer label {
+  line-height: 46px;
+  margin-left: 40px;
+}
+
+.previewContainer {
+  text-align: center;
 }
 
 .imageWrapper {
+  display: inline-block;
+  text-align: center;
+  padding: 0 2px;
+}
+
+.image {
+  display: inline-block;
   padding: 0 2px;
 }
 
 .previewAddContainer {
   margin-top: 1em;
-}
-
-.previewContainer {
-  display: inline-block;
-  text-align: center;
 }
 
 /* End image */
@@ -123,20 +165,33 @@
   color: var(--color-dark);
   overflow: scroll;
   border-collapse: collapse;
-  border-bottom: 2px solid var(--color-dark);
-  border-top: 2px solid var(--color-dark);
+  border-bottom: 1px solid var(--color-dark);
+  border-top: 1px solid var(--color-dark);
+  text-align: center;
 }
 
-.option {
-  height: 122px;
+.option, .selectedOption {
+  padding: 5px;
+  border-bottom: 1px dotted var(--color-light);
+  transition: background-color 0.4s ease;
 }
 
 .option:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: background-color 0.4s ease;
 }
+
+.selectedOption:hover {
+  opacity: 60%;
+}
+
 /* End Select Image */
 
 /* Select Layout item */
+.layoutContainer form {
+  text-align: left;
+}
+
 .buttonLayout, .buttonDarkBackground  {
   background: unset;
   border: solid 6px transparent;

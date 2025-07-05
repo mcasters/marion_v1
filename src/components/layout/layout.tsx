@@ -160,7 +160,6 @@ export default function Layout({ introduction, children }: Props) {
         ::selection {
           background: ${theme.other.main.link};
           color: antiquewhite;
-          text-shadow: none;
         }
         .selected .icon {
           fill: antiquewhite;

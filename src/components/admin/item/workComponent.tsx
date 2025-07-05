@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import s from "@/components/admin/adminList.module.css";
-import style from "@/components/admin/admin.module.css";
+import s from "@/components/admin/admin.module.css";
 import { Category, Type, WorkFull } from "@/lib/type";
 import { getEmptyItem } from "@/utils/commonUtils";
 import AddUpdateButton from "@/components/admin/form/addUpdateButton";
@@ -57,8 +56,8 @@ export default function WorkComponent({
   }, [yearFilter, categoryFilter, items]);
 
   return (
-    <div className={style.container}>
-      <h2 className={style.title2}>{`${title} ( total : ${items.length} )`}</h2>
+    <div className={s.container}>
+      <h2 className={s.title2}>{`${title} ( total : ${items.length} )`}</h2>
       <label className={s.filter}>
         Filtre par catégorie
         <select
@@ -93,6 +92,8 @@ export default function WorkComponent({
             ))}
         </select>
       </label>
+      <br />
+      <br />
       <h4>{`Filtre : ${filteredItems.length} ${type}s`}</h4>
       <ListComponent
         items={filteredItems}
