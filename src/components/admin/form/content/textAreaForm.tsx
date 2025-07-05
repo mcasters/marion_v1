@@ -29,7 +29,7 @@ export default function TextAreaForm({ label, textContent, textLabel }: Props) {
   return (
     <form action={action}>
       <input type="hidden" name="label" value={label} />
-      <label className={s.formLabel}>
+      <label className={s.label}>
         {textLabel}
         <textarea
           name="text"

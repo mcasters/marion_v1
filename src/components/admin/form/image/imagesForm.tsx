@@ -47,7 +47,7 @@ export default function ImagesForm({
 
   return (
     <>
-      <label className={s.formLabel}>{title}</label>
+      <label className={s.label}>{title}</label>
       <Preview
         filenames={images.map((i) => i.filename)}
         pathImage="/images/miscellaneous"

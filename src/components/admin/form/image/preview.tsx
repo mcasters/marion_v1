@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Fragment } from "react";
 import DeleteIcon from "@/components/icons/deleteIcon";
 import s from "@/components/admin/admin.module.css";
 import DeleteButton from "@/components/admin/form/deleteButton";
@@ -24,11 +24,11 @@ export default function Preview({
   title,
 }: Props) {
   return (
-    <>
-      {title && <label className={s.formLabel}>{title}</label>}
+    <div className={s.previewContainer}>
+      {title && <label className={s.label}>{title}</label>}
       {filenames.map((filename) => (
-        <div key={filename} className={s.previewContainer}>
-          <div key={filename} className={s.imageWrapper}>
+        <Fragment key={filename}>
+          <div className={s.imageWrapper}>
             <Image
               src={pathImage === "" ? filename : `${pathImage}/sm/${filename}`}
               width={150}
@@ -39,27 +39,28 @@ export default function Preview({
                 objectFit: "contain",
                 display: "block",
               }}
+              className={s.image}
             />
+            {onDelete && (
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (onDelete) {
+                    onDelete(filename);
+                  }
+                }}
+                className="iconButton"
+                aria-label="Supprimer"
+              >
+                <DeleteIcon />
+              </button>
+            )}
+            {deleteAction && (
+              <DeleteButton action={() => deleteAction(filename)} />
+            )}
           </div>
-          {onDelete && (
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                if (onDelete) {
-                  onDelete(filename);
-                }
-              }}
-              className="iconButton"
-              aria-label="Supprimer"
-            >
-              <DeleteIcon />
-            </button>
-          )}
-          {deleteAction && (
-            <DeleteButton action={() => deleteAction(filename)} />
-          )}
-        </div>
+        </Fragment>
       ))}
-    </>
+    </div>
   );
 }

@@ -37,7 +37,7 @@ export default function InputForm({
     <div className={s.container}>
       <form action={action}>
         <input type="hidden" name="label" value={label} />
-        <label className={s.formLabel}>
+        <label className={s.label}>
           {textLabel}
           <input
             placeholder={label}

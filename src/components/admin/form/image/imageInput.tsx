@@ -87,12 +87,11 @@ export default function ImageInput({
           accept="image/png, image/jpeg"
         />
         {acceptSmallImage && (
-          <label className={s.checkLabel}>
+          <label>
             <input
               type="checkbox"
               checked={smallImageSelected}
               onChange={() => setSmallImageSelected(!smallImageSelected)}
-              className={s.checkInput}
             />
             Accepter les images sous 2000 px de large
           </label>

@@ -21,7 +21,7 @@ export default function HomeLayoutForm() {
   }, [state]);
 
   return (
-    <div className={s.container}>
+    <div className={s.layoutContainer}>
       <h2 className={s.title2}>Mise en page</h2>
       <form action={action}>
         <input type="hidden" name="label" value={"homeLayout"} />

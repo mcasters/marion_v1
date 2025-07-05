@@ -28,7 +28,7 @@ export default function SelectImageList({
 
   return (
     <>
-      <label className={s.formLabel}>Image de la catégorie (facultative)</label>
+      <label className={s.label}>Image de la catégorie (facultative)</label>
       <div className={s.selectList}>
         <div
           onClick={() => onSelectImage(getEmptyImage())}
@@ -42,7 +42,9 @@ export default function SelectImageList({
             return (
               <div
                 key={image.filename}
-                className={`${s.option} ${isCategoryImage ? "selected" : undefined}`}
+                className={
+                  isCategoryImage ? `${s.selectedOption} selected` : s.option
+                }
                 onClick={() => onSelectImage(image)}
               >
                 <Image
@@ -52,6 +54,7 @@ export default function SelectImageList({
                   alt="Image de l'item"
                   style={{
                     objectFit: "cover",
+                    verticalAlign: "top",
                   }}
                   unoptimized
                 />
