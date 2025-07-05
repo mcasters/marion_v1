@@ -27,7 +27,7 @@ export default function CategoryForm({ category, toggleModal }: Props) {
     null,
   );
   const alert = useAlert();
-  const message = `Parmi les renseignements facultatif d'une catégorie, la photo d'une œuvre peut être assignée à cette catégorie, cela permet à l'utilisateur d'avoir une idée du genre d'œuvre qui s'y trouve (cette photo s'affiche dans la pastille sur laquelle on clique pour sélectionner la catégorie). Cependant, cette photo ne peut être ajoutée qu'une fois que des œuvres y sont classées, puisque le choix de la photo s'effectue parmi ces œuvres. Donc après avoir créé la catégorie, et après y avoir classé des œuvres, tu pourras alors choisir une photo en allant dans la mise à jour de la catégorie.`;
+  const message = `Parmi les renseignements facultatif d'une catégorie, en plus d'un descriptif, la photo d'une œuvre peut être assignée à cette catégorie, cela permet à l'utilisateur d'avoir une idée du genre d'œuvre qui s'y trouve (cette photo s'affiche dans la pastille sur laquelle on clique pour voir les œuvres de la catégorie). Cependant, cette photo ne peut être ajoutée qu'une fois que des œuvres y sont classées, puisque le choix de la photo s'effectue parmi ces œuvres. Donc après avoir créé la catégorie, et après y avoir classé des œuvres, tu pourras alors choisir une photo en allant dans la mise à jour de la catégorie.`;
 
   useEffect(() => {
     if (state) {
@@ -49,51 +49,49 @@ export default function CategoryForm({ category, toggleModal }: Props) {
         <input type="hidden" name="filename" value={image.filename} />
         <input type="hidden" name="width" value={image.width} />
         <input type="hidden" name="height" value={image.height} />
-        <label className={s.formLabel}>
-          Nom de la catégorie
-          <input
-            name="value"
-            type="text"
-            value={workCategory.value}
-            onChange={(e) =>
-              setWorkCategory({ ...workCategory, value: e.target.value })
-            }
-            required
-          />
-        </label>
+        <input
+          name="value"
+          type="text"
+          value={workCategory.value}
+          onChange={(e) =>
+            setWorkCategory({ ...workCategory, value: e.target.value })
+          }
+          required
+          placeholder="Nom de la catégorie"
+          className={s.formInput}
+        />
         {!isUpdate && (
           <p>
+            <br />
             <small>{message}</small>
           </p>
         )}
-        <label className={s.formLabel}>
-          titre du descriptif (facultatif)
-          <input
-            name="title"
-            type="text"
-            value={workCategory.content.title}
-            onChange={(e) =>
-              setWorkCategory({
-                ...workCategory,
-                content: { ...workCategory.content, title: e.target.value },
-              })
-            }
-          />
-        </label>
-        <label className={s.formLabel}>
-          Texte descriptif (facultatif)
-          <textarea
-            name="text"
-            rows={5}
-            value={workCategory.content.text}
-            onChange={(e) =>
-              setWorkCategory({
-                ...workCategory,
-                content: { ...workCategory.content, text: e.target.value },
-              })
-            }
-          />
-        </label>
+        <input
+          name="title"
+          type="text"
+          value={workCategory.content.title}
+          onChange={(e) =>
+            setWorkCategory({
+              ...workCategory,
+              content: { ...workCategory.content, title: e.target.value },
+            })
+          }
+          placeholder="Titre du descriptif (facultatif"
+          className={s.formInput}
+        />
+        <textarea
+          name="text"
+          rows={5}
+          value={workCategory.content.text}
+          onChange={(e) =>
+            setWorkCategory({
+              ...workCategory,
+              content: { ...workCategory.content, text: e.target.value },
+            })
+          }
+          placeholder="Texte descriptif (facultatif)"
+          className={s.formInput}
+        />
         {isUpdate && (
           <SelectImageList
             itemsImages={category.images}

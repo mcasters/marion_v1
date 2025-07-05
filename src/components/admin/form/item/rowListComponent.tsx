@@ -6,30 +6,41 @@ import DeleteButton from "@/components/admin/form/deleteButton";
 import s from "../../adminList.module.css";
 import React from "react";
 import { Category, Item, Type } from "@/lib/type.ts";
+import { getImageSrc } from "@/utils/commonUtils.ts";
+import { deleteCategory } from "@/app/actions/item-post/categories/admin.ts";
+import { deleteItem } from "@/app/actions/item-post/admin.ts";
 import ItemForm from "@/components/admin/form/item/itemForm.tsx";
 import PostForm from "@/components/admin/form/item/postForm.tsx";
 import CategoryForm from "@/components/admin/form/item/categoryForm.tsx";
 import Modal from "@/components/admin/form/modal/modal.tsx";
 import useModal from "@/components/admin/form/modal/useModal.tsx";
-import { getImageSrc } from "@/utils/commonUtils.ts";
-import { deleteCategory } from "@/app/actions/item-post/categories/admin.ts";
-import { deleteItem } from "@/app/actions/item-post/admin.ts";
 
 type Props = {
   item: Item;
+  isSelected: boolean;
+  isOutside: boolean;
   categories?: Category[];
 };
 
-export default function RowListComponent({ item, categories }: Props) {
+export default function RowListComponent({
+  item,
+  isSelected,
+  isOutside,
+  categories,
+}: Props) {
+  const { isOpen, toggle } = useModal();
   const isCategory = item.type === Type.CATEGORY;
   const isPost = item.type === Type.POST;
   const isWork = !isCategory && !isPost;
   const imageSrc = getImageSrc(item);
-  const { isOpen, toggle } = useModal();
 
   return (
     <>
-      <ul className={s.itemList} onDoubleClick={toggle}>
+      <ul
+        className={`${isSelected && !isOpen ? "selected" : undefined} ${s.itemList}`}
+        style={isOutside && isSelected ? { opacity: "60%" } : undefined}
+        onDoubleClick={toggle}
+      >
         <li className={s.itemTitle}>{isCategory ? item.value : item.title}</li>
         <li className={s.itemInfo}>
           {isCategory
@@ -76,7 +87,7 @@ export default function RowListComponent({ item, categories }: Props) {
         </li>
       </ul>
       <Modal isOpen={isOpen} toggle={toggle}>
-        {isWork && (
+        {!isPost && !isCategory && (
           <ItemForm item={item} toggleModal={toggle} categories={categories} />
         )}
         {isPost && <PostForm post={item} toggleModal={toggle} />}

@@ -15,7 +15,7 @@
   display: block;
   background: #efefef;
   color: var(--color-dark);
-  max-height: 90%;
+  max-height: 97%;
   border-radius: 0.2rem;
   overflow: scroll;
 }

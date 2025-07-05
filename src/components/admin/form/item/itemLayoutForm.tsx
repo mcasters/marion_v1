@@ -30,7 +30,7 @@ export default function ItemLayoutForm({ type }: Props) {
   }, [state]);
 
   return (
-    <div className={s.container}>
+    <div className={s.layoutContainer}>
       <h2 className={s.title2}>Mise en page</h2>
       <form action={action}>
         <input
@@ -152,7 +152,7 @@ export default function ItemLayoutForm({ type }: Props) {
         </label>
         <br />
         <br />
-        <label className={s.checkLabel}>
+        <label>
           <button
             onClick={() => setDarkBackground(!darkBackground)}
             className={
