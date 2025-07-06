@@ -31,11 +31,11 @@
 .itemTitle {
   font-weight: bold;
   text-align: left;
-  flex: 30%;
+  flex: 25%;
 }
 
 .itemInfo {
-  flex: 30%;
+  flex: 25%;
 }
 
 .itemYear,

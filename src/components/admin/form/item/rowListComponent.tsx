@@ -53,9 +53,12 @@ export default function RowListComponent({
                 : " "}
         </li>
         {isWork && (
-          <li className={s.itemYear}>
-            {new Date(item.date).getFullYear().toString()}
-          </li>
+          <>
+            <li className={s.itemYear}>
+              {new Date(item.date).getFullYear().toString()}
+            </li>
+            <li className={s.itemYear}>{item.isOut && "sortie"}</li>
+          </>
         )}
         <li className={s.itemImage}>
           {imageSrc !== "" && (

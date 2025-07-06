@@ -130,40 +130,42 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
             required
             placeholder="Technique"
           />
-          <input
-            onChange={(e) =>
-              setWorkItem({ ...workItem, height: Number(e.target.value) })
-            }
-            name="height"
-            type="number"
-            value={workItem.height === 0 ? "" : workItem.height.toString()}
-            required
-            placeholder="Hauteur (cm)"
-          />
-          <input
-            onChange={(e) =>
-              setWorkItem({ ...workItem, width: Number(e.target.value) })
-            }
-            name="width"
-            type="number"
-            value={workItem.width === 0 ? "" : workItem.width.toString()}
-            required
-            placeholder="Largeur (cm)"
-          />
-          {isSculpture && (
+          <div className={s.dimensions}>
             <input
               onChange={(e) =>
-                setWorkItem({ ...workItem, length: Number(e.target.value) })
+                setWorkItem({ ...workItem, height: Number(e.target.value) })
               }
-              name="length"
+              name="height"
               type="number"
-              value={workItem.length === 0 ? "" : workItem.length.toString()}
+              value={workItem.height === 0 ? "" : workItem.height.toString()}
               required
-              placeholder="Profondeur (cm)"
+              placeholder="Hauteur (cm)"
             />
-          )}
-          <div>
-            <label className={s.priceLabel}>
+            <input
+              onChange={(e) =>
+                setWorkItem({ ...workItem, width: Number(e.target.value) })
+              }
+              name="width"
+              type="number"
+              value={workItem.width === 0 ? "" : workItem.width.toString()}
+              required
+              placeholder="Largeur (cm)"
+            />
+            {isSculpture && (
+              <input
+                onChange={(e) =>
+                  setWorkItem({ ...workItem, length: Number(e.target.value) })
+                }
+                name="length"
+                type="number"
+                value={workItem.length === 0 ? "" : workItem.length.toString()}
+                required
+                placeholder="Profondeur (cm)"
+              />
+            )}
+          </div>
+          <div className={s.checkTextForm}>
+            <label className={s.check}>
               À vendre :
               <input
                 onChange={(e) =>
@@ -172,7 +174,6 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
                 name="isToSell"
                 type="checkbox"
                 defaultChecked={workItem.isToSell}
-                placeholder="A vendre"
               />
             </label>
             {workItem.isToSell && (
@@ -188,7 +189,6 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
                     : workItem.price.toString()
                 }
                 placeholder="Prix (facultatif)"
-                className={s.priceInput}
               />
             )}
           </div>
@@ -201,6 +201,30 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
             value={workItem.description}
             placeholder="Description (facultative)"
           />
+          <div className={s.checkTextForm}>
+            <label className={s.check}>
+              Sortie :
+              <input
+                onChange={(e) =>
+                  setWorkItem({ ...workItem, isOut: e.target.checked })
+                }
+                name="isOut"
+                type="checkbox"
+                defaultChecked={workItem.isOut}
+              />
+            </label>
+            {workItem.isOut && (
+              <textarea
+                onChange={(e) =>
+                  setWorkItem({ ...workItem, outInformation: e.target.value })
+                }
+                name="outInformation"
+                rows={3}
+                value={workItem.outInformation}
+                placeholder="Information de sortie (facultative)"
+              />
+            )}
+          </div>
         </div>
         <div className={s.imagesContainer}>
           <Preview

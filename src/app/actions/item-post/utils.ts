@@ -89,6 +89,8 @@ export const createDataAndHandleFiles = async (
       length: isSculpture ? Number(rawFormData.length) : undefined,
       isToSell: rawFormData.isToSell === "on",
       price: Number(rawFormData.price),
+      isOut: rawFormData.isOut === "on",
+      outInformation: rawFormData.outInformation as string,
       category: getCategory(formData),
       imageFilename:
         !isSculpture && newImages ? newImages[0].filename : undefined,
