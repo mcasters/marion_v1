@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output   = "generated/prisma/client"
 }
 
 datasource db {
@@ -86,44 +87,48 @@ enum Label {
 }
 
 model Painting {
-  id            Int               @id @default(autoincrement())
-  type          String            @default("peinture")
-  title         String
-  date          DateTime
-  technique     String            @db.LongText
-  description   String?           @db.LongText
-  height        Int
-  width         Int
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
-  isToSell      Boolean           @default(false)
-  price         Int?
-  sold          Boolean           @default(false)
-  imageFilename String            @default("")
-  imageWidth    Int               @default(0)
-  imageHeight   Int               @default(0)
-  category      PaintingCategory? @relation(fields: [categoryId], references: [id])
-  categoryId    Int?
+  id             Int               @id @default(autoincrement())
+  type           String            @default("peinture")
+  title          String
+  date           DateTime
+  technique      String            @db.LongText
+  description    String?           @db.LongText
+  height         Int
+  width          Int
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  isToSell       Boolean           @default(false)
+  price          Int?
+  sold           Boolean           @default(false)
+  imageFilename  String            @default("")
+  imageWidth     Int               @default(0)
+  imageHeight    Int               @default(0)
+  category       PaintingCategory? @relation(fields: [categoryId], references: [id])
+  categoryId     Int?
+  isOut          Boolean           @default(false)
+  outInformation String            @default("")
 }
 
 model Sculpture {
-  id          Int                @id @default(autoincrement())
-  type        String             @default("sculpture")
-  title       String
-  date        DateTime
-  technique   String             @db.LongText
-  description String?            @db.LongText
-  height      Int
-  width       Int
-  length      Int
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @updatedAt
-  isToSell    Boolean            @default(false)
-  price       Int?
-  sold        Boolean            @default(false)
-  images      SculptureImage[]
-  category    SculptureCategory? @relation(fields: [categoryId], references: [id])
-  categoryId  Int?
+  id             Int                @id @default(autoincrement())
+  type           String             @default("sculpture")
+  title          String
+  date           DateTime
+  technique      String             @db.LongText
+  description    String?            @db.LongText
+  height         Int
+  width          Int
+  length         Int
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  isToSell       Boolean            @default(false)
+  price          Int?
+  sold           Boolean            @default(false)
+  images         SculptureImage[]
+  category       SculptureCategory? @relation(fields: [categoryId], references: [id])
+  categoryId     Int?
+  isOut          Boolean            @default(false)
+  outInformation String             @default("")
 }
 
 model SculptureImage {
@@ -137,24 +142,26 @@ model SculptureImage {
 }
 
 model Drawing {
-  id            Int              @id @default(autoincrement())
-  type          String           @default("dessin")
-  title         String
-  date          DateTime
-  technique     String           @db.LongText
-  description   String?          @db.LongText
-  height        Int
-  width         Int
-  createdAt     DateTime         @default(now())
-  updatedAt     DateTime         @updatedAt
-  isToSell      Boolean          @default(false)
-  price         Int?
-  sold          Boolean          @default(false)
-  imageFilename String           @default("")
-  imageWidth    Int              @default(0)
-  imageHeight   Int              @default(0)
-  category      DrawingCategory? @relation(fields: [categoryId], references: [id])
-  categoryId    Int?
+  id             Int              @id @default(autoincrement())
+  type           String           @default("dessin")
+  title          String
+  date           DateTime
+  technique      String           @db.LongText
+  description    String?          @db.LongText
+  height         Int
+  width          Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  isToSell       Boolean          @default(false)
+  price          Int?
+  sold           Boolean          @default(false)
+  imageFilename  String           @default("")
+  imageWidth     Int              @default(0)
+  imageHeight    Int              @default(0)
+  category       DrawingCategory? @relation(fields: [categoryId], references: [id])
+  categoryId     Int?
+  isOut          Boolean          @default(false)
+  outInformation String           @default("")
 }
 
 model PaintingCategory {
