@@ -7,8 +7,6 @@ import {
   getAllItems,
   getYears,
 } from "../../actions/item-post";
-import ItemLayoutForm from "@/components/admin/form/item/itemLayoutForm.tsx";
-import CategoryComponent from "@/components/admin/item/categoryComponent";
 
 export default async function Sculptures() {
   const categories = await getAllCategories(Type.SCULPTURE);
@@ -18,17 +16,11 @@ export default async function Sculptures() {
   return (
     <>
       <h1 className={s.title1}>Les sculptures</h1>
-      <ItemLayoutForm type={Type.SCULPTURE} />
       <WorkComponent
         categories={categories}
         years={years}
         items={items}
         type={Type.SCULPTURE}
-      />
-      <CategoryComponent
-        type={Type.SCULPTURE}
-        categories={categories}
-        items={items}
       />
     </>
   );

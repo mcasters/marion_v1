@@ -30,9 +30,9 @@ export default function ItemLayoutForm({ type }: Props) {
   }, [state]);
 
   return (
-    <div className={s.layoutContainer}>
+    <div className={s.container}>
       <h2 className={s.title2}>Mise en page</h2>
-      <form action={action}>
+      <form action={action} className={s.layoutForm}>
         <input
           type="hidden"
           name="label"

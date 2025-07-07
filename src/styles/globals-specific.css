@@ -240,6 +240,10 @@ input::file-selector-button {
   display: none;
 }
 
+.separate {
+  padding: 3em 0;
+}
+
 /*
  * Print s
  * Inlined to avoid the additional HTTP request:

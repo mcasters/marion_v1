@@ -221,3 +221,13 @@ export const getCategoriesFull = (
   });
   return [...map.values()];
 };
+
+export const getYearsFromItems = (items: WorkFull[]): number[] => {
+  const years: number[] = [];
+  items.forEach((item) => {
+    const date = new Date(item.date);
+    years.push(date.getFullYear());
+  });
+
+  return [...new Set(years)];
+};

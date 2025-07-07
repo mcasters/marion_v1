@@ -7,8 +7,6 @@ import {
   getAllItems,
   getYears,
 } from "@/app/actions/item-post";
-import ItemLayoutForm from "@/components/admin/form/item/itemLayoutForm.tsx";
-import CategoryComponent from "@/components/admin/item/categoryComponent";
 
 export default async function Peintures() {
   const categories = await getAllCategories(Type.PAINTING);
@@ -18,17 +16,11 @@ export default async function Peintures() {
   return (
     <>
       <h1 className={s.title1}>Les peintures</h1>
-      <ItemLayoutForm type={Type.PAINTING} />
       <WorkComponent
         categories={categories}
         years={years}
         items={items}
         type={Type.PAINTING}
-      />
-      <CategoryComponent
-        type={Type.PAINTING}
-        categories={categories}
-        items={items}
       />
     </>
   );
