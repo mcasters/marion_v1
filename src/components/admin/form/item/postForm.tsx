@@ -29,8 +29,8 @@ export default function PostForm({ post, toggleModal }: Props) {
 
   useEffect(() => {
     const mainFilename = workPost.images
-      .filter((i) => i.isMain)
-      .map((i) => i.filename)[0];
+      .filter((i: Image) => i.isMain)
+      .map((i: Image) => i.filename)[0];
     if (mainFilename && resizedMainFiles.length > 0) {
       handleDelete(mainFilename);
     }
@@ -103,8 +103,8 @@ export default function PostForm({ post, toggleModal }: Props) {
         <div className={s.imagesContainer}>
           <Preview
             filenames={workPost.images
-              .filter((i) => i.isMain)
-              .map((i) => i.filename)}
+              .filter((i: Image) => i.isMain)
+              .map((i: Image) => i.filename)}
             pathImage={`/images/${Type.POST}`}
             onDelete={(filename) => handleDelete(filename)}
             title="Image principale (facultative)"
@@ -119,8 +119,8 @@ export default function PostForm({ post, toggleModal }: Props) {
         <div className={s.imagesContainer}>
           <Preview
             filenames={workPost.images
-              .filter((i) => !i.isMain)
-              .map((i) => i.filename)}
+              .filter((i: Image) => !i.isMain)
+              .map((i: Image) => i.filename)}
             pathImage={`/images/${Type.POST}`}
             onDelete={(filename) => handleDelete(filename)}
             title="Album d'images (facultatif)"

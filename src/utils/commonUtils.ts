@@ -92,7 +92,7 @@ export const getImageSrc = (item: Item) => {
         ? `/images/${item.workType}/sm/${item.content.image.filename}`
         : "";
   } else if (item.type === Type.POST) {
-    let image = item.images.filter((i) => i.isMain)[0];
+    let image = item.images.filter((i: Image) => i.isMain)[0];
     if (!image) {
       image = item.images[0];
     }

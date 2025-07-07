@@ -6,13 +6,13 @@ const useKeyPress = (targetKey: string) => {
   const [keyPressed, setKeyPressed] = useState(false);
 
   useEffect(() => {
-    const downHandler = ({ key }) => {
+    const downHandler = ({ key }: WindowEventMap["keydown"]) => {
       if (key === targetKey) {
         setKeyPressed(true);
       }
     };
 
-    const upHandler = ({ key }) => {
+    const upHandler = ({ key }: WindowEventMap["keyup"]) => {
       if (key === targetKey) {
         setKeyPressed(false);
       }

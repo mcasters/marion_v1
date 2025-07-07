@@ -1,13 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 
-const useOnClickOutside = (ref) => {
+const useOnClickOutside = (ref: RefObject<HTMLDivElement | null>) => {
   const [isOutside, setIsOutside] = useState<boolean>(true);
 
   useEffect(() => {
-    const listener = (event) => {
-      if (ref.current) setIsOutside(!ref.current.contains(event.target));
+    const listener = (
+      e: DocumentEventMap["mousedown"] | DocumentEventMap["touchstart"],
+    ) => {
+      if (ref.current && e.target instanceof Node) {
+        if ("contains" in ref.current) {
+          setIsOutside(!ref.current.contains(e.target));
+        }
+      }
     };
 
     document.addEventListener("mousedown", listener);
