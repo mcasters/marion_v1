@@ -50,8 +50,8 @@ export default function PostForm({ post, toggleModal }: Props) {
     formData.append("mainFile", resizedMainFiles[0]);
     resizedFiles.forEach((file) => formData.append("files", file));
     const { message, isError } = isUpdate
-      ? await updateItem(null, formData)
-      : await createItem(null, formData);
+      ? await updateItem(formData)
+      : await createItem(formData);
     alert(message, isError);
     if (!isError) toggleModal();
   };

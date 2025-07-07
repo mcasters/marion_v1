@@ -11,7 +11,7 @@ import {
 } from "@/app/actions/item-post/utils";
 import { Type } from "@/lib/type";
 
-export async function createItem(prevState: null, formData: FormData) {
+export async function createItem(formData: FormData) {
   const type = formData.get("type") as Type;
   const title = formData.get("title") as string;
   const model = getItemModel(type);
@@ -39,7 +39,7 @@ export async function createItem(prevState: null, formData: FormData) {
   }
 }
 
-export async function updateItem(prevState: null, formData: FormData) {
+export async function updateItem(formData: FormData) {
   const id = Number(formData.get("id"));
   const type = formData.get("type") as Type;
   const title = formData.get("title") as string;

@@ -47,8 +47,8 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
     const formData = new FormData(e.currentTarget);
     resizedFiles.forEach((file) => formData.append("files", file));
     const { message, isError } = isUpdate
-      ? await updateItem(null, formData)
-      : await createItem(null, formData);
+      ? await updateItem(formData)
+      : await createItem(formData);
     alert(message, isError);
     if (!isError) toggleModal();
   };
