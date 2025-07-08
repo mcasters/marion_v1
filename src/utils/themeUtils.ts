@@ -1,4 +1,4 @@
-import { PresetColor, Theme } from "@/generated/client";
+import { PresetColor, Theme } from "../../prisma/generated/client";
 import { OnlyString, StructuredTheme } from "@/lib/type";
 
 import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
@@ -44,7 +44,7 @@ export const colorNameToHex = (
 export function hexToRgb(
   hex: string,
   transform: number = 0,
-): { r: number; g: number; b: number } {
+): { r: number; g: number; b: number } | undefined {
   const array = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   if (!array) return;
   const r = parseInt(array[1], 16) + transform;
@@ -62,9 +62,12 @@ export function rgbToHex(r: number, g: number, b: number): string {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 } // rgbToHex(0, 51, 255); // #0033ff
 
-export function getDarkerColor(colorHex: string, transform: number): string {
+export function getDarkerColor(
+  colorHex: string,
+  transform: number,
+): string | undefined {
   const rgb = hexToRgb(colorHex, transform);
-  return rgbToHex(rgb.r, rgb.g, rgb.b);
+  return rgb ? rgbToHex(rgb.r, rgb.g, rgb.b) : undefined;
 }
 
 export const getStructuredTheme = (theme: Theme): StructuredTheme => {

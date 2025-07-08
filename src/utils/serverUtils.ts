@@ -4,7 +4,7 @@ import { join } from "path";
 import { transformValueToKey } from "@/utils/commonUtils";
 import { IMAGE } from "@/constants/image";
 import { StructuredTheme, Type } from "@/lib/type";
-import { PresetColor, Theme } from "@/generated/client";
+import { PresetColor, Theme } from "../../prisma/generated/client";
 import { getStructuredTheme, themeToHexa } from "@/utils/themeUtils";
 import { getSession } from "@/app/lib/auth";
 import { unstable_cache } from "next/cache";

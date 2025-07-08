@@ -40,4 +40,4 @@ package-lock.json
 .editorconfig
 
 # database
-src/generated
+/prisma/generated

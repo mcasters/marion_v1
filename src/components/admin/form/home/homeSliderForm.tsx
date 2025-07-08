@@ -3,7 +3,7 @@
 import React from "react";
 import s from "@/components/admin/admin.module.css";
 import ImagesForm from "@/components/admin/form/image/imagesForm";
-import { Label } from "@/generated/client";
+import { Label } from "../../../../../prisma/generated/client";
 import { Image } from "@/lib/type";
 
 type Props = {

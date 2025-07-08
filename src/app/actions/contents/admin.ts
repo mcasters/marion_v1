@@ -3,7 +3,7 @@
 import { deleteFile, getMiscellaneousDir } from "@/utils/serverUtils";
 import prisma from "@/lib/script.ts";
 import { revalidatePath } from "next/cache";
-import { Label } from "@/generated/client";
+import { Label } from "../../../../prisma/generated/client";
 import {
   findOrCreateContent,
   saveContentImage,

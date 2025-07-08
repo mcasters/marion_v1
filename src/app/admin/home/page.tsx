@@ -1,5 +1,5 @@
 import { getIntroText } from "@/utils/commonUtils";
-import { Label } from "@/generated/client";
+import { Label } from "../../../../prisma/generated/client";
 import s from "@/components/admin/admin.module.css";
 import React from "react";
 import TextAreaForm from "@/components/admin/form/content/textAreaForm";

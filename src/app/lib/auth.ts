@@ -2,7 +2,7 @@
 
 import { JWTPayload, jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
-import { User } from ".prisma/client";
+import { User } from "../../../prisma/generated/client";
 import { Session } from "@/lib/type";
 import { COOKIE_NAME } from "@/constants/admin";
 

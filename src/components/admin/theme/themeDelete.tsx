@@ -4,7 +4,7 @@ import React from "react";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { useAlert } from "@/app/context/alertProvider";
 import { THEME } from "@/constants/admin";
-import { Theme } from "@/generated/client";
+import { Theme } from "../../../../prisma/generated/client";
 import { deleteTheme } from "@/app/actions/theme/admin";
 
 export default function ThemeDelete() {

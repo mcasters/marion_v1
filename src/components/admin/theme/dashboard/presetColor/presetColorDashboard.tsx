@@ -1,6 +1,6 @@
 "use client";
 
-import { PresetColor } from "@/generated/client";
+import { PresetColor } from "../../../../../../prisma/generated/client";
 import s from "@/components/admin/theme/adminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import PresetColorSwatch from "@/components/admin/theme/dashboard/presetColor/presetColorSwatch";

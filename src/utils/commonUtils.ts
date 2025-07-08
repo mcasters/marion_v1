@@ -1,4 +1,4 @@
-import { Label, Meta } from "@/generated/client/";
+import { Label, Meta } from "../../prisma/generated/client/";
 import {
   Category,
   CategoryFull,

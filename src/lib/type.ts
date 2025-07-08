@@ -1,8 +1,7 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 /* eslint-disable  @typescript-eslint/no-empty-object-type */
 
-import { User } from ".prisma/client";
-import { Prisma } from "@/generated/client";
+import { Prisma, User } from "../../prisma/generated/client";
 import prisma from "@/lib/script.ts";
 
 type StringKeys<T> = {
