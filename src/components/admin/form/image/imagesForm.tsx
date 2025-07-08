@@ -11,7 +11,7 @@ import {
 import s from "@/components/admin/admin.module.css";
 import { Image } from "@/lib/type";
 import Preview from "@/components/admin/form/image/preview";
-import { Label } from "@prisma/client";
+import { Label } from "@/generated/client";
 import ImageInput from "@/components/admin/form/image/imageInput";
 
 type Props = {

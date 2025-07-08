@@ -4,7 +4,7 @@ import { MENU_1_ITEMS } from "@/constants/specific/routes";
 import s from "@/components/layout/header/nav_1/nav_1.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 
-import { getBorderColor } from "@/utils/themeUtils";
+import { getDarkerColor } from "@/utils/themeUtils";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
@@ -41,21 +41,21 @@ export default function Nav_1({ navLayout }: Props) {
         .itemNav {
           background-color: ${theme.item.menu1.background};
           border-bottom: 1px solid
-            ${getBorderColor(theme.item.menu1.background)};
+            ${getDarkerColor(theme.item.menu1.background, -10)};
         }
         .nav {
           background-color: ${theme.other.menu1.background};
           border-bottom: 1px solid
-            ${getBorderColor(theme.other.menu1.background)};
+            ${getDarkerColor(theme.other.menu1.background, -10)};
         }
         .homeNavFix {
           background-color: ${theme.home.menu1.background};
           border-bottom: 1px solid
-            ${getBorderColor(theme.home.menu1.background)};
+            ${getDarkerColor(theme.home.menu1.background, -10)};
         }
         .homeNav .ul {
           border-bottom: 1px solid
-            ${getBorderColor(theme.home.menu1.background)};
+            ${getDarkerColor(theme.home.menu1.background, -10)};
         }
       `}</style>
     </nav>

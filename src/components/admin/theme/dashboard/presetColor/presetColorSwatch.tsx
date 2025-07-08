@@ -4,7 +4,7 @@ import s from "@/components/admin/theme/adminTheme.module.css";
 import React from "react";
 import Modal from "@/components/admin/form/modal/modal";
 import useModal from "@/components/admin/form/modal/useModal";
-import { PresetColor } from "@prisma/client";
+import { PresetColor } from "@/generated/client";
 import DeleteIcon from "@/components/icons/deleteIcon";
 import { useAlert } from "@/app/context/alertProvider";
 import {

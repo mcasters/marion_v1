@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useActionState, useEffect, useState } from "react";
-import { Label } from "@prisma/client";
+import { Label } from "@/generated/client";
 import s from "@/components/admin/admin.module.css";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";

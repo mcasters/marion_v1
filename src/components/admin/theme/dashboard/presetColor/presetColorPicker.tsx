@@ -3,7 +3,7 @@
 import s from "@/components/admin/theme/adminTheme.module.css";
 import React, { useState } from "react";
 import { HexColorInput, HexColorPicker } from "react-colorful";
-import { PresetColor } from "@prisma/client";
+import { PresetColor } from "@/generated/client";
 
 interface Props {
   presetColor: PresetColor;

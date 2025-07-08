@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import { Theme } from "@prisma/client";
+import { Theme } from "@/generated/client";
 
 export default function ThemeCancel() {
   const { workTheme, setWorkTheme, isUpdated, setIsUpdated, themes } =

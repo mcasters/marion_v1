@@ -25,6 +25,7 @@ export default function ItemsPageComponent({
           (category.content.title !== "" || category.content.text !== "") && (
             <div className={s.categoryContent}>
               <h3>{category.content.title}</h3>
+              <br />
               <p>{category.content.text}</p>
             </div>
           )}

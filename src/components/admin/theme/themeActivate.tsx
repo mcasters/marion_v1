@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import { Theme } from "@prisma/client";
+import { Theme } from "@/generated/client";
 import { activateTheme } from "@/app/actions/theme/admin";
 import { useAlert } from "@/app/context/alertProvider";
 

@@ -8,7 +8,7 @@ import s from "@/components/layout/header/nav_2/nav_2.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { useMetas } from "@/app/context/metaProvider";
 import { META } from "@/constants/admin";
-import { getBorderColor } from "@/utils/themeUtils";
+import { getDarkerColor } from "@/utils/themeUtils";
 
 interface Props {
   navLayout: string;
@@ -59,12 +59,12 @@ export default function Nav_2({ navLayout }: Props) {
         .itemNav {
           background-color: ${theme.item.menu2.background};
           border-bottom: 1px solid
-            ${getBorderColor(theme.item.menu2.background)};
+            ${getDarkerColor(theme.item.menu2.background, -10)};
         }
         .nav {
           background-color: ${theme.other.menu2.background};
           border-bottom: 1px solid
-            ${getBorderColor(theme.other.menu2.background)};
+            ${getDarkerColor(theme.other.menu2.background, -10)};
         }
         .homeNavFix {
           background-color: ${theme.home.menu2.background + "aa"};
