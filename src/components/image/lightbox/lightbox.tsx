@@ -9,6 +9,7 @@ import { LightboxSlide } from "@/components/image/lightbox/lightboxSlide";
 import ImageInfos from "@/components/image/common/imageInfos";
 import LimitedImageInfos from "@/components/image/common/limitedImageInfos";
 import s from "./lightbox.module.css";
+import { useTheme } from "@/app/context/themeProvider.tsx";
 
 type Props = {
   photos: Photo[] | PhotoEnhanced[];
@@ -18,6 +19,8 @@ type Props = {
 };
 
 export default function Lightbox({ photos, index, onClose, isSmall }: Props) {
+  const theme = useTheme();
+
   return (
     <YetLightbox
       index={index}
@@ -40,6 +43,15 @@ export default function Lightbox({ photos, index, onClose, isSmall }: Props) {
             </div>
           </>
         ),
+      }}
+      styles={{
+        container: {
+          backgroundColor: theme.general.lightbox,
+          color: theme.item.main.text,
+        },
+        icon: {
+          color: theme.item.main.text,
+        },
       }}
       plugins={[Zoom]}
       zoom={{

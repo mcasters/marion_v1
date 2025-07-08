@@ -1,8 +1,8 @@
 .imageInfos {
   position: absolute;
   bottom: 15px;
-  color: #c9c9c9;
   font-family: var(--font-family-sans);
+  font-size: var(--font-size);
 }
 
 .imageInfos h2, .imageInfos span {
