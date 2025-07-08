@@ -49,6 +49,7 @@
 }
 
 .filter {
+  flex: auto;
   text-align: left;
 }
 
