@@ -15,7 +15,7 @@ import {
 import { getNoCategory } from "@/utils/commonUtils";
 
 import { cacheDatas } from "@/utils/serverUtils";
-import prisma from "@/lib/prisma";
+import prisma from "@/lib/script.ts";
 
 export async function getYears(
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,

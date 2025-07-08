@@ -1,8 +1,8 @@
 "use server";
 
-import prisma from "@/lib/prisma";
+import prisma from "@/lib/script.ts";
 import { revalidatePath } from "next/cache";
-import { PresetColor, Theme } from "@prisma/client";
+import { PresetColor, Theme } from "@/generated/client";
 import { THEME } from "@/constants/admin";
 import { OnlyString } from "@/lib/type";
 

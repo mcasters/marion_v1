@@ -1,5 +1,5 @@
-import { PresetColor, Theme } from "@prisma/client";
-import prisma from "@/lib/prisma";
+import { PresetColor, Theme } from "@/generated/client";
+import prisma from "@/lib/script.ts";
 import { THEME } from "@/constants/admin";
 import { getBasePresetColorData, getBaseThemeData } from "@/utils/themeUtils";
 import { activateTheme } from "@/app/actions/theme/admin";

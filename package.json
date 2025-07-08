@@ -13,7 +13,7 @@
     "build": "next build",
     "start": "cross-env NODE_ENV=production node server.js",
     "lint": "next lint",
-    "generate": "prisma generate",
+    "generate": "dotenv -e .env.local -- npx prisma generate",
     "prisma:push": "dotenv -e .env.local -- prisma db push",
     "prisma:migrate": "prisma migrate deploy",
     "prisma:format": "prisma format",

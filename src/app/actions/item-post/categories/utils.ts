@@ -1,6 +1,6 @@
 import { transformValueToKey } from "@/utils/commonUtils";
 import { Type } from "@/lib/type";
-import prisma from "@/lib/prisma";
+import prisma from "@/lib/script.ts";
 
 export const getCategoryModel = (type: Type) => {
   switch (type) {

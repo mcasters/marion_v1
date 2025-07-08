@@ -1,6 +1,6 @@
 "use server";
-import { PresetColor, Theme } from "@prisma/client";
-import prisma from "@/lib/prisma";
+import { PresetColor, Theme } from "@/generated/client";
+import prisma from "@/lib/script.ts";
 import {
   queryActiveTheme,
   queryPresetColors,

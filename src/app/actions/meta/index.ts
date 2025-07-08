@@ -1,5 +1,5 @@
 "use server";
-import prisma from "@/lib/prisma";
+import prisma from "@/lib/script.ts";
 import { Meta } from ".prisma/client";
 
 import { cacheDatas } from "@/utils/serverUtils";

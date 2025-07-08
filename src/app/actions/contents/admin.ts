@@ -1,9 +1,9 @@
 "use server";
 
 import { deleteFile, getMiscellaneousDir } from "@/utils/serverUtils";
-import prisma from "@/lib/prisma";
+import prisma from "@/lib/script.ts";
 import { revalidatePath } from "next/cache";
-import { Label } from "@prisma/client";
+import { Label } from "@/generated/client";
 import {
   findOrCreateContent,
   saveContentImage,

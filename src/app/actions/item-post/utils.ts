@@ -1,5 +1,5 @@
 import { Type } from "@/lib/type";
-import prisma from "@/lib/prisma";
+import prisma from "@/lib/script.ts";
 import { deleteFile, getDir, resizeAndSaveImage } from "@/utils/serverUtils";
 
 export const getItemModel = (type: Type) => {

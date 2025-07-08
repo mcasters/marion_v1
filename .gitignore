@@ -2,15 +2,12 @@
 
 # dependencies
 /node_modules
-/.pnp
-.pnp.js
 
 # testing
 /coverage
 
 # next.js
 /.next/
-/out/
 
 # production
 /build
@@ -43,5 +40,4 @@ package-lock.json
 .editorconfig
 
 # database
-/prisma/migrations
-/prisma/generated
+src/generated
