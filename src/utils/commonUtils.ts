@@ -1,4 +1,4 @@
-import { Label } from "@prisma/client";
+import { Label, Meta } from "@/generated/client/";
 import {
   Category,
   CategoryFull,
@@ -12,7 +12,6 @@ import {
   Type,
   WorkFull,
 } from "@/lib/type";
-import { Meta } from ".prisma/client";
 import { META } from "@/constants/admin";
 
 export const transformValueToKey = (value: string): string =>

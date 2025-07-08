@@ -1,4 +1,4 @@
-import { PresetColor, Theme } from "@prisma/client";
+import { PresetColor, Theme } from "@/generated/client";
 import { OnlyString, StructuredTheme } from "@/lib/type";
 
 import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
@@ -43,18 +43,14 @@ export const colorNameToHex = (
 
 export function hexToRgb(
   hex: string,
-  darker: boolean = false,
-  lighter: boolean = false,
-): { r: number; g: number; b: number } | null {
+  transform: number = 0,
+): { r: number; g: number; b: number } {
   const array = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  const transform = darker ? -20 : lighter ? 20 : 0;
-  if (array) {
-    const r = parseInt(array[1], 16) + transform;
-    const g = parseInt(array[2], 16);
-    const b = parseInt(array[3], 16);
-    return { r: r <= 0 ? 0 : r, g: g <= 0 ? 0 : g, b: b <= 0 ? 0 : b };
-  }
-  return null;
+  if (!array) return;
+  const r = parseInt(array[1], 16) + transform;
+  const g = parseInt(array[2], 16) + transform;
+  const b = parseInt(array[3], 16) + transform;
+  return { r: r <= 0 ? 0 : r, g: g <= 0 ? 0 : g, b: b <= 0 ? 0 : b };
 } // hexToRgb("#0033ff").g; // "51";
 
 function componentToHex(c: number): string {
@@ -66,9 +62,9 @@ export function rgbToHex(r: number, g: number, b: number): string {
   return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
 } // rgbToHex(0, 51, 255); // #0033ff
 
-export function getBorderColor(colorHex: string): string | null {
-  const rgb = hexToRgb(colorHex, true);
-  return rgb ? rgbToHex(rgb.r, rgb.g, rgb.b) : null;
+export function getDarkerColor(colorHex: string, transform: number): string {
+  const rgb = hexToRgb(colorHex, transform);
+  return rgbToHex(rgb.r, rgb.g, rgb.b);
 }
 
 export const getStructuredTheme = (theme: Theme): StructuredTheme => {
