@@ -5,6 +5,7 @@ export const BASE_THEME = {
   isActive: true,
   lineColor_general: "#be2d01",
   titleColor_general: "#333",
+  lightbox_general: "#333",
 
   // homePage
   menu1_background_home: "#e7e7e7",

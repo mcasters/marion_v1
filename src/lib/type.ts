@@ -2,8 +2,8 @@
 /* eslint-disable  @typescript-eslint/no-empty-object-type */
 
 import { User } from ".prisma/client";
-import { Prisma } from "@prisma/client";
-import prisma from "@/lib/prisma";
+import { Prisma } from "@/generated/client";
+import prisma from "@/lib/script.ts";
 
 type StringKeys<T> = {
   [k in keyof T]: T[k] extends string ? k : never;
@@ -122,6 +122,7 @@ export type ThemeTarget = {
 export type ThemeGeneralTarget = {
   lineColor: string;
   titleColor: string;
+  lightbox: string;
 };
 
 export type ThemePagePart = {

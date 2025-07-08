@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "generated/prisma/client"
+  output   = "../src/generated/client"
 }
 
 datasource db {
@@ -209,6 +209,7 @@ model Theme {
   isActive                Boolean @default(false)
   lineColor_general       String
   titleColor_general      String
+  lightbox_general        String  @default("#333")
   menu1_background_home   String
   menu1_text_home         String
   menu1_link_home         String
