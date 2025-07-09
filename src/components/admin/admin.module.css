@@ -39,8 +39,8 @@
   text-align: left;
   padding: 0 0 0.5em;
   font-family: var(--font-family-serif-caps);
-  letter-spacing: 3px;
   font-size: 14px;
+  letter-spacing: 3px;
 }
 
 .filterContainer {
@@ -54,7 +54,7 @@
 }
 
 .modalTitle {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   padding-bottom: 20px;
   text-align: center;
 }
@@ -62,14 +62,13 @@
 .modalContainer {
   max-width: 60vw;
   padding: 1em 2em;
-  font-size: var(--font-size);
   text-align: left;
 }
 
 .column {
   display: grid;
-  grid-template-columns: 350px 350px;
-  grid-column-gap: 1em;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1em;
 }
 
 .dimensions, .checkTextForm {
@@ -83,12 +82,7 @@
 }
 
 .check {
-  line-height: 50px;
   min-width: 95px;
-}
-
-.check input {
-  margin: 0 0 0 10px;
 }
 
 .buttonSection {
@@ -130,8 +124,8 @@
 }
 
 .imageInputContainer label {
-  line-height: 58px;
   margin-left: 40px;
+  line-height: 40px;
 }
 
 .previewContainer {

@@ -39,7 +39,7 @@ export default function ThemeAdd() {
         onChange={(e) => {
           setThemeName(e.target.value);
         }}
-        style={{ marginRight: "0" }}
+        style={{ marginRight: "0", height: "unset" }}
       />
       <button
         onClick={handleAdd}

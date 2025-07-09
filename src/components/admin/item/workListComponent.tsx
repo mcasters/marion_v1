@@ -21,6 +21,7 @@ export default function WorkListComponent({ categories, items, type }: Props) {
         type={type}
         onFilteredItems={setFilteredItems}
       />
+      <br />
       <h4>{`Filtre : ${filteredItems.length} ${type}s`}</h4>
       <ListComponent
         items={filteredItems}

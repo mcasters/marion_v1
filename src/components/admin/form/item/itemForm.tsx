@@ -166,7 +166,6 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
           </div>
           <div className={s.checkTextForm}>
             <label className={s.check}>
-              À vendre :
               <input
                 onChange={(e) =>
                   setWorkItem({ ...workItem, isToSell: e.target.checked })
@@ -175,6 +174,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
                 type="checkbox"
                 defaultChecked={workItem.isToSell}
               />
+              À vendre
             </label>
             {workItem.isToSell && (
               <input
@@ -203,7 +203,6 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
           />
           <div className={s.checkTextForm}>
             <label className={s.check}>
-              Sortie :
               <input
                 onChange={(e) =>
                   setWorkItem({ ...workItem, isOut: e.target.checked })
@@ -212,6 +211,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
                 type="checkbox"
                 defaultChecked={workItem.isOut}
               />
+              Sortie
             </label>
             {workItem.isOut && (
               <textarea

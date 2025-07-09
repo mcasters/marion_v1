@@ -43,7 +43,3 @@
 .itemIcon {
 flex: 10%;
 }
-
-.listContainer p {
-  font-size: var(--font-size-min);
-}
