@@ -117,10 +117,6 @@ a,
   transition: color 0.4s ease;
 }
 
-.icon {
-  transition: fill 0.4s ease;
-}
-
 a:hover,
 a:focus,
 .buttonLink:hover,
@@ -128,8 +124,14 @@ a:focus,
   transition: color 0.4s ease;
 }
 
+.icon, .homeIcon {
+  transition: fill 0.4s ease;
+}
+
 .icon:hover,
-.icon:focus {
+.homeIcon:hover,
+.icon:focus,
+.homeIcon:focus {
   transition: fill 0.4s ease;
 }
 

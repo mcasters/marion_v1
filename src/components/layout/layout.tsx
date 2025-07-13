@@ -188,6 +188,24 @@ export default function Layout({ introduction, children }: Props) {
         .itemWrapper .icon:hover {
           fill: ${theme.item.main.linkHover};
         }
+        .homeWrapper .homeIcon {
+          fill: ${theme.general.titleColor};
+        }
+        .homeWrapper .homeIcon:hover {
+          fill: ${theme.home.menu2.link};
+        }
+        .wrapper .homeIcon {
+          fill: ${theme.other.menu1.link};
+        }
+        .wrapper .homeIcon:hover {
+          fill: ${theme.other.menu1.linkHover};
+        }
+        .itemWrapper .homeIcon {
+          fill: ${theme.item.menu1.link};
+        }
+        .itemWrapper .homeIcon:hover {
+          fill: ${theme.item.menu1.linkHover};
+        }
       `}</style>
     </div>
   );

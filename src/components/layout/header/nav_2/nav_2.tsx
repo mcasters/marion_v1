@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 
 import { MENU_2 } from "@/constants/specific/routes";
 import s from "@/components/layout/header/nav_2/nav_2.module.css";
@@ -9,6 +8,8 @@ import { useTheme } from "@/app/context/themeProvider";
 import { useMetas } from "@/app/context/metaProvider";
 import { META } from "@/constants/admin";
 import { getDarkerColor } from "@/utils/themeUtils";
+import LogoIcon from "@/components/icons/logoIcon.tsx";
+import Image from "next/image";
 
 interface Props {
   navLayout: string;
@@ -26,24 +27,24 @@ export default function Nav_2({ navLayout }: Props) {
           if (menuItem.TAG === "Home")
             return (
               <li key={menuItem.TAG}>
-                <Link href={menuItem.ROUTE} key={menuItem.TAG}>
-                  <Image
-                    src={
-                      owner?.startsWith("M")
-                        ? "/logo-mc-100.png"
-                        : "/logo-100.png"
-                    }
-                    alt={`Signature de ${owner}`}
-                    width={40}
-                    height={40}
-                    className={s.logo}
-                    style={{
-                      objectFit: "contain",
-                    }}
-                    priority
-                    unoptimized
-                  />
-                </Link>
+                {owner !== undefined && owner.startsWith("M") && (
+                  <Link href={menuItem.ROUTE} key={menuItem.TAG}>
+                    <LogoIcon width="30" height="30" />
+                  </Link>
+                )}
+                {owner?.startsWith("T") && (
+                  <Link href={menuItem.ROUTE} key={menuItem.TAG}>
+                    <Image
+                      src="logo-100.png"
+                      alt={`Signature de ${owner}`}
+                      width={40}
+                      height={40}
+                      className={s.logo}
+                      priority
+                      unoptimized
+                    />
+                  </Link>
+                )}
               </li>
             );
           return (
