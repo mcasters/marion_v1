@@ -139,7 +139,8 @@
 }
 
 .image {
-  display: inline-block;
+  display: block;
+  object-fit: contain;
   padding: 0 2px;
 }
 

@@ -1,6 +1,7 @@
 import { Type } from "@/lib/type";
 import prisma from "@/lib/script.ts";
 import { deleteFile, getDir, resizeAndSaveImage } from "@/utils/serverUtils";
+import { Prisma } from "../../../../prisma/generated/client";
 
 export const getItemModel = (type: Type) => {
   switch (type) {
@@ -84,9 +85,11 @@ export const createDataAndHandleFiles = async (
       date: new Date(rawFormData.date as string),
       technique: rawFormData.technique as string,
       description: rawFormData.description as string,
-      height: Number(rawFormData.height),
-      width: Number(rawFormData.width),
-      length: isSculpture ? Number(rawFormData.length) : undefined,
+      height: new Prisma.Decimal(rawFormData.height as string),
+      width: new Prisma.Decimal(rawFormData.width as string),
+      length: isSculpture
+        ? new Prisma.Decimal(rawFormData.length as string)
+        : undefined,
       isToSell: rawFormData.isToSell === "on",
       price: Number(rawFormData.price),
       isOut: rawFormData.isOut === "on",

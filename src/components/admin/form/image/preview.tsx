@@ -35,10 +35,6 @@ export default function Preview({
               height={150}
               alt="Image de l'item"
               unoptimized={true}
-              style={{
-                objectFit: "contain",
-                display: "block",
-              }}
               className={s.image}
             />
             {onDelete && (

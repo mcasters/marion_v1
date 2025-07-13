@@ -93,8 +93,8 @@ model Painting {
   date           DateTime
   technique      String            @db.LongText
   description    String?           @db.LongText
-  height         Int
-  width          Int
+  height         Float
+  width          Float
   createdAt      DateTime          @default(now())
   updatedAt      DateTime          @updatedAt
   isToSell       Boolean           @default(false)
@@ -116,9 +116,9 @@ model Sculpture {
   date           DateTime
   technique      String             @db.LongText
   description    String?            @db.LongText
-  height         Int
-  width          Int
-  length         Int
+  height         Float
+  width          Float
+  length         Float
   createdAt      DateTime           @default(now())
   updatedAt      DateTime           @updatedAt
   isToSell       Boolean            @default(false)
@@ -148,8 +148,8 @@ model Drawing {
   date           DateTime
   technique      String           @db.LongText
   description    String?          @db.LongText
-  height         Int
-  width          Int
+  height         Float
+  width          Float
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   isToSell       Boolean          @default(false)
