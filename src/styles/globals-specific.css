@@ -114,25 +114,11 @@ a,
 .buttonLink {
   font-size: var(--font-size);
   text-decoration: none;
-  transition: color 0.4s ease;
-}
-
-a:hover,
-a:focus,
-.buttonLink:hover,
-.buttonLink:focus {
-  transition: color 0.4s ease;
+  transition: color 0.6s ease;
 }
 
 .icon, .homeIcon {
-  transition: fill 0.4s ease;
-}
-
-.icon:hover,
-.homeIcon:hover,
-.icon:focus,
-.homeIcon:focus {
-  transition: fill 0.4s ease;
+  transition: fill 0.6s ease;
 }
 
 .iconButton:disabled,

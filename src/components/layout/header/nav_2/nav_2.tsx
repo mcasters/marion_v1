@@ -29,7 +29,7 @@ export default function Nav_2({ navLayout }: Props) {
               <li key={menuItem.TAG}>
                 {owner !== undefined && owner.startsWith("M") && (
                   <Link href={menuItem.ROUTE} key={menuItem.TAG}>
-                    <LogoIcon width="30" height="30" />
+                    <LogoIcon width="35" height="35" />
                   </Link>
                 )}
                 {owner?.startsWith("T") && (
@@ -56,7 +56,7 @@ export default function Nav_2({ navLayout }: Props) {
           );
         })}
       </ul>
-      <style jsx>{`
+      <style>{`
         .itemNav {
           background-color: ${theme.item.menu2.background};
           border-bottom: 1px solid
