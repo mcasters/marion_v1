@@ -1,10 +1,10 @@
 import ItemsPageComponent from "@/components/item/itemsPageComponent";
-import { getItemsByYear } from "../../../actions/item-post";
 import { Type } from "@/lib/type";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
 import { META } from "@/constants/admin";
+import { getItemsByYear } from "@/app/actions/item-post";
 
 type Props = {
   params: Promise<{ year: string }>;

@@ -21,7 +21,7 @@ export async function generateMetadata({
     const text =
       category.value === "Sans catégorie"
         ? category.value
-        : `Catégorie ${category.value}`;
+        : `Série ${category.value}`;
     return {
       title: `${metas.get(META.DOCUMENT_TITLE_PAINTING)} - ${text}`,
       description: `${metas.get(META.DESCRIPTION_PAINTING)} - ${text}`,

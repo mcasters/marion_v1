@@ -15,13 +15,13 @@ export async function generateMetadata({
 }: Props): Promise<Metadata | undefined> {
   const metas = getMetaMap(await getMetas());
   const categoryKey = (await params).category;
-  const category = await getCategory(categoryKey, Type.PAINTING);
+  const category = await getCategory(categoryKey, Type.DRAWING);
 
   if (metas && category) {
     const text =
       category.value === "Sans catégorie"
         ? category.value
-        : `Catégorie ${category.value}`;
+        : `Série ${category.value}`;
     return {
       title: `${metas.get(META.DOCUMENT_TITLE_DRAWING)} - ${text}`,
       description: `${metas.get(META.DESCRIPTION_DRAWING)} - ${text}`,
