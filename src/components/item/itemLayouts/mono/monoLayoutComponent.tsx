@@ -54,7 +54,7 @@ export default function MonoLayoutComponent({ item, priority }: Props) {
         />
       </figure>
       <figcaption className={s.infoContainer}>
-        <ImageInfos item={item} isLightbox={false} />
+        <ImageInfos item={item} />
       </figcaption>
     </article>
   );

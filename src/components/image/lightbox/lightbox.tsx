@@ -7,7 +7,6 @@ import "yet-another-react-lightbox/styles.css";
 import { Photo, PhotoEnhanced } from "@/lib/type";
 import { LightboxSlide } from "@/components/image/lightbox/lightboxSlide";
 import ImageInfos from "@/components/image/common/imageInfos";
-import LimitedImageInfos from "@/components/image/common/limitedImageInfos";
 import s from "./lightbox.module.css";
 import { useTheme } from "@/app/context/themeProvider.tsx";
 
@@ -31,18 +30,21 @@ export default function Lightbox({ photos, index, onClose, isSmall }: Props) {
         slide: LightboxSlide,
         buttonPrev: isSmall || photos.length <= 1 ? () => null : undefined,
         buttonNext: isSmall || photos.length <= 1 ? () => null : undefined,
-        slideContainer: ({ slide, children }) => (
-          <>
-            {children}
-            <div className={s.imageInfos}>
-              {"item" in slide ? (
-                <ImageInfos item={slide.item} isLightbox={true} />
-              ) : (
-                <LimitedImageInfos photo={slide as Photo} />
-              )}
-            </div>
-          </>
-        ),
+        slideContainer: ({ slide, children }) => {
+          const fullInfo = "item" in slide;
+          return (
+            <>
+              {children}
+              <div className={s.imageInfos}>
+                <ImageInfos
+                  item={fullInfo ? slide.item : undefined}
+                  photo={fullInfo ? undefined : (slide as Photo)}
+                  isForLightbox={true}
+                />
+              </div>
+            </>
+          );
+        },
       }}
       styles={{
         container: {

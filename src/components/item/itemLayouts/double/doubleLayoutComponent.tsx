@@ -52,7 +52,7 @@ export default function DoubleLayoutComponent({ item, priority }: Props) {
         />
       </figure>
       <figcaption className={s.infoContainer}>
-        <ImageInfos item={item} isLightbox={false} />
+        <ImageInfos item={item} />
       </figcaption>
     </article>
   );

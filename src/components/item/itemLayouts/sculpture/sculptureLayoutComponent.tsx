@@ -60,7 +60,7 @@ export default function SculptureLayoutComponent({ item, priority }: Props) {
         </div>
       </figure>
       <figcaption className={s.infoContainer}>
-        <ImageInfos item={item} isLightbox={false} />
+        <ImageInfos item={item} />
       </figcaption>
     </article>
   );
