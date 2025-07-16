@@ -19,3 +19,15 @@
   border-radius: 0.2rem;
   overflow: scroll;
 }
+
+.modalTitle {
+  font-size: 1.4rem;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.modalContainer {
+  max-width: 60vw;
+  padding: 1em 2em;
+  text-align: left;
+}
