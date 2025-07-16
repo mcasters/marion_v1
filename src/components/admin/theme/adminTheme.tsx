@@ -15,26 +15,21 @@ import ThemeSelect from "@/components/admin/theme/ThemeSelect";
 export default function AdminTheme() {
   return (
     <>
-      <h2 className={s.title2}>Gestion du thème</h2>
-      <div className={themeStyle.themeContainer}>
-        <h3 className={s.title3}>Thèmes :</h3>
-        <ThemeSelect />
-        <ThemeActivate />
-        <ThemeDelete />
+      <h3 className={s.title3}>Thèmes :</h3>
+      <ThemeSelect />
+      <ThemeActivate />
+      <ThemeDelete />
+      <div className="smallSeparate" />
+      <h3 className={s.title3}>Détail du thème sélectionné :</h3>
+      <Dashboard />
+      <div className={themeStyle.actionContainer}>
+        <ThemeAdd />
+        <ThemeUpdate />
+        <ThemeCancel />
       </div>
-      <div className={themeStyle.themeContainer}>
-        <h3 className={s.title3}>Détail du thème sélectionné :</h3>
-        <Dashboard />
-        <div className={themeStyle.actionContainer}>
-          <ThemeAdd />
-          <ThemeUpdate />
-          <ThemeCancel />
-        </div>
-      </div>
-      <div className={themeStyle.themeContainer}>
-        <h3 className={s.title3}>Couleurs mémorisées</h3>
-        <PresetColorDashboard />
-      </div>
+      <div className="smallSeparate" />
+      <h3 className={s.title3}>Couleurs mémorisées</h3>
+      <PresetColorDashboard />
     </>
   );
 }

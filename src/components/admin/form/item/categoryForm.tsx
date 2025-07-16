@@ -39,69 +39,67 @@ export default function CategoryForm({ category, toggleModal }: Props) {
   }, [state]);
 
   return (
-    <div className={s.modalContainer}>
-      <h2 className={s.modalTitle}>
-        {isUpdate ? "Modification d'une catégorie" : "Ajout d'une catégorie"}
-      </h2>
-      <form action={action}>
-        <input type="hidden" name="id" value={category.id} />
-        <input type="hidden" name="type" value={category.workType} />
-        <input type="hidden" name="filename" value={image.filename} />
-        <input type="hidden" name="width" value={image.width} />
-        <input type="hidden" name="height" value={image.height} />
-        <input
-          name="value"
-          type="text"
-          value={workCategory.value}
-          onChange={(e) =>
-            setWorkCategory({ ...workCategory, value: e.target.value })
-          }
-          required
-          placeholder="Nom de la catégorie"
+    <form action={action}>
+      <input type="hidden" name="id" value={category.id} />
+      <input type="hidden" name="type" value={category.workType} />
+      <input type="hidden" name="filename" value={image.filename} />
+      <input type="hidden" name="width" value={image.width} />
+      <input type="hidden" name="height" value={image.height} />
+      <input
+        name="value"
+        type="text"
+        value={workCategory.value}
+        onChange={(e) =>
+          setWorkCategory({ ...workCategory, value: e.target.value })
+        }
+        required
+        placeholder="Nom de la catégorie"
+        autoFocus
+      />
+      {!isUpdate && (
+        <p>
+          <small>{message}</small>
+        </p>
+      )}
+      <br />
+      <input
+        name="title"
+        type="text"
+        value={workCategory.content.title}
+        onChange={(e) =>
+          setWorkCategory({
+            ...workCategory,
+            content: { ...workCategory.content, title: e.target.value },
+          })
+        }
+        placeholder="Titre du descriptif (facultatif)"
+      />
+      <br />
+      <textarea
+        name="text"
+        rows={5}
+        value={workCategory.content.text}
+        onChange={(e) =>
+          setWorkCategory({
+            ...workCategory,
+            content: { ...workCategory.content, text: e.target.value },
+          })
+        }
+        placeholder="Texte descriptif (facultatif)"
+      />
+      <br />
+      {isUpdate && (
+        <SelectImageList
+          itemsImages={category.images}
+          selectedImage={workCategory.content.image}
+          onChange={(image) => setImage(image)}
+          type={category.workType}
         />
-        {!isUpdate && (
-          <p>
-            <br />
-            <small>{message}</small>
-          </p>
-        )}
-        <input
-          name="title"
-          type="text"
-          value={workCategory.content.title}
-          onChange={(e) =>
-            setWorkCategory({
-              ...workCategory,
-              content: { ...workCategory.content, title: e.target.value },
-            })
-          }
-          placeholder="Titre du descriptif (facultatif)"
-        />
-        <textarea
-          name="text"
-          rows={5}
-          value={workCategory.content.text}
-          onChange={(e) =>
-            setWorkCategory({
-              ...workCategory,
-              content: { ...workCategory.content, text: e.target.value },
-            })
-          }
-          placeholder="Texte descriptif (facultatif)"
-        />
-        {isUpdate && (
-          <SelectImageList
-            itemsImages={category.images}
-            selectedImage={workCategory.content.image}
-            onChange={(image) => setImage(image)}
-            type={category.workType}
-          />
-        )}
-        <div className={s.buttonSection}>
-          <SubmitButton />
-          <CancelButton onCancel={toggleModal} />
-        </div>
-      </form>
-    </div>
+      )}
+      <div className={s.buttonSection}>
+        <SubmitButton />
+        <CancelButton onCancel={toggleModal} />
+      </div>
+    </form>
   );
 }

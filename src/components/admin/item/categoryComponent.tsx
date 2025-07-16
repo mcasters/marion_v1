@@ -1,10 +1,9 @@
 "use client";
 
 import React from "react";
-import s from "@/components/admin/admin.module.css";
 import { Category, Type, WorkFull } from "@/lib/type";
 import { getCategoriesFull, getEmptyCategoryFull } from "@/utils/commonUtils";
-import AddUpdateButton from "@/components/admin/form/addUpdateButton";
+import AddButton from "@/components/admin/form/addButton.tsx";
 import ListComponent from "@/components/admin/form/item/listComponent";
 
 interface Props {
@@ -16,14 +15,13 @@ export default function CategoryComponent({ type, categories, items }: Props) {
   const message = `Une catégorie ne peut être supprimée que lorsqu'il n'y a pas ou plus de ${type} qui y est classée.`;
 
   return (
-    <div className={s.container}>
-      <h2 className={s.title2}>Gestion des catégories</h2>
+    <>
       <ListComponent
         items={getCategoriesFull(categories, items, type)}
         type={Type.CATEGORY}
       />
       <h5>{message}</h5>
-      <AddUpdateButton item={getEmptyCategoryFull(type)} />
-    </div>
+      <AddButton item={getEmptyCategoryFull(type)} />
+    </>
   );
 }

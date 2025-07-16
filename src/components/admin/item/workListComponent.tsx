@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { Category, Type, WorkFull } from "@/lib/type";
 import ListComponent from "@/components/admin/form/item/listComponent";
 import FilterWorkListComponent from "@/components/admin/item/filterWorkListComponent.tsx";
-import s from "@/components/admin/admin.module.css";
 
 interface Props {
   categories: Category[];
@@ -14,7 +13,7 @@ interface Props {
 export default function WorkListComponent({ categories, items, type }: Props) {
   const [filteredItems, setFilteredItems] = useState<WorkFull[]>(items);
   return (
-    <div className={s.container}>
+    <>
       <FilterWorkListComponent
         categories={categories}
         items={items}
@@ -28,6 +27,6 @@ export default function WorkListComponent({ categories, items, type }: Props) {
         categories={categories}
         type={type}
       />
-    </div>
+    </>
   );
 }

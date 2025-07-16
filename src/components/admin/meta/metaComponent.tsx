@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Fragment } from "react";
 import MetaForm from "@/components/admin/form/content/metaForm";
 import { META, SEO } from "@/constants/admin";
 
@@ -16,7 +16,7 @@ export default function MetaComponent({ metas }: Props) {
     if (!isM && (key.endsWith("Drawing") || key.endsWith("DrawingHome")))
       return;
     return (
-      <div key={key}>
+      <Fragment key={key}>
         <MetaForm
           content={metas.get(key) || ""}
           label={value}
@@ -30,7 +30,7 @@ export default function MetaComponent({ metas }: Props) {
             ***
           </span>
         )}
-      </div>
+      </Fragment>
     );
   });
 }
