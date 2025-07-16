@@ -13,6 +13,7 @@ import {
   createCategory,
   updateCategory,
 } from "@/app/actions/item-post/categories/admin";
+import { MESSAGE } from "@/constants/admin.ts";
 
 interface Props {
   category: CategoryFull;
@@ -27,7 +28,6 @@ export default function CategoryForm({ category, toggleModal }: Props) {
     null,
   );
   const alert = useAlert();
-  const message = `Parmi les renseignements facultatif d'une catégorie, en plus d'un descriptif, la photo d'une œuvre peut être assignée à cette catégorie, cela permet à l'utilisateur d'avoir une idée du genre d'œuvre qui s'y trouve (cette photo s'affiche dans la pastille sur laquelle on clique pour voir les œuvres de la catégorie). Cependant, cette photo ne peut être ajoutée qu'une fois que des œuvres y sont classées, puisque le choix de la photo s'effectue parmi ces œuvres. Donc après avoir créé la catégorie, et après y avoir classé des œuvres, tu pourras alors choisir une photo en allant dans la mise à jour de la catégorie.`;
 
   useEffect(() => {
     if (state) {
@@ -58,7 +58,7 @@ export default function CategoryForm({ category, toggleModal }: Props) {
       />
       {!isUpdate && (
         <p>
-          <small>{message}</small>
+          <small>{MESSAGE.categoryImage}</small>
         </p>
       )}
       <br />
