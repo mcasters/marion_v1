@@ -9,26 +9,39 @@ import {
   getSliderPortraitImages,
 } from "@/utils/imageUtils";
 import HomeLayoutForm from "@/components/admin/form/home/homeLayoutForm";
-import HomeSliderForm from "@/components/admin/form/home/homeSliderForm";
+import ImagesForm from "@/components/admin/form/image/imagesForm.tsx";
 
 export default async function Home() {
   const contents = await getContentsFull();
 
   return (
-    <>
+    <div className={s.container}>
       <h1 className={s.title1}>{`Contenus de la page Home`}</h1>
+      <h2 className={s.title2}>Mise en page</h2>
       <HomeLayoutForm />
-      <div className={s.container}>
-        <h3 className={s.title2}>{`Texte d'accueil (facultatif)`}</h3>
-        <TextAreaForm
-          textContent={getIntroText(contents)}
-          label={Label.INTRO}
-        />
-      </div>
-      <HomeSliderForm
-        mobileImages={getSliderPortraitImages(contents)}
-        desktopImages={getSliderLandscapeImages(contents)}
+      <div className="separate" />
+      <h2 className={s.title2}>{`Texte d'accueil (facultatif)`}</h2>
+      <TextAreaForm textContent={getIntroText(contents)} label={Label.INTRO} />
+      <div className="separate" />
+      <h2 className={s.title2}>{`Images affichées sur écran mobile`}</h2>
+      <ImagesForm
+        images={getSliderPortraitImages(contents)}
+        isMultiple={true}
+        label={Label.SLIDER}
+        acceptSmallImage={false}
+        title={`Une ou plusieurs images possible. Format portrait mieux adapté`}
+        isMain={true}
       />
-    </>
+      <div className="separate" />
+      <h2 className={s.title2}>{`Images affichées sur écran ordinateur`}</h2>
+      <ImagesForm
+        images={getSliderLandscapeImages(contents)}
+        isMultiple={true}
+        label={Label.SLIDER}
+        acceptSmallImage={false}
+        title={`Une ou plusieurs images possible. Format paysage ou carré mieux adapté`}
+        isMain={false}
+      />
+    </div>
   );
 }

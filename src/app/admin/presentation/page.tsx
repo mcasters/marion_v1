@@ -17,7 +17,6 @@ export default async function Presentation() {
   return (
     <div className={s.container}>
       <h1 className={s.title1}>Contenus de la page Présentation</h1>
-
       <ImagesForm
         images={getPresentationImage(contents)}
         isMultiple={false}
