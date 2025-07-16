@@ -27,7 +27,7 @@ export default function Nav_2({ navLayout }: Props) {
           if (menuItem.TAG === "Home")
             return (
               <li key={menuItem.TAG}>
-                {owner !== undefined && owner.startsWith("M") && (
+                {owner?.startsWith("M") && (
                   <Link href={menuItem.ROUTE} key={menuItem.TAG}>
                     <LogoIcon width="35" height="35" />
                   </Link>
@@ -35,7 +35,7 @@ export default function Nav_2({ navLayout }: Props) {
                 {owner?.startsWith("T") && (
                   <Link href={menuItem.ROUTE} key={menuItem.TAG}>
                     <Image
-                      src="logo-100.png"
+                      src="/logo-100.png"
                       alt={`Signature de ${owner}`}
                       width={40}
                       height={40}
