@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 export default function Page({ children }: { children: ReactNode }) {
   return (
     <div className={s.container}>
-      <h1>Espace administration :</h1>
-      <h2>Authentification nécessaire</h2>
+      <h1>Espace administration</h1>
+      <h2>Authentification</h2>
       {children}
     </div>
   );

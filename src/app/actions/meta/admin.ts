@@ -11,7 +11,11 @@ export async function updateMeta(
     const label = formData.get("label") as string;
     let text;
 
-    if (label.endsWith("Layout")) {
+    if (
+      label === "paintingLayout" ||
+      label === "sculptureLayout" ||
+      label === "drawingLayout"
+    ) {
       const layout = formData.get("layout") as string;
       const darkBackground = formData.get("darkBackground") as string;
       text = `${layout},${darkBackground}`;
