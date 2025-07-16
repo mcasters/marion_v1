@@ -21,6 +21,7 @@ type Props = {
   isSelected: boolean;
   mouseOutside: boolean;
   categories?: Category[];
+  noDoubleClick?: boolean;
 };
 
 export default function RowListComponent({
@@ -28,6 +29,7 @@ export default function RowListComponent({
   isSelected,
   mouseOutside,
   categories,
+  noDoubleClick = false,
 }: Props) {
   const { isOpen, toggle } = useModal();
   const isCategory = item.type === Type.CATEGORY;
@@ -45,7 +47,7 @@ export default function RowListComponent({
       <ul
         className={`${isSelected && !isOpen ? "selected" : undefined} ${s.itemList}`}
         style={mouseOutside && isSelected ? { opacity: "60%" } : undefined}
-        onDoubleClick={toggle}
+        onDoubleClick={noDoubleClick ? undefined : toggle}
       >
         <li className={s.itemTitle}>{isCategory ? item.value : item.title}</li>
         <li className={s.itemInfo}>

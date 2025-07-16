@@ -54,20 +54,27 @@ export default function ListComponent({ items, type, categories }: Props) {
         className={`${type === Type.CATEGORY ? s.categoryListWrapper : s.itemListWrapper} ${s.listWrapper} area`}
       >
         {itemsToDisplay.map((item, i) => {
+          const isNoCategory =
+            type === Type.CATEGORY && item.key === "no-category";
           return (
             <Fragment key={i}>
               <div
-                onClick={() => setSelectedIndex(i)}
-                role="button"
-                style={{
-                  cursor: "pointer",
-                }}
+                onClick={isNoCategory ? undefined : () => setSelectedIndex(i)}
+                role={isNoCategory ? undefined : "button"}
+                style={
+                  isNoCategory
+                    ? undefined
+                    : {
+                        cursor: "pointer",
+                      }
+                }
               >
                 <RowListComponent
                   item={item}
                   isSelected={selectedIndex === i}
                   mouseOutside={mouseOutside}
                   categories={categories}
+                  noDoubleClick={isNoCategory}
                 />
               </div>
             </Fragment>

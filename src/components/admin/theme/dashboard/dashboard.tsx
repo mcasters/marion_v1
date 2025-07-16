@@ -30,7 +30,7 @@ export default function Dashboard() {
         <SubDashboard structuredTheme={structuredTheme} page={"item"} />
       </section>
       <p>* lorsque la souris survole le texte</p>
-      {isUpdated && <span>Thème modifié (à sauvegarder)</span>}
+      {!isUpdated && <span>Thème modifié (à sauvegarder)</span>}
     </div>
   );
 }
