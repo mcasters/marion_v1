@@ -2,10 +2,6 @@
   padding: 6em 1em 1em;
 }
 
-.container {
-  margin: 0 0 2em;
-}
-
 /* desktop */
 @media (min-width: 769px) {
   .adminWrapper {
@@ -53,22 +49,10 @@
   text-align: left;
 }
 
-.modalTitle {
-  font-size: 1.4rem;
-  padding-bottom: 20px;
-  text-align: center;
-}
-
-.modalContainer {
-  max-width: 60vw;
-  padding: 1em 2em;
-  text-align: left;
-}
-
 .column {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 1em;
+  grid-column-gap: 1em;
 }
 
 .dimensions, .checkTextForm {
@@ -81,7 +65,7 @@
   column-gap: 5px;
 }
 
-.check {
+.checkTextForm label {
   min-width: 95px;
 }
 
@@ -125,7 +109,6 @@
 
 .imageInputContainer label {
   margin-left: 40px;
-  line-height: 40px;
 }
 
 .previewContainer {

@@ -8,21 +8,15 @@ import ItemForm from "@/components/admin/form/item/itemForm";
 import React from "react";
 import s from "@/components/admin/admin.module.css";
 import modalStyle from "@/components/admin/modal.module.css";
-import UpdateIcon from "@/components/icons/updateIcon";
 import CategoryForm from "@/components/admin/form/item/categoryForm";
 
-export type AddUpdateButtonProps = {
+export type Props = {
   item: Item;
   categories?: Category[];
   disabled?: boolean;
 };
-export default function AddUpdateButton({
-  item,
-  categories,
-  disabled,
-}: AddUpdateButtonProps) {
+export default function AddButton({ item, categories, disabled }: Props) {
   const { isOpen, toggle } = useModal();
-  const isUpdate = item.id != 0 || item.key === "no-category";
   const title = "Ajouter "
     .concat(
       item.type === Type.DRAWING || item.type === Type.POST ? "un " : "une ",
@@ -36,15 +30,11 @@ export default function AddUpdateButton({
           e.preventDefault();
           toggle();
         }}
-        className={isUpdate ? "iconButton" : `${s.addButton} adminButton`}
-        aria-label={isUpdate ? "Mise à jour" : "Ajout"}
+        className={`${s.addButton} adminButton`}
+        aria-label={"Ajout"}
         disabled={disabled ? disabled : false}
       >
-        {isUpdate ? (
-          <UpdateIcon />
-        ) : (
-          `Ajouter ${item.type === Type.DRAWING || item.type === Type.POST ? "un" : "une"} ${item.type}`
-        )}
+        {title}
       </button>
       <Modal isOpen={isOpen} toggle={toggle}>
         <div className={modalStyle.modalContainer}>

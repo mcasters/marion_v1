@@ -36,10 +36,8 @@ export default function ChatMessages({ dbMessages }: Props) {
   return (
     <section className={style.container}>
       <div className={s.messagesHeader}>
-        <h2 className={style.title2}>Messages</h2>
         <div className={s.shadow} />
       </div>
-
       <div className={`${s.messages} area`}>
         {dbMessages &&
           dbMessages.map((msg, index) => (

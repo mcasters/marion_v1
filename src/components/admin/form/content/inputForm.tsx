@@ -34,28 +34,26 @@ export default function InputForm({
   }, [state]);
 
   return (
-    <div className={s.container}>
-      <form action={action}>
-        <input type="hidden" name="label" value={label} />
-        <label className={s.label}>
-          {textLabel}
-          <input
-            placeholder={label}
-            name="text"
-            type={isPhone ? "tel" : isEmail ? "email" : "text"}
-            value={text}
-            onChange={(e) => {
-              setText(e.target.value);
-              setIsChanged(true);
-            }}
-          />
-        </label>
-        <SubmitButton disabled={!isChanged} />
-        <CancelButton
-          disabled={!isChanged}
-          onCancel={() => setText(textContent)}
+    <form action={action}>
+      <input type="hidden" name="label" value={label} />
+      <label className={s.label}>
+        {textLabel}
+        <input
+          placeholder={label}
+          name="text"
+          type={isPhone ? "tel" : isEmail ? "email" : "text"}
+          value={text}
+          onChange={(e) => {
+            setText(e.target.value);
+            setIsChanged(true);
+          }}
         />
-      </form>
-    </div>
+      </label>
+      <SubmitButton disabled={!isChanged} />
+      <CancelButton
+        disabled={!isChanged}
+        onCancel={() => setText(textContent)}
+      />
+    </form>
   );
 }

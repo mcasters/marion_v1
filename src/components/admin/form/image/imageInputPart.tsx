@@ -3,7 +3,7 @@
 import React, { useRef, useState } from "react";
 import { useAlert } from "@/app/context/alertProvider";
 import s from "@/components/admin/admin.module.css";
-import Preview from "@/components/admin/form/image/preview";
+import PreviewPart from "@/components/admin/form/image/previewPart.tsx";
 import { constraintImage } from "@/components/admin/form/formUtils";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
   setResizedFiles: React.Dispatch<React.SetStateAction<File[]>>;
 };
 
-export default function ImageInput({
+export default function ImageInputPart({
   isMultiple,
   acceptSmallImage,
   setResizedFiles,
@@ -87,7 +87,7 @@ export default function ImageInput({
           accept="image/png, image/jpeg"
         />
         {acceptSmallImage && (
-          <label>
+          <label className="checkboxLabel">
             <input
               type="checkbox"
               checked={smallImageSelected}
@@ -99,7 +99,7 @@ export default function ImageInput({
       </div>
       <div className={s.previewAddContainer}>
         {previewImages.length > 0 && (
-          <Preview filenames={previewImages} pathImage="" />
+          <PreviewPart filenames={previewImages} pathImage="" />
         )}
       </div>
     </>

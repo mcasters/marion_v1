@@ -21,61 +21,58 @@ export default function HomeLayoutForm() {
   }, [state]);
 
   return (
-    <div className={s.layoutContainer}>
-      <h2 className={s.title2}>Mise en page</h2>
-      <form action={action}>
-        <input type="hidden" name="label" value={"homeLayout"} />
-        <input type="hidden" name="text" value={value} />
+    <form action={action} className={s.layoutForm}>
+      <input type="hidden" name="label" value={"homeLayout"} />
+      <input type="hidden" name="text" value={value} />
 
-        <label className={s.layoutLabel}>
-          <button
-            onClick={(e) => setValue(e.currentTarget.value)}
-            className={
-              value === "1"
-                ? `${s.buttonLayoutSelected} ${s.buttonLayout}`
-                : s.buttonLayout
-            }
-            value="1"
-          >
-            <Image
-              src="/assets/home-nav-layout.png"
-              alt=""
-              width={200}
-              height={130}
-              unoptimized
-            />
-          </button>
-          <p>
-            <strong>{`Texte séparé :`}</strong>
-            <br />
-            {`Le titre du site, les menus, et l'introduction sont situés au dessus de l'image.`}
-          </p>
-        </label>
-        <label className={s.layoutLabel}>
-          <button
-            onClick={(e) => setValue(e.currentTarget.value)}
-            className={
-              value === "0"
-                ? `${s.buttonLayoutSelected} ${s.buttonLayout}`
-                : s.buttonLayout
-            }
-            value="0"
-          >
-            <Image
-              src="/assets/home-plain-layout.png"
-              alt=""
-              width={200}
-              height={130}
-              unoptimized
-            />
-          </button>
-          <p>
-            <strong>{`Texte intégré :`}</strong>
-            <br />
-            {`Le titre du site, les menus, et l'introduction sont situés sur l'image qui prend tout l'écran. Leur couleur doit alors être accordée avec l'image pour qu'ils restent lisibles : Mettre une seule image est sans doute plus simple.`}
-          </p>
-        </label>
-      </form>
-    </div>
+      <label className={s.layoutLabel}>
+        <button
+          onClick={(e) => setValue(e.currentTarget.value)}
+          className={
+            value === "1"
+              ? `${s.buttonLayoutSelected} ${s.buttonLayout}`
+              : s.buttonLayout
+          }
+          value="1"
+        >
+          <Image
+            src="/assets/home-nav-layout.png"
+            alt=""
+            width={200}
+            height={130}
+            unoptimized
+          />
+        </button>
+        <p>
+          <strong>{`Texte séparé :`}</strong>
+          <br />
+          {`Le titre du site, les menus, et l'introduction sont situés au dessus de l'image.`}
+        </p>
+      </label>
+      <label className={s.layoutLabel}>
+        <button
+          onClick={(e) => setValue(e.currentTarget.value)}
+          className={
+            value === "0"
+              ? `${s.buttonLayoutSelected} ${s.buttonLayout}`
+              : s.buttonLayout
+          }
+          value="0"
+        >
+          <Image
+            src="/assets/home-plain-layout.png"
+            alt=""
+            width={200}
+            height={130}
+            unoptimized
+          />
+        </button>
+        <p>
+          <strong>{`Texte intégré :`}</strong>
+          <br />
+          {`Le titre du site, les menus, et l'introduction sont situés sur l'image qui prend tout l'écran. Leur couleur doit alors être accordée avec l'image pour qu'ils restent lisibles : Mettre une seule image est sans doute plus simple.`}
+        </p>
+      </label>
+    </form>
   );
 }

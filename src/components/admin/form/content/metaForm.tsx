@@ -32,35 +32,33 @@ export default function MetaForm({
   }, [state]);
 
   return (
-    <>
-      <form action={action} className={s.metaForm}>
-        <input type="hidden" name="label" value={dbLabel} />
-        <label className={s.label}>
-          {label}
-          {isTextArea ? (
-            <textarea
-              name="text"
-              value={text}
-              onChange={(e) => {
-                setText(e.target.value);
-                setIsChanged(true);
-              }}
-              rows={3}
-            />
-          ) : (
-            <input
-              name="text"
-              value={text}
-              onChange={(e) => {
-                setText(e.target.value);
-                setIsChanged(true);
-              }}
-            />
-          )}
-        </label>
-        <SubmitButton disabled={!isChanged} />
-        <CancelButton disabled={!isChanged} onCancel={() => setText(content)} />
-      </form>
-    </>
+    <form action={action} className={s.metaForm}>
+      <input type="hidden" name="label" value={dbLabel} />
+      <label className={s.label}>
+        {label}
+        {isTextArea ? (
+          <textarea
+            name="text"
+            value={text}
+            onChange={(e) => {
+              setText(e.target.value);
+              setIsChanged(true);
+            }}
+            rows={3}
+          />
+        ) : (
+          <input
+            name="text"
+            value={text}
+            onChange={(e) => {
+              setText(e.target.value);
+              setIsChanged(true);
+            }}
+          />
+        )}
+      </label>
+      <SubmitButton disabled={!isChanged} />
+      <CancelButton disabled={!isChanged} onCancel={() => setText(content)} />
+    </form>
   );
 }
