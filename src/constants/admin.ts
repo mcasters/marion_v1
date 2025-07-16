@@ -110,3 +110,8 @@ export const SEO: { [key: string]: string } = {
   [META.DOCUMENT_TITLE_CONTACT]: "Titre de la page contact",
   [META.DESCRIPTION_CONTACT]: "Description de la page contact",
 };
+
+export const MESSAGE = {
+  category:
+    "Une catégorie ne peut être supprimée que lorsqu'il n'y a pas ou plus d'item qui y est classé.",
+};

@@ -3,10 +3,14 @@ import React from "react";
 import { Type } from "@/lib/type";
 import { getAllCategories, getAllItems } from "@/app/actions/item-post";
 import ItemLayoutForm from "@/components/admin/form/item/itemLayoutForm.tsx";
-import WorkListComponent from "@/components/admin/item/workListComponent.tsx";
 import AddButton from "@/components/admin/form/addButton.tsx";
-import { getEmptyItem } from "@/utils/commonUtils.ts";
-import CategoryComponent from "@/components/admin/item/categoryComponent.tsx";
+import {
+  getCategoriesFull,
+  getEmptyCategoryFull,
+  getEmptyItem,
+} from "@/utils/commonUtils.ts";
+import ListComponent from "@/components/admin/form/item/listComponent.tsx";
+import { MESSAGE } from "@/constants/admin.ts";
 
 export default async function Peintures() {
   const type = Type.PAINTING;
@@ -22,11 +26,16 @@ export default async function Peintures() {
       <h2
         className={s.title2}
       >{`Gestion des peintures ( total : ${items.length} )`}</h2>
-      <WorkListComponent items={items} categories={categories} type={type} />
+      <ListComponent items={items} categories={categories} type={type} />
       <AddButton item={getEmptyItem(type)} categories={categories} />
       <div className="separate" />
       <h2 className={s.title2}>Gestion des catégories</h2>
-      <CategoryComponent type={type} categories={categories} items={items} />
+      <ListComponent
+        items={getCategoriesFull(categories, items, type)}
+        type={Type.CATEGORY}
+      />
+      <h5>{MESSAGE.category}</h5>
+      <AddButton item={getEmptyCategoryFull(type)} />
     </div>
   );
 }

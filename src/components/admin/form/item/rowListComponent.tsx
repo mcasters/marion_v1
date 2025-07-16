@@ -19,14 +19,14 @@ import useModal from "@/components/admin/form/modal/useModal.tsx";
 type Props = {
   item: Item;
   isSelected: boolean;
-  isOutside: boolean;
+  mouseOutside: boolean;
   categories?: Category[];
 };
 
 export default function RowListComponent({
   item,
   isSelected,
-  isOutside,
+  mouseOutside,
   categories,
 }: Props) {
   const { isOpen, toggle } = useModal();
@@ -44,7 +44,7 @@ export default function RowListComponent({
     <>
       <ul
         className={`${isSelected && !isOpen ? "selected" : undefined} ${s.itemList}`}
-        style={isOutside && isSelected ? { opacity: "60%" } : undefined}
+        style={mouseOutside && isSelected ? { opacity: "60%" } : undefined}
         onDoubleClick={toggle}
       >
         <li className={s.itemTitle}>{isCategory ? item.value : item.title}</li>

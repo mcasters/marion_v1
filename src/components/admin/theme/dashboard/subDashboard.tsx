@@ -13,9 +13,11 @@ interface Props {
 
 export default function SubDashboard({ structuredTheme, page }: Props) {
   if (page === "general") {
-    return Object.entries(structuredTheme[page]).map(([target, value], i) => (
-      <ColorSwatch key={i} page={page} pagePart={null} target={target} />
-    ));
+    return Object.entries(structuredTheme[page]).map(([target, value], i) =>
+      value !== "" ? (
+        <ColorSwatch key={i} page={page} pagePart={null} target={target} />
+      ) : undefined,
+    );
   } else
     return Object.entries(structuredTheme[page]).map(
       ([pagePart, content], i) => (

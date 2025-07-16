@@ -2,22 +2,19 @@
 
 import React, { useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
-import { Category, Type, WorkFull } from "@/lib/type";
-import { getYearsFromItems } from "@/utils/commonUtils";
+import { Category, WorkFull } from "@/lib/type.ts";
+import { getYearsFromItems } from "@/utils/commonUtils.ts";
 
 interface Props {
-  categories: Category[];
   items: WorkFull[];
-  type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
+  categories: Category[];
   onFilteredItems: (items: WorkFull[]) => void;
 }
 export default function FilterWorkListComponent({
-  categories,
   items,
-  type,
+  categories,
   onFilteredItems,
 }: Props) {
-  const title = `Gestion des ${type}s`;
   const years = getYearsFromItems(items);
   const [categoryFilter, setCategoryFilter] = useState<number>(-1);
   const [yearFilter, setYearFilter] = useState<number>(-1);
