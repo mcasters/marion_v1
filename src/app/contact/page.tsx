@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import s from "@/styles/contactPage.module.css";
 import {
   getAddress,
   getContactText,
@@ -23,9 +22,9 @@ export default async function Contact() {
 
   return (
     <>
-      <address>
+      <address style={{ padding: "4em 0" }}>
         <p>{owner}</p>
-        <p className={s.preLine}>{getAddress(contents)}</p>
+        <p className="preLine">{getAddress(contents)}</p>
         <br />
         <p>
           <Link href={`tel:+33${getPhone(contents)}`}>
@@ -34,9 +33,7 @@ export default async function Contact() {
         </p>
         <br />
         <p>
-          <Link className={s.email} href={`mailto:${email}`}>
-            {email}
-          </Link>
+          <Link href={`mailto:${email}`}>{email}</Link>
         </p>
         {owner?.startsWith("T") && instagram && (
           <>
@@ -51,8 +48,8 @@ export default async function Contact() {
         )}
       </address>
       {contactText !== "" && (
-        <div className={s.text}>
-          <p className={s.preLine}>{contactText}</p>
+        <div style={{ padding: "2em 0 6em" }}>
+          <p className="preline">{contactText}</p>
         </div>
       )}
     </>

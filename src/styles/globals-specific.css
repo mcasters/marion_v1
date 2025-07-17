@@ -93,6 +93,10 @@ body {
   padding: 1.5em 0;
 }
 
+.preLine {
+  white-space: pre-line;
+}
+
 /*
  * Link
  */

@@ -8,7 +8,11 @@ export default function LoginForm() {
   const [state, action] = useActionState(loginAction, undefined);
 
   return (
-    <form action={action} className={s.loginForm}>
+    <form
+      action={action}
+      className={s.loginForm}
+      style={{ width: "50%", margin: "auto" }}
+    >
       <input
         type="email"
         name="email"
