@@ -1,10 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { DEVICE } from "@/constants/image";
 import { PhotoTab } from "@/lib/type";
 import s from "./gallery.module.css";
-import useWindowSize from "@/components/hooks/useWindowSize";
+import useIsSmallWindow from "@/components/hooks/useIsSmallWindow.js";
 import Image from "next/image";
 import Lightbox from "@/components/image/lightbox/lightbox";
 
@@ -14,8 +13,7 @@ interface Props {
 
 export default function Gallery({ photos }: Props) {
   const [index, setIndex] = useState(-1);
-  const window = useWindowSize();
-  const isSmall = window.innerWidth < DEVICE.SMALL;
+  const isSmall = useIsSmallWindow();
   const photoToDisplay = isSmall ? photos.sm : photos.md;
 
   return (

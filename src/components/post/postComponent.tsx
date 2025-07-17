@@ -5,8 +5,7 @@ import React, { useMemo, useState } from "react";
 import { PostFull } from "@/lib/type";
 import { getPostPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
-import useWindowSize from "@/components/hooks/useWindowSize";
-import { DEVICE } from "@/constants/image";
+import useIsSmallWindow from "@/components/hooks/useIsSmallWindow.js";
 import { META } from "@/constants/admin";
 import Gallery from "@/components/image/gallery/gallery.tsx";
 import FormattedImage from "@/components/image/formattedImage.tsx";
@@ -17,8 +16,7 @@ interface Props {
 }
 export default function PostComponent({ post }: Props) {
   const metas = useMetas();
-  const window = useWindowSize();
-  const isSmall = window.innerWidth < DEVICE.SMALL;
+  const isSmall = useIsSmallWindow();
   const [index, setIndex] = useState(-1);
   const { mainPhotos, photos } = useMemo(
     () =>

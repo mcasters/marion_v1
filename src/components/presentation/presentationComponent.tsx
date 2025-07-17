@@ -2,9 +2,8 @@
 
 import s from "./presentationComponent.module.css";
 import React from "react";
-import { DEVICE } from "@/constants/image";
 import { Image } from "@/lib/type";
-import useWindowSize from "@/components/hooks/useWindowSize";
+import useIsSmallWindow from "@/components/hooks/useIsSmallWindow.js";
 import { getPhotoTabFromImages } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
 
@@ -23,8 +22,7 @@ export default function PresentationComponent({
   demarche,
   inspiration,
 }: Props) {
-  const window = useWindowSize();
-  const isSmall = window.innerWidth < DEVICE.SMALL;
+  const isSmall = useIsSmallWindow();
   const metas = useMetas();
   const alt = `Photo de ${metas.get(META.SITE_TITLE)}`;
   const photoTab = getPhotoTabFromImages(images, "miscellaneous", alt);

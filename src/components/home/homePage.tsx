@@ -1,10 +1,10 @@
 "use client";
 
-import useWindowSize from "@/components/hooks/useWindowSize";
 import { DEVICE } from "@/constants/image";
 import React from "react";
 import { PhotoTab } from "@/lib/type";
 import Slideshow from "@/components/image/slideshow/slideshow";
+import useWindowRect from "@/components/hooks/useWindowRect.js";
 
 export type Props = {
   portraitPhotos: PhotoTab;
@@ -12,7 +12,7 @@ export type Props = {
 };
 
 export default function HomePage({ portraitPhotos, landscapePhotos }: Props) {
-  const window = useWindowSize();
+  const window = useWindowRect();
   const isSmall = window.innerWidth < DEVICE.SMALL;
   const needPortrait = window.innerWidth / window.innerHeight < 0.98;
   const photos = needPortrait ? portraitPhotos : landscapePhotos;

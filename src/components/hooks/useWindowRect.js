@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const useWindowSize = () => {
+const useWindowRect = () => {
   const [windowRect, setWindowRect] = useState({
     innerWidth: 375,
     innerHeight: 667,
@@ -13,10 +13,7 @@ const useWindowSize = () => {
     const height = window.innerHeight;
 
     function handleResize() {
-      setWindowRect({
-        innerWidth: width,
-        innerHeight: height,
-      });
+      setWindowRect({ innerWidth: width, innerHeight: height });
     }
 
     if (windowRect.innerWidth !== width || windowRect.innerHeight !== height)
@@ -33,4 +30,4 @@ const useWindowSize = () => {
 
   return windowRect;
 };
-export default useWindowSize;
+export default useWindowRect;

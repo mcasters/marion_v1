@@ -7,8 +7,7 @@ import { getItemPhotoTab } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
 import ImageInfos from "@/components/image/common/imageInfos";
 import Lightbox from "@/components/image/lightbox/lightbox";
-import useWindowSize from "@/components/hooks/useWindowSize";
-import { DEVICE } from "@/constants/image";
+import useIsSmallWindow from "@/components/hooks/useIsSmallWindow.js";
 import { META } from "@/constants/admin";
 import FormattedImage from "@/components/image/formattedImage.tsx";
 
@@ -18,8 +17,7 @@ interface Props {
 }
 export default function MonoLayoutComponent({ item, priority }: Props) {
   const metas = useMetas();
-  const window = useWindowSize();
-  const isSmall = window.innerWidth < DEVICE.SMALL;
+  const isSmall = useIsSmallWindow();
   const [index, setIndex] = useState(-1);
 
   const photos = useMemo(
