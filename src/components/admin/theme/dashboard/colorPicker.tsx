@@ -42,46 +42,38 @@ export default function ColorPicker({
 
   return (
     <div className={s.colorPicker}>
-      <div className={s.picker}>
-        <HexColorPicker
-          color={hexColor}
-          onChange={handleColorChange}
-          style={{ width: "250px" }}
-        />
-      </div>
-      <p>Couleur sélectionnée (notation hexadécimale) :</p>
-      <div>
-        <div
-          className={s.halfWidth}
-          style={{ backgroundColor: hexColor }}
-        ></div>
-        <HexColorInput
-          color={hexColor}
-          onChange={handleColorChange}
-          prefixed={true}
-          className={s.halfWidth}
-        />
-      </div>
-      <div className={s.presetColorForm}>
-        <input
-          className={s.halfWidth}
-          placeholder="Nom de la couleur"
-          value={_nameColor}
-          onChange={(e) => set_nameColor(e.target.value)}
-        />
-        <button
-          onClick={() => onCreatePresetColor(_nameColor, hexColor)}
-          className={s.halfWidth}
-          disabled={
-            _nameColor === "" ||
-            _nameColor === color ||
-            (!isColorChanged && isPresetColor)
-          }
-        >
-          Mémoriser la couleur
-        </button>
-      </div>
-      <div className={s.pickerSwatches}>
+      <HexColorPicker
+        color={hexColor}
+        onChange={handleColorChange}
+        style={{ width: "300px", margin: "0 auto 1em" }}
+      />
+      <div className={s.halfWidth} style={{ backgroundColor: hexColor }}></div>
+      <HexColorInput
+        color={hexColor}
+        onChange={handleColorChange}
+        prefixed={true}
+        className={s.halfWidth}
+      />
+      <br />
+      <br />
+      <input
+        className={s.halfWidth}
+        placeholder="Nom de la couleur"
+        value={_nameColor}
+        onChange={(e) => set_nameColor(e.target.value)}
+      />
+      <button
+        onClick={() => onCreatePresetColor(_nameColor, hexColor)}
+        className={s.halfWidth}
+        disabled={
+          _nameColor === "" ||
+          _nameColor === color ||
+          (!isColorChanged && isPresetColor)
+        }
+      >
+        Mémoriser la couleur
+      </button>
+      <div className={s.pickerPresetColor}>
         {presetColors?.map((p) => (
           <div key={p.id} className={s.presetColorContainer}>
             <button
@@ -97,7 +89,7 @@ export default function ColorPicker({
           </div>
         ))}
       </div>
-      <button className={s.halfWidth} onClick={onClose}>
+      <button onClick={onClose} className={s.halfWidth}>
         OK
       </button>
       <button onClick={onCancel} className={s.halfWidth}>

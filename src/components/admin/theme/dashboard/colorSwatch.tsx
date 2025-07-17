@@ -88,7 +88,7 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
   };
 
   return (
-    <div className={s.colorContainer}>
+    <div className={s.colorWrapper}>
       <div className={s.colorPickerContainer}>
         <button
           className={
@@ -107,22 +107,22 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
           }}
           title={color}
         />
-        {isOpen && (
-          <Modal
-            handleCloseOutside={() => setIsOpen(false)}
-            title={`${THEME_ENHANCED_LABEL[page as keyof StructuredTheme]} / ${pagePart ? `${THEME_PAGE_PART_LABEL[pagePart as keyof ThemePagePart]} /` : ""} ${label}`}
-          >
-            <ColorPicker
-              color={color}
-              onColorChange={handleColorChange}
-              onCreatePresetColor={handleCreatePresetColor}
-              onClose={() => setIsOpen(false)}
-              onCancel={handleCancel}
-            />
-          </Modal>
-        )}
       </div>
-      <p className={s.label}>{label}</p>
+      <p className={s.colorLabel}>{label}</p>
+      {isOpen && (
+        <Modal
+          handleCloseOutside={() => setIsOpen(false)}
+          title={`${THEME_ENHANCED_LABEL[page as keyof StructuredTheme]} / ${pagePart ? `${THEME_PAGE_PART_LABEL[pagePart as keyof ThemePagePart]} /` : ""} ${label}`}
+        >
+          <ColorPicker
+            color={color}
+            onColorChange={handleColorChange}
+            onCreatePresetColor={handleCreatePresetColor}
+            onClose={() => setIsOpen(false)}
+            onCancel={handleCancel}
+          />
+        </Modal>
+      )}
     </div>
   );
 }

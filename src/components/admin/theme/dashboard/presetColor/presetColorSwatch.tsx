@@ -58,8 +58,8 @@ export default function PresetColorSwatch({ presetColor }: Props) {
   };
 
   return (
-    <div className={s.colorContainer}>
-      <p className={s.label}>{presetColor.name}</p>
+    <div className={s.presetColorWrapper}>
+      <p className={s.colorLabel}>{presetColor.name}</p>
       <div className={s.colorPickerContainer}>
         <button
           className={`${s.swatch} ${s.isPresetColor} ${s.presetColor}`}
@@ -71,18 +71,6 @@ export default function PresetColorSwatch({ presetColor }: Props) {
             setIsOpen(true);
           }}
         />
-        {isOpen && (
-          <Modal
-            handleCloseOutside={() => setIsOpen(false)}
-            title={`Modification de "${presetColor.name}"`}
-          >
-            <PresetColorPicker
-              presetColor={presetColor}
-              onUpdate={handleUpdate}
-              onCancel={() => setIsOpen(false)}
-            />
-          </Modal>
-        )}
       </div>
       <button
         className="iconButton"
@@ -92,6 +80,18 @@ export default function PresetColorSwatch({ presetColor }: Props) {
       >
         <DeleteIcon />
       </button>
+      {isOpen && (
+        <Modal
+          handleCloseOutside={() => setIsOpen(false)}
+          title={`Modification de "${presetColor.name}"`}
+        >
+          <PresetColorPicker
+            presetColor={presetColor}
+            onUpdate={handleUpdate}
+            onCancel={() => setIsOpen(false)}
+          />
+        </Modal>
+      )}
     </div>
   );
 }

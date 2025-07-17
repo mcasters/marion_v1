@@ -24,22 +24,6 @@
   text-align: left;
 }
 
-/* ColorSwatch */
-
-.colorContainer {
-  display: flex;
-  text-align: left;
-}
-
-.label {
-  flex: auto;
-  vertical-align: top;
-  height: 30px;
-  line-height: 30px;
-  font-size: var(--font-size-min);
-  padding: 0 1em 0 0.5em;
-}
-
 .toUpdate {
   border: #dc3908 solid 3px;
 }
@@ -51,78 +35,6 @@
   color: #dc3908;
 }
 
-/*
-ColorPicker
- */
-
-.colorPickerContainer {
-  position: relative;
-}
-
-.colorPicker {
-  text-align: center;
-  width: 400px;
-  max-height: 90vh;
-  padding: 0.5em;
-}
-
-.subtitle {
-  font-size: 1.2em;
-}
-
-.picker {
-  margin: 15px auto 15px;
-  width: 250px;
-}
-
-.swatch {
-  width: 28px;
-  height: 28px;
-  border-radius: 1px;
-  border: 1px solid #aaa;
-  cursor: pointer;
-  margin: 4px;
-}
-
-.isPresetColor {
-  outline: solid #1196c7 2px;
-  outline-offset: 2px;
-}
-
-.open {
-  outline: solid #204c5d 3px;
-  outline-offset: 2px;
-}
-
-.presetColor {
-  margin-right: 2em;
-}
-
-.presetColorForm {
-  margin-top: 1em;
-}
-
-.pickerSwatches {
-  display: flex;
-  padding: 2px 2px 20px;
-  flex-wrap: wrap;
-}
-
-.presetColorContainer {
-  width: 50px;
-  padding: 0 1px;
-  font-family: var(--font-family-sans);
-  font-size: 11px;
-  word-break: break-word;
-}
-
-.colorPicker .halfWidth {
-  display: inline-block;
-  width: 45%;
-  height: 36px;
-  vertical-align: top;
-  margin: 0.3em;
-}
 
 .actionContainer {
   display: flex;
@@ -137,4 +49,90 @@ ColorPicker
 .actionContainer input {
   width: 200px;
   margin: 0.5em 0;
+}
+
+/* ColorSwatch */
+
+.colorWrapper {
+  display: flex;
+  text-align: left;
+}
+
+.colorPickerContainer {
+  height: 35px;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 1px;
+  border: 1px solid #aaa;
+  cursor: pointer;
+  margin: 4px;
+}
+
+.colorLabel {
+  flex: auto;
+  vertical-align: top;
+  line-height: 35px;
+  font-size: var(--font-size-min);
+  padding: 0 1em 0 0.5em;
+}
+
+.isPresetColor {
+  outline: solid #1196c7 2px;
+  outline-offset: 2px;
+}
+
+.open {
+  outline: solid #204c5d 3px;
+  outline-offset: 2px;
+}
+
+/*
+ColorPicker
+ */
+
+.colorPicker {
+  text-align: center;
+  width: 355px;
+  max-height: 90vh;
+}
+
+.colorPicker .halfWidth {
+  display: inline-block;
+  width: 50%;
+  height: 36px;
+  vertical-align: top;
+}
+
+.pickerPresetColor {
+  display: flex;
+  padding: 2px 2px 20px;
+  flex-wrap: wrap;
+}
+
+.presetColorContainer {
+  width: 50px;
+  padding: 0 1px;
+  font-family: var(--font-family-sans);
+  font-size: 11px;
+  word-break: break-word;
+}
+
+/*
+PresetColor
+ */
+
+.presetColorWrapper {
+  display: flex;
+  text-align: left;
+}
+
+.presetColor {
+  margin-right: 2em;
+}
+
+.presetColorForm {
+  margin-top: 1em;
 }

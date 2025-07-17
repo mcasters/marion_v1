@@ -21,24 +21,23 @@ export default function PresetColorPicker({
   return (
     <div className={s.colorPicker}>
       <p>{`S'applique à toutes les utilisations de "${presetColor.name}"`}</p>
-      <div className={s.picker}>
-        <HexColorPicker color={color} onChange={setColor} />
-      </div>
-      <p>Couleur sélectionnée (notation hexadécimale) :</p>
-      <div>
-        <div
-          className={s.halfWidth}
-          style={{
-            backgroundColor: color,
-          }}
-        ></div>
-        <HexColorInput
-          color={color}
-          onChange={setColor}
-          prefixed={true}
-          className={s.halfWidth}
-        />
-      </div>
+      <HexColorPicker
+        color={color}
+        onChange={setColor}
+        style={{ width: "300px", margin: "0 auto 1em" }}
+      />
+      <div
+        className={s.halfWidth}
+        style={{
+          backgroundColor: color,
+        }}
+      ></div>
+      <HexColorInput
+        color={color}
+        onChange={setColor}
+        prefixed={true}
+        className={s.halfWidth}
+      />
       <button className={s.halfWidth} onClick={() => onUpdate(color)}>
         OK
       </button>
