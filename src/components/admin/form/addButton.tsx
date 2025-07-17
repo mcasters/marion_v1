@@ -1,13 +1,11 @@
 "use client";
 
-import useModal from "@/components/admin/form/modal/useModal";
-import Modal from "@/components/admin/form/modal/modal";
+import Modal from "@/components/admin/form/modal.tsx";
 import { Category, Item, Type } from "@/lib/type";
 import PostForm from "@/components/admin/form/item/postForm";
-import ItemForm from "@/components/admin/form/item/itemForm";
-import React from "react";
+import WorkForm from "@/components/admin/form/item/workForm.tsx";
+import React, { useState } from "react";
 import s from "@/components/admin/admin.module.css";
-import modalStyle from "@/components/admin/modal.module.css";
 import CategoryForm from "@/components/admin/form/item/categoryForm";
 
 export type Props = {
@@ -16,11 +14,23 @@ export type Props = {
   disabled?: boolean;
 };
 export default function AddButton({ item, categories, disabled }: Props) {
-  const { isOpen, toggle } = useModal();
+  const [isOpen, setIsOpen] = useState(false);
+  const isCategory = item.type === Type.CATEGORY;
+  const isPost = item.type === Type.POST;
+  const isWork = !isCategory && !isPost;
+  const form = isWork ? (
+    <WorkForm
+      item={item}
+      onClose={() => setIsOpen(false)}
+      categories={categories}
+    />
+  ) : isCategory ? (
+    <CategoryForm category={item} onClose={() => setIsOpen(false)} />
+  ) : (
+    <PostForm post={item} onClose={() => setIsOpen(false)} />
+  );
   const title = "Ajouter "
-    .concat(
-      item.type === Type.DRAWING || item.type === Type.POST ? "un " : "une ",
-    )
+    .concat(item.type === Type.DRAWING || isPost ? "un " : "une ")
     .concat(item.type);
 
   return (
@@ -28,7 +38,7 @@ export default function AddButton({ item, categories, disabled }: Props) {
       <button
         onClick={(e) => {
           e.preventDefault();
-          toggle();
+          setIsOpen(true);
         }}
         className={`${s.addButton} adminButton`}
         aria-label={"Ajout"}
@@ -36,24 +46,7 @@ export default function AddButton({ item, categories, disabled }: Props) {
       >
         {title}
       </button>
-      <Modal isOpen={isOpen} toggle={toggle}>
-        <div className={modalStyle.modalContainer}>
-          <h2 className={modalStyle.modalTitle}>{title}</h2>
-          {item.type === Type.DRAWING ||
-          item.type === Type.SCULPTURE ||
-          item.type === Type.PAINTING ? (
-            <ItemForm
-              item={item}
-              toggleModal={toggle}
-              categories={categories}
-            />
-          ) : item.type === Type.POST ? (
-            <PostForm post={item} toggleModal={toggle} />
-          ) : (
-            <CategoryForm category={item} toggleModal={toggle} />
-          )}
-        </div>
-      </Modal>
+      {isOpen && <Modal title={title}>{form}</Modal>}
     </>
   );
 }

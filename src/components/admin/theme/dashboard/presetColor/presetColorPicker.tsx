@@ -20,7 +20,6 @@ export default function PresetColorPicker({
 
   return (
     <div className={s.colorPicker}>
-      <h3>Modification : {presetColor.name}</h3>
       <p>{`S'applique à toutes les utilisations de "${presetColor.name}"`}</p>
       <div className={s.picker}>
         <HexColorPicker color={color} onChange={setColor} />

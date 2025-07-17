@@ -17,9 +17,9 @@ import { MESSAGE } from "@/constants/admin.ts";
 
 interface Props {
   category: CategoryFull;
-  toggleModal: () => void;
+  onClose: () => void;
 }
-export default function CategoryForm({ category, toggleModal }: Props) {
+export default function CategoryForm({ category, onClose }: Props) {
   const isUpdate = category.id !== 0;
   const [workCategory, setWorkCategory] = useState<Category>(category);
   const [image, setImage] = useState<Image>(category.content.image);
@@ -33,7 +33,7 @@ export default function CategoryForm({ category, toggleModal }: Props) {
     if (state) {
       if (!state.isError) {
         alert(state.message, false);
-        toggleModal();
+        onClose();
       } else alert(state.message, true);
     }
   }, [state]);
@@ -98,7 +98,7 @@ export default function CategoryForm({ category, toggleModal }: Props) {
       )}
       <div className={s.buttonSection}>
         <SubmitButton />
-        <CancelButton onCancel={toggleModal} />
+        <CancelButton onCancel={onClose} />
       </div>
     </form>
   );

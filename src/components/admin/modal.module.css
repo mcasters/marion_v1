@@ -16,6 +16,9 @@
   background: #efefef;
   color: var(--color-dark);
   max-height: 97%;
+  max-width: 800px;
+  padding: 1em 2em;
+  text-align: left;
   border-radius: 0.2rem;
   overflow: scroll;
 }
@@ -24,10 +27,4 @@
   font-size: 1.4rem;
   padding-bottom: 20px;
   text-align: center;
-}
-
-.modalContainer {
-  max-width: 60vw;
-  padding: 1em 2em;
-  text-align: left;
 }

@@ -4,17 +4,15 @@ import Image from "next/image";
 
 import DeleteButton from "@/components/admin/form/deleteButton";
 import s from "@/components/admin/adminList.module.css";
-import modalStyle from "@/components/admin/modal.module.css";
-import React from "react";
+import React, { useState } from "react";
 import { Category, Item, Type } from "@/lib/type.ts";
 import { getImageSrc } from "@/utils/commonUtils.ts";
 import { deleteCategory } from "@/app/actions/item-post/categories/admin.ts";
 import { deleteItem } from "@/app/actions/item-post/admin.ts";
-import ItemForm from "@/components/admin/form/item/itemForm.tsx";
+import WorkForm from "@/components/admin/form/item/workForm.tsx";
 import PostForm from "@/components/admin/form/item/postForm.tsx";
 import CategoryForm from "@/components/admin/form/item/categoryForm.tsx";
-import Modal from "@/components/admin/form/modal/modal.tsx";
-import useModal from "@/components/admin/form/modal/useModal.tsx";
+import Modal from "@/components/admin/form/modal.tsx";
 
 type Props = {
   item: Item;
@@ -31,15 +29,24 @@ export default function RowListComponent({
   categories,
   noDoubleClick = false,
 }: Props) {
-  const { isOpen, toggle } = useModal();
+  const [isOpen, setIsOpen] = useState(false);
   const isCategory = item.type === Type.CATEGORY;
   const isPost = item.type === Type.POST;
   const isWork = !isCategory && !isPost;
+  const form = isWork ? (
+    <WorkForm
+      item={item}
+      onClose={() => setIsOpen(false)}
+      categories={categories}
+    />
+  ) : isCategory ? (
+    <CategoryForm category={item} onClose={() => setIsOpen(false)} />
+  ) : (
+    <PostForm post={item} onClose={() => setIsOpen(false)} />
+  );
   const imageSrc = getImageSrc(item);
   const title = "Modifier "
-    .concat(
-      item.type === Type.DRAWING || item.type === Type.POST ? "un " : "une ",
-    )
+    .concat(item.type === Type.DRAWING || isPost ? "un " : "une ")
     .concat(item.type);
 
   return (
@@ -47,7 +54,7 @@ export default function RowListComponent({
       <ul
         className={`${isSelected && !isOpen ? "selected" : undefined} ${s.itemList}`}
         style={mouseOutside && isSelected ? { opacity: "60%" } : undefined}
-        onDoubleClick={noDoubleClick ? undefined : toggle}
+        onDoubleClick={noDoubleClick ? undefined : () => setIsOpen(true)}
       >
         <li className={s.itemTitle}>{isCategory ? item.value : item.title}</li>
         <li className={s.itemInfo}>
@@ -97,20 +104,7 @@ export default function RowListComponent({
           />
         </li>
       </ul>
-      <Modal isOpen={isOpen} toggle={toggle}>
-        <div className={modalStyle.modalContainer}>
-          <h2 className={modalStyle.modalTitle}>{title}</h2>
-          {!isPost && !isCategory && (
-            <ItemForm
-              item={item}
-              toggleModal={toggle}
-              categories={categories}
-            />
-          )}
-          {isPost && <PostForm post={item} toggleModal={toggle} />}
-          {isCategory && <CategoryForm category={item} toggleModal={toggle} />}
-        </div>
-      </Modal>
+      {isOpen && !noDoubleClick && <Modal title={title}>{form}</Modal>}
     </>
   );
 }

@@ -1,9 +1,8 @@
 "use client";
 
 import s from "@/components/admin/theme/adminTheme.module.css";
-import React from "react";
-import Modal from "@/components/admin/form/modal/modal";
-import useModal from "@/components/admin/form/modal/useModal";
+import React, { useState } from "react";
+import Modal from "@/components/admin/form/modal.tsx";
 import { PresetColor } from "../../../../../../prisma/generated/client";
 import DeleteIcon from "@/components/icons/deleteIcon";
 import { useAlert } from "@/app/context/alertProvider";
@@ -20,10 +19,10 @@ interface Props {
 }
 
 export default function PresetColorSwatch({ presetColor }: Props) {
+  const alert = useAlert();
+  const [isOpen, setIsOpen] = useState(false);
   const { setThemes, presetColors, setPresetColors, workTheme, setWorkTheme } =
     useAdminWorkThemeContext();
-  const { isOpen, toggle } = useModal();
-  const alert = useAlert();
 
   const handleDelete = async () => {
     if (confirm("Sûr de vouloir supprimé ?")) {
@@ -53,7 +52,7 @@ export default function PresetColorSwatch({ presetColor }: Props) {
         else return p;
       });
       setPresetColors(updatedPresetColors);
-      if (!isError) toggle();
+      if (!isError) setIsOpen(false);
     }
     alert(message, isError);
   };
@@ -69,17 +68,21 @@ export default function PresetColorSwatch({ presetColor }: Props) {
           }}
           onClick={(e) => {
             e.preventDefault();
-            toggle();
+            setIsOpen(true);
           }}
         />
-
-        <Modal isOpen={isOpen} toggle={toggle}>
-          <PresetColorPicker
-            presetColor={presetColor}
-            onUpdate={handleUpdate}
-            onCancel={toggle}
-          />
-        </Modal>
+        {isOpen && (
+          <Modal
+            handleCloseOutside={() => setIsOpen(false)}
+            title={`Modification de "${presetColor.name}"`}
+          >
+            <PresetColorPicker
+              presetColor={presetColor}
+              onUpdate={handleUpdate}
+              onCancel={() => setIsOpen(false)}
+            />
+          </Modal>
+        )}
       </div>
       <button
         className="iconButton"

@@ -12,10 +12,10 @@ import ImageInputPart from "@/components/admin/form/image/imageInputPart.tsx";
 
 interface Props {
   post: PostFull;
-  toggleModal: () => void;
+  onClose: () => void;
 }
 
-export default function PostForm({ post, toggleModal }: Props) {
+export default function PostForm({ post, onClose }: Props) {
   const isUpdate = post.id !== 0;
   const alert = useAlert();
 
@@ -53,7 +53,7 @@ export default function PostForm({ post, toggleModal }: Props) {
       ? await updateItem(formData)
       : await createItem(formData);
     alert(message, isError);
-    if (!isError) toggleModal();
+    if (!isError) onClose();
   };
 
   return (
@@ -132,7 +132,7 @@ export default function PostForm({ post, toggleModal }: Props) {
       </div>
       <div className={s.buttonSection}>
         <SubmitButton disabled={!workPost.title || !date} />
-        <CancelButton onCancel={toggleModal} />
+        <CancelButton onCancel={onClose} />
       </div>
     </form>
   );

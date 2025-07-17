@@ -13,7 +13,6 @@ interface Props {
   onCreatePresetColor: (nameColor: string, hexColor: string) => void;
   onClose: () => void;
   onCancel: () => void;
-  title: string;
 }
 
 export default function ColorPicker({
@@ -22,7 +21,6 @@ export default function ColorPicker({
   onCreatePresetColor,
   onClose,
   onCancel,
-  title,
 }: Props) {
   const { workTheme, presetColors } = useAdminWorkThemeContext();
   const isPresetColor = !color.startsWith("#");
@@ -44,7 +42,6 @@ export default function ColorPicker({
 
   return (
     <div className={s.colorPicker}>
-      <h2>{title}</h2>
       <div className={s.picker}>
         <HexColorPicker
           color={hexColor}

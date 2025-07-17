@@ -13,11 +13,11 @@ import { format } from "date-fns/format";
 
 interface Props {
   item: WorkFull;
-  toggleModal: () => void;
+  onClose: () => void;
   categories?: Category[];
 }
 
-export default function ItemForm({ item, toggleModal, categories }: Props) {
+export default function WorkForm({ item, onClose, categories }: Props) {
   const isUpdate = item.id !== 0;
   const isSculpture = item.type === Type.SCULPTURE;
   const alert = useAlert();
@@ -50,7 +50,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
       ? await updateItem(formData)
       : await createItem(formData);
     alert(message, isError);
-    if (!isError) toggleModal();
+    if (!isError) onClose();
   };
 
   return (
@@ -245,7 +245,7 @@ export default function ItemForm({ item, toggleModal, categories }: Props) {
             (resizedFiles.length === 0 && workItem.images.length === 0)
           }
         />
-        <CancelButton onCancel={toggleModal} />
+        <CancelButton onCancel={onClose} />
       </div>
     </form>
   );
