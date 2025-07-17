@@ -1,61 +1,59 @@
 "use client";
 
 import s from "./presentationComponent.module.css";
-import React, { useMemo } from "react";
+import React from "react";
 import { DEVICE } from "@/constants/image";
-import { ContentFull } from "@/lib/type";
+import { Image } from "@/lib/type";
 import useWindowSize from "@/components/hooks/useWindowSize";
-import { getContentPhotoTab } from "@/utils/imageUtils";
+import { getPhotoTabFromImages } from "@/utils/imageUtils";
 import { useMetas } from "@/app/context/metaProvider";
 
 import { META } from "@/constants/admin";
 import FormattedImage from "@/components/image/formattedImage.tsx";
 
 interface Props {
-  presentationContent: ContentFull | null;
-  demarcheText: string;
-  inspirationText: string;
+  images: Image[];
+  presentation: string;
+  demarche: string;
+  inspiration: string;
 }
 export default function PresentationComponent({
-  presentationContent,
-  demarcheText,
-  inspirationText,
+  images,
+  presentation,
+  demarche,
+  inspiration,
 }: Props) {
   const window = useWindowSize();
   const isSmall = window.innerWidth < DEVICE.SMALL;
   const metas = useMetas();
   const alt = `Photo de ${metas.get(META.SITE_TITLE)}`;
-  const photo = useMemo(() => {
-    return isSmall
-      ? getContentPhotoTab(presentationContent, alt).sm[0]
-      : getContentPhotoTab(presentationContent, alt).md[0];
-  }, [presentationContent, isSmall]);
+  const photoTab = getPhotoTabFromImages(images, "miscellaneous", alt);
 
   return (
     <>
       <section className={s.contentWrapper}>
-        {photo && (
+        {photoTab.sm.length > 0 && (
           <FormattedImage
-            photo={photo}
+            photo={isSmall ? photoTab.sm[0] : photoTab.md[0]}
             priority
             maxWidth={isSmall ? 80 : 35}
             maxHeight={isSmall ? 40 : 40}
           />
         )}
 
-        <p className={s.presentationText}>{presentationContent?.text}</p>
+        <p className={s.presentationText}>{presentation}</p>
       </section>
 
-      {demarcheText !== "" && (
+      {demarche !== "" && (
         <section className={s.contentWrapper}>
           <h2>Démarche artistique</h2>
-          <p>{demarcheText}</p>
+          <p>{demarche}</p>
         </section>
       )}
-      {inspirationText !== "" && (
+      {inspiration !== "" && (
         <section className={s.contentWrapper}>
           <h2>Inspirations</h2>
-          <p>{inspirationText}</p>
+          <p>{inspiration}</p>
         </section>
       )}
     </>

@@ -91,38 +91,6 @@ const getSplitMainPhotosFromImages = (
   return { mainPhotos, photos };
 };
 
-const getPhotosFromImages = (
-  images: Image[],
-  folder: string,
-  alt: string,
-  title: string = "",
-  date: Date = new Date(),
-): PhotoTab => {
-  const photos = getEmptyPhotoTab();
-
-  for (const image of images) {
-    const rest = {
-      isMain: image.isMain,
-      title,
-      date,
-      alt,
-    };
-    photos.sm.push({
-      ...getSMData(folder, image),
-      ...rest,
-    });
-    photos.md.push({
-      ...getMDData(folder, image),
-      ...rest,
-    });
-    photos.lg.push({
-      ...getLGData(folder, image),
-      ...rest,
-    });
-  }
-  return photos;
-};
-
 const getPhotosEnhancedFromImages = (
   item: WorkFull,
   alt: string,
@@ -159,6 +127,38 @@ const getPhotosEnhancedFromImages = (
   return photos;
 };
 
+export const getPhotoTabFromImages = (
+  images: Image[],
+  folder: string,
+  alt: string,
+  title: string = "",
+  date: Date = new Date(),
+): PhotoTab => {
+  const photos = getEmptyPhotoTab();
+
+  for (const image of images) {
+    const rest = {
+      isMain: image.isMain,
+      title,
+      date,
+      alt,
+    };
+    photos.sm.push({
+      ...getSMData(folder, image),
+      ...rest,
+    });
+    photos.md.push({
+      ...getMDData(folder, image),
+      ...rest,
+    });
+    photos.lg.push({
+      ...getLGData(folder, image),
+      ...rest,
+    });
+  }
+  return photos;
+};
+
 export const getSliderPhotoTab = (
   contents: ContentFull[],
 ): { mainPhotos: PhotoTab; photos: PhotoTab } => {
@@ -171,16 +171,6 @@ export const getSliderPhotoTab = (
     );
   }
   return { mainPhotos: getEmptyPhotoTab(), photos: getEmptyPhotoTab() };
-};
-
-export const getContentPhotoTab = (
-  content: ContentFull | null,
-  alt: string,
-): PhotoTab => {
-  if (content) {
-    return getPhotosFromImages(content.images, "miscellaneous", alt);
-  }
-  return getEmptyPhotoTab();
 };
 
 export const getPostPhotoTab = (
@@ -204,7 +194,7 @@ export const getItemPhotoTab = (item: WorkFull, alt: string): PhotoTab => {
       : item.type === Type.SCULPTURE
         ? "sculpture"
         : "dessin";
-  return getPhotosFromImages(item.images, folder, alt, item.title, item.date);
+  return getPhotoTabFromImages(item.images, folder, alt, item.title, item.date);
 };
 
 export const getItemsPhotoTabEnhanced = (

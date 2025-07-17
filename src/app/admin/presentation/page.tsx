@@ -1,8 +1,8 @@
 import {
-  getDemarcheText,
-  getInspirationText,
+  getDemarche,
+  getInspiration,
+  getPresentation,
   getPresentationImage,
-  getPresentationText,
 } from "@/utils/commonUtils";
 import s from "@/components/admin/admin.module.css";
 import { Label } from "../../../../prisma/generated/client";
@@ -26,19 +26,19 @@ export default async function Presentation() {
       />
       <div className="separate" />
       <TextAreaForm
-        textContent={getPresentationText(contents)}
+        textContent={getPresentation(contents)}
         label={Label.PRESENTATION}
         textLabel="Présentation (facultatif)"
       />
       <div className="separate" />
       <TextAreaForm
-        textContent={getDemarcheText(contents)}
+        textContent={getDemarche(contents)}
         label={Label.DEMARCHE}
         textLabel="Démarche artistique (facultatif)"
       />
       <div className="separate" />
       <TextAreaForm
-        textContent={getInspirationText(contents)}
+        textContent={getInspiration(contents)}
         label={Label.INSPIRATION}
         textLabel="Inspiration (facultatif)"
       />

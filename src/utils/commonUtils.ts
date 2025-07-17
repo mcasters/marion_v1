@@ -37,24 +37,19 @@ export const createNestedObject = (obj, key, ...keys) => {
     : obj;
 };
 
-export const getPresentationContent = (
-  contents: ContentFull[],
-): ContentFull | null =>
-  contents?.filter((c) => c.label === Label.PRESENTATION)[0] || null;
-
 export const getSliderContent = (contents: ContentFull[]): ContentFull | null =>
   contents?.filter((c) => c.label === Label.SLIDER)[0] || null;
 
-export const getPresentationText = (contents: ContentFull[]): string =>
+export const getPresentation = (contents: ContentFull[]): string =>
   contents?.filter((c) => c.label === Label.PRESENTATION)[0]?.text || "";
 
 export const getPresentationImage = (contents: ContentFull[]): Image[] =>
   contents?.filter((c) => c.label === Label.PRESENTATION)[0]?.images || [];
 
-export const getDemarcheText = (contents: ContentFull[]): string =>
+export const getDemarche = (contents: ContentFull[]): string =>
   contents?.filter((c) => c.label === Label.DEMARCHE)[0]?.text || "";
 
-export const getInspirationText = (contents: ContentFull[]): string =>
+export const getInspiration = (contents: ContentFull[]): string =>
   contents?.filter((c) => c.label === Label.INSPIRATION)[0]?.text || "";
 
 export const getIntroText = (contents: ContentFull[]): string =>
