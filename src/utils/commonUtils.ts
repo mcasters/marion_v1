@@ -58,13 +58,13 @@ export const getIntroText = (contents: ContentFull[]): string =>
 export const getSliders = (contents: ContentFull[]): Image[] | [] =>
   contents?.filter((c) => c.label === Label.SLIDER)[0]?.images || [];
 
-export const getAddressText = (contents: ContentFull[]): string =>
+export const getAddress = (contents: ContentFull[]): string =>
   contents?.filter((c) => c.label === Label.ADDRESS)[0]?.text || "";
 
-export const getPhoneText = (contents: ContentFull[]): string =>
+export const getPhone = (contents: ContentFull[]): string =>
   contents?.filter((c) => c.label === Label.PHONE)[0]?.text || "";
 
-export const getEmailText = (contents: ContentFull[]): string =>
+export const getEmail = (contents: ContentFull[]): string =>
   contents?.filter((c) => c.label === Label.EMAIL)[0]?.text || "";
 
 export const getContactText = (contents: ContentFull[]): string =>

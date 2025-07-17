@@ -1,8 +1,8 @@
 import {
-  getAddressText,
+  getAddress,
   getContactText,
-  getEmailText,
-  getPhoneText,
+  getEmail,
+  getPhone,
 } from "@/utils/commonUtils";
 import s from "@/components/admin/admin.module.css";
 import { Label } from "../../../../prisma/generated/client";
@@ -18,21 +18,21 @@ export default async function Contact() {
     <div className={s.container}>
       <h1 className={s.title1}>Contenus de la page contact</h1>
       <TextAreaForm
-        textContent={getAddressText(contents)}
+        textContent={getAddress(contents)}
         label={Label.ADDRESS}
         textLabel="Adresse"
       />
       <div className="separate" />
       <InputForm
         label={Label.PHONE}
-        textContent={getPhoneText(contents)}
+        textContent={getPhone(contents)}
         textLabel="Téléphone"
         isPhone
       />
       <div className="separate" />
       <InputForm
         label={Label.EMAIL}
-        textContent={getEmailText(contents)}
+        textContent={getEmail(contents)}
         textLabel="E-mail"
         isEmail
       />
