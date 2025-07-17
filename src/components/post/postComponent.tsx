@@ -29,23 +29,20 @@ export default function PostComponent({ post }: Props) {
     [post],
   );
 
-  const mainPhotoForButton = isSmall ? mainPhotos.sm[0] : mainPhotos.md[0];
-  const mainPhotoForLightbox = isSmall ? mainPhotos.md[0] : mainPhotos.lg[0];
-
   return (
     <>
       <article className={s.postContainer}>
-        {mainPhotoForButton && (
+        {mainPhotos.sm.length > 0 && (
           <>
             <FormattedImage
-              photo={mainPhotoForButton}
+              photo={isSmall ? mainPhotos.sm[0] : mainPhotos.md[0]}
               priority={true}
               onClick={() => setIndex(0)}
               maxWidth={isSmall ? 65 : 30}
               maxHeight={isSmall ? 35 : 50}
             />
             <Lightbox
-              photos={[mainPhotoForLightbox]}
+              photos={[isSmall ? mainPhotos.md[0] : mainPhotos.lg[0]]}
               index={index}
               onClose={() => setIndex(-1)}
               isSmall={isSmall}
@@ -60,11 +57,7 @@ export default function PostComponent({ post }: Props) {
             {post.text}
           </p>
         </div>
-        {photos.sm.length > 0 && (
-          <div className={s.gallery}>
-            <Gallery photos={photos} />
-          </div>
-        )}
+        {photos.sm.length > 0 && <Gallery photos={photos} />}
       </article>
       <span>
         <strong>***</strong>

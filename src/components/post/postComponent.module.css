@@ -2,6 +2,10 @@
   padding: 2em 0 2em;
 }
 
+.postInfo {
+  padding-bottom: 3em;
+}
+
 .postInfo h2 {
   font-size: var(--font-size-title);
 }
@@ -22,10 +26,6 @@
   }
 
   .postInfo {
-    padding: 2em 13em 0;
+    padding: 2em 13em 3em;
   }
-}
-
-.gallery {
-  margin-top: 3em;
 }
