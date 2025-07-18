@@ -14,6 +14,7 @@ import { Cormorant_SC, EB_Garamond } from "next/font/google";
 import { META } from "@/constants/admin";
 
 import { getStructHexaTheme } from "@/utils/serverUtils";
+import s from "@/styles/page.module.css";
 
 const garamond = EB_Garamond({
   subsets: ["latin"],
@@ -74,7 +75,9 @@ export default async function RootLayout({
           metaMap={getMetaMap(metas)}
         >
           <StyledJsxRegistry>
-            <Layout introduction={getIntroText(contents)}>{children}</Layout>
+            <Layout introduction={getIntroText(contents)}>
+              <div className={s.container}>{children}</div>
+            </Layout>
           </StyledJsxRegistry>
         </Providers>
       </body>

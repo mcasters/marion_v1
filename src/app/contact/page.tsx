@@ -11,6 +11,26 @@ import { getContentsFull } from "@/app/actions/contents";
 import InstagramIcon from "@/components/icons/instagramIcon";
 import { getMetas } from "@/app/actions/meta";
 import { META } from "@/constants/admin";
+import { Metadata } from "next";
+import React from "react";
+
+export async function generateMetadata(): Promise<Metadata | undefined> {
+  const metas = getMetaMap(await getMetas());
+  if (metas) {
+    return {
+      title: metas.get(META.DOCUMENT_TITLE_CONTACT),
+      description: metas.get(META.DESCRIPTION_CONTACT),
+      openGraph: {
+        title: metas.get(META.DOCUMENT_TITLE_CONTACT),
+        description: metas.get(META.DESCRIPTION_CONTACT),
+        url: metas.get(META.URL),
+        siteName: metas.get(META.SEO_SITE_TITLE),
+        locale: "fr",
+        type: "website",
+      },
+    };
+  }
+}
 
 export default async function Contact() {
   const contents = await getContentsFull();
@@ -22,6 +42,7 @@ export default async function Contact() {
 
   return (
     <>
+      <h1 className="hidden">Contacter {owner}</h1>
       <address style={{ padding: "4em 0" }}>
         <p>{owner}</p>
         <p className="preLine">{getAddress(contents)}</p>

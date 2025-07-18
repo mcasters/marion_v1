@@ -1,6 +1,6 @@
 "use client";
 
-import { HomeLayout, Photo } from "@/lib/type";
+import { HomeLayout, PhotoTab } from "@/lib/type";
 import { useEffect, useState } from "react";
 import s from "@/components/image/slideshow/slider.module.css";
 import Image from "next/image";
@@ -9,16 +9,32 @@ import ArrowNext from "@/components/icons/arrowNext";
 import { onNext, onPrev } from "@/components/image/common";
 import { useMetas } from "@/app/context/metaProvider";
 import { getHomeLayout } from "@/utils/commonUtils";
+import useWindowRect from "@/components/hooks/useWindowRect.js";
+import { DEVICE } from "@/constants/image.ts";
 
 type Props = {
-  photos: Photo[];
+  portraitPhotos: PhotoTab;
+  landscapePhotos: PhotoTab;
   autoPlay: boolean;
-  isSmall: boolean;
 };
 
-export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
+export default function Slideshow({
+  portraitPhotos,
+  landscapePhotos,
+  autoPlay,
+}: Props) {
   const metas = useMetas();
   const isPlainHomeLayout = getHomeLayout(metas) === HomeLayout.PLAIN;
+  const window = useWindowRect();
+  const isSmall = window.innerWidth < DEVICE.SMALL;
+  const needPortrait = window.innerWidth / window.innerHeight < 0.98;
+  const photos = needPortrait
+    ? isSmall
+      ? portraitPhotos.md
+      : portraitPhotos.lg
+    : isSmall
+      ? landscapePhotos.md
+      : landscapePhotos.lg;
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -33,7 +49,7 @@ export default function Slideshow({ photos, autoPlay, isSmall }: Props) {
 
   return (
     photos.length > 0 && (
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "absolute", top: 0, left: 0 }}>
         {photos.map((p, i) => (
           <Image
             key={i}
