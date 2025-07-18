@@ -38,9 +38,10 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: Props) {
+  const type = Type.DRAWING;
   const categoryKey = (await params).category;
-  const category = await getCategory(categoryKey, Type.DRAWING);
-  const items = await getItemsByCategory(categoryKey, Type.DRAWING);
+  const category = await getCategory(categoryKey, type);
+  const items = await getItemsByCategory(categoryKey, type);
 
   return (
     <>
@@ -49,7 +50,7 @@ export default async function Page({ params }: Props) {
           tag={category.value}
           category={category}
           items={items}
-          type={Type.DRAWING}
+          type={type}
         />
       )}
     </>

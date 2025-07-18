@@ -32,8 +32,9 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: Props) {
+  const type = Type.SCULPTURE;
   const { year } = await params;
-  const items = await getItemsByYear(year, Type.SCULPTURE);
+  const items = await getItemsByYear(year, type);
 
-  return <ItemsPageComponent tag={year} items={items} type={Type.SCULPTURE} />;
+  return <ItemsPageComponent tag={year} items={items} type={type} />;
 }

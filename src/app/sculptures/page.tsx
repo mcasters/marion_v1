@@ -25,17 +25,14 @@ export async function generateMetadata(): Promise<Metadata | undefined> {
 }
 
 export default async function Page() {
-  const categories = await getCategories(Type.SCULPTURE);
-  const years = await getYears(Type.SCULPTURE);
+  const type = Type.SCULPTURE;
+  const categories = await getCategories(type);
+  const years = await getYears(type);
 
   return (
     <>
       <h1 className="hidden">Les sculptures</h1>
-      <ItemHomeComponent
-        type={Type.SCULPTURE}
-        categories={categories}
-        years={years}
-      />
+      <ItemHomeComponent type={type} categories={categories} years={years} />
     </>
   );
 }
