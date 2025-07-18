@@ -6,7 +6,7 @@ import "@/styles/globals-specific.css";
 import { getIntroText, getMetaMap } from "@/utils/commonUtils";
 import React from "react";
 import StyledJsxRegistry from "./registry";
-import { getSession } from "@/app/lib/auth";
+import { getSession } from "@/app/actions/auth/utils.ts";
 import { getContentsFull } from "@/app/actions/contents";
 import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";

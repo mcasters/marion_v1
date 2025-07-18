@@ -6,7 +6,7 @@ import { IMAGE } from "@/constants/image";
 import { StructuredTheme, Type } from "@/lib/type";
 import { PresetColor, Theme } from "../../prisma/generated/client";
 import { getStructuredTheme, themeToHexa } from "@/utils/themeUtils";
-import { getSession } from "@/app/lib/auth";
+import { getSession } from "@/app/actions/auth/utils.ts";
 import { unstable_cache } from "next/cache";
 
 const serverLibraryPath = process.env.PHOTOS_PATH;

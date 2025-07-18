@@ -2,9 +2,9 @@
 
 import { JWTPayload, jwtVerify, SignJWT } from "jose";
 import { cookies } from "next/headers";
-import { User } from "../../../prisma/generated/client";
-import { Session } from "@/lib/type";
-import { COOKIE_NAME } from "@/constants/admin";
+import { User } from "../../../../prisma/generated/client";
+import { Session } from "@/lib/type.ts";
+import { COOKIE_NAME } from "@/constants/admin.ts";
 
 const secretKey = process.env.AUTH_SECRET;
 const key = new TextEncoder().encode(secretKey);
