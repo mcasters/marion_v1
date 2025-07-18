@@ -13,7 +13,7 @@ type Props = {
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | undefined> {
-  const year = (await params).year;
+  const { year } = await params;
   const metas = getMetaMap(await getMetas());
   if (metas) {
     return {
@@ -32,7 +32,7 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: Props) {
-  const year = (await params).year;
+  const { year } = await params;
   const items = await getItemsByYear(year, Type.SCULPTURE);
 
   return <ItemsPageComponent tag={year} items={items} type={Type.SCULPTURE} />;

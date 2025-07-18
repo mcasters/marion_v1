@@ -56,7 +56,7 @@ export default function ItemHomeComponent({ categories, type, years }: Props) {
           return (
             <li key={year}>
               <Link
-                href={`${type}s/par-annee/${year}`}
+                href={`${type}s/annee/${year}`}
                 className={`${s.link} ${s.yearLink}`}
                 title={`Année ${year}`}
               >
