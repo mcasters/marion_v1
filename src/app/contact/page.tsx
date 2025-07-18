@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import {
   getAddress,
   getContactText,
@@ -12,7 +11,7 @@ import InstagramIcon from "@/components/icons/instagramIcon";
 import { getMetas } from "@/app/actions/meta";
 import { META } from "@/constants/admin";
 import { Metadata } from "next";
-import React from "react";
+import s from "@/styles/page.module.css";
 
 export async function generateMetadata(): Promise<Metadata | undefined> {
   const metas = getMetaMap(await getMetas());
@@ -43,9 +42,9 @@ export default async function Contact() {
   return (
     <>
       <h1 className="hidden">Contacter {owner}</h1>
-      <address style={{ padding: "4em 0" }}>
+      <address className={s.section}>
         <p>{owner}</p>
-        <p className="preLine">{getAddress(contents)}</p>
+        <p>{getAddress(contents)}</p>
         <br />
         <p>
           <Link href={`tel:+33${getPhone(contents)}`}>
@@ -61,7 +60,6 @@ export default async function Contact() {
             <br />
             <br />
             <br />
-            <br />
             <a href={instagram} target="_blank" rel="noopener noreferrer">
               <InstagramIcon />
             </a>
@@ -69,9 +67,12 @@ export default async function Contact() {
         )}
       </address>
       {contactText !== "" && (
-        <div style={{ padding: "2em 0 6em" }}>
-          <p className="preline">{contactText}</p>
-        </div>
+        <section className={s.section}>
+          <br />
+          <br />
+          <br />
+          <p>{contactText}</p>
+        </section>
       )}
     </>
   );

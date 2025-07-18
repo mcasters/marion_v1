@@ -27,12 +27,10 @@ export default function Gallery({ photos }: Props) {
               alt={p.alt}
               width={p.width}
               height={p.height}
-              style={{
-                objectFit: "contain",
-              }}
               unoptimized
               className={`${s.image}`}
               onClick={() => setIndex(i)}
+              title="Agrandir"
             />
           );
         })}

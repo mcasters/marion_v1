@@ -12,7 +12,6 @@ import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
 import { Cormorant_SC, EB_Garamond } from "next/font/google";
 import { META } from "@/constants/admin";
-
 import { getStructHexaTheme } from "@/utils/serverUtils";
 import s from "@/styles/page.module.css";
 

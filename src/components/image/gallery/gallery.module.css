@@ -8,9 +8,6 @@
 .image{
   width: auto;
   height: 20vh;
-}
-
-.image:hover {
   cursor: pointer;
 }
 

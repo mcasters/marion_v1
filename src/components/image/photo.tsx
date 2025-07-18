@@ -7,18 +7,18 @@ import Image from "next/image";
 interface Props {
   photo: Photo;
   priority: boolean;
-  maxWidth: number;
-  maxHeight: number;
-  onClick?: () => void;
+  width: number;
+  height: number;
+  onClick: () => void;
 }
-export default function FormattedImage({
+export default function Photo({
   photo,
   priority,
-  maxWidth,
-  maxHeight,
+  width,
+  height,
   onClick,
 }: Props) {
-  const ratio = Math.round((photo.width / photo.height) * 10000);
+  const ratio = Math.round((photo?.width / photo?.height) * 10000);
   const isLandscape = ratio >= 10300;
 
   return (
@@ -29,8 +29,8 @@ export default function FormattedImage({
       priority={priority}
       style={{
         objectFit: "contain",
-        width: isLandscape ? `${maxWidth}vw` : "auto",
-        height: !isLandscape ? `${maxHeight}vh` : "auto",
+        width: isLandscape ? `${width}vw` : "auto",
+        height: !isLandscape ? `${height}vh` : "auto",
         cursor: onClick ? "pointer" : undefined,
       }}
       alt={photo.alt}

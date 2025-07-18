@@ -9,7 +9,7 @@ import ImageInfos from "@/components/image/common/imageInfos";
 import Lightbox from "@/components/image/lightbox/lightbox";
 import useIsSmallWindow from "@/components/hooks/useIsSmallWindow.js";
 import { META } from "@/constants/admin";
-import FormattedImage from "@/components/image/formattedImage.tsx";
+import Photo from "@/components/image/photo.tsx";
 
 interface Props {
   item: WorkFull;
@@ -39,12 +39,12 @@ export default function SculptureLayoutComponent({ item, priority }: Props) {
             const onLeft = index % 2 === 0;
             return (
               <div key={index} className={`${onLeft ? s.left : s.right}`}>
-                <FormattedImage
+                <Photo
                   photo={p}
                   priority={priority}
                   onClick={() => setIndex(index)}
-                  maxWidth={isSmall ? 80 : 25}
-                  maxHeight={isSmall ? 45 : 40}
+                  width={isSmall ? 80 : 25}
+                  height={isSmall ? 45 : 40}
                 />
               </div>
             );

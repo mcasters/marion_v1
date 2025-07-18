@@ -9,7 +9,7 @@ import ImageInfos from "@/components/image/common/imageInfos";
 import Lightbox from "@/components/image/lightbox/lightbox";
 import useIsSmallWindow from "@/components/hooks/useIsSmallWindow.js";
 import { META } from "@/constants/admin";
-import FormattedImage from "@/components/image/formattedImage.tsx";
+import Photo from "@/components/image/photo.tsx";
 
 interface Props {
   item: WorkFull;
@@ -36,12 +36,12 @@ export default function MonoLayoutComponent({ item, priority }: Props) {
     <article className={s.article}>
       <figure className={s.imageContainer}>
         {photoForButton && (
-          <FormattedImage
+          <Photo
             photo={photoForButton}
             priority={priority}
             onClick={() => setIndex(0)}
-            maxWidth={isSmall ? 80 : 45}
-            maxHeight={isSmall ? 45 : 58}
+            width={isSmall ? 80 : 45}
+            height={isSmall ? 45 : 58}
           />
         )}
         <Lightbox
