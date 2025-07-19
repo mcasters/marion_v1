@@ -225,3 +225,11 @@ export const getYearsFromItems = (items: WorkFull[]): number[] => {
 
   return [...new Set(years)];
 };
+
+const dotToComma = (number: number): string =>
+  number.toString().replace(".", ",");
+
+export const getSizeText = (item: WorkFull): string =>
+  item.type === Type.SCULPTURE
+    ? `${dotToComma(item.height)} x ${dotToComma(item.width)} x ${dotToComma(item.length)} cm`
+    : `${dotToComma(item.height)} x ${dotToComma(item.width)} cm`;

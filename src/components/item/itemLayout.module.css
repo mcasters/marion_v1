@@ -1,5 +1,12 @@
 .article {
   padding: 0 0 3em;
+  font-size: var(--font-size-min);
+  white-space: pre-line;
+  line-height: 1.2
+}
+
+.article h2 {
+  font-size: var(--font-size-min);
 }
 
 /* desktop */
@@ -11,7 +18,7 @@
 
 /* Sculpture Layout */
 @media (min-width: 769px) {
-  .imageGridContainer {
+  .sculptureContainer {
     display: grid;
     grid-template-columns: auto auto;
     gap: 0.5em;
@@ -33,31 +40,25 @@
 
 /* Mono */
 @media (min-width: 769px) {
-  .imageContainer {
-    display: inline-block;
-    text-align: right;
-    width: 70%;
+  .monoContainer {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    column-gap: 0.5em;
   }
 
-  .info {
-    display: inline-block;
-    width: 29%;
-    vertical-align: top;
+  .monoContainer figure {
+    justify-self: end;
+  }
+
+  .monoContainer figcaption {
     text-align: left;
     padding-left: 1em;
+    line-height: 2.2;
   }
 
-  .info h2 {
-    margin-bottom: 1em;
-  }
-
-  .info p, .info h2 {
-    line-height: 2.6;
-  }
-
-  .article h2 {
+  .monoContainer  h2 {
     font-family: var(--font-family-serif-caps);
     letter-spacing: 3px;
-    font-size: var(--font-size-nav2);
+    margin-bottom: 1em;
   }
 }

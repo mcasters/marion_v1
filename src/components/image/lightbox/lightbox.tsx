@@ -30,14 +30,13 @@ export default function Lightbox({ photos, index, onClose, isSmall }: Props) {
         buttonPrev: isSmall || photos.length <= 1 ? () => null : undefined,
         buttonNext: isSmall || photos.length <= 1 ? () => null : undefined,
         slideContainer: ({ slide, children }) => {
-          const fullInfo = "item" in slide;
           return (
             <>
               {children}
               <div style={{ position: "absolute", bottom: "15px" }}>
                 <ImageInfos
-                  item={fullInfo ? slide.item : undefined}
-                  photo={fullInfo ? undefined : (slide as Photo)}
+                  item={"item" in slide ? slide.item : undefined}
+                  photo={"item" in slide ? undefined : (slide as Photo)}
                   isForLightbox={true}
                 />
               </div>

@@ -30,7 +30,6 @@ export default function ItemLayout({ item, layout, priority }: Props) {
     [item],
   );
   const photos = isSmall ? photoTab.sm : photoTab.md;
-  const largePhotos = isSmall ? photoTab.md : photoTab.lg;
   const _width = isSmall
     ? IMAGE_INFO[layout].WIDTH.small
     : IMAGE_INFO[layout].WIDTH.large;
@@ -39,14 +38,14 @@ export default function ItemLayout({ item, layout, priority }: Props) {
     : IMAGE_INFO[layout].HEIGHT.large;
 
   return (
-    <article className={s.article}>
+    <article
+      className={`${s.article} ${
+        layout === Layout.MONO ? s.monoContainer : undefined
+      }`}
+    >
       <figure
         className={
-          layout === Layout.SCULPTURE
-            ? s.imageGridContainer
-            : layout === Layout.MONO
-              ? s.imageContainer
-              : undefined
+          layout === Layout.SCULPTURE ? s.sculptureContainer : undefined
         }
       >
         {photos.map((p, index) => {
@@ -78,19 +77,15 @@ export default function ItemLayout({ item, layout, priority }: Props) {
           );
         })}
         <Lightbox
-          photos={largePhotos}
+          photos={isSmall ? photoTab.md : photoTab.lg}
           index={index}
           onClose={() => setIndex(-1)}
           isSmall={isSmall}
         />
       </figure>
-      {layout === Layout.MONO ? (
-        <div className={s.info}>
-          <ImageInfos item={item} isMono={true} />
-        </div>
-      ) : (
-        <ImageInfos item={item} />
-      )}
+      <figcaption>
+        <ImageInfos item={item} isMono={layout === Layout.MONO} />
+      </figcaption>
     </article>
   );
 }

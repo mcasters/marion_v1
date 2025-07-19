@@ -1,7 +1,8 @@
 "use client";
 
-import { Photo, Type, WorkFull } from "@/lib/type";
-import s from "./imageInfos.module.css";
+import { Photo, WorkFull } from "@/lib/type";
+import { Fragment } from "react";
+import { getSizeText } from "@/utils/commonUtils.ts";
 
 interface Props {
   item: WorkFull | undefined;
@@ -9,71 +10,100 @@ interface Props {
   isForLightbox?: boolean;
   isMono?: boolean;
 }
+
 export default function ImageInfos({
   item,
   photo = undefined,
   isForLightbox = false,
   isMono = false,
 }: Props) {
-  const dotToComma = (number: number): string => {
-    return number.toString().replace(".", ",");
-  };
-
   return (
-    <figcaption className={s.infoContainer}>
+    <figcaption>
       {photo && (
-        <p>
-          <span>{photo.title}</span> - {new Date(photo.date).getFullYear()}
-        </p>
+        <ShortInfo
+          title={photo.title}
+          year={new Date(photo.date).getFullYear()}
+        />
       )}
-      {item && isForLightbox && (
-        <p>
-          <span>{item.title}</span>
-          {` - ${item.technique}`}
-          {item.type === Type.SCULPTURE
-            ? ` - ${dotToComma(item.height)} x ${dotToComma(item.width)} x ${dotToComma(item.length)} cm - `
-            : ` - ${dotToComma(item.height)} x ${dotToComma(item.width)} cm - `}
-          <time>{new Date(item.date).getFullYear()}</time>
-        </p>
-      )}
-      {item && !isForLightbox && (
-        <>
-          <h2>{item.title}</h2>
-          <p>
-            {item.technique}
-            {item.type === Type.SCULPTURE
-              ? ` - ${dotToComma(item.height)} x ${dotToComma(item.width)} x ${dotToComma(item.length)} cm`
-              : ` - ${dotToComma(item.height)} x ${dotToComma(item.width)} cm`}
-            {isMono && (
-              <>
-                <br />
-                <time>{new Date(item.date).getFullYear()}</time>
-              </>
-            )}
-            {!isMono && (
-              <>
-                {` - `}
-                <time>{new Date(item.date).getFullYear()}</time>
-              </>
-            )}
-          </p>
-          {item.description !== "" && (
-            <>
-              <br />
-              <p>{item.description}</p>
-            </>
-          )}
-          {item.isToSell && (
-            <>
-              <br />
-              <p>
-                {`prix : ${item.price} euros`}
-                {item.sold ? "vendu" : ""}
-              </p>
-            </>
-          )}
-        </>
-      )}
+      {item && !isForLightbox && !isMono && <LongInfo item={item} />}
+      {item && !isForLightbox && isMono && <LongInfoMono item={item} />}
+      {item && isForLightbox && <LongInfoLightbox item={item} />}
     </figcaption>
   );
 }
+
+// For lightbox of post and item (except gallery layout)
+const ShortInfo = ({ title, year }: { title: string; year: number }) => (
+  <p>
+    <span>
+      <strong>{title}</strong>
+    </span>{" "}
+    - {year}
+  </p>
+);
+
+// For item in double and sculpture layout
+const LongInfo = ({ item }: { item: WorkFull }) => {
+  return (
+    <>
+      <h2>{item.title}</h2>
+      <p>
+        {item.technique} - {getSizeText(item)} -{" "}
+        <time>{new Date(item.date).getFullYear()}</time>
+      </p>
+      {item.description !== "" && (
+        <>
+          <br />
+          <p>{item.description}</p>
+        </>
+      )}
+      {item.isToSell && (
+        <>
+          <br />
+          <p>
+            {`prix : ${item.price} euros`}
+            {item.sold ? "vendu" : ""}
+          </p>
+        </>
+      )}
+    </>
+  );
+};
+
+// For lightbox of item in gallery layout
+const LongInfoLightbox = ({ item }: { item: WorkFull }) => (
+  <p>
+    <span>
+      <strong>{item.title}</strong>
+    </span>
+    {` - ${item.technique} - `}
+    {getSizeText(item)}
+    {" - "}
+    <time>{new Date(item.date).getFullYear()}</time>
+  </p>
+);
+
+// For item in mono layout
+const LongInfoMono = ({ item }: { item: WorkFull }) => (
+  <>
+    <h2>{item.title}</h2>
+    <p>{item.technique}</p>
+    <p>{getSizeText(item)}</p>
+    <p>
+      <time>{new Date(item.date).getFullYear()}</time>
+    </p>
+    {item.description !== "" && (
+      <>
+        <p>{item.description}</p>
+      </>
+    )}
+    {item.isToSell && (
+      <>
+        <p>
+          {`prix : ${item.price} euros`}
+          {item.sold ? "vendu" : ""}
+        </p>
+      </>
+    )}
+  </>
+);
