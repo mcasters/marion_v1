@@ -48,7 +48,7 @@ export type Message = {
   author: User;
 };
 
-export enum ItemLayout {
+export enum Layout {
   MONO,
   DOUBLE,
   MULTIPLE,

@@ -1,0 +1,10 @@
+.infoContainer {
+  font-size: var(--font-size-min);
+  white-space: pre-line;
+  line-height: 1.2
+}
+
+.infoContainer h2, .infoContainer span {
+  font-size: var(--font-size-min);
+  font-weight: bold;
+}

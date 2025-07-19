@@ -7,7 +7,6 @@ import "yet-another-react-lightbox/styles.css";
 import { Photo, PhotoEnhanced } from "@/lib/type";
 import { LightboxSlide } from "@/components/image/lightbox/lightboxSlide";
 import ImageInfos from "@/components/image/common/imageInfos";
-import s from "./lightbox.module.css";
 import { useTheme } from "@/app/context/themeProvider.tsx";
 
 type Props = {
@@ -35,7 +34,7 @@ export default function Lightbox({ photos, index, onClose, isSmall }: Props) {
           return (
             <>
               {children}
-              <div className={s.imageInfos}>
+              <div style={{ position: "absolute", bottom: "15px" }}>
                 <ImageInfos
                   item={fullInfo ? slide.item : undefined}
                   photo={fullInfo ? undefined : (slide as Photo)}

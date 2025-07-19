@@ -2,7 +2,7 @@
 
 import { Category, Type } from "@/lib/type";
 import React from "react";
-import s from "@/components/item/itemHomeComponent.module.css";
+import s from "@/components/item/itemHome.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,7 +11,7 @@ interface Props {
   categories: Category[];
   years: number[];
 }
-export default function ItemHomeComponent({ categories, type, years }: Props) {
+export default function ItemHome({ categories, type, years }: Props) {
   return (
     <>
       <p className={`${s.tagTitle}`}>Par séries :</p>

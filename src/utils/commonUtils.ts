@@ -7,7 +7,7 @@ import {
   Image,
   Item,
   ItemDarkBackground,
-  ItemLayout,
+  Layout,
   PostFull,
   Type,
   WorkFull,
@@ -176,7 +176,7 @@ export const getNoCategory = (): Category => {
 export const getItemLayout = (
   metas: Map<string, string>,
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING,
-): [ItemLayout, ItemDarkBackground] => {
+): [Layout, ItemDarkBackground] => {
   const metaLayout =
     type === Type.PAINTING
       ? metas.get(META.PAINTING_LAYOUT) || "1,1"

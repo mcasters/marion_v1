@@ -1,0 +1,63 @@
+.article {
+  padding: 0 0 3em;
+}
+
+/* desktop */
+@media (min-width: 769px) {
+  .article {
+    padding: 0 0 5em;
+  }
+}
+
+/* Sculpture Layout */
+@media (min-width: 769px) {
+  .imageGridContainer {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .image, .left, .right {
+    cursor: pointer;
+  }
+
+  .left {
+    justify-self: end;
+  }
+
+  .right {
+    justify-self: start;
+  }
+}
+
+/* Mono */
+@media (min-width: 769px) {
+  .imageContainer {
+    display: inline-block;
+    text-align: right;
+    width: 70%;
+  }
+
+  .info {
+    display: inline-block;
+    width: 29%;
+    vertical-align: top;
+    text-align: left;
+    padding-left: 1em;
+  }
+
+  .info h2 {
+    margin-bottom: 1em;
+  }
+
+  .info p, .info h2 {
+    line-height: 2.6;
+  }
+
+  .article h2 {
+    font-family: var(--font-family-serif-caps);
+    letter-spacing: 3px;
+    font-size: var(--font-size-nav2);
+  }
+}
