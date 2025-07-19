@@ -3,7 +3,7 @@ import {
   getContactText,
   getEmail,
   getPhone,
-} from "@/utils/commonUtils";
+} from "@/lib/utils/commonUtils";
 import s from "@/components/admin/admin.module.css";
 import { Label } from "../../../../prisma/generated/client";
 import TextAreaForm from "@/components/admin/form/content/textAreaForm";

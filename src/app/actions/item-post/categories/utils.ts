@@ -1,4 +1,4 @@
-import { transformValueToKey } from "@/utils/commonUtils";
+import { transformValueToKey } from "@/lib/utils/commonUtils";
 import { Type } from "@/lib/type";
 import prisma from "@/lib/script.ts";
 

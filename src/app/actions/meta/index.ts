@@ -2,7 +2,7 @@
 import prisma from "@/lib/script.ts";
 import { Meta } from "../../../../prisma/generated/client";
 
-import { cacheDatas } from "@/utils/serverUtils";
+import { cacheDatas } from "@/lib/utils/serverUtils";
 
 export async function getMetas(): Promise<Meta[]> {
   const metas = await cacheDatas(() => queryMetas(), "metas");

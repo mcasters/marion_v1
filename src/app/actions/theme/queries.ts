@@ -1,7 +1,10 @@
 import { PresetColor, Theme } from "../../../../prisma/generated/client";
 import prisma from "@/lib/script.ts";
 import { THEME } from "@/constants/admin";
-import { getBasePresetColorData, getBaseThemeData } from "@/utils/themeUtils";
+import {
+  getBasePresetColorData,
+  getBaseThemeData,
+} from "@/lib/utils/themeUtils";
 import { activateTheme } from "@/app/actions/theme/admin";
 
 export const queryActiveTheme = async (): Promise<Theme> => {

@@ -1,5 +1,5 @@
 import { getContentsFull } from "@/app/actions/contents";
-import { getSliderPhotoTab } from "@/utils/imageUtils";
+import { getSliderPhotoTab } from "@/lib/utils/imageUtils";
 import Slideshow from "@/components/image/slideshow/slideshow.tsx";
 import React from "react";
 

@@ -1,7 +1,7 @@
 import s from "@/components/admin/admin.module.css";
 import React from "react";
 import { getPostsFull } from "@/app/actions/item-post";
-import { getEmptyPost } from "@/utils/commonUtils";
+import { getEmptyPost } from "@/lib/utils/commonUtils";
 import AddButton from "@/components/admin/form/addButton.tsx";
 import ListComponent from "@/components/admin/form/item/listComponent";
 import { Type } from "@/lib/type";

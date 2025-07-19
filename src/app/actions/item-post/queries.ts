@@ -2,7 +2,7 @@
 // @ts-nocheck
 
 import { Category, Type, WorkFull } from "@/lib/type";
-import { getNoCategory } from "@/utils/commonUtils";
+import { getNoCategory } from "@/lib/utils/commonUtils";
 import { getItemModel } from "@/app/actions/item-post/utils";
 import { getCategoryModel } from "@/app/actions/item-post/categories/utils";
 

@@ -1,4 +1,4 @@
-import { getIntroText } from "@/utils/commonUtils";
+import { getIntroText } from "@/lib/utils/commonUtils";
 import { Label } from "../../../../prisma/generated/client";
 import s from "@/components/admin/admin.module.css";
 import React from "react";
@@ -7,7 +7,7 @@ import { getContentsFull } from "@/app/actions/contents";
 import {
   getSliderLandscapeImages,
   getSliderPortraitImages,
-} from "@/utils/imageUtils";
+} from "@/lib/utils/imageUtils";
 import HomeLayoutForm from "@/components/admin/form/home/homeLayoutForm";
 import ImagesForm from "@/components/admin/form/image/imagesForm.tsx";
 

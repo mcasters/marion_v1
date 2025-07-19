@@ -1,6 +1,10 @@
 import { Type } from "@/lib/type";
 import prisma from "@/lib/script.ts";
-import { deleteFile, getDir, resizeAndSaveImage } from "@/utils/serverUtils";
+import {
+  deleteFile,
+  getDir,
+  resizeAndSaveImage,
+} from "@/lib/utils/serverUtils";
 import { Prisma } from "../../../../prisma/generated/client";
 
 export const getItemModel = (type: Type) => {

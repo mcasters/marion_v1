@@ -4,13 +4,13 @@ import {
   getMetaMap,
   getPresentation,
   getPresentationImage,
-} from "@/utils/commonUtils";
+} from "@/lib/utils/commonUtils";
 import { getContentsFull } from "@/app/actions/contents";
 import { Metadata } from "next";
 import { getMetas } from "@/app/actions/meta";
 import { META } from "@/constants/admin.ts";
 import FormattedPhoto from "@/components/image/formattedPhoto.tsx";
-import { getPhotoTabFromImages } from "@/utils/imageUtils.ts";
+import { getPhotoTabFromImages } from "@/lib/utils/imageUtils.ts";
 import s from "@/styles/page.module.css";
 
 export async function generateMetadata(): Promise<Metadata | undefined> {

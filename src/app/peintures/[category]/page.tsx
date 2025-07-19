@@ -1,7 +1,7 @@
 import { getCategory, getItemsByCategory } from "../../actions/item-post";
 import { Type } from "@/lib/type";
 import { Metadata } from "next";
-import { getMetaMap } from "@/utils/commonUtils";
+import { getMetaMap } from "@/lib/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
 import ItemsPage from "@/components/item/itemsPage.tsx";
 import { META } from "@/constants/admin";

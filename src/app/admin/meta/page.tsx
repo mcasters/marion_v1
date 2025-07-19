@@ -1,4 +1,4 @@
-import { getMetaMap } from "@/utils/commonUtils";
+import { getMetaMap } from "@/lib/utils/commonUtils";
 import s from "@/components/admin/admin.module.css";
 import React, { Fragment } from "react";
 import { getMetas } from "@/app/actions/meta";

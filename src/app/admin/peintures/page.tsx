@@ -8,7 +8,7 @@ import {
   getCategoriesFull,
   getEmptyCategoryFull,
   getEmptyItem,
-} from "@/utils/commonUtils.ts";
+} from "@/lib/utils/commonUtils.ts";
 import ListComponent from "@/components/admin/form/item/listComponent.tsx";
 import { MESSAGE } from "@/constants/admin.ts";
 

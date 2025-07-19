@@ -1,6 +1,6 @@
 import ItemsPage from "@/components/item/itemsPage.tsx";
 import { Type } from "@/lib/type";
-import { getMetaMap } from "@/utils/commonUtils";
+import { getMetaMap } from "@/lib/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
 import { Metadata } from "next";
 import { META } from "@/constants/admin";

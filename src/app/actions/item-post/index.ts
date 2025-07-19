@@ -12,9 +12,9 @@ import {
   queryNoCategory,
   queryYears,
 } from "@/app/actions/item-post/queries";
-import { getNoCategory } from "@/utils/commonUtils";
+import { getNoCategory } from "@/lib/utils/commonUtils";
 
-import { cacheDatas } from "@/utils/serverUtils";
+import { cacheDatas } from "@/lib/utils/serverUtils";
 import prisma from "@/lib/script.ts";
 
 export async function getYears(

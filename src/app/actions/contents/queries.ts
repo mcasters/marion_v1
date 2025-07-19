@@ -1,7 +1,10 @@
 import { ContentFull } from "@/lib/type";
 import prisma from "@/lib/script.ts";
 import { Label } from "../../../../prisma/generated/client";
-import { getMiscellaneousDir, resizeAndSaveImage } from "@/utils/serverUtils";
+import {
+  getMiscellaneousDir,
+  resizeAndSaveImage,
+} from "@/lib/utils/serverUtils";
 
 export const findOrCreateContent = async (
   label: Label,

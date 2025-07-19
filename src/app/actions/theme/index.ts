@@ -5,7 +5,7 @@ import {
   queryActiveTheme,
   queryPresetColors,
 } from "@/app/actions/theme/queries";
-import { cacheDatas } from "@/utils/serverUtils";
+import { cacheDatas } from "@/lib/utils/serverUtils";
 
 export async function getActiveTheme(): Promise<Theme> {
   const theme = await cacheDatas(() => queryActiveTheme(), "activeTheme");

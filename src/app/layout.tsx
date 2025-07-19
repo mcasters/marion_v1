@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Layout from "@/components/layout/layout";
 import Providers from "./context/providers";
 import "@/styles/globals-specific.css";
-import { getIntroText, getMetaMap } from "@/utils/commonUtils";
+import { getIntroText, getMetaMap } from "@/lib/utils/commonUtils";
 import React from "react";
 import StyledJsxRegistry from "./registry";
 import { getSession } from "@/app/actions/auth/utils.ts";
@@ -12,7 +12,7 @@ import { getActiveTheme, getPresetColors } from "@/app/actions/theme";
 import { getMetas } from "@/app/actions/meta";
 import { Cormorant_SC, EB_Garamond } from "next/font/google";
 import { META } from "@/constants/admin";
-import { getStructHexaTheme } from "@/utils/serverUtils";
+import { getStructHexaTheme } from "@/lib/utils/serverUtils";
 
 const garamond = EB_Garamond({
   subsets: ["latin"],

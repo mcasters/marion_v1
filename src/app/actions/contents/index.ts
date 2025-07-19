@@ -1,7 +1,7 @@
 "use server";
 import prisma from "@/lib/script.ts";
 import { ContentFull } from "@/lib/type";
-import { cacheDatas } from "@/utils/serverUtils";
+import { cacheDatas } from "@/lib/utils/serverUtils";
 
 export async function getContentsFull(): Promise<ContentFull[]> {
   const contents = await cacheDatas(() => queryContents(), "contents");
