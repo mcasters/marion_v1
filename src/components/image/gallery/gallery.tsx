@@ -3,9 +3,10 @@
 import React, { useState } from "react";
 import { PhotoTab } from "@/lib/type";
 import s from "./gallery.module.css";
-import useIsSmallWindow from "@/components/hooks/useIsSmallWindow.js";
 import Image from "next/image";
 import Lightbox from "@/components/image/lightbox/lightbox";
+import useWindowRect from "@/components/hooks/useWindowRect.js";
+import { DEVICE } from "@/constants/image.ts";
 
 interface Props {
   photos: PhotoTab;
@@ -13,7 +14,7 @@ interface Props {
 
 export default function Gallery({ photos }: Props) {
   const [index, setIndex] = useState(-1);
-  const isSmall = useIsSmallWindow();
+  const isSmall = useWindowRect().innerWidth < DEVICE.SMALL;
   const photoToDisplay = isSmall ? photos.sm : photos.md;
 
   return (

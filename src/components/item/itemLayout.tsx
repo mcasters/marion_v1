@@ -7,10 +7,10 @@ import { getItemPhotoTab } from "@/utils/imageUtils.ts";
 import { useMetas } from "@/app/context/metaProvider.tsx";
 import ImageInfos from "@/components/image/common/imageInfos.tsx";
 import Lightbox from "@/components/image/lightbox/lightbox.tsx";
-import useIsSmallWindow from "@/components/hooks/useIsSmallWindow.js";
 import { META } from "@/constants/admin.ts";
 import Image from "next/image";
-import { IMAGE_INFO } from "@/constants/image.ts";
+import { DEVICE, IMAGE_INFO } from "@/constants/image.ts";
+import useWindowRect from "@/components/hooks/useWindowRect.js";
 
 interface Props {
   item: WorkFull;
@@ -19,7 +19,7 @@ interface Props {
 }
 export default function ItemLayout({ item, layout, priority }: Props) {
   const metas = useMetas();
-  const isSmall = useIsSmallWindow();
+  const isSmall = useWindowRect().innerWidth < DEVICE.SMALL;
   const [index, setIndex] = useState(-1);
   const photoTab = useMemo(
     () =>

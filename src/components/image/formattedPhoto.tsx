@@ -3,8 +3,9 @@
 import { PhotoTab } from "@/lib/type";
 import React, { useState } from "react";
 import Image from "next/image";
-import useIsSmallWindow from "@/components/hooks/useIsSmallWindow.js";
 import Lightbox from "@/components/image/lightbox/lightbox.tsx";
+import useWindowRect from "@/components/hooks/useWindowRect.js";
+import { DEVICE } from "@/constants/image.ts";
 
 interface Props {
   photoTab: PhotoTab;
@@ -20,7 +21,7 @@ export default function FormattedPhoto({
   height,
   withLightbox = false,
 }: Props) {
-  const isSmall = useIsSmallWindow();
+  const isSmall = useWindowRect().innerWidth < DEVICE.SMALL;
   const [index, setIndex] = useState(-1);
   const photo = isSmall ? photoTab.sm[0] : photoTab.md[0];
   const ratio = Math.round((photo?.width / photo?.height) * 10000);
