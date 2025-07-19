@@ -6,7 +6,7 @@ import { useAlert } from "@/app/context/alertProvider";
 import { updateMeta } from "@/app/actions/meta/admin";
 import Image from "next/image";
 import { useMetas } from "@/app/context/metaProvider";
-import { getHomeLayout } from "@/utils/commonUtils";
+import { getHomeLayout } from "@/lib/utils/commonUtils";
 
 export default function HomeLayoutForm() {
   const metas = useMetas();

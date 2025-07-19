@@ -1,11 +1,11 @@
 import { mkdir, rmSync, stat } from "fs";
 import sharp from "sharp";
 import { join } from "path";
-import { transformValueToKey } from "@/utils/commonUtils";
-import { IMAGE } from "@/constants/image";
-import { StructuredTheme, Type } from "@/lib/type";
-import { PresetColor, Theme } from "../../prisma/generated/client";
-import { getStructuredTheme, themeToHexa } from "@/utils/themeUtils";
+import { transformValueToKey } from "@/lib/utils/commonUtils.ts";
+import { IMAGE } from "@/constants/image.ts";
+import { StructuredTheme, Type } from "@/lib/type.ts";
+import { PresetColor, Theme } from "../../../prisma/generated/client";
+import { getStructuredTheme, themeToHexa } from "@/lib/utils/themeUtils.ts";
 import { getSession } from "@/app/actions/auth/utils.ts";
 import { unstable_cache } from "next/cache";
 

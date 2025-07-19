@@ -2,7 +2,7 @@
 
 import { Photo, WorkFull } from "@/lib/type";
 import { Fragment } from "react";
-import { getSizeText } from "@/utils/commonUtils.ts";
+import { getSizeText } from "@/lib/utils/commonUtils.ts";
 
 interface Props {
   item: WorkFull | undefined;

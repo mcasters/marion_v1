@@ -4,7 +4,7 @@ import { MENU_1_ITEMS } from "@/constants/specific/routes";
 import s from "@/components/layout/header/nav_1/nav_1.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 
-import { getDarkerColor } from "@/utils/themeUtils";
+import { getDarkerColor } from "@/lib/utils/themeUtils";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";

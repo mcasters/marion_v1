@@ -1,8 +1,8 @@
-import { PresetColor, Theme } from "../../prisma/generated/client";
-import { OnlyString, StructuredTheme } from "@/lib/type";
+import { PresetColor, Theme } from "../../../prisma/generated/client";
+import { OnlyString, StructuredTheme } from "@/lib/type.ts";
 
 import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
-import { createNestedObject } from "@/utils/commonUtils";
+import { createNestedObject } from "@/lib/utils/commonUtils.ts";
 
 export const getBaseThemeData = () => {
   return BASE_THEME;

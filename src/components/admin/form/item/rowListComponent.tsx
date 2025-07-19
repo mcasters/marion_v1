@@ -6,7 +6,7 @@ import DeleteButton from "@/components/admin/form/deleteButton";
 import s from "@/components/admin/adminList.module.css";
 import React, { useState } from "react";
 import { Category, Item, Type } from "@/lib/type.ts";
-import { getImageSrc } from "@/utils/commonUtils.ts";
+import { getImageSrc } from "@/lib/utils/commonUtils.ts";
 import { deleteCategory } from "@/app/actions/item-post/categories/admin.ts";
 import { deleteItem } from "@/app/actions/item-post/admin.ts";
 import WorkForm from "@/components/admin/form/item/workForm.tsx";

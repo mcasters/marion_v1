@@ -8,7 +8,7 @@ import ArrowPrev from "@/components/icons/arrowPrev";
 import ArrowNext from "@/components/icons/arrowNext";
 import { onNext, onPrev } from "@/components/image/common";
 import { useMetas } from "@/app/context/metaProvider";
-import { getHomeLayout } from "@/utils/commonUtils";
+import { getHomeLayout } from "@/lib/utils/commonUtils";
 import useWindowRect from "@/components/hooks/useWindowRect.js";
 import { DEVICE } from "@/constants/image.ts";
 

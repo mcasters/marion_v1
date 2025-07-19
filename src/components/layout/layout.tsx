@@ -8,13 +8,13 @@ import Header from "./header/header";
 import Footer from "./footer";
 import s from "@/components/layout/layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
-import { getHomeLayout } from "@/utils/commonUtils";
+import { getHomeLayout } from "@/lib/utils/commonUtils";
 import AuthStatus from "@/components/auth/authStatus";
 import { useSession } from "@/app/context/sessionProvider";
 import AdminNav from "@/components/layout/admin/adminNav";
 import { useMetas } from "@/app/context/metaProvider";
 import { HomeLayout } from "@/lib/type";
-import { hexToRgb } from "@/utils/themeUtils";
+import { hexToRgb } from "@/lib/utils/themeUtils";
 
 interface Props {
   introduction: string;

@@ -7,7 +7,7 @@ import s from "@/components/layout/header/nav_2/nav_2.module.css";
 import { useTheme } from "@/app/context/themeProvider";
 import { useMetas } from "@/app/context/metaProvider";
 import { META } from "@/constants/admin";
-import { getDarkerColor } from "@/utils/themeUtils";
+import { getDarkerColor } from "@/lib/utils/themeUtils";
 import LogoIcon from "@/components/icons/logoIcon.tsx";
 import Image from "next/image";
 

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import { Category, WorkFull } from "@/lib/type.ts";
-import { getYearsFromItems } from "@/utils/commonUtils.ts";
+import { getYearsFromItems } from "@/lib/utils/commonUtils.ts";
 
 interface Props {
   items: WorkFull[];

@@ -10,9 +10,9 @@ import {
 import React from "react";
 import s from "@/components/item/itemsPage.module.css";
 import { useMetas } from "@/app/context/metaProvider.tsx";
-import { getItemLayout } from "@/utils/commonUtils.ts";
+import { getItemLayout } from "@/lib/utils/commonUtils.ts";
 import ItemLayout from "@/components/item/itemLayout.tsx";
-import { getItemsPhotoTabEnhanced } from "@/utils/imageUtils.ts";
+import { getItemsPhotoTabEnhanced } from "@/lib/utils/imageUtils.ts";
 import { META } from "@/constants/admin.ts";
 import Gallery from "@/components/image/gallery/gallery.tsx";
 

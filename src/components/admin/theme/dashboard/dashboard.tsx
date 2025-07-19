@@ -4,7 +4,7 @@ import React from "react";
 import s from "../adminTheme.module.css";
 import { THEME_ENHANCED_LABEL } from "@/constants/admin";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
-import { getStructuredTheme } from "@/utils/themeUtils";
+import { getStructuredTheme } from "@/lib/utils/themeUtils";
 import SubDashboard from "@/components/admin/theme/dashboard/subDashboard";
 
 export default function Dashboard() {

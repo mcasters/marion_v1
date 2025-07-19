@@ -6,9 +6,9 @@ import {
   PostFull,
   Type,
   WorkFull,
-} from "@/lib/type";
-import { IMAGE } from "@/constants/image";
-import { getSliderContent, getSliders } from "@/utils/commonUtils";
+} from "@/lib/type.ts";
+import { IMAGE } from "@/constants/image.ts";
+import { getSliderContent, getSliders } from "@/lib/utils/commonUtils.ts";
 
 const getEmptyPhotoTab = (): PhotoTab => {
   return { sm: [], md: [], lg: [] };

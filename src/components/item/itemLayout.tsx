@@ -3,7 +3,7 @@
 import s from "./itemLayout.module.css";
 import { Layout, WorkFull } from "@/lib/type.ts";
 import React, { useMemo, useState } from "react";
-import { getItemPhotoTab } from "@/utils/imageUtils.ts";
+import { getItemPhotoTab } from "@/lib/utils/imageUtils.ts";
 import { useMetas } from "@/app/context/metaProvider.tsx";
 import ImageInfos from "@/components/image/common/imageInfos.tsx";
 import Lightbox from "@/components/image/lightbox/lightbox.tsx";

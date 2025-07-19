@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import Image from "next/image";
 import { Image as IImage, Type } from "@/lib/type";
-import { getEmptyImage } from "@/utils/commonUtils";
+import { getEmptyImage } from "@/lib/utils/commonUtils";
 
 type Props = {
   itemsImages: IImage[];

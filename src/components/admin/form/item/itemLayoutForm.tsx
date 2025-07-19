@@ -6,7 +6,7 @@ import { useAlert } from "@/app/context/alertProvider.tsx";
 import { updateMeta } from "@/app/actions/meta/admin.ts";
 import { Type } from "@/lib/type.ts";
 import Image from "next/image";
-import { getItemLayout } from "@/utils/commonUtils.ts";
+import { getItemLayout } from "@/lib/utils/commonUtils.ts";
 import { useMetas } from "@/app/context/metaProvider.tsx";
 
 type Props = {

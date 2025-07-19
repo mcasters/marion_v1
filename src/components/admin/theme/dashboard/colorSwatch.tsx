@@ -15,7 +15,7 @@ import ColorPicker from "@/components/admin/theme/dashboard/colorPicker";
 import Modal from "@/components/admin/form/modal.tsx";
 import { createPresetColor } from "@/app/actions/theme/admin";
 import { useAlert } from "@/app/context/alertProvider";
-import { colorNameToHex } from "@/utils/themeUtils";
+import { colorNameToHex } from "@/lib/utils/themeUtils";
 import {
   THEME_ENHANCED_LABEL,
   THEME_GENERAL_TARGET_LABEL,
