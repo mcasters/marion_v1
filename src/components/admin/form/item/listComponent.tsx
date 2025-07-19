@@ -36,6 +36,10 @@ export default function ListComponent({ items, type, categories }: Props) {
       );
   }, [arrowDownPressed]);
 
+  useEffect(() => {
+    if (!categories) setItemsToDisplay(items);
+  }, [items]);
+
   return (
     <>
       {!!categories && (
