@@ -1,6 +1,6 @@
 import { Type } from "@/lib/type";
 import { getCategories, getYears } from "@/app/actions/item-post";
-import ItemHomeComponent from "@/components/item/itemHomeComponent";
+import ItemHome from "@/components/item/itemHome.tsx";
 import { Metadata } from "next";
 import { getMetaMap } from "@/utils/commonUtils.ts";
 import { getMetas } from "@/app/actions/meta";
@@ -32,7 +32,7 @@ export default async function Page() {
   return (
     <>
       <h1 className="hidden">Les dessins</h1>
-      <ItemHomeComponent type={type} categories={categories} years={years} />
+      <ItemHome type={type} categories={categories} years={years} />
     </>
   );
 }
