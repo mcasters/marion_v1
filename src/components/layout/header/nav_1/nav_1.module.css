@@ -4,7 +4,7 @@
 .homeNavFix {
   height: var(--nav-1-height);
   width: 100%;
-  z-index: 2;
+  z-index: 3;
   border-bottom: 1px solid transparent;
   transition: all ease-in-out 0.2s;
   padding: 0;

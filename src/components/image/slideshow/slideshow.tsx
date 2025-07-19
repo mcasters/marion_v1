@@ -49,7 +49,7 @@ export default function Slideshow({
 
   return (
     photos.length > 0 && (
-      <div style={{ position: "absolute", top: 0, left: 0 }}>
+      <div style={{ position: "relative" }}>
         {photos.map((p, i) => (
           <Image
             key={i}

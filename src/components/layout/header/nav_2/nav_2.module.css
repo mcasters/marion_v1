@@ -5,7 +5,7 @@
   width: 100%;
   height: var(--nav-2-height);
   line-height: var(--nav-2-height);
-  z-index: 1;
+  z-index: 3;
   user-select: none;
 }
 
