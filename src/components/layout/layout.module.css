@@ -8,7 +8,7 @@
 }
 
 .wrapper {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 .gradient {
@@ -23,5 +23,14 @@
 }
 
 .main {
+  padding: 2em 1em;
   margin-top: calc(var(--line-height) + var(--nav-1-height) + var(--nav-2-height));
+}
+
+
+/* desktop */
+@media (min-width: 769px) {
+  .main {
+    padding: 2em 3em;
+  }
 }

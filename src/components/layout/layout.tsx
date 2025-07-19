@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 
 import { ROUTES } from "@/constants/specific/routes";
 import Header from "./header/header";
-import Main from "./main";
 import Footer from "./footer";
 import s from "@/components/layout/layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
@@ -63,7 +62,7 @@ export default function Layout({ introduction, children }: Props) {
           introduction={introduction}
         />
       )}
-      <Main isHome={isHome}>{children}</Main>
+      <main className={isHome ? undefined : s.main}>{children}</main>
       <Footer isItem={isItem} isHome={isHome} />
       <style jsx global>{`
         .line {

@@ -21,7 +21,6 @@
   justify-content: center;
   position: relative;
   box-sizing: content-box;
-  font-size: var(--font-size-nav2);
   border: solid 1px;
 }
 
@@ -43,7 +42,6 @@
   bottom: 0;
   padding-top: 25px;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  font-size: var(--font-size-nav1);
 }
 
 .yearLink {
