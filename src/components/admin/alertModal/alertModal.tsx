@@ -2,8 +2,8 @@
 
 import React, { useEffect } from "react";
 import s from "./alertModal.module.css";
-import CheckIcon from "@/components/icons/checkIcon";
-import ErrorIcon from "@/components/icons/errorIcon";
+import CheckIcon from "@/components/icons/checkIcon.tsx";
+import ErrorIcon from "@/components/icons/errorIcon.tsx";
 
 type Props = {
   message: string;
