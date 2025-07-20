@@ -15,7 +15,7 @@ export const IMAGE_INFO = {
   [Layout.MONO]: {
     WIDTH: {
       small: 80,
-      large: 45,
+      large: 40,
     },
     HEIGHT: {
       small: 45,
