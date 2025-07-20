@@ -1,24 +1,24 @@
 "use client";
 
-import { MENU_1_ITEMS } from "@/constants/specific/routes";
-import s from "@/components/layout/header/nav_1/nav_1.module.css";
-import { useTheme } from "@/app/context/themeProvider";
+import { MENU_1_ITEMS } from "@/constants/specific/routes.ts";
+import s from "@/components/layout/nav_1/nav_1.module.css";
+import { useTheme } from "@/app/context/themeProvider.tsx";
 
-import { getDarkerColor } from "@/lib/utils/themeUtils";
+import { getDarkerColor } from "@/lib/utils/themeUtils.ts";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 
 type Props = {
-  navLayout: string;
+  navClass: string;
 };
 
-export default function Nav_1({ navLayout }: Props) {
+export default function Nav_1({ navClass }: Props) {
   const theme = useTheme();
   const path = `/${usePathname().split("/")[1]}`;
 
   return (
-    <nav className={`${s[navLayout]} ${navLayout} nav1`}>
+    <nav className={`${s[navClass]} ${navClass} nav1`}>
       <ul className={`${s.ul} ul`}>
         {MENU_1_ITEMS.map((item) => {
           return (

@@ -2,26 +2,26 @@
 
 import Link from "next/link";
 
-import { MENU_2 } from "@/constants/specific/routes";
-import s from "@/components/layout/header/nav_2/nav_2.module.css";
-import { useTheme } from "@/app/context/themeProvider";
-import { useMetas } from "@/app/context/metaProvider";
-import { META } from "@/constants/admin";
-import { getDarkerColor } from "@/lib/utils/themeUtils";
+import { MENU_2 } from "@/constants/specific/routes.ts";
+import s from "@/components/layout/nav_2/nav_2.module.css";
+import { useTheme } from "@/app/context/themeProvider.tsx";
+import { useMetas } from "@/app/context/metaProvider.tsx";
+import { META } from "@/constants/admin.ts";
+import { getDarkerColor } from "@/lib/utils/themeUtils.ts";
 import LogoIcon from "@/components/icons/logoIcon.tsx";
 import Image from "next/image";
 
 interface Props {
-  navLayout: string;
+  navClass: string;
 }
 
-export default function Nav_2({ navLayout }: Props) {
+export default function Nav_2({ navClass }: Props) {
   const theme = useTheme();
   const metas = useMetas();
   const owner = metas.get(META.SITE_TITLE);
 
   return (
-    <nav className={`${s[navLayout]} ${navLayout} nav2`}>
+    <nav className={`${s[navClass]} ${navClass} nav2`}>
       <ul className={s.ul}>
         {MENU_2.map((menuItem) => {
           if (menuItem.TAG === "Home")
@@ -56,7 +56,7 @@ export default function Nav_2({ navLayout }: Props) {
           );
         })}
       </ul>
-      <style>{`
+      <style jsx>{`
         .itemNav {
           background-color: ${theme.item.menu2.background};
           border-bottom: 1px solid

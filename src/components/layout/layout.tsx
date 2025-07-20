@@ -4,7 +4,7 @@ import React, { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
 import { ROUTES } from "@/constants/specific/routes";
-import Header from "./header/header";
+import Header from "./header.tsx";
 import Footer from "./footer";
 import s from "@/components/layout/layout.module.css";
 import { useTheme } from "@/app/context/themeProvider";
@@ -27,26 +27,18 @@ export default function Layout({ introduction, children }: Props) {
   const session = useSession();
   const metas = useMetas();
   const isPlainHomeLayout = getHomeLayout(metas) === HomeLayout.PLAIN;
-
   const isHome = path === ROUTES.HOME;
-  const isItem =
+  const isWork =
     path === ROUTES.PAINTING ||
     path === ROUTES.SCULPTURE ||
     path === ROUTES.DRAWING;
   const isAdmin = path === ROUTES.ADMIN;
-
   const gradientRgbObject = hexToRgb(theme.home.menu1.background);
   const gradientRgb = `${gradientRgbObject?.r},${gradientRgbObject?.g},${gradientRgbObject?.b}`;
 
   return (
     <div
-      className={
-        isItem
-          ? `${s.wrapper} itemWrapper`
-          : isHome
-            ? `${s.wrapper} homeWrapper`
-            : `${s.wrapper} wrapper`
-      }
+      className={`${isWork ? "itemWrap" : isHome ? "homeWrap" : "otherWrap"} ${s.wrapper}`}
     >
       <div className={`${s.line} line`}></div>
       {session?.user && <AuthStatus email={session.user.email} />}
@@ -63,20 +55,20 @@ export default function Layout({ introduction, children }: Props) {
         />
       )}
       <main className={isHome ? undefined : s.main}>{children}</main>
-      <Footer isItem={isItem} isHome={isHome} />
+      <Footer footerClass={isWork ? "item" : isHome ? "home" : "other"} />
       <style jsx global>{`
         .line {
           background-color: ${theme.general.lineColor};
         }
-        .wrapper {
+        .otherWrap {
           background-color: ${theme.other.main.background};
           color: ${theme.other.main.text};
         }
-        .itemWrapper {
+        .itemWrap {
           background-color: ${theme.item.main.background};
           color: ${theme.item.main.text};
         }
-        .homeWrapper {
+        .homeWrap {
           background-color: ${theme.home.main.background};
           color: ${theme.home.main.text};
         }
@@ -101,58 +93,58 @@ export default function Layout({ introduction, children }: Props) {
             rgb(${gradientRgb}) 100%
           );
         }
-        .homeWrapper > header > .nav1 > ul > li > a {
+        .homeWrap > header > .nav1 > ul > li > a {
           color: ${theme.home.menu1.link};
         }
-        .itemWrapper > header > .nav1 > ul > li > a {
+        .itemWrap > header > .nav1 > ul > li > a {
           color: ${theme.item.menu1.link};
         }
-        .wrapper > header > .nav1 > ul > li > a {
+        .otherWrap > header > .nav1 > ul > li > a {
           color: ${theme.other.menu1.link};
         }
 
-        .homeWrapper > header > .nav1 > ul > li > a:hover {
+        .homeWrap > header > .nav1 > ul > li > a:hover {
           color: ${theme.home.menu1.linkHover};
         }
-        .itemWrapper > header > .nav1 > ul > li > a:hover {
+        .itemWrap > header > .nav1 > ul > li > a:hover {
           color: ${theme.item.menu1.linkHover};
         }
-        .wrapper > header > .nav1 > ul > li > a:hover {
+        .otherWrap > header > .nav1 > ul > li > a:hover {
           color: ${theme.other.menu1.linkHover};
         }
 
-        .itemWrapper > header > .nav1 > ul > li > a.active {
+        .itemWrap > header > .nav1 > ul > li > a.active {
           border-bottom-color: ${theme.item.menu1.linkHover};
         }
 
-        .homeWrapper > header > .nav2 > ul > li > a {
+        .homeWrap > header > .nav2 > ul > li > a {
           color: ${theme.home.menu2.link};
         }
-        .itemWrapper > header > .nav2 > ul > li > a {
+        .itemWrap > header > .nav2 > ul > li > a {
           color: ${theme.item.menu2.link};
         }
-        .wrapper > header > .nav2 > ul > li > a {
+        .otherWrap > header > .nav2 > ul > li > a {
           color: ${theme.other.menu2.link};
         }
 
-        .homeWrapper > header > .nav2 > ul > li > a:hover {
+        .homeWrap > header > .nav2 > ul > li > a:hover {
           color: ${theme.home.menu2.linkHover};
         }
-        .itemWrapper > header > .nav2 > ul > li > a:hover {
+        .itemWrap > header > .nav2 > ul > li > a:hover {
           color: ${theme.item.menu2.linkHover};
         }
-        .wrapper > header > .nav2 > ul > li > a:hover {
+        .otherWrap > header > .nav2 > ul > li > a:hover {
           color: ${theme.other.menu2.linkHover};
         }
-        .wrapper a,
-        .homeWrapper a,
-        .wrapper .buttonLink,
-        .homeWrapper .buttonLink,
+        .otherWrap a,
+        .homeWrap a,
+        .otherWrap .buttonLink,
+        .homeWrap .buttonLink,
         .iconButton,
         .linkColor {
           color: ${theme.other.main.link};
         }
-        .wrapper .icon {
+        .otherWrap .icon {
           fill: ${theme.other.main.link};
         }
         .selected,
@@ -163,46 +155,46 @@ export default function Layout({ introduction, children }: Props) {
         .selected .icon {
           fill: antiquewhite;
         }
-        .wrapper a:hover,
-        .homeWrapper a:hover,
-        .wrapper .buttonLink:hover,
-        .homeWrapper .buttonLink:hover,
+        .otherWrap a:hover,
+        .homeWrap a:hover,
+        .otherWrap .buttonLink:hover,
+        .homeWrap .buttonLink:hover,
         .iconButton:hover {
           color: ${theme.other.main.linkHover};
         }
-        .wrapper .icon:hover {
+        .otherWrap .icon:hover {
           fill: ${theme.other.main.linkHover};
         }
-        .itemWrapper a,
-        .itemWrapper .buttonLink {
+        .itemWrap a,
+        .itemWrap .buttonLink {
           color: ${theme.item.main.link};
         }
-        .itemWrapper .icon {
+        .itemWrap .icon {
           fill: ${theme.item.main.link};
         }
-        .itemWrapper a:hover,
-        .itemWrapper .buttonLink:hover {
+        .itemWrap a:hover,
+        .itemWrap .buttonLink:hover {
           color: ${theme.item.main.linkHover};
         }
-        .itemWrapper .icon:hover {
+        .itemWrap .icon:hover {
           fill: ${theme.item.main.linkHover};
         }
-        .homeWrapper .homeIcon {
+        .homeWrap .homeIcon {
           fill: ${theme.general.titleColor};
         }
-        .homeWrapper .homeIcon:hover {
+        .homeWrap .homeIcon:hover {
           fill: ${theme.home.menu2.link};
         }
-        .wrapper .homeIcon {
+        .otherWrap .homeIcon {
           fill: ${theme.other.menu1.link};
         }
-        .wrapper .homeIcon:hover {
+        .otherWrap .homeIcon:hover {
           fill: ${theme.other.menu1.linkHover};
         }
-        .itemWrapper .homeIcon {
+        .itemWrap .homeIcon {
           fill: ${theme.item.menu1.link};
         }
-        .itemWrapper .homeIcon:hover {
+        .itemWrap .homeIcon:hover {
           fill: ${theme.item.menu1.linkHover};
         }
       `}</style>
