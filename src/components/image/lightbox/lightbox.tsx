@@ -47,10 +47,10 @@ export default function Lightbox({ photos, index, onClose, isSmall }: Props) {
       styles={{
         container: {
           backgroundColor: theme.general.lightbox,
-          color: theme.work.main.text,
+          color: theme.general.lightboxText,
         },
         icon: {
-          color: theme.work.main.text,
+          color: theme.general.lightboxText,
         },
       }}
       plugins={[Zoom]}

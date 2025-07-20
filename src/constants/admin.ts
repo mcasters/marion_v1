@@ -20,6 +20,7 @@ export const THEME_GENERAL_TARGET_LABEL = {
   lineColor: "Ligne au top",
   titleColor: "Titre du site",
   lightbox: "Fond de la lightbox",
+  lightboxText: "Texte de la lightbox",
 };
 
 export const THEME_TARGET_LABEL = {

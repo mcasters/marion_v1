@@ -7,6 +7,7 @@ export const BASE_THEME = {
   general_lineColor: "#be2d01",
   general_titleColor: "#333",
   general_lightbox: "#333",
+  general_lightboxText: "#be2d01",
 
   // homePage
   home_menu1_background: "#e7e7e7",

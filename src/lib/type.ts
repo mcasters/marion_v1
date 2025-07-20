@@ -122,6 +122,7 @@ export type ThemeGeneralTarget = {
   lineColor: string;
   titleColor: string;
   lightbox: string;
+  lightboxText: string;
 };
 
 export type ThemePagePart = {

@@ -209,7 +209,8 @@ model Theme {
   isActive                Boolean @default(false)
   general_lineColor       String
   general_titleColor      String
-  general_lightbox        String  @default("#333")
+  general_lightbox        String
+  general_lightboxText    String
   home_menu1_background   String
   home_menu1_text         String
   home_menu1_link         String
