@@ -1,78 +1,19 @@
 "use client";
 
-import { LAYOUT as L } from "@/constants/layout.js";
 import Nav_1 from "@/components/layout/nav_1/nav_1.tsx";
 import Nav_2 from "@/components/layout/nav_2/nav_2.tsx";
 import s from "./layout.module.css";
-import { ROUTES as R } from "@/constants/specific/routes.ts";
 import React from "react";
-import { META } from "@/constants/admin.ts";
-import { useTheme } from "@/app/context/themeProvider.tsx";
-import { useMetas } from "@/app/context/metaProvider.tsx";
-import useElementIsUpTo from "@/components/hooks/useElementIsUpTo.ts";
 
 type Props = {
-  path: string;
-  isPlainHomeLayout: boolean;
-  introduction?: string;
+  isWork: boolean;
 };
 
-export default function Header({
-  path,
-  isPlainHomeLayout,
-  introduction,
-}: Props) {
-  if (path === R.HOME) {
-    const theme = useTheme();
-    const metas = useMetas();
-    const { isUpTo: titleGone, ref: titleRef } = useElementIsUpTo(
-      L.LINE_HEIGHT,
-    );
-    const { isUpTo: introGone, ref: introRef } = useElementIsUpTo(
-      L.LINE_HEIGHT + L.NAV_1_HEIGHT,
-    );
-
-    return (
-      <header className={isPlainHomeLayout ? s.plainHomeHeader : s.header}>
-        <section ref={titleRef} className={s.siteTitle}>
-          <h1 className={`${s.title} title`}>{metas.get(META.SITE_TITLE)}</h1>
-        </section>
-        <Nav_1 navClass={titleGone ? "homeNavFix" : "homeNav"} />
-        <div
-          style={{
-            display: titleGone ? "block" : "none",
-            height: L.NAV_1_HEIGHT,
-          }}
-        />
-        <section ref={introRef} className={`${s.intro} intro`}>
-          <p>{introduction}</p>
-        </section>
-        <Nav_2 navClass={introGone ? "homeNavFix" : "homeNav"} />
-        <div
-          style={{
-            display: introGone ? "block" : "none",
-            height: L.NAV_2_HEIGHT,
-          }}
-        />
-        <style jsx>{`
-          .title {
-            color: ${theme.general.titleColor};
-          }
-
-          .intro {
-            color: ${theme.home.main.text};
-          }
-        `}</style>
-      </header>
-    );
-  } else {
-    const isWork =
-      path === R.PAINTING || path === R.SCULPTURE || path === R.DRAWING;
-    return (
-      <header className={s.header}>
-        <Nav_1 navClass={isWork ? "itemNav" : "nav"} />
-        <Nav_2 navClass={isWork ? "itemNav" : "nav"} />
-      </header>
-    );
-  }
+export default function Header({ isWork }: Props) {
+  return (
+    <header className={s.header}>
+      <Nav_1 navClass={isWork ? "itemNav" : "nav"} />
+      <Nav_2 navClass={isWork ? "itemNav" : "nav"} />
+    </header>
+  );
 }

@@ -15,6 +15,8 @@ import AdminNav from "@/components/layout/admin/adminNav";
 import { useMetas } from "@/app/context/metaProvider";
 import { HomeLayout } from "@/lib/type";
 import { hexToRgb } from "@/lib/utils/themeUtils";
+import { META } from "@/constants/admin.ts";
+import HomeHeader from "@/components/layout/homeHeader.tsx";
 
 interface Props {
   introduction: string;
@@ -47,12 +49,14 @@ export default function Layout({ introduction, children }: Props) {
       )}
       {isAdmin ? (
         <AdminNav />
-      ) : (
-        <Header
-          path={path}
+      ) : isHome ? (
+        <HomeHeader
           isPlainHomeLayout={isPlainHomeLayout}
+          title={metas.get(META.SITE_TITLE) || ""}
           introduction={introduction}
         />
+      ) : (
+        <Header isWork={isWork} />
       )}
       <main className={isHome ? undefined : s.main}>{children}</main>
       <Footer footerClass={isWork ? "item" : isHome ? "home" : "other"} />
@@ -92,6 +96,12 @@ export default function Layout({ introduction, children }: Props) {
             rgba(${gradientRgb}, 0.987) 91.9%,
             rgb(${gradientRgb}) 100%
           );
+        }
+        .title {
+          color: ${theme.general.titleColor};
+        }
+        .intro {
+          color: ${theme.home.main.text};
         }
         .homeWrap > header > .nav1 > ul > li > a {
           color: ${theme.home.menu1.link};
