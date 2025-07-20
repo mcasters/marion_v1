@@ -134,6 +134,6 @@ export type ThemePagePart = {
 export type StructuredTheme = {
   general: ThemeGeneralTarget;
   home: ThemePagePart;
-  item: ThemePagePart;
+  work: ThemePagePart;
   other: ThemePagePart;
 };

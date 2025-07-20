@@ -2,10 +2,10 @@ export const THEME = {
   BASE_THEME: "Thème de base",
 };
 
-export const THEME_ENHANCED_LABEL = {
+export const THEME_PAGE_LABEL = {
   general: "Général",
   home: "Page home",
-  item: "Pages d'items",
+  work: "Pages d'items",
   other: "Autres pages",
 };
 

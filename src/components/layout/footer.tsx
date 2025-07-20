@@ -10,7 +10,7 @@ import { META } from "@/constants/admin";
 import React from "react";
 
 type Props = {
-  footerClass: "item" | "home" | "other";
+  footerClass: "work" | "home" | "other";
 };
 
 export default function Footer({ footerClass }: Props) {

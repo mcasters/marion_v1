@@ -39,9 +39,9 @@ export default function Nav_1({ navClass }: Props) {
       </ul>
       <style jsx>{`
         .itemNav {
-          background-color: ${theme.item.menu1.background};
+          background-color: ${theme.work.menu1.background};
           border-bottom: 1px solid
-            ${getDarkerColor(theme.item.menu1.background, -10)};
+            ${getDarkerColor(theme.work.menu1.background, -10)};
         }
         .nav {
           background-color: ${theme.other.menu1.background};

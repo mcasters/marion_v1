@@ -76,10 +76,10 @@ export const getStructuredTheme = (theme: Theme): StructuredTheme => {
     const stringSplit = key.split("_");
 
     if (stringSplit.length === 3) {
-      const [pagePart, target, page] = stringSplit;
+      const [page, pagePart, target] = stringSplit;
       createNestedObject(structuredTheme, page, pagePart)[target] = value;
     } else if (stringSplit.length === 2) {
-      const [target, page] = stringSplit;
+      const [page, target] = stringSplit;
       createNestedObject(structuredTheme, page)[target] = value;
     }
   });

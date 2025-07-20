@@ -59,7 +59,7 @@ export default function Layout({ introduction, children }: Props) {
         <Header isWork={isWork} />
       )}
       <main className={isHome ? undefined : s.main}>{children}</main>
-      <Footer footerClass={isWork ? "item" : isHome ? "home" : "other"} />
+      <Footer footerClass={isWork ? "work" : isHome ? "home" : "other"} />
       <style jsx global>{`
         .line {
           background-color: ${theme.general.lineColor};
@@ -69,8 +69,8 @@ export default function Layout({ introduction, children }: Props) {
           color: ${theme.other.main.text};
         }
         .itemWrap {
-          background-color: ${theme.item.main.background};
-          color: ${theme.item.main.text};
+          background-color: ${theme.work.main.background};
+          color: ${theme.work.main.text};
         }
         .homeWrap {
           background-color: ${theme.home.main.background};
@@ -107,7 +107,7 @@ export default function Layout({ introduction, children }: Props) {
           color: ${theme.home.menu1.link};
         }
         .itemWrap > header > .nav1 > ul > li > a {
-          color: ${theme.item.menu1.link};
+          color: ${theme.work.menu1.link};
         }
         .otherWrap > header > .nav1 > ul > li > a {
           color: ${theme.other.menu1.link};
@@ -117,21 +117,21 @@ export default function Layout({ introduction, children }: Props) {
           color: ${theme.home.menu1.linkHover};
         }
         .itemWrap > header > .nav1 > ul > li > a:hover {
-          color: ${theme.item.menu1.linkHover};
+          color: ${theme.work.menu1.linkHover};
         }
         .otherWrap > header > .nav1 > ul > li > a:hover {
           color: ${theme.other.menu1.linkHover};
         }
 
         .itemWrap > header > .nav1 > ul > li > a.active {
-          border-bottom-color: ${theme.item.menu1.linkHover};
+          border-bottom-color: ${theme.work.menu1.linkHover};
         }
 
         .homeWrap > header > .nav2 > ul > li > a {
           color: ${theme.home.menu2.link};
         }
         .itemWrap > header > .nav2 > ul > li > a {
-          color: ${theme.item.menu2.link};
+          color: ${theme.work.menu2.link};
         }
         .otherWrap > header > .nav2 > ul > li > a {
           color: ${theme.other.menu2.link};
@@ -141,7 +141,7 @@ export default function Layout({ introduction, children }: Props) {
           color: ${theme.home.menu2.linkHover};
         }
         .itemWrap > header > .nav2 > ul > li > a:hover {
-          color: ${theme.item.menu2.linkHover};
+          color: ${theme.work.menu2.linkHover};
         }
         .otherWrap > header > .nav2 > ul > li > a:hover {
           color: ${theme.other.menu2.linkHover};
@@ -177,17 +177,17 @@ export default function Layout({ introduction, children }: Props) {
         }
         .itemWrap a,
         .itemWrap .buttonLink {
-          color: ${theme.item.main.link};
+          color: ${theme.work.main.link};
         }
         .itemWrap .icon {
-          fill: ${theme.item.main.link};
+          fill: ${theme.work.main.link};
         }
         .itemWrap a:hover,
         .itemWrap .buttonLink:hover {
-          color: ${theme.item.main.linkHover};
+          color: ${theme.work.main.linkHover};
         }
         .itemWrap .icon:hover {
-          fill: ${theme.item.main.linkHover};
+          fill: ${theme.work.main.linkHover};
         }
         .homeWrap .homeIcon {
           fill: ${theme.general.titleColor};
@@ -202,10 +202,10 @@ export default function Layout({ introduction, children }: Props) {
           fill: ${theme.other.menu1.linkHover};
         }
         .itemWrap .homeIcon {
-          fill: ${theme.item.menu1.link};
+          fill: ${theme.work.menu1.link};
         }
         .itemWrap .homeIcon:hover {
-          fill: ${theme.item.menu1.linkHover};
+          fill: ${theme.work.menu1.linkHover};
         }
       `}</style>
     </div>

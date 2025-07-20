@@ -17,8 +17,8 @@ import { createPresetColor } from "@/app/actions/theme/admin";
 import { useAlert } from "@/app/context/alertProvider";
 import { colorNameToHex } from "@/lib/utils/themeUtils";
 import {
-  THEME_ENHANCED_LABEL,
   THEME_GENERAL_TARGET_LABEL,
+  THEME_PAGE_LABEL,
   THEME_PAGE_PART_LABEL,
   THEME_TARGET_LABEL,
 } from "@/constants/admin";
@@ -41,8 +41,8 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
   const alert = useAlert();
   const [isOpen, setIsOpen] = useState(false);
   const dbLabel = pagePart
-    ? `${pagePart}_${target}_${page}`
-    : `${target}_${page}`;
+    ? `${page}_${pagePart}_${target}`
+    : `${page}_${target}`;
   const label = pagePart
     ? THEME_TARGET_LABEL[target as keyof ThemeTarget]
     : THEME_GENERAL_TARGET_LABEL[target as keyof ThemeGeneralTarget];
@@ -112,7 +112,7 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
       {isOpen && (
         <Modal
           handleCloseOutside={() => setIsOpen(false)}
-          title={`${THEME_ENHANCED_LABEL[page as keyof StructuredTheme]} / ${pagePart ? `${THEME_PAGE_PART_LABEL[pagePart as keyof ThemePagePart]} /` : ""} ${label}`}
+          title={`${THEME_PAGE_LABEL[page as keyof StructuredTheme]} / ${pagePart ? `${THEME_PAGE_PART_LABEL[pagePart as keyof ThemePagePart]} /` : ""} ${label}`}
         >
           <ColorPicker
             color={color}
