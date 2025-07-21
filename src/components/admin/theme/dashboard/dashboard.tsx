@@ -12,25 +12,29 @@ export default function Dashboard() {
   const structuredTheme = getStructuredTheme(workTheme);
 
   return (
-    <div className={`${s.flex} ${isUpdated ? "" : s.toUpdate}`}>
-      <section>
-        <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.general}</h4>
-        <SubDashboard structuredTheme={structuredTheme} page={"general"} />
-      </section>
-      <section>
-        <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.home}</h4>
-        <SubDashboard structuredTheme={structuredTheme} page={"home"} />
-      </section>
-      <section>
-        <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.other}</h4>
-        <SubDashboard structuredTheme={structuredTheme} page={"other"} />
-      </section>
-      <section>
-        <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.work}</h4>
-        <SubDashboard structuredTheme={structuredTheme} page={"work"} />
-      </section>
-      <p>* lorsque la souris survole le texte</p>
-      {!isUpdated && <span>Thème modifié (à sauvegarder)</span>}
-    </div>
+    <>
+      <div className={`${s.dashboard} ${isUpdated ? undefined : s.toUpdate}`}>
+        <section>
+          <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.general}</h4>
+          <SubDashboard structuredTheme={structuredTheme} page={"general"} />
+        </section>
+        <section>
+          <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.home}</h4>
+          <SubDashboard structuredTheme={structuredTheme} page={"home"} />
+        </section>
+        <section>
+          <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.other}</h4>
+          <SubDashboard structuredTheme={structuredTheme} page={"other"} />
+        </section>
+        <section>
+          <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.work}</h4>
+          <SubDashboard structuredTheme={structuredTheme} page={"work"} />
+        </section>
+        <p>* lorsque la souris survole le texte</p>
+      </div>
+      {!isUpdated && (
+        <div className={s.message}>Thème modifié (à sauvegarder)</div>
+      )}
+    </>
   );
 }

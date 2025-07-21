@@ -8,7 +8,7 @@ import PresetColorSwatch from "@/components/admin/theme/dashboard/presetColor/pr
 export default function PresetColorDashboard() {
   const { presetColors } = useAdminWorkThemeContext();
   return (
-    <div className={s.flex}>
+    <div className={s.dashboard}>
       <section>
         {presetColors.map((presetColor: PresetColor) => (
           <PresetColorSwatch key={presetColor.id} presetColor={presetColor} />

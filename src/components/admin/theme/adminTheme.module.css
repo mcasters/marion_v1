@@ -1,4 +1,4 @@
-.flex {
+.dashboard {
   padding: 1em;
   display: grid;
   gap: 1em;
@@ -24,17 +24,19 @@
   text-align: left;
 }
 
+.dashboard > p {
+  font-size: var(--font-size-min);
+}
+
 .toUpdate {
   border: #dc3908 solid 3px;
 }
 
-.toUpdate span {
-  display: block;
-  width: 100%;
+.message {
   text-align: center;
   color: #dc3908;
+  margin-bottom: 1em;
 }
-
 
 .actionContainer {
   display: flex;
