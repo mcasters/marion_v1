@@ -6,14 +6,14 @@ import s from "./layout.module.css";
 import React from "react";
 
 type Props = {
-  isWork: boolean;
+  themePage: "work" | "other" | "home";
 };
 
-export default function Header({ isWork }: Props) {
+export default function Header({ themePage }: Props) {
   return (
     <header className={s.header}>
-      <Nav_1 navClass={isWork ? "itemNav" : "nav"} />
-      <Nav_2 navClass={isWork ? "itemNav" : "nav"} />
+      <Nav_1 fixed={true} themePage={themePage} />
+      <Nav_2 fixed={true} themePage={themePage} />
     </header>
   );
 }

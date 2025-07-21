@@ -10,10 +10,10 @@ import { META } from "@/constants/admin";
 import React from "react";
 
 type Props = {
-  footerClass: "work" | "home" | "other";
+  themePage: "work" | "home" | "other";
 };
 
-export default function Footer({ footerClass }: Props) {
+export default function Footer({ themePage }: Props) {
   const session = useSession();
   const metas = useMetas();
   const theme = useTheme();
@@ -22,15 +22,15 @@ export default function Footer({ footerClass }: Props) {
     <footer
       className={s.footer}
       style={{
-        color: theme[footerClass].footer.text,
-        backgroundColor: theme[footerClass].footer.background,
+        color: theme[themePage].footer.text,
+        backgroundColor: theme[themePage].footer.background,
       }}
     >
       <p>{metas.get(META.FOOTER)}</p>
       {!session?.user && (
         <Link
           href={ROUTES.LOGIN}
-          style={{ color: theme[footerClass].footer.link }}
+          style={{ color: theme[themePage].footer.link }}
         >
           Admin
         </Link>

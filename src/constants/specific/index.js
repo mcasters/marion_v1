@@ -22,8 +22,8 @@ export const BASE_THEME = {
 
   home_main_background: "#fafafa",
   home_main_text: "#333",
-  home_main_link: "",
-  home_main_linkHover: "",
+  home_main_link: "#be2d01",
+  home_main_linkHover: "#333",
 
   home_footer_background: "#be2d01",
   home_footer_text: "#ee7845",

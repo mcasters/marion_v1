@@ -8,28 +8,45 @@ import { getDarkerColor } from "@/lib/utils/themeUtils.ts";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
+import { useMetas } from "@/app/context/metaProvider.tsx";
+import { getHomeLayout } from "@/lib/utils/commonUtils.ts";
+import { HomeLayout } from "@/lib/type.ts";
 
 type Props = {
-  navClass: string;
+  fixed: boolean;
+  themePage: "work" | "home" | "other";
 };
 
-export default function Nav_1({ navClass }: Props) {
+export default function Nav_1({ fixed, themePage }: Props) {
   const theme = useTheme();
+  const metas = useMetas();
+  const isPlainHomeLayout = getHomeLayout(metas) === HomeLayout.PLAIN;
   const path = `/${usePathname().split("/")[1]}`;
 
   return (
-    <nav className={`${s[navClass]} ${navClass} nav1`}>
-      <ul className={`${s.ul} ul`}>
+    <nav
+      className={fixed ? `${s.fixed} ${s.nav} nav1` : `${s.nav} nav1`}
+      style={{
+        backgroundColor: fixed ? theme[themePage].menu1.background : undefined,
+        borderBottomColor: fixed
+          ? getDarkerColor(theme[themePage].menu1.background, -10)
+          : undefined,
+      }}
+    >
+      <ul
+        className={s.ul}
+        style={{
+          borderBottomColor: !fixed
+            ? getDarkerColor(theme.home.menu1.background, -10)
+            : undefined,
+        }}
+      >
         {MENU_1_ITEMS.map((item) => {
           return (
             <li key={item.TAG}>
               <Link
                 href={item.ROUTE}
-                className={
-                  item.ROUTE === path
-                    ? `${s.link} ${s.active} link active`
-                    : `${s.link} link`
-                }
+                className={item.ROUTE === path ? "active" : undefined}
               >
                 {item.TAG}
               </Link>
@@ -37,25 +54,15 @@ export default function Nav_1({ navClass }: Props) {
           );
         })}
       </ul>
-      <style jsx>{`
-        .itemNav {
-          background-color: ${theme.work.menu1.background};
-          border-bottom: 1px solid
-            ${getDarkerColor(theme.work.menu1.background, -10)};
+      <style jsx global>{`
+        .nav1 a {
+          color: ${theme[themePage].menu1.link};
         }
-        .nav {
-          background-color: ${theme.other.menu1.background};
-          border-bottom: 1px solid
-            ${getDarkerColor(theme.other.menu1.background, -10)};
+        .nav1 a:hover {
+          color: ${theme[themePage].menu1.linkHover};
         }
-        .homeNavFix {
-          background-color: ${theme.home.menu1.background};
-          border-bottom: 1px solid
-            ${getDarkerColor(theme.home.menu1.background, -10)};
-        }
-        .homeNav .ul {
-          border-bottom: 1px solid
-            ${getDarkerColor(theme.home.menu1.background, -10)};
+        .nav1 a.active {
+          border-bottom: solid 4px ${theme[themePage].menu1.linkHover};
         }
       `}</style>
     </nav>

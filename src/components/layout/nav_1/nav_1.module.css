@@ -1,7 +1,4 @@
-.nav,
-.itemNav,
-.homeNav,
-.homeNavFix {
+.nav {
   height: var(--nav-1-height);
   width: 100%;
   z-index: 3;
@@ -11,9 +8,7 @@
   user-select: none;
 }
 
-.nav,
-.itemNav,
-.homeNavFix {
+.fixed {
   position: fixed;
   top: var(--line-height);
   transition: all ease-in-out 0.2s;
@@ -26,22 +21,18 @@
   justify-content: center;
   align-items: center;
   list-style: none;
+  border-bottom: 1px solid transparent;
 }
 
 .ul li {
   flex: auto;
 }
 
-.link {
+.ul a {
   font-family: var(--font-family-serif-caps);
   font-size: var(--font-size-nav1);
   font-weight: 500;
   display: inline-block;
-}
-
-.link.active {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
 }
 
 /* desktop */

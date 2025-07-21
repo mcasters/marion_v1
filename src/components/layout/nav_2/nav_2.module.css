@@ -1,17 +1,15 @@
-.homeNav,
-.nav,
-.itemNav,
-.homeNavFix {
+.nav {
   width: 100%;
   height: var(--nav-2-height);
   line-height: var(--nav-2-height);
-  z-index: 3;
+  z-index: 2;
   user-select: none;
+  font-family: var(--font-family-sans);
+  font-variant: small-caps;
+  font-size: var(--font-size-nav2);
 }
 
-.nav,
-.itemNav,
-.homeNavFix {
+.fixed {
   position: fixed;
   top: calc(var(--line-height) + var(--nav-1-height));
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
@@ -39,9 +37,6 @@
 }
 
 .ul a {
-  font-family: var(--font-family-sans);
-  font-variant: small-caps;
-  font-size: var(--font-size-nav2);
   display: inline-block;
   padding: 0 5px;
 }

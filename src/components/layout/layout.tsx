@@ -34,50 +34,29 @@ export default function Layout({ introduction, children }: Props) {
     path === ROUTES.PAINTING ||
     path === ROUTES.SCULPTURE ||
     path === ROUTES.DRAWING;
-  const isAdmin = path === ROUTES.ADMIN;
+  const themePage = isHome ? "home" : isWork ? "work" : "other";
   const gradientRgbObject = hexToRgb(theme.home.menu1.background);
   const gradientRgb = `${gradientRgbObject?.r},${gradientRgbObject?.g},${gradientRgbObject?.b}`;
 
   return (
     <div
-      className={`${isWork ? "itemWrap" : isHome ? "homeWrap" : "otherWrap"} ${s.wrapper}`}
+      className={s.wrapper}
+      style={{
+        backgroundColor: theme[themePage].main.background,
+        color: theme[themePage].main.text,
+      }}
     >
-      <div className={`${s.line} line`}></div>
+      <div
+        className={s.line}
+        style={{ backgroundColor: theme.general.lineColor }}
+      ></div>
       {session?.user && <AuthStatus email={session.user.email} />}
       {isHome && !isPlainHomeLayout && (
-        <div className={`${s.gradient} gradient`}></div>
-      )}
-      {isAdmin ? (
-        <AdminNav />
-      ) : isHome ? (
-        <HomeHeader
-          isPlainHomeLayout={isPlainHomeLayout}
-          title={metas.get(META.SITE_TITLE) || ""}
-          introduction={introduction}
-        />
-      ) : (
-        <Header isWork={isWork} />
-      )}
-      <main className={isHome ? undefined : s.main}>{children}</main>
-      <Footer footerClass={isWork ? "work" : isHome ? "home" : "other"} />
-      <style jsx global>{`
-        .line {
-          background-color: ${theme.general.lineColor};
-        }
-        .otherWrap {
-          background-color: ${theme.other.main.background};
-          color: ${theme.other.main.text};
-        }
-        .itemWrap {
-          background-color: ${theme.work.main.background};
-          color: ${theme.work.main.text};
-        }
-        .homeWrap {
-          background-color: ${theme.home.main.background};
-          color: ${theme.home.main.text};
-        }
-        .gradient {
-          background: linear-gradient(
+        <div
+          className={s.gradient}
+          style={{
+            background: `
+          linear-gradient(
             to top,
             rgba(${gradientRgb}, 0) 0%,
             rgba(${gradientRgb}, 0.013) 8.1%,
@@ -95,117 +74,47 @@ export default function Layout({ introduction, children }: Props) {
             rgba(${gradientRgb}, 0.951) 84.5%,
             rgba(${gradientRgb}, 0.987) 91.9%,
             rgb(${gradientRgb}) 100%
-          );
+          )`,
+          }}
+        ></div>
+      )}
+      {path === ROUTES.ADMIN ? (
+        <AdminNav />
+      ) : isHome ? (
+        <HomeHeader
+          isPlainHomeLayout={isPlainHomeLayout}
+          title={metas.get(META.SITE_TITLE) || ""}
+          introduction={introduction}
+        />
+      ) : (
+        <Header themePage={themePage} />
+      )}
+      <main className={isHome ? undefined : s.main}>{children}</main>
+      <Footer themePage={themePage} />
+      <style jsx global>{`
+        a,
+        .buttonLink,
+        .iconButton {
+          color: ${theme[themePage].main.link};
         }
-        .title {
-          color: ${theme.general.titleColor};
+        .icon {
+          fill: ${theme[themePage].main.link};
         }
-        .intro {
-          color: ${theme.home.main.text};
+        a:hover,
+        .buttonLink:hover,
+        .iconButton:hover {
+          color: ${theme[themePage].main.linkHover};
         }
-        .homeWrap > header > .nav1 > ul > li > a {
-          color: ${theme.home.menu1.link};
-        }
-        .itemWrap > header > .nav1 > ul > li > a {
-          color: ${theme.work.menu1.link};
-        }
-        .otherWrap > header > .nav1 > ul > li > a {
-          color: ${theme.other.menu1.link};
-        }
-
-        .homeWrap > header > .nav1 > ul > li > a:hover {
-          color: ${theme.home.menu1.linkHover};
-        }
-        .itemWrap > header > .nav1 > ul > li > a:hover {
-          color: ${theme.work.menu1.linkHover};
-        }
-        .otherWrap > header > .nav1 > ul > li > a:hover {
-          color: ${theme.other.menu1.linkHover};
-        }
-
-        .itemWrap > header > .nav1 > ul > li > a.active {
-          border-bottom-color: ${theme.work.menu1.linkHover};
-        }
-
-        .homeWrap > header > .nav2 > ul > li > a {
-          color: ${theme.home.menu2.link};
-        }
-        .itemWrap > header > .nav2 > ul > li > a {
-          color: ${theme.work.menu2.link};
-        }
-        .otherWrap > header > .nav2 > ul > li > a {
-          color: ${theme.other.menu2.link};
-        }
-
-        .homeWrap > header > .nav2 > ul > li > a:hover {
-          color: ${theme.home.menu2.linkHover};
-        }
-        .itemWrap > header > .nav2 > ul > li > a:hover {
-          color: ${theme.work.menu2.linkHover};
-        }
-        .otherWrap > header > .nav2 > ul > li > a:hover {
-          color: ${theme.other.menu2.linkHover};
-        }
-        .otherWrap a,
-        .homeWrap a,
-        .otherWrap .buttonLink,
-        .homeWrap .buttonLink,
-        .iconButton,
-        .linkColor {
-          color: ${theme.other.main.link};
-        }
-        .otherWrap .icon {
-          fill: ${theme.other.main.link};
+        .icon:hover {
+          fill: ${theme[themePage].main.linkHover};
         }
         .selected,
         ::selection {
-          background: ${theme.other.main.link};
+          background: ${theme[themePage].menu2.link};
           color: antiquewhite;
         }
         .selected .icon {
           fill: antiquewhite;
-        }
-        .otherWrap a:hover,
-        .homeWrap a:hover,
-        .otherWrap .buttonLink:hover,
-        .homeWrap .buttonLink:hover,
-        .iconButton:hover {
-          color: ${theme.other.main.linkHover};
-        }
-        .otherWrap .icon:hover {
-          fill: ${theme.other.main.linkHover};
-        }
-        .itemWrap a,
-        .itemWrap .buttonLink {
-          color: ${theme.work.main.link};
-        }
-        .itemWrap .icon {
-          fill: ${theme.work.main.link};
-        }
-        .itemWrap a:hover,
-        .itemWrap .buttonLink:hover {
-          color: ${theme.work.main.linkHover};
-        }
-        .itemWrap .icon:hover {
-          fill: ${theme.work.main.linkHover};
-        }
-        .homeWrap .homeIcon {
-          fill: ${theme.general.titleColor};
-        }
-        .homeWrap .homeIcon:hover {
-          fill: ${theme.home.menu2.link};
-        }
-        .otherWrap .homeIcon {
-          fill: ${theme.other.menu1.link};
-        }
-        .otherWrap .homeIcon:hover {
-          fill: ${theme.other.menu1.linkHover};
-        }
-        .itemWrap .homeIcon {
-          fill: ${theme.work.menu1.link};
-        }
-        .itemWrap .homeIcon:hover {
-          fill: ${theme.work.menu1.linkHover};
         }
       `}</style>
     </div>
