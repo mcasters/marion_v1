@@ -3,7 +3,7 @@ import sharp from "sharp";
 import { join } from "path";
 import { transformValueToKey } from "@/lib/utils/commonUtils.ts";
 import { IMAGE } from "@/constants/image.ts";
-import { StructuredTheme, Type } from "@/lib/type.ts";
+import { StructTheme, Type } from "@/lib/type.ts";
 import { PresetColor, Theme } from "../../../prisma/generated/client";
 import { getStructuredTheme, themeToHexa } from "@/lib/utils/themeUtils.ts";
 import { getSession } from "@/app/actions/auth/utils.ts";
@@ -142,7 +142,7 @@ export const deleteFile = (dir: string, filename: string) => {
 export const getStructHexaTheme = async (
   theme: Theme,
   presetColors: PresetColor[],
-): Promise<StructuredTheme> => {
+): Promise<StructTheme> => {
   return await cacheDatas(
     async () => getStructuredTheme(themeToHexa(theme, presetColors)),
     "structuredHexaTheme",

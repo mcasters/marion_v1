@@ -2,21 +2,21 @@ export const THEME = {
   BASE_THEME: "Thème de base",
 };
 
-export const THEME_PAGE_LABEL = {
+export const THEME_LABEL = {
   general: "Général",
   home: "Page home",
   work: "Pages d'items",
   other: "Autres pages",
 };
 
-export const THEME_PAGE_PART_LABEL = {
+export const THEME_PAGE_LABEL = {
   menu1: "Menu 1",
   menu2: "Menu 2",
   main: "Corps de page",
   footer: "Pied de page",
 };
 
-export const THEME_GENERAL_TARGET_LABEL = {
+export const THEME_GEN_TARGET_LABEL = {
   lineColor: "Ligne au top",
   titleColor: "Titre du site",
   lightbox: "Fond de la lightbox",

@@ -6,9 +6,9 @@ import s from "@/components/admin/theme/adminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import {
   OnlyString,
-  StructuredTheme,
+  StructTheme,
   ThemeGenTarget,
-  ThemePagePart,
+  ThemePage,
   ThemeTarget,
 } from "@/lib/type";
 import ColorPicker from "@/components/admin/theme/dashboard/colorPicker";
@@ -17,19 +17,19 @@ import { createPresetColor } from "@/app/actions/theme/admin";
 import { useAlert } from "@/app/context/alertProvider";
 import { colorNameToHex } from "@/lib/utils/themeUtils";
 import {
-  THEME_GENERAL_TARGET_LABEL,
+  THEME_GEN_TARGET_LABEL,
+  THEME_LABEL,
   THEME_PAGE_LABEL,
-  THEME_PAGE_PART_LABEL,
   THEME_TARGET_LABEL,
 } from "@/constants/admin";
 
 interface Props {
-  page: string;
-  pagePart: string | null;
-  target: string;
+  themeKey: string;
+  pageKey: string | null;
+  targetKey: string;
 }
 
-export default function ColorSwatch({ page, pagePart, target }: Props) {
+export default function ColorSwatch({ themeKey, pageKey, targetKey }: Props) {
   const {
     workTheme,
     setWorkTheme,
@@ -40,12 +40,12 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
   } = useAdminWorkThemeContext();
   const alert = useAlert();
   const [isOpen, setIsOpen] = useState(false);
-  const dbLabel = pagePart
-    ? `${page}_${pagePart}_${target}`
-    : `${page}_${target}`;
-  const label = pagePart
-    ? THEME_TARGET_LABEL[target as keyof ThemeTarget]
-    : THEME_GENERAL_TARGET_LABEL[target as keyof ThemeGenTarget];
+  const dbLabel = pageKey
+    ? `${themeKey}_${pageKey}_${targetKey}`
+    : `${themeKey}_${targetKey}`;
+  const label = pageKey
+    ? THEME_TARGET_LABEL[targetKey as keyof ThemeTarget]
+    : THEME_GEN_TARGET_LABEL[targetKey as keyof ThemeGenTarget];
   const color: string = workTheme[dbLabel as keyof OnlyString<Theme>];
   const initialColor = useRef("");
   const initialIsChanged = useRef(true);
@@ -112,7 +112,7 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
       {isOpen && (
         <Modal
           handleCloseOutside={() => setIsOpen(false)}
-          title={`${THEME_PAGE_LABEL[page as keyof StructuredTheme]} / ${pagePart ? `${THEME_PAGE_PART_LABEL[pagePart as keyof ThemePagePart]} /` : ""} ${label}`}
+          title={`${THEME_LABEL[themeKey as keyof StructTheme]} / ${pageKey ? `${THEME_PAGE_LABEL[pageKey as keyof ThemePage]} /` : ""} ${label}`}
         >
           <ColorPicker
             color={color}

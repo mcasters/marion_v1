@@ -2,7 +2,7 @@
 
 import React from "react";
 import s from "../adminTheme.module.css";
-import { THEME_PAGE_LABEL } from "@/constants/admin";
+import { THEME_LABEL } from "@/constants/admin";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { getStructuredTheme } from "@/lib/utils/themeUtils";
 import SubDashboard from "@/components/admin/theme/dashboard/subDashboard";
@@ -15,20 +15,23 @@ export default function Dashboard() {
     <>
       <div className={`${s.dashboard} ${isChanged ? undefined : s.toUpdate}`}>
         <section>
-          <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.general}</h4>
-          <SubDashboard structuredTheme={structuredTheme} page={"general"} />
+          <h4 className={s.sectionTitle}>{THEME_LABEL.general}</h4>
+          <SubDashboard
+            structuredTheme={structuredTheme}
+            themeKey={"general"}
+          />
         </section>
         <section>
-          <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.home}</h4>
-          <SubDashboard structuredTheme={structuredTheme} page={"home"} />
+          <h4 className={s.sectionTitle}>{THEME_LABEL.home}</h4>
+          <SubDashboard structuredTheme={structuredTheme} themeKey={"home"} />
         </section>
         <section>
-          <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.other}</h4>
-          <SubDashboard structuredTheme={structuredTheme} page={"other"} />
+          <h4 className={s.sectionTitle}>{THEME_LABEL.other}</h4>
+          <SubDashboard structuredTheme={structuredTheme} themeKey={"other"} />
         </section>
         <section>
-          <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.work}</h4>
-          <SubDashboard structuredTheme={structuredTheme} page={"work"} />
+          <h4 className={s.sectionTitle}>{THEME_LABEL.work}</h4>
+          <SubDashboard structuredTheme={structuredTheme} themeKey={"work"} />
         </section>
         <p>* lorsque la souris survole le texte</p>
       </div>

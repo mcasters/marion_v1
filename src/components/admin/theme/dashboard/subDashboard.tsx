@@ -2,35 +2,45 @@
 
 import React, { Fragment } from "react";
 import s from "../adminTheme.module.css";
-import { THEME_PAGE_PART_LABEL } from "@/constants/admin";
+import { THEME_PAGE_LABEL } from "@/constants/admin";
 import ColorSwatch from "@/components/admin/theme/dashboard/colorSwatch";
-import { StructuredTheme, ThemePagePart } from "@/lib/type";
+import { StructTheme, ThemePage } from "@/lib/type";
 
 interface Props {
-  structuredTheme: StructuredTheme;
-  page: keyof StructuredTheme;
+  structuredTheme: StructTheme;
+  themeKey: keyof StructTheme;
 }
 
-export default function SubDashboard({ structuredTheme, page }: Props) {
-  if (page === "general") {
-    return Object.entries(structuredTheme[page]).map(([target, value], i) =>
-      value !== "" ? (
-        <ColorSwatch key={i} page={page} pagePart={null} target={target} />
-      ) : undefined,
+export default function SubDashboard({ structuredTheme, themeKey }: Props) {
+  if (themeKey === "general") {
+    return Object.entries(structuredTheme[themeKey]).map(
+      ([targetKey, value], i) =>
+        value !== "" ? (
+          <ColorSwatch
+            key={i}
+            themeKey={themeKey}
+            pageKey={null}
+            targetKey={targetKey}
+          />
+        ) : undefined,
     );
   } else
-    return Object.entries(structuredTheme[page]).map(
-      ([pagePart, content], i) => (
+    return Object.entries(structuredTheme[themeKey]).map(
+      ([pageKey, content], i) => (
         <div key={i} className={s.subSection}>
-          {Object.entries(content).map(([target, value], ii) => (
+          {Object.entries(content).map(([targetKey, value], ii) => (
             <Fragment key={ii}>
               {ii === 0 && (
                 <h5 className={s.subTitle}>
-                  {THEME_PAGE_PART_LABEL[pagePart as keyof ThemePagePart]} :
+                  {THEME_PAGE_LABEL[pageKey as keyof ThemePage]} :
                 </h5>
               )}
               {value !== "" && (
-                <ColorSwatch page={page} pagePart={pagePart} target={target} />
+                <ColorSwatch
+                  themeKey={themeKey}
+                  pageKey={pageKey}
+                  targetKey={targetKey}
+                />
               )}
             </Fragment>
           ))}

@@ -1,11 +1,11 @@
 "use client";
 import { createContext, ReactNode, useContext } from "react";
-import { StructuredTheme } from "@/lib/type";
+import { StructTheme } from "@/lib/type";
 
-const ThemeContext = createContext<StructuredTheme>({} as StructuredTheme);
+const ThemeContext = createContext<StructTheme>({} as StructTheme);
 
 interface Props {
-  theme: StructuredTheme;
+  theme: StructTheme;
   children: ReactNode;
 }
 

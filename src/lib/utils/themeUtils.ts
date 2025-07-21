@@ -1,5 +1,5 @@
 import { PresetColor, Theme } from "../../../prisma/generated/client";
-import { OnlyString, StructuredTheme } from "@/lib/type.ts";
+import { OnlyString, StructTheme } from "@/lib/type.ts";
 
 import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
 import { createNestedObject } from "@/lib/utils/commonUtils.ts";
@@ -70,7 +70,7 @@ export function getDarkerColor(
   return rgb ? rgbToHex(rgb.r, rgb.g, rgb.b) : undefined;
 }
 
-export const getStructuredTheme = (theme: Theme): StructuredTheme => {
+export const getStructuredTheme = (theme: Theme): StructTheme => {
   const structuredTheme = {};
   Object.entries(theme).forEach(([key, value]) => {
     const stringSplit = key.split("_");
@@ -83,5 +83,5 @@ export const getStructuredTheme = (theme: Theme): StructuredTheme => {
       createNestedObject(structuredTheme, page)[target] = value;
     }
   });
-  return structuredTheme as StructuredTheme;
+  return structuredTheme as StructTheme;
 };

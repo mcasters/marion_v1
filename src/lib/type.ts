@@ -125,16 +125,16 @@ export type ThemeGenTarget = {
   lightboxText: string;
 };
 
-export type ThemePagePart = {
+export type ThemePage = {
   menu1: ThemeTarget;
   menu2: ThemeTarget;
   main: ThemeTarget;
   footer: ThemeTarget;
 };
 
-export type StructuredTheme = {
+export type StructTheme = {
   general: ThemeGenTarget;
-  home: ThemePagePart;
-  work: ThemePagePart;
-  other: ThemePagePart;
+  home: ThemePage;
+  work: ThemePage;
+  other: ThemePage;
 };
