@@ -6,7 +6,7 @@ import { useAlert } from "@/app/context/alertProvider";
 import { createTheme } from "@/app/actions/theme/admin";
 
 export default function ThemeAdd() {
-  const { workTheme, setWorkTheme, setIsUpdated, themes, setThemes } =
+  const { workTheme, setWorkTheme, setIsChanged, themes, setThemes } =
     useAdminWorkThemeContext();
   const [themeName, setThemeName] = useState<string>("");
   const alert = useAlert();
@@ -21,7 +21,7 @@ export default function ThemeAdd() {
       if (theme) {
         setThemes([...themes, theme]);
         setWorkTheme(theme);
-        setIsUpdated(true);
+        setIsChanged(true);
         setThemeName("");
       }
       alert(message, isError);

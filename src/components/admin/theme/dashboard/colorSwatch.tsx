@@ -7,7 +7,7 @@ import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import {
   OnlyString,
   StructuredTheme,
-  ThemeGeneralTarget,
+  ThemeGenTarget,
   ThemePagePart,
   ThemeTarget,
 } from "@/lib/type";
@@ -33,8 +33,8 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
   const {
     workTheme,
     setWorkTheme,
-    isUpdated,
-    setIsUpdated,
+    isChanged,
+    setIsChanged,
     presetColors,
     setPresetColors,
   } = useAdminWorkThemeContext();
@@ -45,15 +45,15 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
     : `${page}_${target}`;
   const label = pagePart
     ? THEME_TARGET_LABEL[target as keyof ThemeTarget]
-    : THEME_GENERAL_TARGET_LABEL[target as keyof ThemeGeneralTarget];
+    : THEME_GENERAL_TARGET_LABEL[target as keyof ThemeGenTarget];
   const color: string = workTheme[dbLabel as keyof OnlyString<Theme>];
   const initialColor = useRef("");
-  const initialIsUpdated = useRef(true);
+  const initialIsChanged = useRef(true);
 
   useEffect(() => {
     if (isOpen) {
       initialColor.current = color;
-      initialIsUpdated.current = isUpdated;
+      initialIsChanged.current = isChanged;
     }
   }, [isOpen]);
 
@@ -62,7 +62,7 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
       ...workTheme,
       [dbLabel]: color,
     } as Theme);
-    setIsUpdated(false);
+    setIsChanged(false);
   };
 
   const handleCreatePresetColor = async (
@@ -73,13 +73,13 @@ export default function ColorSwatch({ page, pagePart, target }: Props) {
     if (res.newPresetColor) {
       setPresetColors([...presetColors, res.newPresetColor]);
       setWorkTheme({ ...workTheme, [dbLabel]: nameColor } as Theme);
-      setIsUpdated(false);
+      setIsChanged(false);
     }
     alert(res.message, res.isError);
   };
 
   const handleCancel = () => {
-    setIsUpdated(initialIsUpdated.current);
+    setIsChanged(initialIsChanged.current);
     setWorkTheme({
       ...workTheme,
       [dbLabel]: initialColor.current,

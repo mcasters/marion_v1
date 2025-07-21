@@ -5,7 +5,7 @@ import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import { Theme } from "../../../../prisma/generated/client";
 
 export default function ThemeCancel() {
-  const { workTheme, setWorkTheme, isUpdated, setIsUpdated, themes } =
+  const { workTheme, setWorkTheme, isChanged, setIsChanged, themes } =
     useAdminWorkThemeContext();
 
   return (
@@ -13,10 +13,10 @@ export default function ThemeCancel() {
       onClick={(e) => {
         e.preventDefault();
         setWorkTheme(themes.find((t) => t.id === workTheme.id) as Theme);
-        setIsUpdated(true);
+        setIsChanged(true);
       }}
       className="adminButton"
-      disabled={isUpdated}
+      disabled={isChanged}
     >
       Annuler les changements
     </button>

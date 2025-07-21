@@ -8,9 +8,6 @@ import { getDarkerColor } from "@/lib/utils/themeUtils.ts";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
-import { useMetas } from "@/app/context/metaProvider.tsx";
-import { getHomeLayout } from "@/lib/utils/commonUtils.ts";
-import { HomeLayout } from "@/lib/type.ts";
 
 type Props = {
   fixed: boolean;
@@ -19,8 +16,6 @@ type Props = {
 
 export default function Nav_1({ fixed, themePage }: Props) {
   const theme = useTheme();
-  const metas = useMetas();
-  const isPlainHomeLayout = getHomeLayout(metas) === HomeLayout.PLAIN;
   const path = `/${usePathname().split("/")[1]}`;
 
   return (
@@ -62,7 +57,7 @@ export default function Nav_1({ fixed, themePage }: Props) {
           color: ${theme[themePage].menu1.linkHover};
         }
         .nav1 a.active {
-          border-bottom: solid 4px ${theme[themePage].menu1.linkHover};
+          border-bottom: solid 2px ${theme[themePage].menu1.linkHover};
         }
       `}</style>
     </nav>

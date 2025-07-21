@@ -8,12 +8,12 @@ import { getStructuredTheme } from "@/lib/utils/themeUtils";
 import SubDashboard from "@/components/admin/theme/dashboard/subDashboard";
 
 export default function Dashboard() {
-  const { workTheme, isUpdated } = useAdminWorkThemeContext();
+  const { workTheme, isChanged } = useAdminWorkThemeContext();
   const structuredTheme = getStructuredTheme(workTheme);
 
   return (
     <>
-      <div className={`${s.dashboard} ${isUpdated ? undefined : s.toUpdate}`}>
+      <div className={`${s.dashboard} ${isChanged ? undefined : s.toUpdate}`}>
         <section>
           <h4 className={s.sectionTitle}>{THEME_PAGE_LABEL.general}</h4>
           <SubDashboard structuredTheme={structuredTheme} page={"general"} />
@@ -32,7 +32,7 @@ export default function Dashboard() {
         </section>
         <p>* lorsque la souris survole le texte</p>
       </div>
-      {!isUpdated && (
+      {!isChanged && (
         <div className={s.message}>Thème modifié (à sauvegarder)</div>
       )}
     </>
