@@ -26,12 +26,12 @@ export default function Dashboard() {
           <SubDashboard structuredTheme={structuredTheme} themeKey={"home"} />
         </section>
         <section>
-          <h4 className={s.sectionTitle}>{THEME_LABEL.other}</h4>
-          <SubDashboard structuredTheme={structuredTheme} themeKey={"other"} />
-        </section>
-        <section>
           <h4 className={s.sectionTitle}>{THEME_LABEL.work}</h4>
           <SubDashboard structuredTheme={structuredTheme} themeKey={"work"} />
+        </section>
+        <section>
+          <h4 className={s.sectionTitle}>{THEME_LABEL.other}</h4>
+          <SubDashboard structuredTheme={structuredTheme} themeKey={"other"} />
         </section>
         <p>* lorsque la souris survole le texte</p>
       </div>

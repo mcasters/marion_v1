@@ -5,7 +5,7 @@ export const THEME = {
 export const THEME_LABEL = {
   general: "Général",
   home: "Page home",
-  work: "Pages d'items",
+  work: "Pages des œuvres",
   other: "Autres pages",
 };
 

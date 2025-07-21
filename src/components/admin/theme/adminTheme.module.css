@@ -44,15 +44,6 @@
   justify-content: center;
 }
 
-.actionContainer button {
-  width: 260px;
-}
-
-.actionContainer input {
-  width: 200px;
-  margin: 0.5em 0;
-}
-
 /* ColorSwatch */
 
 .colorWrapper {
