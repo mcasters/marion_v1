@@ -7,9 +7,9 @@ import s from "@/components/layout/nav_2/nav_2.module.css";
 import { useTheme } from "@/app/context/themeProvider.tsx";
 import { useMetas } from "@/app/context/metaProvider.tsx";
 import { META } from "@/constants/admin.ts";
-import LogoIcon from "@/components/icons/logoIcon.tsx";
 import React from "react";
 import LogoIconT from "@/components/icons/logoIconT.tsx";
+import LogoIcon from "@/components/icons/logoIcon.tsx";
 
 interface Props {
   fixed: boolean;
