@@ -16,9 +16,10 @@ import PresetColorPicker from "@/components/admin/theme/dashboard/presetColor/pr
 
 interface Props {
   presetColor: PresetColor;
+  count: number;
 }
 
-export default function PresetColorSwatch({ presetColor }: Props) {
+export default function PresetColorSwatch({ presetColor, count }: Props) {
   const alert = useAlert();
   const [isOpen, setIsOpen] = useState(false);
   const { setThemes, presetColors, setPresetColors, workTheme, setWorkTheme } =
@@ -59,7 +60,7 @@ export default function PresetColorSwatch({ presetColor }: Props) {
 
   return (
     <div className={s.presetColorWrapper}>
-      <p className={s.colorLabel}>{presetColor.name}</p>
+      <p className={s.presetColorLabel}>{presetColor.name}</p>
       <div className={s.colorPickerContainer}>
         <button
           className={`${s.swatch} ${s.isPresetColor} ${s.presetColor}`}
@@ -80,6 +81,7 @@ export default function PresetColorSwatch({ presetColor }: Props) {
       >
         <DeleteIcon />
       </button>
+      <div className={s.info}>{count} utilisation(s)</div>
       {isOpen && (
         <Modal
           handleCloseOutside={() => setIsOpen(false)}

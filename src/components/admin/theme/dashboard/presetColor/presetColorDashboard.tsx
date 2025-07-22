@@ -1,19 +1,33 @@
 "use client";
 
 import { PresetColor } from "../../../../../../prisma/generated/client";
-import s from "@/components/admin/theme/adminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import PresetColorSwatch from "@/components/admin/theme/dashboard/presetColor/presetColorSwatch";
 
 export default function PresetColorDashboard() {
-  const { presetColors } = useAdminWorkThemeContext();
+  const { themes, presetColors } = useAdminWorkThemeContext();
+
+  const presetColorCountUse = (presetColor: PresetColor): number => {
+    let count = 0;
+    themes.forEach((theme) => {
+      Object.entries(theme).forEach(([key, value]) => {
+        if (key.includes("_") && value === presetColor.name) {
+          count += 1;
+        }
+      });
+    });
+    return count;
+  };
+
   return (
-    <div className={s.dashboard}>
-      <section>
-        {presetColors.map((presetColor: PresetColor) => (
-          <PresetColorSwatch key={presetColor.id} presetColor={presetColor} />
-        ))}
-      </section>
-    </div>
+    <section>
+      {presetColors.map((p: PresetColor) => (
+        <PresetColorSwatch
+          key={p.id}
+          presetColor={p}
+          count={presetColorCountUse(p)}
+        />
+      ))}
+    </section>
   );
 }
