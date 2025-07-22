@@ -1,6 +1,6 @@
 interface Props {
-  width: string;
-  height: string;
+  width: number;
+  height: number;
 }
 
 export default function LogoIconT({ width, height }: Props) {

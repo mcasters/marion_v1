@@ -1,6 +1,7 @@
 interface Props {
   width: string;
   height: string;
+  color: string;
 }
 
 export default function PictureIcon({ width, height, color }: Props) {
@@ -12,9 +13,9 @@ export default function PictureIcon({ width, height, color }: Props) {
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 460.002 460.002"
-      xml:space="preserve"
+      xmlSpace="preserve"
     >
       <g>
         <g>

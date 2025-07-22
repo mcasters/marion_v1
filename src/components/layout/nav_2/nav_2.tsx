@@ -9,7 +9,7 @@ import { useMetas } from "@/app/context/metaProvider.tsx";
 import { META } from "@/constants/admin.ts";
 import React from "react";
 import LogoIconT from "@/components/icons/logoIconT.tsx";
-import LogoIcon from "@/components/icons/logoIcon.tsx";
+import LogoIconM from "@/components/icons/logoIconM.tsx";
 
 interface Props {
   fixed: boolean;
@@ -39,10 +39,10 @@ export default function Nav_2({ fixed, themePage }: Props) {
               <li key={menuItem.TAG}>
                 <Link href={menuItem.ROUTE} key={menuItem.TAG}>
                   {owner?.startsWith("T") && (
-                    <LogoIconT width="30" height="30" />
+                    <LogoIconT width={30} height={30} />
                   )}
                   {owner?.startsWith("M") && (
-                    <LogoIcon width="35" height="35" />
+                    <LogoIconM width={35} height={35} />
                   )}
                 </Link>
               </li>
