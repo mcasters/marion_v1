@@ -8,8 +8,8 @@ import { useTheme } from "@/app/context/themeProvider.tsx";
 import { useMetas } from "@/app/context/metaProvider.tsx";
 import { META } from "@/constants/admin.ts";
 import LogoIcon from "@/components/icons/logoIcon.tsx";
-import Image from "next/image";
 import React from "react";
+import LogoIconT from "@/components/icons/logoIconT.tsx";
 
 interface Props {
   fixed: boolean;
@@ -37,28 +37,14 @@ export default function Nav_2({ fixed, themePage }: Props) {
           if (menuItem.TAG === "Home")
             return (
               <li key={menuItem.TAG}>
-                {owner?.startsWith("M") && (
-                  <Link
-                    href={menuItem.ROUTE}
-                    key={menuItem.TAG}
-                    className="homeIcon"
-                  >
+                <Link href={menuItem.ROUTE} key={menuItem.TAG}>
+                  {owner?.startsWith("T") && (
+                    <LogoIconT width="30" height="30" />
+                  )}
+                  {owner?.startsWith("M") && (
                     <LogoIcon width="35" height="35" />
-                  </Link>
-                )}
-                {owner?.startsWith("T") && (
-                  <Link href={menuItem.ROUTE} key={menuItem.TAG}>
-                    <Image
-                      src="/logo-100.png"
-                      alt={`Signature de ${owner}`}
-                      width={40}
-                      height={40}
-                      className={s.logo}
-                      priority
-                      unoptimized
-                    />
-                  </Link>
-                )}
+                  )}
+                </Link>
               </li>
             );
           return (
@@ -81,7 +67,7 @@ export default function Nav_2({ fixed, themePage }: Props) {
           fill: ${theme[themePage].menu1.link};
         }
         .homeIcon:hover {
-          fill: ${theme.home.menu2.link};
+          fill: ${theme[themePage].menu1.linkHover};
         }
       `}</style>
     </nav>
