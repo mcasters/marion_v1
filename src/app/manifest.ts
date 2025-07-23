@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Oeuvres de Marion Casters",
     start_url: "/",
     display: "standalone",
-    background_color: "#333",
+    background_color: "#541200",
     theme_color: "#be2d01",
     icons: [
       {
