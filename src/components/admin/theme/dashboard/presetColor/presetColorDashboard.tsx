@@ -3,15 +3,11 @@
 import { PresetColor } from "../../../../../../prisma/generated/client";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import PresetColorSwatch from "@/components/admin/theme/dashboard/presetColor/presetColorSwatch";
-import DragList from "@/components/admin/theme/dragList/dragList.tsx";
+import DragList from "@/components/admin/form/dragList/dragList.tsx";
 import s from "@/components/admin/theme/adminTheme.module.css";
 
 export default function PresetColorDashboard() {
   const { themes, presetColors } = useAdminWorkThemeContext();
-
-  /* const list: JSX.Element[] = presetColors.map((p: PresetColor) => (
-    <PresetColorSwatch presetColor={p} count={presetColorCountUse(p)} />
-  ));*/
 
   const presetColorCountUse = (presetColor: PresetColor): number => {
     let count = 0;
