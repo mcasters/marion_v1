@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import s from "@/components/admin/adminList.module.css";
 import { Category, Item, Type } from "@/lib/type";
 import RowListComponent from "@/components/admin/form/item/rowListComponent";
@@ -15,8 +15,7 @@ interface Props {
 }
 
 export default function ListComponent({ items, type, categories }: Props) {
-  const refList = useRef(null);
-  const mouseOutside = useOnClickOutside(refList);
+  const [mouseOutside, refList] = useOnClickOutside();
   const arrowUpPressed = useKeyPress("ArrowUp");
   const arrowDownPressed = useKeyPress("ArrowDown");
   const [selectedIndex, setSelectedIndex] = useState<number>(0);

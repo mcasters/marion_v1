@@ -1,8 +1,9 @@
 "use client";
 
-import { RefObject, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const useOnClickOutside = (ref: RefObject<HTMLDivElement | null>) => {
+const useOnClickOutside = () => {
+  const ref = useRef<HTMLDivElement | undefined>(undefined);
   const [isOutside, setIsOutside] = useState<boolean>(true);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const useOnClickOutside = (ref: RefObject<HTMLDivElement | null>) => {
     };
   }, [ref]);
 
-  return isOutside;
+  return [isOutside, ref];
 };
 
 export default useOnClickOutside;

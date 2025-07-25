@@ -6,14 +6,6 @@
   grid-auto-rows: min-content;
 }
 
-.presetColorDashboard {
-  padding: 1em;
-  display: grid;
-  gap: 1em;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-auto-rows: min-content;
-}
-
 .sectionTitle {
   font-family: var( --font-family-serif-caps);
   letter-spacing: 3px;
@@ -57,10 +49,6 @@
 .colorWrapper {
   display: flex;
   text-align: left;
-}
-
-.colorPickerContainer {
-  height: 35px;
 }
 
 .swatch {
@@ -122,20 +110,23 @@ ColorPicker
 /*
 PresetColor
  */
+.presetColorDashboard {
+  display: flex;
+  padding: 0 1em;
+}
 
 .presetColorWrapper {
   display: flex;
   text-align: left;
   font-size: var(--font-size-min);
-  line-height: 35px;
 }
 
 .presetColorLabel {
-  width: 150px;
+  width: 200px;
 }
 
-.presetColor {
-  margin-right: 2em;
+.presetColorSwatch {
+  margin: 0 2em 0 0;
 }
 
 .info {

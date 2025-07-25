@@ -1,0 +1,30 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-content: center;
+}
+
+
+.dropZone {
+  padding: 5px 0;
+  transition: padding 0.2s ease;
+}
+
+.hover {
+  padding: 12px 0;
+}
+
+.hover .line {
+  border: 4px darkred solid;
+}
+
+.item {
+  position: relative;
+  padding: 1px 8px;
+  cursor: pointer;
+}
+
+.focus {
+  background-color: #d5d5d5;
+}

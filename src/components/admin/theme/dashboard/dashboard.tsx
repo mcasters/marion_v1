@@ -13,7 +13,9 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className={`${s.dashboard} ${isChanged ? undefined : s.toUpdate}`}>
+      <section
+        className={`${s.dashboard} ${isChanged ? undefined : s.toUpdate}`}
+      >
         <section>
           <h4 className={s.sectionTitle}>{THEME_LABEL.general}</h4>
           <SubDashboard
@@ -34,7 +36,7 @@ export default function Dashboard() {
           <SubDashboard structuredTheme={structuredTheme} themeKey={"other"} />
         </section>
         <p>* lorsque la souris survole le texte</p>
-      </div>
+      </section>
       {!isChanged && (
         <div className={s.message}>Thème modifié (à sauvegarder)</div>
       )}

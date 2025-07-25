@@ -61,18 +61,16 @@ export default function PresetColorSwatch({ presetColor, count }: Props) {
   return (
     <div className={s.presetColorWrapper}>
       <p className={s.presetColorLabel}>{presetColor.name}</p>
-      <div className={s.colorPickerContainer}>
-        <button
-          className={`${s.swatch} ${s.isPresetColor} ${s.presetColor}`}
-          style={{
-            backgroundColor: presetColor.color,
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            setIsOpen(true);
-          }}
-        />
-      </div>
+      <button
+        className={`${s.swatch} ${s.presetColorSwatch}`}
+        style={{
+          backgroundColor: presetColor.color,
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          setIsOpen(true);
+        }}
+      />
       <button
         className="iconButton"
         aria-label="Supprimer"
