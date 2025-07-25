@@ -75,4 +75,5 @@ export const BASE_THEME = {
 export const BASE_PRESET_COLOR = {
   name: "Red",
   color: "#be2d01",
+  displayOrder: 0,
 };

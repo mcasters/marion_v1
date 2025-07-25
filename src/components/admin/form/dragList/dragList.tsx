@@ -4,9 +4,13 @@ import useOnClickOutside from "@/components/hooks/useOnClickOutside.ts";
 
 interface Props<Element> {
   list: Element[];
+  onChangeOrder: (list: Element[]) => void;
 }
 
-export default function DragList<Element>({ list }: Props<Element>) {
+export default function DragList<Element>({
+  list,
+  onChangeOrder,
+}: Props<Element>) {
   const [mouseOutside, refList] = useOnClickOutside();
   const [items, setItems] = useState(list);
   const [focusItem, setFocusItem] = useState(-1);
@@ -30,6 +34,7 @@ export default function DragList<Element>({ list }: Props<Element>) {
         setFocusItem(dropZoneHover);
       }
       setItems(itemsClone);
+      onChangeOrder(itemsClone);
     }
     setDropZoneHover(-1);
   }
