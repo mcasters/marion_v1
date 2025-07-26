@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const useOnClickOutside = () => {
-  const ref = useRef<HTMLDivElement | undefined>(undefined);
+  const ref = useRef<HTMLDivElement>(null!);
   const [isOutside, setIsOutside] = useState<boolean>(true);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const useOnClickOutside = () => {
     };
   }, [ref]);
 
-  return [isOutside, ref];
+  return { isOutside, ref };
 };
 
 export default useOnClickOutside;

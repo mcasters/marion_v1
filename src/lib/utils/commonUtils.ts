@@ -3,6 +3,7 @@ import {
   Category,
   CategoryFull,
   ContentFull,
+  DragListElement,
   HomeLayout,
   Image,
   Item,
@@ -233,3 +234,12 @@ export const getSizeText = (item: WorkFull): string =>
   item.type === Type.SCULPTURE
     ? `${dotToComma(item.height)} x ${dotToComma(item.width)} x ${dotToComma(item.length)} cm`
     : `${dotToComma(item.height)} x ${dotToComma(item.width)} cm`;
+
+export const sortDragList = (
+  dragList: DragListElement[],
+): DragListElement[] => {
+  function compare(a: DragListElement, b: DragListElement) {
+    return a.order - b.order;
+  }
+  return dragList.toSorted(compare);
+};

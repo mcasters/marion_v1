@@ -3,6 +3,7 @@
 
 import { Prisma, User } from "../../prisma/generated/client";
 import prisma from "@/lib/script.ts";
+import { JSX } from "react";
 
 type StringKeys<T> = {
   [k in keyof T]: T[k] extends string ? k : never;
@@ -137,4 +138,10 @@ export type StructTheme = {
   home: ThemePage;
   work: ThemePage;
   other: ThemePage;
+};
+
+export type DragListElement = {
+  id: number;
+  element: JSX.Element;
+  order: number;
 };

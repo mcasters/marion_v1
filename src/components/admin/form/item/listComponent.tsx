@@ -15,21 +15,21 @@ interface Props {
 }
 
 export default function ListComponent({ items, type, categories }: Props) {
-  const [mouseOutside, refList] = useOnClickOutside();
+  const { isOutside, ref } = useOnClickOutside();
   const arrowUpPressed = useKeyPress("ArrowUp");
   const arrowDownPressed = useKeyPress("ArrowDown");
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [itemsToDisplay, setItemsToDisplay] = useState<Item[]>(items);
 
   useEffect(() => {
-    if (!mouseOutside && arrowUpPressed)
+    if (!isOutside && arrowUpPressed)
       setSelectedIndex((prevState) =>
         prevState !== 0 ? prevState - 1 : items.length - 1,
       );
   }, [arrowUpPressed]);
 
   useEffect(() => {
-    if (!mouseOutside && arrowDownPressed)
+    if (!isOutside && arrowDownPressed)
       setSelectedIndex((prevState) =>
         prevState !== items.length - 1 ? prevState + 1 : 0,
       );
@@ -53,7 +53,7 @@ export default function ListComponent({ items, type, categories }: Props) {
         </>
       )}
       <div
-        ref={refList}
+        ref={ref}
         className={`${type === Type.CATEGORY ? s.categoryListWrapper : s.itemListWrapper} ${s.listWrapper} area`}
       >
         {itemsToDisplay.map((item, i) => {
@@ -75,7 +75,7 @@ export default function ListComponent({ items, type, categories }: Props) {
                 <RowListComponent
                   item={item}
                   isSelected={selectedIndex === i}
-                  mouseOutside={mouseOutside}
+                  mouseOutside={isOutside}
                   categories={categories}
                   noDoubleClick={isNoCategory}
                 />

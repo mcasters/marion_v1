@@ -1,83 +1,86 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import s from "./dragList.module.css";
 import useOnClickOutside from "@/components/hooks/useOnClickOutside.ts";
+import { DragListElement } from "@/lib/type.ts";
+import { sortDragList } from "@/lib/utils/commonUtils.ts";
 
-interface Props<Element> {
-  list: Element[];
-  onChangeOrder: (list: Element[]) => void;
+interface Props {
+  list: DragListElement[];
+  onChangeOrder: (arg0: { id: number; order: number }[]) => void;
 }
 
-export default function DragList<Element>({
-  list,
-  onChangeOrder,
-}: Props<Element>) {
-  const [mouseOutside, refList] = useOnClickOutside();
-  const [items, setItems] = useState(list);
-  const [focusItem, setFocusItem] = useState(-1);
-  const [dropZoneHover, setDropZoneHover] = useState(-1);
+export default function DragList({ list, onChangeOrder }: Props) {
+  const { isOutside, ref } = useOnClickOutside();
+  const sortedList = useRef(sortDragList(list));
+  const [itemIndex, setItemIndex] = useState(-1);
+  const [dropZoneIndex, setDropZoneIndex] = useState(-1);
 
   useEffect(() => {
-    setFocusItem(-1);
-  }, [mouseOutside]);
+    setItemIndex(-1);
+  }, [isOutside]);
 
   function handleSort() {
-    if (dropZoneHover !== -1 && focusItem !== dropZoneHover) {
-      const itemsClone = [...items];
-      const temp = itemsClone[focusItem];
-      itemsClone.splice(focusItem, 1);
+    if (dropZoneIndex !== -1 && itemIndex !== dropZoneIndex) {
+      const sortedListClone = [...sortedList.current];
+      const temp = sortedListClone[itemIndex];
+      sortedListClone.splice(itemIndex, 1);
 
-      if (focusItem < dropZoneHover) {
-        itemsClone.splice(dropZoneHover - 1, 0, temp);
-        setFocusItem(dropZoneHover - 1);
-      } else if (focusItem > dropZoneHover) {
-        itemsClone.splice(dropZoneHover, 0, temp);
-        setFocusItem(dropZoneHover);
+      if (itemIndex < dropZoneIndex) {
+        sortedListClone.splice(dropZoneIndex - 1, 0, temp);
+        setItemIndex(dropZoneIndex - 1);
+      } else if (itemIndex > dropZoneIndex) {
+        sortedListClone.splice(dropZoneIndex, 0, temp);
+        setItemIndex(dropZoneIndex);
       }
-      setItems(itemsClone);
-      onChangeOrder(itemsClone);
+      sortedList.current = sortedListClone;
+      onChangeOrder(
+        sortedListClone.map((item, index) => ({ id: item.id, order: index })),
+      );
     }
-    setDropZoneHover(-1);
+    setDropZoneIndex(-1);
   }
 
   return (
-    <div className={s.list} ref={refList}>
-      {items.map((item, index) => {
+    <div ref={ref} className={s.list}>
+      {sortedList.current.map((item, index) => {
         return (
           <Fragment key={index}>
+            {index > 0 && (
+              <div
+                className={`${s.dropZone} ${dropZoneIndex === index ? s.hover : undefined}`}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                  setDropZoneIndex(index);
+                }}
+                onDragLeave={(e) => {
+                  e.preventDefault();
+                  setDropZoneIndex(-1);
+                }}
+              >
+                <div className={s.line} />
+              </div>
+            )}
             <div
-              className={`${s.dropZone} ${dropZoneHover === index ? s.hover : undefined}`}
-              onDragOver={(e) => {
-                e.preventDefault();
-                setDropZoneHover(index);
-              }}
-              onDragLeave={(e) => {
-                e.preventDefault();
-                setDropZoneHover(-1);
-              }}
-            >
-              <div className={s.line} />
-            </div>
-            <div
-              className={`${s.item} ${focusItem === index ? s.focus : undefined}`}
+              className={`${s.item} ${itemIndex === index ? s.focus : undefined}`}
               draggable
-              onClick={() => setFocusItem(index)}
-              onDragStart={() => setFocusItem(index)}
+              onClick={() => setItemIndex(index)}
+              onDragStart={() => setItemIndex(index)}
               onDragEnd={handleSort}
             >
-              {item}
+              {item.element}
             </div>
           </Fragment>
         );
       })}
       <div
-        className={`${s.dropZone} ${dropZoneHover === items.length + 1 ? s.hover : undefined}`}
+        className={`${s.dropZone} ${dropZoneIndex === sortedList.current.length + 1 ? s.hover : undefined}`}
         onDragOver={(e) => {
           e.preventDefault();
-          setDropZoneHover(items.length + 1);
+          setDropZoneIndex(sortedList.current.length + 1);
         }}
         onDragLeave={(e) => {
           e.preventDefault();
-          setDropZoneHover(-1);
+          setDropZoneIndex(-1);
         }}
       >
         <div className={s.line} />
