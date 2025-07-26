@@ -262,7 +262,8 @@ model Theme {
 }
 
 model PresetColor {
-  id    Int    @id @default(autoincrement())
-  name  String @unique
-  color String
+  id           Int    @id @default(autoincrement())
+  name         String @unique
+  color        String
+  displayOrder Int    @default(1)
 }

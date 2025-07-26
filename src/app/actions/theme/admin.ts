@@ -176,7 +176,30 @@ export async function updatePresetColor(presetColor: PresetColor) {
     return { message: "Couleur perso modifiée", isError: false };
   } catch (e) {
     return {
-      message: "Erreur à la création de la couleur perso",
+      message: "Erreur à la modification de la couleur perso",
+      isError: true,
+    };
+  }
+}
+
+export async function updateAllPresetColors(presetColors: PresetColor[]) {
+  try {
+    for await (const presetColor of presetColors) {
+      await prisma.presetColor.update({
+        where: {
+          id: presetColor.id,
+        },
+        data: {
+          color: presetColor.color,
+          displayOrder: presetColor.displayOrder,
+        },
+      });
+    }
+    revalidatePath("/admin");
+    return { message: "", isError: false };
+  } catch (e) {
+    return {
+      message: "Erreur à l'ordonnancement de la couleur perso",
       isError: true,
     };
   }
