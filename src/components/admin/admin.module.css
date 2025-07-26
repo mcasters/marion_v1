@@ -90,9 +90,8 @@
   margin-bottom: 0;
 }
 .metaForm button{
-  width: auto;
+  min-width: unset;
   align-self: end;
-  padding: 5px;
   margin: 0;
 }
 

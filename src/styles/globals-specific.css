@@ -37,10 +37,11 @@
   --color-dark: #818181;
   --color-xdark: #333;
 
-  --link-color-xdark: #8a2101;
-  --link-color-dark: #be2d01;
-  --link-color-light: #e57c52;
-  --link-color-xlight: #e0bb89;
+  --link-color-xdark: #0f1f26;
+  --link-color-dark: #1c3949;
+  --link-color-light: #457eb4;
+  --link-color-xlight: #9bcff8;
+  --color-prussian-blue: #24445c;
 
   --overlayer: hsla(5, 15%, 5%, 0.3);
   /*
@@ -48,8 +49,8 @@
    */
 
   --background-color-auth-status: var(--color-light);
-  --color-auth-status: var(--color-xdark);
-  --color-border-auth-status: var(--color-xdark);
+  --color-auth-status: var(--link-color-dark);
+  --color-border-auth-status: var(--link-color-xdark);
 }
 
 /*
@@ -220,7 +221,7 @@ input[type="checkbox"] {
 .adminButton,
 input::file-selector-button {
   font-family: var(--font-family-serif);
-  width: 220px;
+  min-width: 220px;
   min-height: 40px;
   box-shadow: inset 0 0.8em 1em 0 #efefef;
   border: 1px solid #d9d9d9;
@@ -229,10 +230,7 @@ input::file-selector-button {
 
 .adminButton {
   margin: 0.5em;
-}
-
-input::file-selector-button {
-  width: 150px;
+  padding: 0.5em;
 }
 
 /*

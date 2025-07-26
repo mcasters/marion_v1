@@ -48,7 +48,7 @@ export default function ThemeAdd() {
       <button
         onClick={handleAdd}
         className="adminButton"
-        style={{ marginLeft: "0", width: "260px" }}
+        style={{ marginLeft: "0" }}
       >
         Sauvegarder en nouveau thème
       </button>
