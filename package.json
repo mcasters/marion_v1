@@ -20,21 +20,21 @@
     "deploy-build": "prisma generate && dotenv -e .env.local -- prisma migrate deploy && next build"
   },
   "dependencies": {
-    "@prisma/client": "^6.11.1",
+    "@prisma/client": "^6.12.0",
     "bcryptjs": "^3.0.0",
-    "cross-env": "^7.0.3",
+    "cross-env": "^10.0.0",
     "date-fns": "^4.1.0",
     "express": "^5.1.0",
-    "jose": "^6.0.10",
-    "next": "15.3.4",
-    "postcss": "^8.5.2",
+    "jose": "^6.0.12",
+    "next": "15.4.4",
+    "postcss": "^8.5.6",
     "react": "^19.1.0",
     "react-colorful": "^5.6.1",
     "react-dom": "^19.1.0",
     "react-image-file-resizer": "^0.4.8",
-    "sharp": "^0.33.5",
-    "styled-jsx": "^5.1.6",
-    "yet-another-react-lightbox": "^3.23.3"
+    "sharp": "^0.34.3",
+    "styled-jsx": "^5.1.7",
+    "yet-another-react-lightbox": "^3.25.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -43,10 +43,10 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.2.5",
-    "eslint-config-prettier": "^10.1.1",
+    "eslint-config-next": "15.4.4",
+    "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.5.3",
-    "prisma": "^6.11.1",
+    "prisma": "^6.12.0",
     "typescript": "^5"
   }
 }
