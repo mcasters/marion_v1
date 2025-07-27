@@ -115,6 +115,7 @@ export default function ColorSwatch({ themeKey, pageKey, targetKey }: Props) {
         <Modal
           handleCloseOutside={() => setIsOpen(false)}
           title={`${THEME_LABEL[themeKey as keyof StructTheme]} / ${pageKey ? `${THEME_PAGE_LABEL[pageKey as keyof ThemePage]} /` : ""} ${label}`}
+          width={425}
         >
           <ColorPicker
             color={color}

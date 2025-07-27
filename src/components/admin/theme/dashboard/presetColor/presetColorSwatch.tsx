@@ -84,6 +84,7 @@ export default function PresetColorSwatch({ presetColor, count }: Props) {
         <Modal
           handleCloseOutside={() => setIsOpen(false)}
           title={`Modification de "${presetColor.name}"`}
+          width={400}
         >
           <PresetColorPicker
             presetColor={presetColor}
