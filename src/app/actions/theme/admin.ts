@@ -131,6 +131,7 @@ export async function activateTheme(id: number) {
 export async function createPresetColor(
   name: string,
   color: string,
+  displayOrder: number,
 ): Promise<{
   message: string;
   isError: boolean;
@@ -149,6 +150,7 @@ export async function createPresetColor(
       data: {
         name,
         color,
+        displayOrder,
       },
     });
     revalidatePath("/admin");
@@ -182,25 +184,29 @@ export async function updatePresetColor(presetColor: PresetColor) {
   }
 }
 
-export async function updateAllPresetColors(presetColors: PresetColor[]) {
+export async function updatePresetColorsOrder(map: Map<number, number>) {
+  const presetColors = await prisma.presetColor.findMany();
+
   try {
-    for await (const presetColor of presetColors) {
+    for await (const p of presetColors) {
       await prisma.presetColor.update({
         where: {
-          id: presetColor.id,
+          id: p.id,
         },
         data: {
-          color: presetColor.color,
-          displayOrder: presetColor.displayOrder,
+          displayOrder: map.get(p.id),
         },
       });
     }
+    const updatedPresetColors = await prisma.presetColor.findMany();
+
     revalidatePath("/admin");
-    return { message: "", isError: false };
+    return { message: "", isError: false, updatedPresetColors };
   } catch (e) {
     return {
-      message: "Erreur à l'ordonnancement de la couleur perso",
+      message: `Erreur à l'ordonnancement de la couleur perso : ${e}`,
       isError: true,
+      updatedPresetColors: null,
     };
   }
 }
@@ -212,41 +218,59 @@ export async function deletePresetColor(id: number): Promise<{
   updatedThemes: Theme[] | null;
 }> {
   try {
-    const presetColor = await prisma.presetColor.findUnique({
+    const presetColorToDelete = await prisma.presetColor.findUnique({
       where: {
         id,
       },
     });
 
-    if (presetColor) {
-      const themes: Theme[] = await prisma.theme.findMany();
-      for await (const theme of themes) {
-        const updatedTheme = theme;
-        let isModified = false;
-        for await (const [key, value] of Object.entries(theme)) {
-          if (
-            value === presetColor.name &&
-            key !== "name" &&
-            key !== "isActive"
-          ) {
-            isModified = true;
-            updatedTheme[key as keyof OnlyString<Theme>] = presetColor.color;
-          }
-        }
-        if (isModified) {
-          const { id, ...rest } = updatedTheme;
-          await prisma.theme.update({
-            where: {
-              id,
-            },
-            data: { ...rest },
-          });
+    if (!presetColorToDelete)
+      return {
+        message: "Couleur perso introuvable",
+        isError: true,
+        updatedPresetColors: null,
+        updatedThemes: null,
+      };
+
+    const themes: Theme[] = await prisma.theme.findMany();
+    for await (const theme of themes) {
+      const updatedTheme = theme;
+      let isModified = false;
+      for await (const [key, value] of Object.entries(theme)) {
+        if (
+          value === presetColorToDelete.name &&
+          key !== "name" &&
+          key !== "isActive"
+        ) {
+          isModified = true;
+          updatedTheme[key as keyof OnlyString<Theme>] =
+            presetColorToDelete.color;
         }
       }
-      await prisma.presetColor.delete({
-        where: { id },
-      });
+      if (isModified) {
+        const { id, ...rest } = updatedTheme;
+        await prisma.theme.update({
+          where: {
+            id,
+          },
+          data: { ...rest },
+        });
+      }
     }
+
+    await prisma.presetColor.delete({
+      where: { id },
+    });
+
+    const presetColors = await prisma.presetColor.findMany();
+    for await (const p of presetColors) {
+      if (p.displayOrder > presetColorToDelete.displayOrder)
+        await prisma.presetColor.update({
+          where: { id: p.id },
+          data: { displayOrder: p.displayOrder - 1 },
+        });
+    }
+
     const updatedThemes = await prisma.theme.findMany();
     const updatedPresetColors = await prisma.presetColor.findMany();
 

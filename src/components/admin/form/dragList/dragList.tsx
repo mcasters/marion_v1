@@ -6,7 +6,7 @@ import { sortDragList } from "@/lib/utils/commonUtils.ts";
 
 interface Props {
   list: DragListElement[];
-  onChangeOrder: (arg0: { id: number; order: number }[]) => void;
+  onChangeOrder: (map: Map<number, number>) => void;
 }
 
 export default function DragList({ list, onChangeOrder }: Props) {
@@ -18,6 +18,10 @@ export default function DragList({ list, onChangeOrder }: Props) {
   useEffect(() => {
     setItemIndex(-1);
   }, [isOutside]);
+
+  useEffect(() => {
+    sortedList.current = sortDragList(list);
+  }, [list]);
 
   function handleSort() {
     if (dropZoneIndex !== -1 && itemIndex !== dropZoneIndex) {
@@ -33,9 +37,9 @@ export default function DragList({ list, onChangeOrder }: Props) {
         setItemIndex(dropZoneIndex);
       }
       sortedList.current = sortedListClone;
-      onChangeOrder(
-        sortedListClone.map((item, index) => ({ id: item.id, order: index })),
-      );
+      const map: Map<number, number> = new Map();
+      sortedListClone.forEach((item, index) => map.set(item.id, index));
+      onChangeOrder(map);
     }
     setDropZoneIndex(-1);
   }

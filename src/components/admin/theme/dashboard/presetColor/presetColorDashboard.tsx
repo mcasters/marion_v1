@@ -5,7 +5,7 @@ import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import PresetColorSwatch from "@/components/admin/theme/dashboard/presetColor/presetColorSwatch";
 import DragList from "@/components/admin/form/dragList/dragList.tsx";
 import s from "@/components/admin/theme/adminTheme.module.css";
-import { updateAllPresetColors } from "@/app/actions/theme/admin.ts";
+import { updatePresetColorsOrder } from "@/app/actions/theme/admin.ts";
 import { useAlert } from "@/app/context/alertProvider.tsx";
 
 export default function PresetColorDashboard() {
@@ -24,21 +24,11 @@ export default function PresetColorDashboard() {
     return count;
   };
 
-  const handleChangeOrder = async (list: { id: number; order: number }[]) => {
-    const updatedPresetColors: PresetColor[] = [];
-    list.forEach((item) => {
-      presetColors.forEach((p) => {
-        if (p.id === item.id)
-          updatedPresetColors.push({
-            ...p,
-            displayOrder: item.order,
-          } as PresetColor);
-      });
-    });
-    setPresetColors(updatedPresetColors);
-    const { message, isError } =
-      await updateAllPresetColors(updatedPresetColors);
+  const handleChangeOrder = async (map: Map<number, number>) => {
+    const { message, isError, updatedPresetColors } =
+      await updatePresetColorsOrder(map);
     if (isError) alert(message, isError);
+    else if (updatedPresetColors) setPresetColors(updatedPresetColors);
   };
 
   return (

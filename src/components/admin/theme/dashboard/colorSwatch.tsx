@@ -69,7 +69,11 @@ export default function ColorSwatch({ themeKey, pageKey, targetKey }: Props) {
     nameColor: string,
     hexColor: string,
   ) => {
-    const res = await createPresetColor(nameColor, hexColor);
+    const res = await createPresetColor(
+      nameColor,
+      hexColor,
+      presetColors.length,
+    );
     if (res.newPresetColor) {
       setPresetColors([...presetColors, res.newPresetColor]);
       setWorkTheme({ ...workTheme, [dbLabel]: nameColor } as Theme);
@@ -89,25 +93,23 @@ export default function ColorSwatch({ themeKey, pageKey, targetKey }: Props) {
 
   return (
     <div className={s.colorWrapper}>
-      <div className={s.colorPickerContainer}>
-        <button
-          className={
-            isOpen
-              ? `${s.swatch} ${s.open}`
-              : !color.startsWith("#")
-                ? `${s.swatch} ${s.isPresetColor}`
-                : s.swatch
-          }
-          style={{
-            backgroundColor: colorNameToHex(color, presetColors),
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            setIsOpen(true);
-          }}
-          title={color}
-        />
-      </div>
+      <button
+        className={
+          isOpen
+            ? `${s.swatch} ${s.open}`
+            : !color.startsWith("#")
+              ? `${s.swatch} ${s.isPresetColor}`
+              : s.swatch
+        }
+        style={{
+          backgroundColor: colorNameToHex(color, presetColors),
+        }}
+        onClick={(e) => {
+          e.preventDefault();
+          setIsOpen(true);
+        }}
+        title={color}
+      />
       <p className={s.colorLabel}>{label}</p>
       {isOpen && (
         <Modal
