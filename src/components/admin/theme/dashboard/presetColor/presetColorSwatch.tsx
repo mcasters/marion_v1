@@ -1,7 +1,7 @@
 "use client";
 
 import s from "@/components/admin/theme/adminTheme.module.css";
-import React, { useState } from "react";
+import React from "react";
 import Modal from "@/components/admin/form/modal.tsx";
 import { PresetColor } from "../../../../../../prisma/generated/client";
 import DeleteIcon from "@/components/icons/deleteIcon";
@@ -13,6 +13,7 @@ import {
 import { BASE_PRESET_COLOR } from "@/constants/specific";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import PresetColorPicker from "@/components/admin/theme/dashboard/presetColor/presetColorPicker";
+import useModal from "@/components/hooks/useModal.ts";
 
 interface Props {
   presetColor: PresetColor;
@@ -21,7 +22,7 @@ interface Props {
 
 export default function PresetColorSwatch({ presetColor, count }: Props) {
   const alert = useAlert();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, toggle } = useModal();
   const { setThemes, presetColors, setPresetColors, workTheme, setWorkTheme } =
     useAdminWorkThemeContext();
 
@@ -53,7 +54,7 @@ export default function PresetColorSwatch({ presetColor, count }: Props) {
         else return p;
       });
       setPresetColors(updatedPresetColors);
-      if (!isError) setIsOpen(false);
+      if (!isError) toggle();
     }
     alert(message, isError);
   };
@@ -68,31 +69,29 @@ export default function PresetColorSwatch({ presetColor, count }: Props) {
         }}
         onClick={(e) => {
           e.preventDefault();
-          setIsOpen(true);
+          toggle();
         }}
       />
       <button
         className="iconButton"
-        aria-label="Supprimer"
         onClick={handleDelete}
         disabled={presetColor.name === BASE_PRESET_COLOR.name}
       >
         <DeleteIcon />
       </button>
       <div className={s.info}>{count} utilisation(s)</div>
-      {isOpen && (
-        <Modal
-          handleCloseOutside={() => setIsOpen(false)}
-          title={`Modification de "${presetColor.name}"`}
-          width={400}
-        >
-          <PresetColorPicker
-            presetColor={presetColor}
-            onUpdate={handleUpdate}
-            onCancel={() => setIsOpen(false)}
-          />
-        </Modal>
-      )}
+      <Modal
+        isOpen={isOpen}
+        title={`Modification de "${presetColor.name}"`}
+        onClickOutside={toggle}
+        width={400}
+      >
+        <PresetColorPicker
+          presetColor={presetColor}
+          onUpdate={handleUpdate}
+          onCancel={toggle}
+        />
+      </Modal>
     </div>
   );
 }

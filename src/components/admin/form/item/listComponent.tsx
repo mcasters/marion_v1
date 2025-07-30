@@ -1,12 +1,16 @@
 "use client";
 
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import s from "@/components/admin/adminList.module.css";
 import { Category, Item, Type } from "@/lib/type";
 import RowListComponent from "@/components/admin/form/item/rowListComponent";
 import useKeyPress from "@/components/hooks/useKeyPress.ts";
 import useOnClickOutside from "@/components/hooks/useOnClickOutside.ts";
 import FilterWorkListComponent from "@/components/admin/form/item/filterWorkListComponent.tsx";
+import WorkForm from "@/components/admin/form/item/workForm.tsx";
+import CategoryForm from "@/components/admin/form/item/categoryForm.tsx";
+import PostForm from "@/components/admin/form/item/postForm.tsx";
+import Modal from "@/components/admin/form/modal.tsx";
 
 interface Props {
   items: Item[];
@@ -20,6 +24,7 @@ export default function ListComponent({ items, type, categories }: Props) {
   const arrowDownPressed = useKeyPress("ArrowDown");
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [itemsToDisplay, setItemsToDisplay] = useState<Item[]>(items);
+  const [openedItem, setOpenedItem] = useState<Item>(null);
 
   useEffect(() => {
     if (!isOutside && arrowUpPressed)
@@ -38,6 +43,27 @@ export default function ListComponent({ items, type, categories }: Props) {
   useEffect(() => {
     if (!categories) setItemsToDisplay(items);
   }, [items]);
+
+  const updateModal = useMemo(() => {
+    return (
+      <Modal isOpen={openedItem} title="Modification">
+        {type === Type.CATEGORY ? (
+          <CategoryForm
+            category={openedItem}
+            onClose={() => setOpenedItem(null)}
+          />
+        ) : type === Type.POST ? (
+          <PostForm post={openedItem} onClose={() => setOpenedItem(null)} />
+        ) : (
+          <WorkForm
+            item={openedItem}
+            categories={categories}
+            onClose={() => setOpenedItem(null)}
+          />
+        )}
+      </Modal>
+    );
+  }, [openedItem]);
 
   return (
     <>
@@ -77,13 +103,18 @@ export default function ListComponent({ items, type, categories }: Props) {
                   isSelected={selectedIndex === i}
                   mouseOutside={isOutside}
                   categories={categories}
-                  noDoubleClick={isNoCategory}
+                  onDoubleClick={
+                    isNoCategory
+                      ? undefined
+                      : (item: Item) => setOpenedItem(item)
+                  }
                 />
               </div>
             </Fragment>
           );
         })}
       </div>
+      {updateModal}
     </>
   );
 }

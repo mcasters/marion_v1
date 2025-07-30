@@ -1,7 +1,7 @@
 "use client";
 
 import { Theme } from "../../../../../prisma/generated/client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import s from "@/components/admin/theme/adminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import {
@@ -22,6 +22,7 @@ import {
   THEME_PAGE_LABEL,
   THEME_TARGET_LABEL,
 } from "@/constants/admin";
+import useModal from "@/components/hooks/useModal.ts";
 
 interface Props {
   themeKey: string;
@@ -39,7 +40,7 @@ export default function ColorSwatch({ themeKey, pageKey, targetKey }: Props) {
     setPresetColors,
   } = useAdminWorkThemeContext();
   const alert = useAlert();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, toggle } = useModal();
   const dbLabel = pageKey
     ? `${themeKey}_${pageKey}_${targetKey}`
     : `${themeKey}_${targetKey}`;
@@ -88,7 +89,7 @@ export default function ColorSwatch({ themeKey, pageKey, targetKey }: Props) {
       ...workTheme,
       [dbLabel]: initialColor.current,
     } as Theme);
-    setIsOpen(false);
+    toggle();
   };
 
   return (
@@ -106,26 +107,25 @@ export default function ColorSwatch({ themeKey, pageKey, targetKey }: Props) {
         }}
         onClick={(e) => {
           e.preventDefault();
-          setIsOpen(true);
+          toggle();
         }}
         title={color}
       />
       <p className={s.colorLabel}>{label}</p>
-      {isOpen && (
-        <Modal
-          handleCloseOutside={() => setIsOpen(false)}
-          title={`${THEME_LABEL[themeKey as keyof StructTheme]} / ${pageKey ? `${THEME_PAGE_LABEL[pageKey as keyof ThemePage]} /` : ""} ${label}`}
-          width={425}
-        >
-          <ColorPicker
-            color={color}
-            onColorChange={handleColorChange}
-            onCreatePresetColor={handleCreatePresetColor}
-            onClose={() => setIsOpen(false)}
-            onCancel={handleCancel}
-          />
-        </Modal>
-      )}
+      <Modal
+        isOpen={isOpen}
+        title={`${THEME_LABEL[themeKey as keyof StructTheme]} / ${pageKey ? `${THEME_PAGE_LABEL[pageKey as keyof ThemePage]} /` : ""} ${label}`}
+        onClickOutside={toggle}
+        width={425}
+      >
+        <ColorPicker
+          color={color}
+          onColorChange={handleColorChange}
+          onCreatePresetColor={handleCreatePresetColor}
+          onClose={toggle}
+          onCancel={handleCancel}
+        />
+      </Modal>
     </div>
   );
 }
