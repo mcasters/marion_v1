@@ -44,18 +44,10 @@ export default function Modal({
             }
             onClick={(e) => {
               e.stopPropagation();
-              e.preventDefault();
             }}
           >
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault();
-              }}
-            >
-              <h2 className={s.modalTitle}>{title}</h2>
-              {children}
-            </div>
+            <h2 className={s.modalTitle}>{title}</h2>
+            {children}
           </div>
         </div>
       )}

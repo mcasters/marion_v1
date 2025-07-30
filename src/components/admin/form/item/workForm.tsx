@@ -55,32 +55,32 @@ export default function WorkForm({ item, onClose, categories }: Props) {
 
   return (
     <form onSubmit={onSubmit}>
-      <input type="hidden" name="type" value={item.type} />
+      <input name="type" type="hidden" value={item.type} />
       {isUpdate && (
         <>
-          <input type="hidden" name="id" value={item.id} />
+          <input name="id" type="hidden" value={item.id} />
           <input
-            type="hidden"
             name="filenamesToDelete"
+            type="hidden"
             value={filenamesToDelete}
           />
         </>
       )}
-      <input type="hidden" name="isToSell" value={String(item.isToSell)} />
+      <input name="isToSell" type="hidden" value={String(item.isToSell)} />
       <input
-        type="hidden"
         name="oldCategoryId"
+        type="hidden"
         value={String(item.categoryId)}
       />
       <div className={s.column}>
         <input
-          onChange={(e) => setWorkItem({ ...workItem, title: e.target.value })}
           name="title"
           type="text"
+          placeholder="Titre"
           value={workItem.title}
+          onChange={(e) => setWorkItem({ ...workItem, title: e.target.value })}
           autoFocus
           required
-          placeholder="Titre"
         />
         <select
           name="categoryId"
@@ -105,117 +105,117 @@ export default function WorkForm({ item, onClose, categories }: Props) {
             })}
         </select>
         <input
+          name="date"
+          type="date"
+          placeholder="Date"
+          value={date}
           onChange={(e) => {
             setDate(e.target.value);
           }}
-          name="date"
-          type="date"
-          value={date}
           required
-          placeholder="Date"
         />
         <input
+          name="technique"
+          type="text"
+          placeholder="Technique"
+          value={workItem.technique}
           onChange={(e) =>
             setWorkItem({ ...workItem, technique: e.target.value })
           }
-          name="technique"
-          type="text"
-          value={workItem.technique}
           required
-          placeholder="Technique"
         />
         <div className={s.dimensions}>
           <input
+            name="height"
+            type="number"
+            placeholder="Hauteur (cm)"
+            value={workItem.height === 0 ? "" : workItem.height.toString()}
             onChange={(e) =>
               setWorkItem({ ...workItem, height: Number(e.target.value) })
             }
-            name="height"
-            type="number"
-            value={workItem.height === 0 ? "" : workItem.height.toString()}
             required
-            placeholder="Hauteur (cm)"
           />
           <input
+            name="width"
+            type="number"
+            placeholder="Largeur (cm)"
+            value={workItem.width === 0 ? "" : workItem.width.toString()}
             onChange={(e) =>
               setWorkItem({ ...workItem, width: Number(e.target.value) })
             }
-            name="width"
-            type="number"
-            value={workItem.width === 0 ? "" : workItem.width.toString()}
             required
-            placeholder="Largeur (cm)"
           />
           {isSculpture && (
             <input
+              name="length"
+              type="number"
+              placeholder="Profondeur (cm)"
+              value={workItem.length === 0 ? "" : workItem.length.toString()}
               onChange={(e) =>
                 setWorkItem({ ...workItem, length: Number(e.target.value) })
               }
-              name="length"
-              type="number"
-              value={workItem.length === 0 ? "" : workItem.length.toString()}
               required
-              placeholder="Profondeur (cm)"
             />
           )}
         </div>
         <div className={s.checkTextForm}>
           <label className="checkboxLabel">
             <input
+              name="isToSell"
+              type="checkbox"
+              checked={workItem.isToSell}
               onChange={(e) =>
                 setWorkItem({ ...workItem, isToSell: e.target.checked })
               }
-              name="isToSell"
-              type="checkbox"
-              defaultChecked={workItem.isToSell}
             />
             À vendre
           </label>
           {workItem.isToSell && (
             <input
-              onChange={(e) =>
-                setWorkItem({ ...workItem, price: Number(e.target.value) })
-              }
               name="price"
               type="number"
+              placeholder="Prix (facultatif)"
               value={
                 !workItem.price || workItem.price === 0
                   ? ""
                   : workItem.price.toString()
               }
-              placeholder="Prix (facultatif)"
+              onChange={(e) =>
+                setWorkItem({ ...workItem, price: Number(e.target.value) })
+              }
             />
           )}
         </div>
         <textarea
+          name="description"
+          placeholder="Description (facultative)"
+          value={workItem.description}
           onChange={(e) =>
             setWorkItem({ ...workItem, description: e.target.value })
           }
-          name="description"
           rows={3}
-          value={workItem.description}
-          placeholder="Description (facultative)"
         />
         <div className={s.checkTextForm}>
           <label className="checkboxLabel">
             <input
+              name="isOut"
+              type="checkbox"
+              checked={workItem.isOut}
               onChange={(e) =>
                 setWorkItem({ ...workItem, isOut: e.target.checked })
               }
-              name="isOut"
-              type="checkbox"
-              defaultChecked={workItem.isOut}
             />
             Sortie
           </label>
           {workItem.isOut && (
             <textarea
+              name="outInformation"
+              placeholder="Information de sortie (facultative)"
+              value={workItem.outInformation}
               onChange={(e) =>
                 setWorkItem({ ...workItem, outInformation: e.target.value })
               }
-              name="outInformation"
               rows={3}
-              value={workItem.outInformation}
-              placeholder="Information de sortie (facultative)"
             />
           )}
         </div>
