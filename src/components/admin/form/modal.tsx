@@ -48,7 +48,6 @@ export default function Modal({
             }}
           >
             <div
-              className={s.content}
               onClick={(e) => {
                 e.stopPropagation();
                 e.preventDefault();
