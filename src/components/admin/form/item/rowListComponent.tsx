@@ -15,6 +15,7 @@ type Props = {
   isSelected: boolean;
   mouseOutside: boolean;
   categories?: Category[];
+  onClick?: () => void;
   onDoubleClick?: (item: Item) => void;
 };
 
@@ -23,6 +24,7 @@ export default function RowListComponent({
   isSelected,
   mouseOutside,
   categories,
+  onClick,
   onDoubleClick,
 }: Props) {
   const isCategory = item.type === Type.CATEGORY;
@@ -33,10 +35,15 @@ export default function RowListComponent({
   return (
     <>
       <ul
-        className={`${isSelected ? "selected" : undefined} ${s.itemList}`}
-        style={mouseOutside && isSelected ? { opacity: "60%" } : undefined}
+        className={`${isSelected ? "selected" : ""} ${s.itemList}`}
+        style={{
+          opacity: mouseOutside && isSelected ? "60%" : undefined,
+          cursor: onDoubleClick ? "pointer" : undefined,
+        }}
+        onClick={onClick ? onClick : undefined}
         onDoubleClick={() => (onDoubleClick ? onDoubleClick(item) : undefined)}
-        title="Modifier"
+        title={onDoubleClick ? "Modifier" : undefined}
+        role={onDoubleClick ? "button" : undefined}
       >
         <li className={s.itemTitle}>{isCategory ? item.value : item.title}</li>
         <li className={s.itemInfo}>

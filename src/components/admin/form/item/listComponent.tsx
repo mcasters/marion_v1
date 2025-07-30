@@ -86,31 +86,17 @@ export default function ListComponent({ items, type, categories }: Props) {
           const isNoCategory =
             type === Type.CATEGORY && item.key === "no-category";
           return (
-            <Fragment key={i}>
-              <div
-                onClick={isNoCategory ? undefined : () => setSelectedIndex(i)}
-                role={isNoCategory ? undefined : "button"}
-                style={
-                  isNoCategory
-                    ? undefined
-                    : {
-                        cursor: "pointer",
-                      }
-                }
-              >
-                <RowListComponent
-                  item={item}
-                  isSelected={selectedIndex === i}
-                  mouseOutside={isOutside}
-                  categories={categories}
-                  onDoubleClick={
-                    isNoCategory
-                      ? undefined
-                      : (item: Item) => setOpenedItem(item)
-                  }
-                />
-              </div>
-            </Fragment>
+            <RowListComponent
+              key={i}
+              item={item}
+              isSelected={selectedIndex === i}
+              mouseOutside={isOutside}
+              categories={categories}
+              onClick={() => setSelectedIndex(i)}
+              onDoubleClick={
+                isNoCategory ? undefined : (item: Item) => setOpenedItem(item)
+              }
+            />
           );
         })}
       </div>
