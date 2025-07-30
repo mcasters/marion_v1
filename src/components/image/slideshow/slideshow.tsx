@@ -9,7 +9,7 @@ import ArrowNext from "@/components/icons/arrowNext";
 import { onNext, onPrev } from "@/components/image/common";
 import { useMetas } from "@/app/context/metaProvider";
 import { getHomeLayout } from "@/lib/utils/commonUtils";
-import useWindowRect from "@/components/hooks/useWindowRect.js";
+import useWindowRect from "@/components/hooks/useWindowRect.ts";
 import { DEVICE } from "@/constants/image.ts";
 
 type Props = {

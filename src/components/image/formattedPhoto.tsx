@@ -4,7 +4,7 @@ import { PhotoTab } from "@/lib/type";
 import React, { useState } from "react";
 import Image from "next/image";
 import Lightbox from "@/components/image/lightbox/lightbox.tsx";
-import useWindowRect from "@/components/hooks/useWindowRect.js";
+import useWindowRect from "@/components/hooks/useWindowRect.ts";
 import { DEVICE } from "@/constants/image.ts";
 
 interface Props {

@@ -7,14 +7,8 @@ const useOnClickOutside = () => {
   const [isOutside, setIsOutside] = useState<boolean>(true);
 
   useEffect(() => {
-    const listener = (
-      e: DocumentEventMap["mousedown"] | DocumentEventMap["touchstart"],
-    ) => {
-      if (ref.current && e.target instanceof Node) {
-        if ("contains" in ref.current) {
-          setIsOutside(!ref.current.contains(e.target));
-        }
-      }
+    const listener = (e: MouseEvent | TouchEvent) => {
+      if (ref.current) setIsOutside(!ref.current.contains(e.target as Node));
     };
 
     document.addEventListener("mousedown", listener);

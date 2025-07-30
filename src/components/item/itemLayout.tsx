@@ -10,7 +10,7 @@ import Lightbox from "@/components/image/lightbox/lightbox.tsx";
 import { META } from "@/constants/admin.ts";
 import Image from "next/image";
 import { DEVICE, IMAGE_INFO } from "@/constants/image.ts";
-import useWindowRect from "@/components/hooks/useWindowRect.js";
+import useWindowRect from "@/components/hooks/useWindowRect.ts";
 
 interface Props {
   item: WorkFull;

@@ -5,7 +5,7 @@ import { PhotoTab } from "@/lib/type";
 import s from "./gallery.module.css";
 import Image from "next/image";
 import Lightbox from "@/components/image/lightbox/lightbox";
-import useWindowRect from "@/components/hooks/useWindowRect.js";
+import useWindowRect from "@/components/hooks/useWindowRect.ts";
 import { DEVICE } from "@/constants/image.ts";
 
 interface Props {

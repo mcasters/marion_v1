@@ -18,10 +18,10 @@ function useElementIsUpTo(yLimit: number) {
   }, [isUpTo, ref, yLimit]);
 
   useEffect(() => {
-    document.addEventListener("scroll", handleScroll, true);
+    document.addEventListener("scroll", handleScroll);
 
     return () => {
-      document.removeEventListener("scroll", handleScroll, true);
+      document.removeEventListener("scroll", handleScroll);
     };
   }, [handleScroll]);
 
