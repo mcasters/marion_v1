@@ -9,7 +9,6 @@ const useOnMousePosition = () => {
     x: number;
     y: number;
   } | null>(null);
-  const moveTimer = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const onDown = useCallback(
     (e: MouseEvent) => {
@@ -26,13 +25,6 @@ const useOnMousePosition = () => {
 
   const onMove = useCallback(
     (e: MouseEvent) => {
-      /*ref.current?.removeEventListener("mousemove", onMove); // unregister the event
-      clearTimeout(moveTimer.current); // clear previous timeout instance
-      moveTimer.current = setTimeout(
-        () => ref.current?.addEventListener("mousemove", onMove), // re-register the event after a certain time
-        5000,
-      );*/
-
       if (isDown)
         setRefLocation((prevState) => {
           return {
@@ -41,7 +33,7 @@ const useOnMousePosition = () => {
           };
         });
     },
-    [isDown, ref, moveTimer],
+    [isDown, ref],
   );
 
   useEffect(() => {

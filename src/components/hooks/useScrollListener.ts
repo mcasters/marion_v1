@@ -1,9 +1,14 @@
-import { useCallback, useEffect, useRef } from "react";
+import { RefObject, useCallback, useEffect, useRef } from "react";
 
-const useScrollListener = (element, handleScroll, throttle = 5000) => {
+const useScrollListener = (
+  element: RefObject<HTMLDivElement>,
+  handleScroll: (e: Event) => void,
+  throttle = 5000,
+) => {
   const scrollingTimer = useRef<NodeJS.Timeout | undefined>(undefined);
+
   const listenToScroll = useCallback(
-    (e) => {
+    (e: Event) => {
       element.current?.removeEventListener("scroll", listenToScroll); // unregister the event
       clearTimeout(scrollingTimer.current); // clear previous timeout instance
       scrollingTimer.current = setTimeout(
