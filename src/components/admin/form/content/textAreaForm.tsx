@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Label } from "../../../../../prisma/generated/client";
 import s from "@/components/admin/admin.module.css";
 import SubmitButton from "@/components/admin/form/submitButton";
@@ -17,14 +17,12 @@ export default function TextAreaForm({ label, textContent, textLabel }: Props) {
   const [text, setText] = useState<string>(textContent);
   const [isChanged, setIsChanged] = useState(false);
   const alert = useAlert();
-  const [state, action] = useActionState(updateContent, undefined);
 
-  useEffect(() => {
-    if (state) {
-      alert(state.message, state.isError);
-      setIsChanged(false);
-    }
-  }, [state]);
+  const action = async (formData: FormData) => {
+    const { message, isError } = await updateContent(undefined, formData);
+    alert(message, isError);
+    setIsChanged(false);
+  };
 
   return (
     <form action={action}>

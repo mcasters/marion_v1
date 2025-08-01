@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect, useState } from "react";
+import React, { useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
@@ -22,14 +22,12 @@ export default function MetaForm({
   const [text, setText] = useState<string>(content);
   const [isChanged, setIsChanged] = useState(false);
   const alert = useAlert();
-  const [state, action] = useActionState(updateMeta, null);
 
-  useEffect(() => {
-    if (state) {
-      alert(state.message, state.isError);
-      setIsChanged(false);
-    }
-  }, [state]);
+  const action = async (formData: FormData) => {
+    const { message, isError } = await updateMeta(null, formData);
+    alert(message, isError);
+    setIsChanged(false);
+  };
 
   return (
     <form action={action} className={s.metaForm}>

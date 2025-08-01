@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect, useState } from "react";
+import React, { useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
@@ -24,14 +24,12 @@ export default function InputForm({
   const [text, setText] = useState<string>(textContent);
   const [isChanged, setIsChanged] = useState(false);
   const alert = useAlert();
-  const [state, action] = useActionState(updateContent, undefined);
 
-  useEffect(() => {
-    if (state) {
-      alert(state.message, state.isError);
-      setIsChanged(false);
-    }
-  }, [state]);
+  const action = async (formData: FormData) => {
+    const { message, isError } = await updateContent(undefined, formData);
+    alert(message, isError);
+    setIsChanged(false);
+  };
 
   return (
     <form action={action}>
