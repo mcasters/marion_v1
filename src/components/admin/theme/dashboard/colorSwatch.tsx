@@ -1,7 +1,7 @@
 "use client";
 
 import { Theme } from "../../../../../prisma/generated/client";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import s from "@/components/admin/theme/adminTheme.module.css";
 import { useAdminWorkThemeContext } from "@/app/context/adminWorkThemeProvider";
 import {
@@ -34,8 +34,8 @@ export default function ColorSwatch({ themeKey, pageKey, targetKey }: Props) {
   const {
     workTheme,
     setWorkTheme,
-    isChanged,
-    setIsChanged,
+    isSaved,
+    setIsSaved,
     presetColors,
     setPresetColors,
   } = useAdminWorkThemeContext();
@@ -48,22 +48,15 @@ export default function ColorSwatch({ themeKey, pageKey, targetKey }: Props) {
     ? THEME_TARGET_LABEL[targetKey as keyof ThemeTarget]
     : THEME_GEN_TARGET_LABEL[targetKey as keyof ThemeGenTarget];
   const color: string = workTheme[dbLabel as keyof OnlyString<Theme>];
-  const initialColor = useRef("");
-  const initialIsChanged = useRef(true);
-
-  useEffect(() => {
-    if (isOpen) {
-      initialColor.current = color;
-      initialIsChanged.current = isChanged;
-    }
-  }, [isOpen]);
+  const initialColor = useRef(color);
+  const initialIsSaved = useRef(isSaved);
 
   const handleColorChange = (color: string) => {
     setWorkTheme({
       ...workTheme,
       [dbLabel]: color,
     } as Theme);
-    setIsChanged(false);
+    setIsSaved(false);
   };
 
   const handleCreatePresetColor = async (
@@ -78,13 +71,13 @@ export default function ColorSwatch({ themeKey, pageKey, targetKey }: Props) {
     if (res.newPresetColor) {
       setPresetColors([...presetColors, res.newPresetColor]);
       setWorkTheme({ ...workTheme, [dbLabel]: nameColor } as Theme);
-      setIsChanged(false);
+      setIsSaved(false);
     }
     alert(res.message, res.isError);
   };
 
   const handleCancel = () => {
-    setIsChanged(initialIsChanged.current);
+    setIsSaved(initialIsSaved.current);
     setWorkTheme({
       ...workTheme,
       [dbLabel]: initialColor.current,

@@ -46,9 +46,8 @@ export default function WorkForm({ item, onClose, categories }: Props) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     resizedFiles.forEach((file) => formData.append("files", file));
-    const { message, isError } = isUpdate
-      ? await updateItem(formData)
-      : await createItem(formData);
+    const action = isUpdate ? updateItem : createItem;
+    const { message, isError } = await action(formData);
     alert(message, isError);
     if (!isError) onClose();
   };

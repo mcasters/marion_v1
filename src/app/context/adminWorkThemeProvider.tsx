@@ -5,8 +5,8 @@ import { PresetColor, Theme } from "../../../prisma/generated/client";
 export interface AdminWorkThemeContextType {
   workTheme: Theme;
   setWorkTheme: React.Dispatch<React.SetStateAction<Theme>>;
-  isChanged: boolean;
-  setIsChanged: React.Dispatch<React.SetStateAction<boolean>>;
+  isSaved: boolean;
+  setIsSaved: React.Dispatch<React.SetStateAction<boolean>>;
   themes: Theme[];
   setThemes: React.Dispatch<React.SetStateAction<Theme[]>>;
   presetColors: PresetColor[];
@@ -31,7 +31,7 @@ export function AdminWorkThemeProvider({
   children,
 }: Props) {
   const [workTheme, setWorkTheme] = useState<Theme>(defaultWorkTheme);
-  const [isChanged, setIsChanged] = useState<boolean>(true);
+  const [isSaved, setIsSaved] = useState<boolean>(true);
   const [themes, setThemes] = useState<Theme[]>(defaultThemes);
   const [presetColors, setPresetColors] =
     useState<PresetColor[]>(defaultPresetColors);
@@ -41,8 +41,8 @@ export function AdminWorkThemeProvider({
       value={{
         workTheme,
         setWorkTheme,
-        isChanged,
-        setIsChanged,
+        isSaved,
+        setIsSaved,
         themes,
         setThemes,
         presetColors,
