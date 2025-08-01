@@ -26,7 +26,7 @@ export default function InputForm({
   const alert = useAlert();
 
   const action = async (formData: FormData) => {
-    const { message, isError } = await updateContent(undefined, formData);
+    const { message, isError } = await updateContent(null, formData);
     alert(message, isError);
     setIsChanged(false);
   };

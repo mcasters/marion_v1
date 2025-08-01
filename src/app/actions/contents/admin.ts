@@ -12,9 +12,9 @@ import {
 import { ContentFull } from "@/lib/type";
 
 export async function updateContent(
-  prevState: { message: string; isError: boolean } | undefined,
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
-) {
+): Promise<{ message: string; isError: boolean }> {
   const label = formData.get("label") as Label;
   const text = formData.get("text") as string;
 
@@ -29,7 +29,7 @@ export async function updateContent(
 }
 
 export async function updateImageContent(
-  prevState: { message: string; isError: boolean } | undefined,
+  prevState: { message: string; isError: boolean } | null,
   formData: FormData,
 ) {
   const label = formData.get("label") as Label;
