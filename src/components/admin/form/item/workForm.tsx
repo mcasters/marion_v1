@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import { Category, Image, Type, WorkFull } from "@/lib/type";
 import { useAlert } from "@/app/context/alertProvider";
@@ -42,18 +42,16 @@ export default function WorkForm({ item, onClose, categories }: Props) {
     setFilenamesToDelete([...filenamesToDelete, filename]);
   };
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+  const submit = async (formData: FormData) => {
     resizedFiles.forEach((file) => formData.append("files", file));
     const action = isUpdate ? updateItem : createItem;
     const { message, isError } = await action(formData);
-    alert(message, isError);
     if (!isError) onClose();
+    alert(message, isError);
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form action={submit}>
       <input name="type" type="hidden" value={item.type} />
       {isUpdate && (
         <>

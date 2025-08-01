@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, PostFull, Type } from "@/lib/type";
 import s from "@/components/admin/admin.module.css";
 import { useAlert } from "@/app/context/alertProvider";
@@ -44,20 +44,17 @@ export default function PostForm({ post, onClose }: Props) {
     setFilenamesToDelete([...filenamesToDelete, filename]);
   };
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+  const submit = async (formData: FormData) => {
     formData.append("mainFile", resizedMainFiles[0]);
     resizedFiles.forEach((file) => formData.append("files", file));
-    const { message, isError } = isUpdate
-      ? await updateItem(formData)
-      : await createItem(formData);
-    alert(message, isError);
+    const action = isUpdate ? updateItem : createItem;
+    const { message, isError } = await action(formData);
     if (!isError) onClose();
+    alert(message, isError);
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form action={submit}>
       <input type="hidden" name="type" value={Type.POST} />
       {isUpdate && (
         <>

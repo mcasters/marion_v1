@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect, useState } from "react";
+import React, { useState } from "react";
 import s from "@/components/admin/admin.module.css";
 import { useAlert } from "@/app/context/alertProvider.tsx";
 import { updateMeta } from "@/app/actions/meta/admin.ts";
@@ -21,16 +21,14 @@ export default function ItemLayoutForm({ type }: Props) {
   const [darkBackground, setDarkBackground] = useState<boolean>(
     itemDarkBackground === 1,
   );
-  const [state, action] = useActionState(updateMeta, null);
 
-  useEffect(() => {
-    if (state) {
-      alert(state.message, state.isError);
-    }
-  }, [state]);
+  const submit = async (formData: FormData) => {
+    const { message, isError } = await updateMeta(null, formData);
+    alert(message, isError);
+  };
 
   return (
-    <form action={action} className={s.layoutForm}>
+    <form action={submit} className={s.layoutForm}>
       <input
         type="hidden"
         name="label"

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useActionState, useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import s from "@/components/admin/admin.module.css";
 import SubmitButton from "@/components/admin/form/submitButton";
@@ -23,23 +23,17 @@ export default function CategoryForm({ category, onClose }: Props) {
   const isUpdate = category.id !== 0;
   const [workCategory, setWorkCategory] = useState<Category>(category);
   const [image, setImage] = useState<Image>(category.content.image);
-  const [state, action] = useActionState(
-    isUpdate ? updateCategory : createCategory,
-    null,
-  );
   const alert = useAlert();
 
-  useEffect(() => {
-    if (state) {
-      if (!state.isError) {
-        alert(state.message, false);
-        onClose();
-      } else alert(state.message, true);
-    }
-  }, [state]);
+  const submit = async (formData: FormData) => {
+    const action = isUpdate ? updateCategory : createCategory;
+    const { message, isError } = await action(null, formData);
+    if (!isError) onClose();
+    alert(message, isError);
+  };
 
   return (
-    <form action={action}>
+    <form action={submit}>
       <input type="hidden" name="id" value={category.id} />
       <input type="hidden" name="type" value={category.workType} />
       <input type="hidden" name="filename" value={image.filename} />
