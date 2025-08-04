@@ -1,16 +1,17 @@
 "use client";
 
-import React, { Fragment, useEffect, useMemo, useState } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import s from "@/components/admin/adminList.module.css";
 import { Category, Item, Type } from "@/lib/type";
 import RowListComponent from "@/components/admin/form/item/rowListComponent";
-import useKeyPress from "@/components/hooks/useKeyPress.ts";
 import useOnClickOutside from "@/components/hooks/useOnClickOutside.ts";
 import FilterWorkListComponent from "@/components/admin/form/item/filterWorkListComponent.tsx";
 import WorkForm from "@/components/admin/form/item/workForm.tsx";
 import CategoryForm from "@/components/admin/form/item/categoryForm.tsx";
 import PostForm from "@/components/admin/form/item/postForm.tsx";
 import Modal from "@/components/admin/form/modal.tsx";
+import useKeyboard from "@/components/hooks/useKeyboard.ts";
+import useListSelection from "@/components/hooks/useListSelection.ts";
 
 interface Props {
   items: Item[];
@@ -20,29 +21,14 @@ interface Props {
 
 export default function ListComponent({ items, type, categories }: Props) {
   const { isOutside, ref } = useOnClickOutside();
-  const arrowUpPressed = useKeyPress("ArrowUp");
-  const arrowDownPressed = useKeyPress("ArrowDown");
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const noFilter = (type === Type.CATEGORY) | (type === Type.POST);
+  const { selectedIndex, decrease, increase, setSelectedIndex } =
+    useListSelection(items);
+  useKeyboard("ArrowUp", decrease, !isOutside);
+  useKeyboard("ArrowDown", increase, !isOutside);
   const [itemsToDisplay, setItemsToDisplay] = useState<Item[]>(items);
   const [openedItem, setOpenedItem] = useState<Item>(null);
-
-  useEffect(() => {
-    if (!isOutside && arrowUpPressed)
-      setSelectedIndex((prevState) =>
-        prevState !== 0 ? prevState - 1 : items.length - 1,
-      );
-  }, [arrowUpPressed]);
-
-  useEffect(() => {
-    if (!isOutside && arrowDownPressed)
-      setSelectedIndex((prevState) =>
-        prevState !== items.length - 1 ? prevState + 1 : 0,
-      );
-  }, [arrowDownPressed]);
-
-  useEffect(() => {
-    if (!categories) setItemsToDisplay(items);
-  }, [items]);
+  if (noFilter && items !== itemsToDisplay) setItemsToDisplay(items);
 
   const updateModal = useMemo(() => {
     return (
@@ -70,8 +56,8 @@ export default function ListComponent({ items, type, categories }: Props) {
       {!!categories && (
         <>
           <FilterWorkListComponent
-            categories={categories}
             items={items}
+            categories={categories}
             onFilteredItems={setItemsToDisplay}
           />
           <br />
@@ -87,7 +73,7 @@ export default function ListComponent({ items, type, categories }: Props) {
             type === Type.CATEGORY && item.key === "no-category";
           return (
             <RowListComponent
-              key={i}
+              key={item.id}
               item={item}
               isSelected={selectedIndex === i}
               mouseOutside={isOutside}
