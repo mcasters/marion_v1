@@ -4,6 +4,7 @@ import {
   CategoryFull,
   ContentFull,
   DragListElement,
+  Filter,
   HomeLayout,
   Image,
   Item,
@@ -242,4 +243,32 @@ export const sortDragList = (
     return a.order - b.order;
   }
   return dragList.toSorted(compare);
+};
+
+export const filterWorkFulls = (
+  workFulls: WorkFull[],
+  filter: Filter,
+): WorkFull[] => {
+  function filterByCategory(list: WorkFull[]) {
+    return filter.categoryFilter === -1
+      ? list
+      : filter.categoryFilter === 0
+        ? list.filter((i) => !i.categoryId)
+        : list.filter((i) => i.categoryId === filter.categoryFilter);
+  }
+  function filterByYear(list: WorkFull[]) {
+    return filter.yearFilter === -1
+      ? list
+      : list.filter(
+          (i) => new Date(i.date).getFullYear() === filter.yearFilter,
+        );
+  }
+  function filterByIsOut(list: WorkFull[]) {
+    return filter.isOutFilter === -1
+      ? list
+      : filter.isOutFilter === 0
+        ? list.filter((i) => !i.isOut)
+        : list.filter((i) => i.isOut);
+  }
+  return filterByCategory(filterByYear(filterByIsOut(workFulls)));
 };

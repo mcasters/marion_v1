@@ -145,3 +145,9 @@ export type DragListElement = {
   element: JSX.Element;
   order: number;
 };
+
+export type Filter = {
+  categoryFilter: number;
+  yearFilter: number;
+  isOutFilter: number;
+};
