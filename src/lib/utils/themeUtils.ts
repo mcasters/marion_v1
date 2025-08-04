@@ -1,5 +1,5 @@
 import { PresetColor, Theme } from "../../../prisma/generated/client";
-import { OnlyString, StructTheme } from "@/lib/type.ts";
+import { DragListElement, OnlyString, StructTheme } from "@/lib/type.ts";
 
 import { BASE_PRESET_COLOR, BASE_THEME } from "@/constants/specific";
 import { createNestedObject } from "@/lib/utils/commonUtils.ts";
@@ -84,4 +84,25 @@ export const getStructuredTheme = (theme: Theme): StructTheme => {
     }
   });
   return structuredTheme as StructTheme;
+};
+
+export const sortList = (
+  list: DragListElement[],
+  sourceIndex: number,
+  targetIndex: number,
+) => {
+  const temp = list[sourceIndex];
+  list.splice(sourceIndex, 1);
+  let newIndex: number = 0;
+
+  if (sourceIndex < targetIndex) {
+    list.splice(targetIndex - 1, 0, temp);
+    newIndex = targetIndex - 1;
+  } else if (sourceIndex > targetIndex) {
+    list.splice(targetIndex, 0, temp);
+    newIndex = targetIndex;
+  }
+  const map: Map<number, number> = new Map();
+  list.forEach((item, index) => map.set(item.id, index));
+  return { map, newIndex };
 };
