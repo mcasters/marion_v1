@@ -3,7 +3,7 @@ import { Type } from "@/lib/type";
 import { Metadata } from "next";
 import { getMetaMap } from "@/lib/utils/commonUtils";
 import { getMetas } from "@/app/actions/meta";
-import ItemsPage from "@/components/item/itemsPage.tsx";
+import ItemPage from "@/components/item/itemPage.tsx";
 import { META } from "@/constants/admin";
 
 type Props = {
@@ -46,7 +46,7 @@ export default async function Page({ params }: Props) {
   return (
     <>
       {category && (
-        <ItemsPage
+        <ItemPage
           tag={category.value}
           category={category}
           items={items}

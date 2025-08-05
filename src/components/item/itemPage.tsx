@@ -22,7 +22,7 @@ interface Props {
   category?: Category;
   type: Type.PAINTING | Type.SCULPTURE | Type.DRAWING;
 }
-export default function ItemsPage({ tag, items, category, type }: Props) {
+export default function ItemPage({ tag, items, category, type }: Props) {
   const metas = useMetas();
   const [itemLayout, itemDarkBackground] = getItemLayout(metas, type);
   const photosEnhanced =

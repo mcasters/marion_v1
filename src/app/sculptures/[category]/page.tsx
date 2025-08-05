@@ -1,4 +1,4 @@
-import ItemsPage from "@/components/item/itemsPage.tsx";
+import ItemPage from "@/components/item/itemPage.tsx";
 import { getCategory, getItemsByCategory } from "../../actions/item-post";
 import { Type } from "@/lib/type";
 import { Metadata } from "next";
@@ -46,7 +46,7 @@ export default async function Page({ params }: Props) {
   return (
     <>
       {category && (
-        <ItemsPage
+        <ItemPage
           tag={category.value}
           category={category}
           items={items}

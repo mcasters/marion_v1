@@ -1,4 +1,4 @@
-import ItemsPage from "@/components/item/itemsPage.tsx";
+import ItemPage from "@/components/item/itemPage.tsx";
 import { Type } from "@/lib/type";
 import { Metadata } from "next";
 import { getMetaMap } from "@/lib/utils/commonUtils";
@@ -36,5 +36,5 @@ export default async function Page({ params }: Props) {
   const { year } = await params;
   const items = await getItemsByYear(year, type);
 
-  return <ItemsPage tag={year} items={items} type={type} />;
+  return <ItemPage tag={year} items={items} type={type} />;
 }
