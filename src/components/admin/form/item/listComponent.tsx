@@ -20,7 +20,7 @@ interface Props {
 }
 
 export default function ListComponent({ items, type, categories }: Props) {
-  const { isOutside, ref } = useOnClickOutside();
+  const { ref, isOutside } = useOnClickOutside();
   const noFilter = type === Type.CATEGORY || type === Type.POST;
   const { selectedIndex, decrease, increase, setSelectedIndex } =
     useListSelection(items);

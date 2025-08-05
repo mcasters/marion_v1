@@ -20,7 +20,7 @@ export default function Modal({
   onClickOutside,
   width = 730,
 }: Props) {
-  const { refLocation, ref } = useOnMousePosition();
+  const { location, ref } = useOnMousePosition();
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "unset";
@@ -33,13 +33,18 @@ export default function Modal({
         <div
           className={s.modalOverlay}
           onClick={() => (onClickOutside ? onClickOutside() : undefined)}
+          // set "draggable" to be able to remove draggable with "onDragStart" (inherit from dragList)
+          draggable
+          onDragStart={(e) => {
+            e.preventDefault();
+          }}
         >
           <div
             ref={ref}
             className={s.modalBox}
             style={
-              refLocation
-                ? { width, top: refLocation.y, left: refLocation.x }
+              location
+                ? { width, top: location.y, left: location.x }
                 : { width }
             }
             onClick={(e) => {

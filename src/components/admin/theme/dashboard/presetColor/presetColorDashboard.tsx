@@ -7,6 +7,7 @@ import DragList from "@/components/admin/form/dragList/dragList.tsx";
 import s from "@/components/admin/theme/adminTheme.module.css";
 import { updatePresetColorsOrder } from "@/app/actions/theme/admin.ts";
 import { useAlert } from "@/app/context/alertProvider.tsx";
+import { DragListElement } from "@/lib/type.ts";
 
 export default function PresetColorDashboard() {
   const { themes, presetColors, setPresetColors } = useAdminWorkThemeContext();
@@ -34,13 +35,19 @@ export default function PresetColorDashboard() {
   return (
     <section className={s.presetColorDashboard}>
       <DragList
-        list={presetColors.map((p: PresetColor) => ({
-          id: p.id,
-          element: (
-            <PresetColorSwatch presetColor={p} count={presetColorCountUse(p)} />
-          ),
-          order: p.displayOrder,
-        }))}
+        list={presetColors.map(
+          (p: PresetColor) =>
+            ({
+              id: p.id,
+              element: (
+                <PresetColorSwatch
+                  presetColor={p}
+                  count={presetColorCountUse(p)}
+                />
+              ),
+              order: p.displayOrder,
+            }) as DragListElement,
+        )}
         onChangeOrder={handleChangeOrder}
       />
     </section>

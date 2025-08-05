@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const useOnMousePosition = () => {
   const ref = useRef<HTMLDivElement>(null!);
   const [isDown, setIsDown] = useState<boolean>(false);
-  const [refLocation, setRefLocation] = useState<{
+  const [location, setLocation] = useState<{
     x: number;
     y: number;
   } | null>(null);
@@ -13,7 +13,7 @@ const useOnMousePosition = () => {
   const onDown = useCallback(
     (e: MouseEvent) => {
       if (ref.current && e.target === ref.current) {
-        setRefLocation({
+        setLocation({
           x: ref.current.getBoundingClientRect().left,
           y: ref.current.getBoundingClientRect().top,
         });
@@ -26,7 +26,7 @@ const useOnMousePosition = () => {
   const onMove = useCallback(
     (e: MouseEvent) => {
       if (isDown)
-        setRefLocation((prevState) => {
+        setLocation((prevState) => {
           return {
             x: (prevState?.x || 0) + e.movementX,
             y: (prevState?.y || 0) + e.movementY,
@@ -52,7 +52,7 @@ const useOnMousePosition = () => {
     };
   });
 
-  return { refLocation, ref };
+  return { location, ref };
 };
 
 export default useOnMousePosition;
