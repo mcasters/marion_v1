@@ -7,11 +7,5 @@ export default async function Page() {
   const contents = await getContentsFull();
   const { photos, mainPhotos } = getSliderPhotoTab(contents);
 
-  return (
-    <Slideshow
-      portraitPhotos={mainPhotos}
-      landscapePhotos={photos}
-      autoPlay={true}
-    />
-  );
+  return <Slideshow portraitPhotos={mainPhotos} landscapePhotos={photos} />;
 }
