@@ -29,20 +29,18 @@ export default function Lightbox({ photos, index, onClose, isSmall }: Props) {
         slide: LightboxSlide,
         buttonPrev: isSmall || photos.length <= 1 ? () => null : undefined,
         buttonNext: isSmall || photos.length <= 1 ? () => null : undefined,
-        slideContainer: ({ slide, children }) => {
-          return (
-            <>
-              {children}
-              <div style={{ position: "absolute", bottom: "15px" }}>
-                <ImageInfos
-                  item={"item" in slide ? slide.item : undefined}
-                  photo={"item" in slide ? undefined : (slide as Photo)}
-                  isForLightbox={true}
-                />
-              </div>
-            </>
-          );
-        },
+        slideContainer: ({ slide, children }) => (
+          <>
+            {children}
+            <div style={{ position: "absolute", bottom: "15px" }}>
+              <ImageInfos
+                item={"item" in slide ? slide.item : undefined}
+                photo={"item" in slide ? undefined : (slide as Photo)}
+                isForLightbox={true}
+              />
+            </div>
+          </>
+        ),
       }}
       styles={{
         container: {

@@ -49,7 +49,7 @@ export default function ItemLayout({ item, layout, priority }: Props) {
         }
       >
         {photos.map((p, index) => {
-          const isLandscape = Math.round((p.width / p.height) * 10000) >= 10300;
+          const isLandscape = p.width / p.height >= 1.03;
           const onLeft = Layout.SCULPTURE && index % 2 === 0;
           return (
             <Image

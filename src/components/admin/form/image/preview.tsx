@@ -16,7 +16,7 @@ type Props = {
   title?: string;
 };
 
-export default function PreviewPart({
+export default function Preview({
   filenames,
   pathImage,
   onDelete,

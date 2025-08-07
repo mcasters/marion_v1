@@ -10,9 +10,9 @@ import {
 } from "@/app/actions/contents/admin";
 import s from "@/components/admin/admin.module.css";
 import { Image } from "@/lib/type";
-import PreviewPart from "@/components/admin/form/image/previewPart.tsx";
+import Preview from "@/components/admin/form/image/preview.tsx";
 import { Label } from "../../../../../prisma/generated/client";
-import ImageInputPart from "@/components/admin/form/image/imageInputPart.tsx";
+import ImageInput from "@/components/admin/form/image/imageInput.tsx";
 
 type Props = {
   images: Image[];
@@ -46,7 +46,7 @@ export default function ImagesForm({
   return (
     <>
       <label className={s.label}>{title}</label>
-      <PreviewPart
+      <Preview
         filenames={images.map((i) => i.filename)}
         pathImage="/images/miscellaneous"
         deleteAction={(filename) => deleteImageContent(filename)}
@@ -54,11 +54,11 @@ export default function ImagesForm({
       <form action={submit}>
         <input type="hidden" name="label" value={label} />
         <input type="hidden" name="isMain" value={isMain?.toString()} />
-        <ImageInputPart
+        <ImageInput
           key={reset}
           isMultiple={isMultiple}
           acceptSmallImage={acceptSmallImage}
-          setResizedFiles={setResizedFiles}
+          onNewFiles={setResizedFiles}
         />
         <div className={s.buttonSection}>
           <SubmitButton />

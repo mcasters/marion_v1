@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { Image, PostFull, Type } from "@/lib/type";
 import s from "@/components/admin/admin.module.css";
 import { useAlert } from "@/app/context/alertProvider";
-import PreviewPart from "@/components/admin/form/image/previewPart.tsx";
+import Preview from "@/components/admin/form/image/preview.tsx";
 import { createItem, updateItem } from "@/app/actions/item-post/admin";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
-import ImageInputPart from "@/components/admin/form/image/imageInputPart.tsx";
+import ImageInput from "@/components/admin/form/image/imageInput.tsx";
 
 interface Props {
   post: PostFull;
@@ -97,7 +97,7 @@ export default function PostForm({ post, onClose }: Props) {
         placeholder="Texte (facultatif)"
       />
       <div className={s.imagesContainer}>
-        <PreviewPart
+        <Preview
           filenames={workPost.images
             .filter((i: Image) => i.isMain)
             .map((i: Image) => i.filename)}
@@ -105,15 +105,15 @@ export default function PostForm({ post, onClose }: Props) {
           onDelete={(filename) => handleDelete(filename)}
           title="Image principale (facultative)"
         />
-        <ImageInputPart
+        <ImageInput
           isMultiple={false}
           acceptSmallImage={true}
-          setResizedFiles={setResizedMainFiles}
+          onNewFiles={setResizedMainFiles}
         />
       </div>
 
       <div className={s.imagesContainer}>
-        <PreviewPart
+        <Preview
           filenames={workPost.images
             .filter((i: Image) => !i.isMain)
             .map((i: Image) => i.filename)}
@@ -121,10 +121,10 @@ export default function PostForm({ post, onClose }: Props) {
           onDelete={(filename) => handleDelete(filename)}
           title="Album d'images (facultatif)"
         />
-        <ImageInputPart
+        <ImageInput
           isMultiple={true}
           acceptSmallImage={true}
-          setResizedFiles={setResizedFiles}
+          onNewFiles={setResizedFiles}
         />
       </div>
       <div className={s.buttonSection}>

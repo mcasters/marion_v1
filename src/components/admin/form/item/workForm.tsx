@@ -7,8 +7,8 @@ import { useAlert } from "@/app/context/alertProvider";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
 import { createItem, updateItem } from "@/app/actions/item-post/admin";
-import PreviewPart from "@/components/admin/form/image/previewPart.tsx";
-import ImageInputPart from "@/components/admin/form/image/imageInputPart.tsx";
+import Preview from "@/components/admin/form/image/preview.tsx";
+import ImageInput from "@/components/admin/form/image/imageInput.tsx";
 import { format } from "date-fns/format";
 
 interface Props {
@@ -26,13 +26,13 @@ export default function WorkForm({ item, onClose, categories }: Props) {
     format(new Date(item.date), "yyyy-MM-dd"),
   );
   const [filenamesToDelete, setFilenamesToDelete] = useState<string[]>([]);
-  const [resizedFiles, setResizedFiles] = useState<File[]>([]);
+  const [newFiles, setNewFiles] = useState<File[]>([]);
 
   useEffect(() => {
-    if (!isSculpture && workItem.images.length > 0 && resizedFiles.length > 0) {
+    if (!isSculpture && workItem.images.length > 0 && newFiles.length > 0) {
       handleDeleteFile(workItem.images[0].filename);
     }
-  }, [resizedFiles]);
+  }, [newFiles]);
 
   const handleDeleteFile = (filename: string) => {
     const images = workItem.images.filter(
@@ -43,7 +43,7 @@ export default function WorkForm({ item, onClose, categories }: Props) {
   };
 
   const submit = async (formData: FormData) => {
-    resizedFiles.forEach((file) => formData.append("files", file));
+    newFiles.forEach((file) => formData.append("files", file));
     const action = isUpdate ? updateItem : createItem;
     const { message, isError } = await action(formData);
     if (!isError) onClose();
@@ -218,16 +218,16 @@ export default function WorkForm({ item, onClose, categories }: Props) {
         </div>
       </div>
       <div className={s.imagesContainer}>
-        <PreviewPart
+        <Preview
           filenames={workItem.images.map((i: Image) => i.filename)}
           pathImage={`/images/${item.type}`}
           onDelete={handleDeleteFile}
           title={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
         />
-        <ImageInputPart
+        <ImageInput
           isMultiple={isSculpture}
           acceptSmallImage={true}
-          setResizedFiles={setResizedFiles}
+          onNewFiles={setNewFiles}
         />
       </div>
       <div className={s.buttonSection}>
@@ -239,7 +239,7 @@ export default function WorkForm({ item, onClose, categories }: Props) {
             workItem.height === 0 ||
             workItem.width === 0 ||
             (isSculpture && workItem.length === 0) ||
-            (resizedFiles.length === 0 && workItem.images.length === 0)
+            (newFiles.length === 0 && workItem.images.length === 0)
           }
         />
         <CancelButton onCancel={onClose} />

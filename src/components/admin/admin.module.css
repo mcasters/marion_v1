@@ -70,7 +70,7 @@
 }
 
 .buttonSection {
-  margin: 1em 0 0;
+  margin: 0.5em 0 0;
   text-align: center;
 }
 
@@ -98,20 +98,42 @@
 /* Image */
 
 .imagesContainer {
-  margin-top: 1em;
+  margin-top: 0.5em;
 }
 
 .imageInputContainer {
-  display: flex;
-  padding: 0.5em 0;
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-column-gap: 1em;
+  padding: 0.5em 0 0;
 }
 
-.imageInputContainer label {
-  margin-left: 40px;
+.dropZone {
+  width: 250px;
+  height: 100px;
+  border: #c2c2c2 5px solid;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  color: #c2c2c2;
+  font-family: var(--font-family-serif-caps);
+  font-weight: bold;
+}
+
+.dropZoneOver {
+  border: #858585 7px solid;
+}
+
+.inputButton {
+  display: block;
 }
 
 .previewContainer {
   text-align: center;
+}
+
+.previewContainer button {
+  margin-bottom: 1em;
 }
 
 .imageWrapper {
@@ -124,10 +146,6 @@
   display: block;
   object-fit: contain;
   padding: 0 2px;
-}
-
-.previewAddContainer {
-  margin-top: 1em;
 }
 
 /* End image */
