@@ -187,6 +187,14 @@ label, .label {
   font-size: var(--font-size-min);
 }
 
+label {
+  display: block;
+  text-align: left;
+  font-family: var(--font-family-serif-caps);
+  font-size: 14px;
+  letter-spacing: 3px;
+}
+
 textarea,
 .labelCheckbox,
 input:not([type="file"], [type="checkbox"]),
@@ -222,8 +230,7 @@ input[type="checkbox"] {
   margin-right: 8px;
 }
 
-.adminButton,
-input::file-selector-button {
+.adminButton {
   font-family: var(--font-family-serif);
   min-width: 200px;
   min-height: 40px;

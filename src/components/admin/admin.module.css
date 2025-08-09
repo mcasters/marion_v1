@@ -31,12 +31,7 @@
 }
 
 .label {
-  display: block;
-  text-align: left;
   padding: 0 0 0.5em;
-  font-family: var(--font-family-serif-caps);
-  font-size: 14px;
-  letter-spacing: 3px;
 }
 
 .filterContainer {
@@ -96,21 +91,13 @@
 }
 
 /* Image */
-
-.imagesContainer {
-  margin-top: 0.5em;
-}
-
 .imageInputContainer {
-  display: grid;
-  grid-template-columns: 250px auto;
-  grid-column-gap: 1em;
-  padding: 0.5em 0 0;
+  width: 80%;
+  margin: auto;
 }
 
 .dropZone {
-  width: 250px;
-  height: 100px;
+  height: 130px;
   border: #c2c2c2 5px solid;
   border-radius: 5px;
   padding: 5px;
@@ -124,8 +111,22 @@
   border: #858585 7px solid;
 }
 
-.inputButton {
+.dropZone .inputButton {
   display: block;
+  margin: auto;
+}
+
+.dropZone input::file-selector-button {
+  font-family: unset;
+  box-shadow: inset 0 0.8em 1em 0 #efefef;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  background-color: #ffffff;
+}
+
+.imageInputContainer label {
+  font-family: unset;
+  letter-spacing: unset;
 }
 
 .previewContainer {
@@ -211,6 +212,8 @@
 .layoutLabel {
   display: flex;
   align-items: center;
+  font-family: unset;
+  letter-spacing: unset;
   padding: 0;
   margin: 0;
 }

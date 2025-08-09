@@ -217,19 +217,17 @@ export default function WorkForm({ item, onClose, categories }: Props) {
           )}
         </div>
       </div>
-      <div className={s.imagesContainer}>
-        <Preview
-          filenames={workItem.images.map((i: Image) => i.filename)}
-          pathImage={`/images/${item.type}`}
-          onDelete={handleDeleteFile}
-          title={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
-        />
-        <ImageInput
-          isMultiple={isSculpture}
-          acceptSmallImage={true}
-          onNewFiles={setNewFiles}
-        />
-      </div>
+      <Preview
+        filenames={workItem.images.map((i: Image) => i.filename)}
+        pathImage={`/images/${item.type}`}
+        onDelete={handleDeleteFile}
+        title={isSculpture ? "Une photo minimum :" : "Une seule photo :"}
+      />
+      <ImageInput
+        isMultiple={isSculpture}
+        acceptSmallImage={true}
+        onNewFiles={setNewFiles}
+      />
       <div className={s.buttonSection}>
         <SubmitButton
           disabled={

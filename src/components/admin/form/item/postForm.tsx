@@ -96,37 +96,32 @@ export default function PostForm({ post, onClose }: Props) {
         value={workPost.text}
         placeholder="Texte (facultatif)"
       />
-      <div className={s.imagesContainer}>
-        <Preview
-          filenames={workPost.images
-            .filter((i: Image) => i.isMain)
-            .map((i: Image) => i.filename)}
-          pathImage={`/images/${Type.POST}`}
-          onDelete={(filename) => handleDelete(filename)}
-          title="Image principale (facultative)"
-        />
-        <ImageInput
-          isMultiple={false}
-          acceptSmallImage={true}
-          onNewFiles={setResizedMainFiles}
-        />
-      </div>
-
-      <div className={s.imagesContainer}>
-        <Preview
-          filenames={workPost.images
-            .filter((i: Image) => !i.isMain)
-            .map((i: Image) => i.filename)}
-          pathImage={`/images/${Type.POST}`}
-          onDelete={(filename) => handleDelete(filename)}
-          title="Album d'images (facultatif)"
-        />
-        <ImageInput
-          isMultiple={true}
-          acceptSmallImage={true}
-          onNewFiles={setResizedFiles}
-        />
-      </div>
+      <Preview
+        filenames={workPost.images
+          .filter((i: Image) => i.isMain)
+          .map((i: Image) => i.filename)}
+        pathImage={`/images/${Type.POST}`}
+        onDelete={(filename) => handleDelete(filename)}
+        title="Image principale (facultative)"
+      />
+      <ImageInput
+        isMultiple={false}
+        acceptSmallImage={true}
+        onNewFiles={setResizedMainFiles}
+      />
+      <Preview
+        filenames={workPost.images
+          .filter((i: Image) => !i.isMain)
+          .map((i: Image) => i.filename)}
+        pathImage={`/images/${Type.POST}`}
+        onDelete={(filename) => handleDelete(filename)}
+        title="Album d'images (facultatif)"
+      />
+      <ImageInput
+        isMultiple={true}
+        acceptSmallImage={true}
+        onNewFiles={setResizedFiles}
+      />
       <div className={s.buttonSection}>
         <SubmitButton disabled={!workPost.title || !date} />
         <CancelButton onCancel={onClose} />

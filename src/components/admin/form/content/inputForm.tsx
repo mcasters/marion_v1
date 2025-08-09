@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import s from "@/components/admin/admin.module.css";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
 import { useAlert } from "@/app/context/alertProvider";
@@ -34,7 +33,7 @@ export default function InputForm({
   return (
     <form action={action}>
       <input type="hidden" name="label" value={label} />
-      <label className={s.label}>
+      <label>
         {textLabel}
         <input
           placeholder={label}

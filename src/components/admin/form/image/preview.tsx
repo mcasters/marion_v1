@@ -25,7 +25,7 @@ export default function Preview({
 }: Props) {
   return (
     <div className={s.previewContainer}>
-      {title && <label className={s.label}>{title}</label>}
+      {title && <label>{title}</label>}
       {filenames.map((filename) => (
         <Fragment key={filename}>
           <div className={s.imageWrapper}>

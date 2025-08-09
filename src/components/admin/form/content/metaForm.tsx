@@ -32,7 +32,7 @@ export default function MetaForm({
   return (
     <form action={action} className={s.metaForm}>
       <input type="hidden" name="label" value={dbLabel} />
-      <label className={s.label}>
+      <label>
         {label}
         {isTextArea ? (
           <textarea

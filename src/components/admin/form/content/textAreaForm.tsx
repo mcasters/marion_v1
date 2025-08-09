@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Label } from "../../../../../prisma/generated/client";
-import s from "@/components/admin/admin.module.css";
 import SubmitButton from "@/components/admin/form/submitButton";
 import CancelButton from "@/components/admin/form/cancelButton";
 import { useAlert } from "@/app/context/alertProvider";
@@ -27,7 +26,7 @@ export default function TextAreaForm({ label, textContent, textLabel }: Props) {
   return (
     <form action={action}>
       <input type="hidden" name="label" value={label} />
-      <label className={s.label}>
+      <label>
         {textLabel}
         <textarea
           name="text"
