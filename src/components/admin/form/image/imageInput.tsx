@@ -65,8 +65,7 @@ export default function ImageInput({
   return (
     <>
       <div className={s.imageInputContainer}>
-        <DropFile onFile={handleUpload} />
-        <div>
+        <DropFile onFile={handleUpload}>
           <input
             type="file"
             onChange={() => handleUpload()}
@@ -75,17 +74,17 @@ export default function ImageInput({
             accept="image/png, image/jpeg"
             className={s.inputButton}
           />
-          {acceptSmallImage && (
-            <label className="checkboxLabel">
-              <input
-                type="checkbox"
-                checked={smallImage}
-                onChange={() => setSmallImage(!smallImage)}
-              />
-              Accepter les images sous 2000 px de large
-            </label>
-          )}
-        </div>
+        </DropFile>
+        {acceptSmallImage && (
+          <label>
+            <input
+              type="checkbox"
+              checked={smallImage}
+              onChange={() => setSmallImage(!smallImage)}
+            />
+            Accepter les images sous 2000 px de large
+          </label>
+        )}
       </div>
       {previewImages.length > 0 && (
         <Preview filenames={previewImages} pathImage="" />
