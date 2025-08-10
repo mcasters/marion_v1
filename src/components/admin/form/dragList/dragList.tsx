@@ -32,13 +32,8 @@ export default function DragList({ list, onChangeOrder }: Props) {
           <div
             className={`${s.item} ${selectedIndex === index ? s.focus : undefined}`}
             draggable
-            onClick={() => {
-              setSelectedIndex(index);
-            }}
-            onDragStart={() => {
-              setSelectedIndex(index);
-            }}
-            onDragEnd={handleSort}
+            onClick={() => setSelectedIndex(index)}
+            onDragStart={() => setSelectedIndex(index)}
           >
             {item.element}
           </div>
@@ -48,10 +43,8 @@ export default function DragList({ list, onChangeOrder }: Props) {
               e.preventDefault();
               setDropZoneIndex(index + 1);
             }}
-            onDragLeave={(e) => {
-              e.preventDefault();
-              setDropZoneIndex(-1);
-            }}
+            onDragLeave={() => setDropZoneIndex(-1)}
+            onDrop={handleSort}
           >
             <div className={s.line} />
           </div>
